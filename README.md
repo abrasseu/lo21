@@ -1,6 +1,6 @@
 # LO21 - Projet AutoCell
 
-Projet de LO21 réalisé en groupe avec [Simon Bazin](https://github.com/sim-baz) et [Samy Nastuzzy](https://github.com/NastuzziSamy)
+Projet de LO21 réalisé en groupe avec [Simon Bazin](https://github.com/sim-baz) et [Samy Nastuzzi](https://github.com/NastuzziSamy)
 
 ## Objectif du Projet
 
