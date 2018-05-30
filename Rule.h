@@ -1,5 +1,12 @@
-#ifndef RULE_H_DEFINE
-#define RULE_H_DEFINE value
+/**
+ * Codé par NASTUZZI Samy
+ *
+ * Cette classe permet de créer des règles de changement d'état
+ * Elle prend en compte les états des voisins (de manière organisé ou en quantité)
+ */
+
+#ifndef __RULE_H_DEFINE__
+#define __RULE_H_DEFINE__
 
 #include <iostream>
 #include <vector>
@@ -13,22 +20,26 @@ class Rule {
 private:
     // Etat retourné pour la règle
     State* _state;
+
     // Liste des états à trouver
     std::vector<State*> _states;
     bool _orderedStates;
 
 public:
+    // Constructeurs
     Rule(State* state, std::vector<State*> states, bool orderedStates = false): _state(state), _states(states), _orderedStates(orderedStates) {}
     Rule(State* state, State** states, uint size, bool orderedStates = false): _state(state), _orderedStates(orderedStates) {
         for (uint i = 0; i < size; i++)
             _states.push_back(states[i]);
     }
 
-
-    bool isRuleCorrect(State** states, uint size);
-    State* getResultedState() const {
+    // Getters
+    State* getState() const {
         return _state;
     }
+
+    // Permet de vérifier si la règle est vraie
+    bool isTrue(State** states, uint size);
 };
 
 #endif

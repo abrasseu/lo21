@@ -1,3 +1,9 @@
+/**
+ * Codé par NASTUZZI Samy
+ *
+ * Définition des fonctions règles
+ */
+
 #include <iostream>
 #include <vector>
 #include "State.h"
@@ -5,7 +11,7 @@
 
 #define uint unsigned int
 
-bool Rule::isRuleCorrect(State** states, uint size) {
+bool Rule::isTrue(State** states, uint size) {
     // Si on veut exactement le même ordre, il faut déjà qu'on ait la même longueur
     if (_orderedStates) {
         if (_states.size() != size)
@@ -27,7 +33,7 @@ bool Rule::isRuleCorrect(State** states, uint size) {
 
         for (uint i = 0; i < size; i++) {
             for (uint j = 0; j < statesToHave.size(); j++) {
-                if (statesToHave[j] == _states[i]) {
+                if (statesToHave[j] == states[i]) {
                     statesToHave.erase(statesToHave.begin() + j);
 
                     break;
@@ -35,6 +41,7 @@ bool Rule::isRuleCorrect(State** states, uint size) {
             }
         }
 
+        // Si on a tout trouvé, la règle est vraie
         return (statesToHave.size() == 0);
     }
 }
