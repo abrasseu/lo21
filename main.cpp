@@ -7,14 +7,16 @@
 int main() {
     std::cout << "Coucou" << std::endl;
 
-    State state;
     State** states;
     states = new State*[5];
 
     for (uint i = 0; i < 5; i++)
         states[i] = new State;
 
-    std::cout << (states[1])->getId() << std::endl;
+    Rule rule(states[4]);
+    states[1]->addANewRule(&rule);
+
+    std::cout << (states[1])->getNextGeneration(states)->getId() << std::endl;
 
     return 0;
 }

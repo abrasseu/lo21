@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Rule.h"
 
 #define uint unsigned int
 
@@ -16,21 +18,20 @@ private:
     std::string _color;
 
     // Règles définies pour le changement d'état
-    uint _rulesNbr;
-    Rule** _rules;
+    std::vector<Rule*> _rules;
 
 public:
-    State(): _id(_statesNbr++), _color("#000000"), _rulesNbr(0) {}
-    State(uint id): _id(id), _color("#000000"), _rulesNbr(0) { _statesNbr++; }
-    State(std::string color): _id(_statesNbr++), _color(color), _rulesNbr(0) {}
-    State(uint id, std::string color): _id(id), _color(color), _rulesNbr(0) { _statesNbr++; }
+    State(): _id(_statesNbr++), _color("#000000") {}
+    State(uint id): _id(id), _color("#000000") { _statesNbr++; }
+    State(std::string color): _id(_statesNbr++), _color(color) {}
+    State(uint id, std::string color): _id(id), _color(color) { _statesNbr++; }
 
     uint getId() const { return _id; }
     std::string getColor() const { return _color; }
 
+    void addANewRule(Rule* rule);
+
     State* getNextGeneration(State** states);
 };
-
-uint State::_statesNbr = 0;
 
 #endif
