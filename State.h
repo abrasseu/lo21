@@ -31,7 +31,7 @@ public:
 
     void addANewRule(Rule* rule);
 
-    State* getNextGeneration(State** states);
+    State* getNextGeneration(State** states, uint size);
 };
 
 #endif

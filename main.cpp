@@ -13,10 +13,10 @@ int main() {
     for (uint i = 0; i < 5; i++)
         states[i] = new State;
 
-    Rule rule(states[4]);
+    Rule rule(states[4], states, 5);
     states[1]->addANewRule(&rule);
 
-    std::cout << (states[1])->getNextGeneration(states)->getId() << std::endl;
+    std::cout << "Passage de l'état 1 à l'état " << (states[1])->getNextGeneration(states, 5)->getId() << std::endl;
 
     return 0;
 }
