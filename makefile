@@ -1,8 +1,8 @@
 all: edit
 	./main
 
-edit: State.o Rule.o main.o
-	g++ -Wall -Wextra -Werror -o main State.o Rule.o main.o
+edit: Cell.o State.o Rule.o main.o
+	g++ -Wall -Wextra -Werror -o main Cell.o State.o Rule.o main.o
 
 main.o: main.cpp
 	g++ -Wall -Wextra -Werror -c main.cpp

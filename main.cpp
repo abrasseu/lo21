@@ -5,8 +5,9 @@
  */
 
 #include <iostream>
-#include "Rule.h"
+#include "Cell.h"
 #include "State.h"
+#include "Rule.h"
 
 #define uint unsigned int
 
@@ -38,8 +39,12 @@ int main() {
     Rule rule4(states[4], forRule4, true);
     states[0]->addANewRule(&rule4);
 
+    Cell cell(states[0]);
+
     // On donne 4 voisins pour avoir la génération suivante, on respecte donc que la règle 2
-    std::cout << "Passage de l'état 0 à l'état " << (states[0])->getNextGeneration(states, 4)->getId() << " via la règle 2" << std::endl;
+    std::cout << "Passage de la cellule à la génération " << cell.getGeneration() << " dans l'état " << cell.getState()->getId();
+    cell.mutate(states, 4);
+    std::cout << " à la génération " << cell.getGeneration() << " avec l'état " << cell.getState()->getId() << " via la règle 2" << std::endl;
 
     return 0;
 }
