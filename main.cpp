@@ -5,6 +5,8 @@
  */
 
 #include <iostream>
+#include <ctime>
+#include "Simulator1D.h"
 #include "Cell.h"
 #include "State.h"
 #include "Rule.h"
@@ -12,6 +14,7 @@
 #define uint unsigned int
 
 int main() {
+    std::srand(std::time(nullptr));
     std::cout << "Coucou" << std::endl;
 
     State** states;
@@ -38,6 +41,20 @@ int main() {
     std::vector<State*> forRule4({states[2], states[3], states[0], states[3]});
     Rule rule4(states[4], forRule4, true);
     states[0]->addANewRule(&rule4);
+
+    std::vector<State*> forRule5({states[1]});
+    Rule rule5(states[1], forRule5);
+    states[0]->addANewRule(&rule5);
+
+    std::vector<State*> forRule6({states[0]});
+    Rule rule6(states[0], forRule6, true);
+    states[1]->addANewRule(&rule6);
+
+    Simulator1D simulation1D(states, 2, 10);
+    std::cout << "Affichage de l'état de la cellule 1: " << simulation1D.getCell(1)->getState()->getId() << std::endl;
+
+    simulation1D.mutate();
+    std::cout << "Affichage de l'état de la cellule 1: " << simulation1D.getCell(1)->getState()->getId() << std::endl;
 
     Cell cell(states[0]);
 

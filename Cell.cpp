@@ -13,7 +13,8 @@ bool Cell::mutate(State** states, uint size) {
     State* lastState = _state;
     _state = _state->getNextGeneration(states, size);
 
-    _generation++;
+    bool isNextGeneration = (_state != lastState);
+    _generation += isNextGeneration;
 
-    return _state != lastState;
+    return isNextGeneration;
 }
