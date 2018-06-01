@@ -20,19 +20,22 @@ protected:
     uint _stateNbr;
     Cell** _cells;
     uint _cellsSize;
+    uint _cellsNbr;
     uint _generation;
 
+    Simulator1D(State** states, uint stateNbr, uint cellsNbr, uint cellsSize);
+    void createRandomCells();
     State** getCellsState() const;
     State** getNeightborsState(State** states, uint position);
     uint getNeightborNbr() const { return 2; };
-    
+
 public:
     // Constructeurs
-    Simulator1D(State** states, uint stateNbr, uint cellsSize);
+    Simulator1D(State** states, uint stateNbr, uint cellsNbr);
 
     // Getters
     State** getInitStates() const { return _states; }
-    uint getCellNbr() const;
+    uint getCellsNbr() const { return _cellsNbr; };
     Cell* getCell(uint position) const;
 
     // Renvoi vrai si la grille a changé
