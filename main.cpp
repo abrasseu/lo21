@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <ctime>
+#include "Simulator2D.h"
 #include "Simulator1D.h"
 #include "Cell.h"
 #include "State.h"
@@ -55,6 +56,12 @@ int main() {
 
     simulation1D.mutate();
     std::cout << "Affichage de l'état de la cellule 1: " << simulation1D.getCell(1)->getState()->getId() << std::endl;
+
+    Simulator2D simulation2D(states, 2, 5);
+    std::cout << "Affichage de l'état de la cellule 1: " << simulation2D.getCell(1)->getState()->getId() << std::endl;
+
+    simulation2D.mutate();
+    std::cout << "Affichage de l'état de la cellule 1: " << simulation2D.getCell(1)->getState()->getId() << std::endl;
 
     Cell cell(states[0]);
 
