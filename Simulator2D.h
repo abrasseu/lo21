@@ -19,6 +19,9 @@ protected:
     // Liste des états et cellules composant la simulation
     using Simulator1D::_cellsSize;
     using Simulator1D::getNeightborNbr;
+    using Simulator1D::getNeightborsState;
+
+    State** getNeightborsState(State** states, uint position);
 
 public:
     // Constructeurs
@@ -27,7 +30,10 @@ public:
     // Getters
     using Simulator1D::getCell;
     Cell* getCell(uint x, uint y) const;
-    State** getNeightborsState(State** states, uint position);
+
+    void printCells();
+
+    bool mutate();
 };
 
 #endif

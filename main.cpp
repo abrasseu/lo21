@@ -47,21 +47,19 @@ int main() {
     Rule rule5(states[1], forRule5);
     states[0]->addANewRule(&rule5);
 
-    std::vector<State*> forRule6({states[0]});
+    std::vector<State*> forRule6({states[0], states[1]});
     Rule rule6(states[0], forRule6, true);
     states[1]->addANewRule(&rule6);
 
     Simulator1D simulation1D(states, 2, 10);
-    std::cout << "Affichage de l'état de la cellule 1: " << simulation1D.getCell(1)->getState()->getId() << std::endl;
-
+    simulation1D.printCells();
     simulation1D.mutate();
-    std::cout << "Affichage de l'état de la cellule 1: " << simulation1D.getCell(1)->getState()->getId() << std::endl;
+    simulation1D.printCells();
 
     Simulator2D simulation2D(states, 2, 5);
-    std::cout << "Affichage de l'état de la cellule 1: " << simulation2D.getCell(1)->getState()->getId() << std::endl;
-
+    simulation2D.printCells();
     simulation2D.mutate();
-    std::cout << "Affichage de l'état de la cellule 1: " << simulation2D.getCell(1)->getState()->getId() << std::endl;
+    simulation2D.printCells();
 
     Cell cell(states[0]);
 

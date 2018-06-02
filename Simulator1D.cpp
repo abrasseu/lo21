@@ -47,6 +47,13 @@ State** Simulator1D::getNeightborsState(State** states, uint position) {
     return neighbors;
 }
 
+void Simulator1D::printCells() {
+    for (uint i = 0; i < getCellsSize(); i++)
+        std::cout << _cells[i]->getState()->getId();
+
+    std::cout << std::endl;
+}
+
 bool Simulator1D::mutate() {
     State** statesOfThisGeneration = getCellsState();
     bool isNextGeneration = false;

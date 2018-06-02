@@ -45,6 +45,8 @@ public:
     uint getCellsNbr() const { return pow(_cellsSize, _dimension); };
     Cell* getCell(uint position) const;
 
+    void printCells();
+
     // Renvoi vrai si la grille a changé
     bool mutate();
 };
