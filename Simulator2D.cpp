@@ -21,14 +21,14 @@ State** Simulator2D::getNeightborsState(State** states, uint position) {
     State** neighbors(new State*[getNeightborNbr()]);
 
     // On ajoute les précédents et les suivants:
-    neighbors[0] = states[(position - _cellsSize - 1) % _cellsNbr];
-    neighbors[1] = states[(position - _cellsSize) % _cellsNbr];
-    neighbors[2] = states[(position - _cellsSize + 1) % _cellsNbr];
-    neighbors[3] = states[(position - 1) % _cellsNbr];
-    neighbors[4] = states[(position + 1) % _cellsNbr];
-    neighbors[5] = states[(position + _cellsSize - 1) % _cellsNbr];
-    neighbors[6] = states[(position + _cellsSize) % _cellsNbr];
-    neighbors[7] = states[(position + _cellsSize + 1) % _cellsNbr];
+    neighbors[0] = states[(position - _cellsSize - 1) % getCellsNbr()];
+    neighbors[1] = states[(position - _cellsSize) % getCellsNbr()];
+    neighbors[2] = states[(position - _cellsSize + 1) % getCellsNbr()];
+    neighbors[3] = states[(position - 1) % getCellsNbr()];
+    neighbors[4] = states[(position + 1) % getCellsNbr()];
+    neighbors[5] = states[(position + _cellsSize - 1) % getCellsNbr()];
+    neighbors[6] = states[(position + _cellsSize) % getCellsNbr()];
+    neighbors[7] = states[(position + _cellsSize + 1) % getCellsNbr()];
 
     return neighbors;
 }

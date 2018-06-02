@@ -8,6 +8,7 @@
 #define __SIMULATOR_1D_H_DEFINE__
 
 #include <iostream>
+#include <cmath>
 #include "Cell.h"
 #include "State.h"
 
@@ -20,22 +21,28 @@ protected:
     uint _stateNbr;
     Cell** _cells;
     uint _cellsSize;
-    uint _cellsNbr;
     uint _generation;
+    const uint _dimension;
 
-    Simulator1D(State** states, uint stateNbr, uint cellsNbr, uint cellsSize);
+    Simulator1D(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
+        createRandomCells();
+    }
     void createRandomCells();
     State** getCellsState() const;
     State** getNeightborsState(State** states, uint position);
-    uint getNeightborNbr() const { return 2; };
+
+    uint getNeightborNbr() const { return pow(3, _dimension) - 1; };
 
 public:
     // Constructeurs
-    Simulator1D(State** states, uint stateNbr, uint cellsNbr);
+    Simulator1D(State** states, uint stateNbr, uint cellsSize): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(1) {
+        createRandomCells();
+    }
 
     // Getters
     State** getInitStates() const { return _states; }
-    uint getCellsNbr() const { return _cellsNbr; };
+    uint getCellsSize() const { return _cellsSize; };
+    uint getCellsNbr() const { return pow(_cellsSize, _dimension); };
     Cell* getCell(uint position) const;
 
     // Renvoi vrai si la grille a changé

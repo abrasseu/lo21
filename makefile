@@ -1,4 +1,4 @@
-all: edit
+all: clean edit
 	./main
 
 edit: Simulator1D.o Simulator2D.o Cell.o State.o Rule.o main.o
