@@ -25,21 +25,20 @@ protected:
     const uint _dimension;
 
     // Constructeurs
-    Simulator1D(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
-        createRandomCells();
-    }
+    Simulator1D(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {}
 
     // Getters
     uint getDimension() const { return _dimension; }
     State** getCellsState() const;
     uint getNeightborNbr() const { return pow(3, getDimension()) - 1; };
     virtual State** getNeightborsState(State** states, uint position);
-
-    void createRandomCells();
+    void createCells();
 
 public:
     // Constructeurs
-    Simulator1D(State** states, uint stateNbr, uint cellsSize): Simulator1D::Simulator1D(states, stateNbr, cellsSize, 1) {}
+    Simulator1D(State** states, uint stateNbr, uint cellsSize): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(1) {
+        createCells();
+    }
 
     // Getters
     State** getInitStates() const { return _states; }

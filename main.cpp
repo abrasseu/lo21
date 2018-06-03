@@ -6,8 +6,10 @@
 
 #include <iostream>
 #include <ctime>
+#include <unistd.h>
 #include "Simulator1D.h"
 #include "Simulator2D.h"
+#include "SimulatorLifeGame.h"
 #include "Cell.h"
 #include "State.h"
 #include "Rule.h"
@@ -23,7 +25,7 @@ int main() {
 
     // On crée 5 états avec les idées {0, 1, 2, 3, 4}
     for (uint i = 0; i < 5; i++)
-        states[i] = new State;
+        states[i] = new State(std::to_string(i));
 
     // On crée une règle qui prend en compte un ordre de 5 états
     Rule rule1(states[1], states, 5, true);
@@ -66,9 +68,18 @@ int main() {
     Cell cell(states[0]);
 
     // On donne 4 voisins pour avoir la génération suivante, on respecte donc que la règle 2
-    std::cout << "Passage de la cellule à la génération " << cell.getGeneration() << " dans l'état " << cell.getState()->getId();
+    std::cout << "Passage de la cellule à la génération " << cell.getGeneration() << " dans l'état " << cell.getState()->getName();
     cell.mutate(states, 4);
-    std::cout << " à la génération " << cell.getGeneration() << " avec l'état " << cell.getState()->getId() << " via la règle 2" << std::endl;
+    std::cout << " à la génération " << cell.getGeneration() << " avec l'état " << cell.getState()->getName() << " via la règle 2" << std::endl;
+
+    SimulatorLifeGame simulatorLifeGame(68);
+    simulatorLifeGame.printCells();
+
+    while (simulatorLifeGame.mutate()) {
+        std::cout << "Génération suivante:" << std::endl;
+        simulatorLifeGame.printCells();
+        usleep(500);
+    }
 
     return 0;
 }

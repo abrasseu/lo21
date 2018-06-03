@@ -1,7 +1,7 @@
 /**
  * Codé par NASTUZZI Samy
  *
- * Définition des fonctions règles
+ * Définition des fonctions pour un simulateur 2D
  */
 
 #include <iostream>
@@ -42,7 +42,7 @@ State** Simulator2D::getNeightborsState(State** states, uint position) {
 void Simulator2D::printCells() {
     for (uint i = 0; i < getCellsSize(); i++) {
         for (uint j = 0; j < getCellsSize(); j++)
-            std::cout << getCell(i, j)->getState()->getId();
+            std::cout << getCell(i, j)->getState()->getName();
 
         std::cout << std::endl;
     }

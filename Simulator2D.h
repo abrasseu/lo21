@@ -16,11 +16,17 @@
 
 class Simulator2D : public Simulator1D {
 protected:
+    // Constructeurs
+    Simulator2D(State** states, uint stateNbr, uint cellsSize, uint dimension): Simulator1D::Simulator1D(states, stateNbr, cellsSize, dimension) {};
+
+    using Simulator1D::createCells;
     State** getNeightborsState(State** states, uint position);
 
 public:
     // Constructeurs
-    Simulator2D(State** states, uint stateNbr, uint cellsSize): Simulator1D::Simulator1D(states, stateNbr, cellsSize, 2) {};
+    Simulator2D(State** states, uint stateNbr, uint cellsSize): Simulator1D::Simulator1D(states, stateNbr, cellsSize, 2) {
+        createCells();
+    };
 
     // Getters
     using Simulator1D::getCell;

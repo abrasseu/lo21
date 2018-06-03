@@ -20,8 +20,7 @@ class Rule;
 class State {
 private:
     // Définition
-    static uint _statesNbr;
-    uint _id;
+    std::string _name;
     std::string _color;
 
     // Règles définies pour le changement d'état
@@ -29,16 +28,15 @@ private:
 
 public:
     // Constructeurs
-    State(): _id(_statesNbr++), _color("#000000") {}
-    State(uint id): _id(id), _color("#000000") { _statesNbr++; }
-    State(std::string color): _id(_statesNbr++), _color(color) {}
-    State(uint id, std::string color): _id(id), _color(color) { _statesNbr++; }
+    State(std::string name): _name(name), _color("#000000") {}
+    State(std::string name, std::string color): _name(name), _color(color) {}
 
     // Getters
-    uint getId() const { return _id; }
+    std::string getName() const { return _name; }
     std::string getColor() const { return _color; }
 
     // Setters
+    void setName(std::string name) { _name = name; }
     void setColor(std::string color) { _color = color; }
 
     // Permet d'ajouter une nouvelle règle

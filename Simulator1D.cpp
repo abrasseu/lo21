@@ -1,7 +1,7 @@
 /**
  * Codé par NASTUZZI Samy
  *
- * Définition des fonctions règles
+ * Définition des fonctions pour un simulateur 1D
  */
 
 #include <iostream>
@@ -12,10 +12,10 @@
 
 #define uint unsigned int
 
-void Simulator1D::createRandomCells() {
+void Simulator1D::createCells() {
+    std::cout << getCellsNbr() << std::endl;
     _cells = new Cell*[getCellsNbr()];
 
-    std::cout << "Simu: " << getCellsNbr() << std::endl;
 
     for (uint i = 0; i < getCellsNbr(); i++)
         _cells[i] = new Cell(_states[std::rand() % _stateNbr]);
@@ -33,7 +33,7 @@ State** Simulator1D::getNeightborsState(State** states, uint position) {
 
 void Simulator1D::printCells() {
     for (uint i = 0; i < getCellsSize(); i++)
-        std::cout << _cells[i]->getState()->getId();
+        std::cout << _cells[i]->getState()->getName();
 
     std::cout << std::endl;
 }

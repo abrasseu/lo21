@@ -21,6 +21,3 @@ State* State::getNextGeneration(State** states, uint size) {
 void State::addANewRule(Rule* rule) {
     _rules.push_back(rule);
 }
-
-
-uint State::_statesNbr = 0;
