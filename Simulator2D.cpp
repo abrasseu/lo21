@@ -19,16 +19,22 @@ Cell* Simulator2D::getCell(uint x, uint y) const {
 
 State** Simulator2D::getNeightborsState(State** states, uint position) {
     State** neighbors(new State*[getNeightborNbr()]);
+    int x = position % getCellsSize();
+    int y = (position - x) / getCellsSize();
 
     // On ajoute les précédents et les suivants:
-    neighbors[0] = states[(position - getCellsSize() - 1) % getCellsNbr()];
-    neighbors[1] = states[(position - getCellsSize()) % getCellsNbr()];
-    neighbors[2] = states[(position - getCellsSize() + 1) % getCellsNbr()];
-    neighbors[3] = states[(position - 1) % getCellsNbr()];
-    neighbors[4] = states[(position + 1) % getCellsNbr()];
-    neighbors[5] = states[(position + getCellsSize() - 1) % getCellsNbr()];
-    neighbors[6] = states[(position + getCellsSize()) % getCellsNbr()];
-    neighbors[7] = states[(position + getCellsSize() + 1) % getCellsNbr()];
+    uint line = (y == 0 ? getCellsSize() - 1 : ((y - 1) % getCellsSize())) * getCellsSize();
+    neighbors[0] = states[(line + (x == 0 ? getCellsSize() - 1 : ((x - 1) % getCellsSize()))) % getCellsNbr()];
+    neighbors[1] = states[(line + x) % getCellsNbr()];
+    neighbors[2] = states[(line + ((x + 1) % getCellsSize())) % getCellsNbr()];
+
+    neighbors[3] = states[((y * getCellsSize()) + (x == 0 ? getCellsSize() - 1 : ((x - 1) % getCellsSize()))) % getCellsNbr()];
+    neighbors[4] = states[((y * getCellsSize()) + ((x + 1) % getCellsSize())) % getCellsNbr()];
+
+    line = (y + 1) % getCellsSize() * getCellsSize();
+    neighbors[5] = states[(line + (x == 0 ? getCellsSize() - 1 : ((x - 1) % getCellsSize()))) % getCellsNbr()];
+    neighbors[6] = states[(line + x) % getCellsNbr()];
+    neighbors[7] = states[(line + ((x + 1) % getCellsSize())) % getCellsNbr()];
 
     return neighbors;
 }
@@ -40,23 +46,4 @@ void Simulator2D::printCells() {
 
         std::cout << std::endl;
     }
-}
-
-bool Simulator2D::mutate() {
-    State** statesOfThisGeneration = getCellsState();
-    bool isNextGeneration = false;
-
-    for (uint i = 0; i < getCellsNbr(); i++) {
-        State** neightborsState(getNeightborsState(statesOfThisGeneration, i));
-
-        if (_cells[i]->mutate(neightborsState, getNeightborNbr()))
-            isNextGeneration = true;
-
-        delete[] neightborsState;
-    }
-
-    _generation += isNextGeneration;
-
-    delete[] statesOfThisGeneration;
-    return isNextGeneration;
 }

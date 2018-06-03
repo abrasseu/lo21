@@ -16,24 +16,17 @@
 
 class Simulator2D : public Simulator1D {
 protected:
-    // Liste des états et cellules composant la simulation
-    using Simulator1D::_cellsSize;
-    using Simulator1D::getNeightborNbr;
-    using Simulator1D::getNeightborsState;
-
     State** getNeightborsState(State** states, uint position);
 
 public:
     // Constructeurs
-    Simulator2D(State** states, uint stateNbr, uint cellsNbr): Simulator1D::Simulator1D(states, stateNbr, cellsNbr, 2) {};
+    Simulator2D(State** states, uint stateNbr, uint cellsSize): Simulator1D::Simulator1D(states, stateNbr, cellsSize, 2) {};
 
     // Getters
     using Simulator1D::getCell;
     Cell* getCell(uint x, uint y) const;
 
     void printCells();
-
-    bool mutate();
 };
 
 #endif

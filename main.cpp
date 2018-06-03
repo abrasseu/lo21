@@ -6,8 +6,8 @@
 
 #include <iostream>
 #include <ctime>
-#include "Simulator2D.h"
 #include "Simulator1D.h"
+#include "Simulator2D.h"
 #include "Cell.h"
 #include "State.h"
 #include "Rule.h"
@@ -43,7 +43,7 @@ int main() {
     Rule rule4(states[4], forRule4, true);
     states[0]->addANewRule(&rule4);
 
-    std::vector<State*> forRule5({states[1]});
+    std::vector<State*> forRule5({states[1], states[1], states[1]});
     Rule rule5(states[1], forRule5);
     states[0]->addANewRule(&rule5);
 
@@ -54,11 +54,13 @@ int main() {
     Simulator1D simulation1D(states, 2, 10);
     simulation1D.printCells();
     simulation1D.mutate();
+    std::cout << std::endl;
     simulation1D.printCells();
 
     Simulator2D simulation2D(states, 2, 5);
     simulation2D.printCells();
     simulation2D.mutate();
+    std::cout << std::endl;
     simulation2D.printCells();
 
     Cell cell(states[0]);

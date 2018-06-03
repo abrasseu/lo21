@@ -21,22 +21,6 @@ void Simulator1D::createRandomCells() {
         _cells[i] = new Cell(_states[std::rand() % _stateNbr]);
 }
 
-Cell* Simulator1D::getCell(uint position) const {
-    if (position >= getCellsNbr())
-        return nullptr;
-
-    return _cells[position];
-}
-
-State** Simulator1D::getCellsState() const {
-    State** states(new State*[getCellsNbr()]);
-
-    for (uint i = 0; i < getCellsNbr(); i++)
-        states[i] = _cells[i]->getState();
-
-    return states;
-}
-
 State** Simulator1D::getNeightborsState(State** states, uint position) {
     State** neighbors(new State*[getNeightborNbr()]);
 
@@ -52,6 +36,22 @@ void Simulator1D::printCells() {
         std::cout << _cells[i]->getState()->getId();
 
     std::cout << std::endl;
+}
+
+Cell* Simulator1D::getCell(uint position) const {
+    if (position >= getCellsNbr())
+        return nullptr;
+
+    return _cells[position];
+}
+
+State** Simulator1D::getCellsState() const {
+    State** states(new State*[getCellsNbr()]);
+
+    for (uint i = 0; i < getCellsNbr(); i++)
+        states[i] = _cells[i]->getState();
+
+    return states;
 }
 
 bool Simulator1D::mutate() {
