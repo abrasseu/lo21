@@ -78,7 +78,7 @@ int main() {
     while (simulatorLifeGame.mutate()) {
         std::cout << "Génération suivante:" << std::endl;
         simulatorLifeGame.printCells();
-        usleep(500);
+        usleep(10000);
     }
 
     return 0;

@@ -32,6 +32,9 @@ public:
     using Simulator1D::getCell;
     Cell* getCell(uint x, uint y) const;
 
+    using Simulator1D::incrementState;
+    void incrementState(uint x, uint y);
+
     void printCells();
 };
 

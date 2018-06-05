@@ -47,3 +47,7 @@ void Simulator2D::printCells() {
         std::cout << std::endl;
     }
 }
+
+void Simulator2D::incrementState(uint x, uint y) {
+    return Simulator1D::incrementState((x * getCellsSize()) + y);
+}

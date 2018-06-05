@@ -26,6 +26,9 @@ public:
     State* getState() const { return _state; }
     uint getGeneration() const { return _generation; }
 
+    // Setters
+    void setState(State* state) { _state = state; }
+
     // Renvoi vrai si la cellule a changé d'état
     bool mutate(State** states, uint size);
 };

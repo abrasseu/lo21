@@ -47,6 +47,7 @@ public:
     Cell* getCell(uint position) const;
 
     virtual void printCells();
+    void incrementState(uint position);
 
     // Renvoi vrai si la grille a changé
     bool mutate();

@@ -31,13 +31,6 @@ State** Simulator1D::getNeightborsState(State** states, uint position) {
     return neighbors;
 }
 
-void Simulator1D::printCells() {
-    for (uint i = 0; i < getCellsSize(); i++)
-        std::cout << _cells[i]->getState()->getName();
-
-    std::cout << std::endl;
-}
-
 Cell* Simulator1D::getCell(uint position) const {
     if (position >= getCellsNbr())
         return nullptr;
@@ -52,6 +45,29 @@ State** Simulator1D::getCellsState() const {
         states[i] = _cells[i]->getState();
 
     return states;
+}
+
+void Simulator1D::printCells() {
+    for (uint i = 0; i < getCellsSize(); i++)
+        std::cout << _cells[i]->getState()->getName();
+
+    std::cout << std::endl;
+}
+
+void Simulator1D::incrementState(uint position) {
+    Cell* cellToUpdate(getCell(position));
+    State* currentState(cellToUpdate->getState());
+    uint toState = 0;
+
+    for (uint i = 0; i < _stateNbr; i++) {
+        if (_states[i] == currentState) {
+            toState = (i + 1) % _stateNbr;
+
+            break;
+        }
+    }
+
+    cellToUpdate->setState(_states[toState]);
 }
 
 bool Simulator1D::mutate() {
