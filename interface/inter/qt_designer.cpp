@@ -9,7 +9,7 @@ qt_designer::qt_designer(QWidget *parent) :
     ui->setupUi(this);
 
     QObject::connect(ui->pushButton1D, SIGNAL(clicked()), this, SLOT(on_pushButton_clicked()));
-
+    QObject::connect(ui->quit, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 qt_designer::~qt_designer()
@@ -20,6 +20,6 @@ qt_designer::~qt_designer()
 void qt_designer::on_pushButton_clicked()
 {
     this->close();
-    fen q;
-    q.show();
+    fen* q=new fen;
+    q->show();
 }
