@@ -1,5 +1,4 @@
-#include "interf.h"
-#include "qt_designer.h"
+#include "inclu_fich.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);

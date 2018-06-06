@@ -17,10 +17,12 @@ public:
     ~qt_designer();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton1D_clicked();
+    void on_pushButton2D_clicked();
 
 private:
     Ui::qt_designer *ui;
 };
+
 
 #endif // QT_DESIGNER_H

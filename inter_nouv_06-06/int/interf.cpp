@@ -1,4 +1,4 @@
-#include "interf.h"
+#include "inclu_fich.h"
 
 fen::fen(): QWidget(){
     setFixedSize(800,500);
