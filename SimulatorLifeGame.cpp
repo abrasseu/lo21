@@ -14,8 +14,8 @@
 #define uint unsigned int
 
 SimulatorLifeGame::SimulatorLifeGame(uint cellsSize): Simulator2D::Simulator2D(new State*[2], 2, cellsSize, 2) {
-    _states[0] = new State(" "); // mort
-    _states[1] = new State("O", "#FFFFFF"); // vivant
+    _states[0] = new State(" - Mort"); // mort
+    _states[1] = new State("0 - Vivant", "#FFFFFF"); // vivant
 
     // Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
     std::vector<State*> forRule1({_states[0], _states[0], _states[0], _states[0], _states[0], _states[0], _states[0]});
