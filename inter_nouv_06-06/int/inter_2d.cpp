@@ -129,8 +129,8 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
 
     //connect(simulation, SIGNAL(clicked()), this, SLOT(faireSimulation()));
 
-    etats=new QTableWidget(dimension, dimension, this);
-    etats->setFixedSize(taille, taille);
+    /*etats=new QTableWidget(dimension, dimension, this);
+    etats->setFixedSize(dimension*taille, dimension*taille);
     etats->horizontalHeader()->setVisible(false);
     etats->verticalHeader()->setVisible(false);
     etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -138,14 +138,17 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     //non éditable
     etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
     for (unsigned int i=0; i<dimension; i++){
-        etats->setColumnWidth(i, taille/dimension);
-        etats->setRowHeight(i, taille/dimension);
+        etats->setColumnWidth(i, taille);
+        etats->setRowHeight(i, taille);
         for (unsigned int j=0; j<dimension; j++){
             etats->setItem(j, i, new QTableWidgetItem(""));
         }
-    }
-    couche->addWidget(etats);
-    setLayout(couche);
+    }*/
+    //etats=new QTableWidget;
+    dessinergrille(couche);
+    //etats->setFixedSize(dimension*taille, dimension*taille);
+    //couche->addWidget(etats);
+    //setLayout(couche);
 
     QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
     QObject::connect(this->diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
@@ -157,9 +160,30 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     QObject::connect(this->retur, SIGNAL(clicked()), this, SLOT(backtomain()));
 }
 
+void inter_2D::dessinergrille(QVBoxLayout* couche){
+    QTableWidget* etats=new QTableWidget(inter_2D::dimension, inter_2D::dimension);
+    etats->setFixedSize(inter_2D::taille, inter_2D::taille);
+    etats->horizontalHeader()->setVisible(false);
+    etats->verticalHeader()->setVisible(false);
+    etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    etats->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //non éditable
+    etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    for (unsigned int i=0; i<dimension; i++){
+        etats->setColumnWidth(i, inter_2D::taille/inter_2D::dimension);
+        etats->setRowHeight(i, inter_2D::taille/inter_2D::dimension);
+        for (unsigned int j=0; j<dimension; j++){
+            etats->setItem(j, i, new QTableWidgetItem(""));
+        }
+    }
+    couche->addWidget(etats);
+    setLayout(couche);
+}
 
 void inter_2D::pushdimvalid(){
     inter_2D::dimension=this->nb->value();
+    //QMessageBox::information(this, "titre", "valider");
+    //dessinergrille(c);
     this->dimvalid->setEnabled(false);
     this->nb->setEnabled(false);
 }
