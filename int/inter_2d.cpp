@@ -176,14 +176,18 @@ void inter_2D::dessinergrille(QVBoxLayout* couche){
             etats->setItem(j, i, new QTableWidgetItem(""));
         }
     }
+
     couche->addWidget(etats);
     setLayout(couche);
 }
 
 void inter_2D::pushdimvalid(){
     inter_2D::dimension=this->nb->value();
-    //QMessageBox::information(this, "titre", "valider");
-    //dessinergrille(c);
+    /*this->etats->clear();
+    this->etats->setRowCount(inter_2D::dimension);
+    this->etats->setRowCount(inter_2D::dimension);*/
+    //dessinergrille(this->couche);
+    setLayout(this->couche);
     this->dimvalid->setEnabled(false);
     this->nb->setEnabled(false);
 }
