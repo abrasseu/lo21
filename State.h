@@ -28,8 +28,7 @@ private:
 
 public:
     // Constructeurs
-    State(std::string name): _name(name), _color("#000000") {}
-    State(std::string name, std::string color): _name(name), _color(color) {}
+    State(std::string name, std::string color = "#000000"): _name(name), _color(color) {}
 
     // Getters
     std::string getName() const { return _name; }

@@ -42,7 +42,7 @@ State** Simulator2D::getNeightborsState(State** states, uint position) {
 void Simulator2D::printCells() {
     for (uint i = 0; i < getCellsSize(); i++) {
         for (uint j = 0; j < getCellsSize(); j++)
-            std::cout << getCell(i, j)->getState()->getName();
+            std::cout << getCell(i, j)->getState()->getName()[0];
 
         std::cout << std::endl;
     }
