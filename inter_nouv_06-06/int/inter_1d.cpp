@@ -18,6 +18,7 @@ inter_1D::inter_1D(QWidget* parent): QWidget(parent){
     numc=new QHBoxLayout;
     numc->addWidget(numl);
     numc->addWidget(num);
+    numc->setAlignment(Qt::AlignBottom);
 
     numeroc=new QHBoxLayout;
     numeroc->addLayout(numc);

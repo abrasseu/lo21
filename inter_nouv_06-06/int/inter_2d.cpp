@@ -1,8 +1,12 @@
 #include "inclu_fich.h"
 
-unsigned int inter_2D::dimension=25;
+unsigned int inter_2D::dimension=10;
+unsigned int inter_2D::taille=400;
 
 inter_2D::inter_2D(QWidget* parent): QWidget(parent){
+
+    /*QString nomFichier = QFileDialog::getSaveFileName(this); //voire d'autres paramètres
+    QFile fichier(nomFichier);*/
 
     //Deux boutons pour aller au menu principal ou quitter tout en haut
     top=new QVBoxLayout;
@@ -13,12 +17,12 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     buttons->addWidget(retur);
 
     //Choix des dimensions de la grille (carrée)
+    nbtitle=new QLabel("Choisissez les dimensions de la grille: ");
+    nbtitle->setAlignment(Qt::AlignCenter);
     nb=new QSpinBox(this);
     nb->setRange(10,100);
     nb->setAlignment(Qt::AlignHCenter);
     nb->setValue(10);
-    nbtitle=new QLabel("Choisissez les dimensions de la grille: ");
-    nbtitle->setAlignment(Qt::AlignHCenter);
     dimvalid=new QPushButton;
     dimvalid->setText("Valider");
     diminval=new QPushButton;
@@ -27,11 +31,13 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     dimbut->addWidget(dimvalid);
     dimbut->addWidget(diminval);
 
+    //nbcase contient tous les widgets pour dimension
     nbcase=new QVBoxLayout;
     nbcase->addWidget(nbtitle);
     nbcase->addWidget(nb);
     nbcase->addLayout(dimbut);
 
+    //contlist contient à gauche la dimension et à droite la liste déroulante
     contlist=new QHBoxLayout;
     contlist->addLayout(nbcase);
     list=new QVBoxLayout;
@@ -39,97 +45,41 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     listtxt->setText("Sélectionner un état de départ");
     listtxt->setAlignment(Qt::AlignHCenter);
 
+    //listdet est la liste déroulante
     listder=new QComboBox;
     listder->addItem("Symétrique", QVariant(1));
     listder->addItem("Au hasard", QVariant(2));
     listder->addItem("Première diagonale", QVariant(3));
     listder->addItem("Deuxième diagonale", QVariant(4));
     listder->addItem("Deux diagonales", QVariant(5));
-    // Pour centrer dans la liste
+
+    // Pour centrer dans la liste mais pas l'élément affiché
     /*for (int i = 0 ; i < listder->count() ; ++i) {
         listder->setItemData(i, Qt::AlignCenter, Qt::TextAlignmentRole);
     }*/
+
+    //list contient les widgets pour la liste déroulante, c'est l'élément en partie droite de contlist
     list->addWidget(listtxt);
     list->addWidget(listder);
     list->setAlignment(Qt::AlignVCenter);
     contlist->addLayout(list);
 
+    //On accumule tout dans top en vertical
     top->addLayout(buttons);
     top->addLayout(contlist);
 
-    numeroc=new QHBoxLayout;
-    numeroc->addLayout(top);
-
-
-    /*num=new QSpinBox(this);
-    num->setRange(0,255);
-    num->setValue(0);
-    numl=new QLabel("Numéro");
-
-
-    zeroOneValidator=new QIntValidator(this);
-    zeroOneValidator->setRange(0,1); // valeurs autorisées : 0 ou 1
-
-    for (unsigned int i=0; i<8; i++){
-        numeroBit[i]=new QLineEdit(this);
-        numeroBit[i]->setFixedWidth(20);
-        numeroBit[i]->setMaxLength(1);
-        numeroBit[i]->setText("0");
-        numeroBit[i]->setValidator(zeroOneValidator);	// Pour rentrer seulement 0 ou 1
-        numeroBitl[i]=new QLabel;
-        bitc[i]=new QVBoxLayout;
-        bitc[i]->addWidget(numeroBitl[i]);
-        bitc[i]->addWidget(numeroBit[i]);
-        numeroc->addLayout(bitc[i]);
-    }
-
-    numeroBitl[0]->setText("111");
-    numeroBitl[1]->setText("110");
-    numeroBitl[2]->setText("101");
-    numeroBitl[3]->setText("100");
-    numeroBitl[4]->setText("011");
-    numeroBitl[5]->setText("010");
-    numeroBitl[6]->setText("001");
-    numeroBitl[7]->setText("000");*/	/*setLayout(numeroc);*/
-
     couche=new QVBoxLayout;
-    couche->addLayout(numeroc);
-    //depart=new QTableWidget(1, dimension, this);
-    //couche->addWidget(depart);
-    setLayout(couche);
+    couche->addLayout(top);
+    //setLayout(couche);
 
-    unsigned int taille=25;
-    /*depart->setFixedSize(dimension*taille, taille);
-    depart->horizontalHeader()->setVisible(false);
-    depart->verticalHeader()->setVisible(false);
-    depart->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    depart->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    for (unsigned int i=0; i<dimension; i++){
-        depart->setColumnWidth(i,taille);
-        depart->setItem(0, i, new QTableWidgetItem("0"));
-    }*/
-
-    //connect(num, SIGNAL(valueChanged(int)), this, SLOT(synchronizeNumToNumBit(int))); // dès qu'une valeur est
-                                                                // modifiée, on fait appel à la fonction
-
-    /*for (unsigned int i=0; i<8; i++){
-        connect(numeroBit[i], SIGNAL(textChanged(QString)), this, SLOT(synchronizeNumBitToNum(QString)));
-    }*/
 
     //Affichage des modes de simulation
-    simupart=new QVBoxLayout;
-    simutext=new QHBoxLayout;
     simulation=new QLabel("Mode de simulation");
-    simulation->setAlignment(Qt::AlignHCenter);
+    simulation->setAlignment(Qt::AlignCenter);
 
     //Une colonne gauche en choisissant la vitesse d'avance
-    simuleft=new QVBoxLayout;
     conttext=new QLabel;
     conttext->setText("Changement d'état toutes les ");
-    cont=new QPushButton;
-    cont->setText("Lancer avec la vitesse");
-    contsec=new QHBoxLayout;
     sec=new QDoubleSpinBox;
     sec->setValue(1.0);
     sec->setAlignment(Qt::AlignHCenter);
@@ -137,28 +87,37 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     sec->setSingleStep(0.5);
     sectxt=new QLabel;
     sectxt->setText("secondes");
+    cont=new QPushButton;
+    cont->setText("Lancer avec la vitesse");
+
+    contsec=new QHBoxLayout;
     contsec->addWidget(conttext);
     contsec->addWidget(sec);
     contsec->addWidget(sectxt);
+    simuleft=new QVBoxLayout;
     simuleft->addLayout(contsec);
     simuleft->addWidget(cont);
+    simuleft->setAlignment(Qt::AlignVCenter);
 
     //Une colonne droite au pas à pas
-    simuright=new QVBoxLayout;
     feet=new QPushButton;
     feet->setText("Avancer d'un pas");
+    simuright=new QVBoxLayout;
     simuright->addWidget(feet);
+    simuright->setAlignment(Qt::AlignVCenter);
 
-    simupart->addLayout(simutext);
+    simutext=new QHBoxLayout;
+    simutext->addWidget(simulation);
     simuboth=new QHBoxLayout;
     simuboth->addLayout(simuleft);
     simuboth->addLayout(simuright);
+
+    simupart=new QVBoxLayout;
+    simupart->addLayout(simutext);
     simupart->addLayout(simuboth);
-    simutext->addWidget(simulation);
     couche->addLayout(simupart);
 
     //Layout stop reset
-
     pause=new QVBoxLayout;
     stop=new QPushButton;
     stop->setText("Stop");
@@ -171,7 +130,7 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     //connect(simulation, SIGNAL(clicked()), this, SLOT(faireSimulation()));
 
     etats=new QTableWidget(dimension, dimension, this);
-    etats->setFixedSize(dimension*taille, dimension*taille);
+    etats->setFixedSize(taille, taille);
     etats->horizontalHeader()->setVisible(false);
     etats->verticalHeader()->setVisible(false);
     etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -179,14 +138,13 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     //non éditable
     etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
     for (unsigned int i=0; i<dimension; i++){
-        etats->setColumnWidth(i, taille);
-        etats->setRowHeight(i, taille);
+        etats->setColumnWidth(i, taille/dimension);
+        etats->setRowHeight(i, taille/dimension);
         for (unsigned int j=0; j<dimension; j++){
             etats->setItem(j, i, new QTableWidgetItem(""));
         }
     }
     couche->addWidget(etats);
-
     setLayout(couche);
 
     QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
@@ -199,7 +157,9 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     QObject::connect(this->retur, SIGNAL(clicked()), this, SLOT(backtomain()));
 }
 
+
 void inter_2D::pushdimvalid(){
+    inter_2D::dimension=this->nb->value();
     this->dimvalid->setEnabled(false);
     this->nb->setEnabled(false);
 }
@@ -275,7 +235,7 @@ void inter_2D::backtomain()
 }
 
 
-void inter_2D::cellActivation(const QModelIndex& index){
+/*void inter_2D::cellActivation(const QModelIndex& index){
     if (depart->item(0, index.column())->text()==""){ // cellule désactivée
         depart->item(0,index.column())->setText("_");
         depart->item(0,index.column())->setBackgroundColor("black");
@@ -286,7 +246,7 @@ void inter_2D::cellActivation(const QModelIndex& index){
         depart->item(0,index.column())->setBackgroundColor("white");
         depart->item(0,index.column())->setTextColor("white");
     }
-}
+}*/
 
 /*void AutoCell::synchronizeNumToNumBit(int n){
     for (unsigned int i=0; i<8; i++)
