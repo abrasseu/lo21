@@ -74,7 +74,7 @@ private slots:
     /*void synchronizeNumToNumBit(int i);
     void synchronizeNumBitToNum(const QString& s);*/
     //void cellActivation(const QModelIndex& index);
-    void dbclickcell(int, int);
+    void clickcell(int, int);
     void backtomain();
     void pushcont();
     void pushfeet();

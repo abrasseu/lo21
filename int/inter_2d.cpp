@@ -130,8 +130,6 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     dessinergrille();
     setLayout(couche);
 
-    QObject::connect(etats, SIGNAL(cellClicked(int,int)), this, SLOT(dbclickcell(int, int)));
-
     QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
     QObject::connect(this->diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
     QObject::connect(this->cont, SIGNAL(clicked()), this, SLOT(pushcont()));
@@ -160,26 +158,27 @@ void inter_2D::dessinergrille(){
         }
     }
 
+    QObject::connect(etats, SIGNAL(cellClicked(int,int)), this, SLOT(clickcell(int, int)));
     couche->addWidget(etats);
 }
 
-void inter_2D::dbclickcell(int i, int j){
-    /*if (etats->item(i,j)->background().color()== Qt::black) //fonctionne bizarrement
+void inter_2D::clickcell(int i, int j){
+    if (etats->item(i,j)->backgroundColor()== Qt::black)
         etats->item(i,j)->setBackgroundColor(Qt::white);
-    else*/
+    else
         etats->item(i,j)->setBackgroundColor(Qt::black);
 }
 
 void inter_2D::pushdimvalid(){
     inter_2D::dimension=this->nb->value();
     dessinergrille();
-    //this->dimvalid->setEnabled(false);
-    //this->nb->setEnabled(false);
+    //dimvalid->setEnabled(false);
+    //nb->setEnabled(false);
 }
 
 void inter_2D::pushdiminval(){
-    //this->dimvalid->setEnabled(true);
-    //this->nb->setEnabled(true);
+    //dimvalid->setEnabled(true);
+    //nb->setEnabled(true);
     this->nb->setValue(10);
     inter_2D::dimension=10;
     dessinergrille();
