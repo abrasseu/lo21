@@ -130,6 +130,8 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     dessinergrille();
     setLayout(couche);
 
+    QObject::connect(etats, SIGNAL(cellClicked(int,int)), this, SLOT(dbclickcell(int, int)));
+
     QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
     QObject::connect(this->diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
     QObject::connect(this->cont, SIGNAL(clicked()), this, SLOT(pushcont()));
@@ -161,6 +163,12 @@ void inter_2D::dessinergrille(){
     couche->addWidget(etats);
 }
 
+void inter_2D::dbclickcell(int i, int j){
+    /*if (etats->item(i,j)->background().color()== Qt::black) //fonctionne bizarrement
+        etats->item(i,j)->setBackgroundColor(Qt::white);
+    else*/
+        etats->item(i,j)->setBackgroundColor(Qt::black);
+}
 
 void inter_2D::pushdimvalid(){
     inter_2D::dimension=this->nb->value();
