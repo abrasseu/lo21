@@ -5,9 +5,6 @@ unsigned int inter_2D::taille=400;
 
 inter_2D::inter_2D(QWidget* parent): QWidget(parent){
 
-    /*QString nomFichier = QFileDialog::getSaveFileName(this); //voire d'autres paramètres
-    QFile fichier(nomFichier);*/
-
     //Deux boutons pour aller au menu principal ou quitter tout en haut
     top=new QVBoxLayout;
     buttons=new QHBoxLayout;
@@ -20,7 +17,7 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     nbtitle=new QLabel("Choisissez les dimensions de la grille: ");
     nbtitle->setAlignment(Qt::AlignCenter);
     nb=new QSpinBox(this);
-    nb->setRange(10,100);
+    nb->setRange(3,100);
     nb->setAlignment(Qt::AlignHCenter);
     nb->setValue(10);
     dimvalid=new QPushButton;
@@ -49,8 +46,8 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     listder=new QComboBox;
     listder->addItem("Symétrique", QVariant(1));
     listder->addItem("Au hasard", QVariant(2));
-    listder->addItem("Première diagonale", QVariant(3));
-    listder->addItem("Deuxième diagonale", QVariant(4));
+    listder->addItem("Diagonale principale", QVariant(3));
+    listder->addItem("Diagonale opposée", QVariant(4));
     listder->addItem("Deux diagonales", QVariant(5));
 
     // Pour centrer dans la liste mais pas l'élément affiché
@@ -70,7 +67,7 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
 
     couche=new QVBoxLayout;
     couche->addLayout(top);
-    //setLayout(couche);
+    setLayout(couche);
 
 
     //Affichage des modes de simulation
@@ -129,26 +126,9 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
 
     //connect(simulation, SIGNAL(clicked()), this, SLOT(faireSimulation()));
 
-    /*etats=new QTableWidget(dimension, dimension, this);
-    etats->setFixedSize(dimension*taille, dimension*taille);
-    etats->horizontalHeader()->setVisible(false);
-    etats->verticalHeader()->setVisible(false);
-    etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    etats->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //non éditable
-    etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    for (unsigned int i=0; i<dimension; i++){
-        etats->setColumnWidth(i, taille);
-        etats->setRowHeight(i, taille);
-        for (unsigned int j=0; j<dimension; j++){
-            etats->setItem(j, i, new QTableWidgetItem(""));
-        }
-    }*/
-    //etats=new QTableWidget;
-    dessinergrille(couche);
-    //etats->setFixedSize(dimension*taille, dimension*taille);
-    //couche->addWidget(etats);
-    //setLayout(couche);
+    etats=new QTableWidget;
+    dessinergrille();
+    setLayout(couche);
 
     QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
     QObject::connect(this->diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
@@ -160,9 +140,10 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     QObject::connect(this->retur, SIGNAL(clicked()), this, SLOT(backtomain()));
 }
 
-void inter_2D::dessinergrille(QVBoxLayout* couche){
-    QTableWidget* etats=new QTableWidget(inter_2D::dimension, inter_2D::dimension);
-    etats->setFixedSize(inter_2D::taille, inter_2D::taille);
+void inter_2D::dessinergrille(){
+    delete etats;
+    etats=new QTableWidget(inter_2D::dimension, inter_2D::dimension);
+    etats->setFixedSize(inter_2D::taille+inter_2D::dimension/3, inter_2D::taille+inter_2D::dimension/3);
     etats->horizontalHeader()->setVisible(false);
     etats->verticalHeader()->setVisible(false);
     etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -178,24 +159,22 @@ void inter_2D::dessinergrille(QVBoxLayout* couche){
     }
 
     couche->addWidget(etats);
-    setLayout(couche);
 }
+
 
 void inter_2D::pushdimvalid(){
     inter_2D::dimension=this->nb->value();
-    /*this->etats->clear();
-    this->etats->setRowCount(inter_2D::dimension);
-    this->etats->setRowCount(inter_2D::dimension);*/
-    //dessinergrille(this->couche);
-    setLayout(this->couche);
-    this->dimvalid->setEnabled(false);
-    this->nb->setEnabled(false);
+    dessinergrille();
+    //this->dimvalid->setEnabled(false);
+    //this->nb->setEnabled(false);
 }
 
 void inter_2D::pushdiminval(){
-    this->dimvalid->setEnabled(true);
-    this->nb->setEnabled(true);
+    //this->dimvalid->setEnabled(true);
+    //this->nb->setEnabled(true);
     this->nb->setValue(10);
+    inter_2D::dimension=10;
+    dessinergrille();
 }
 
 void inter_2D::pushcont(){

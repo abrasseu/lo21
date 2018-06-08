@@ -67,7 +67,7 @@ class inter_2D: public QWidget {
 
 public:
     explicit inter_2D(QWidget* parent = nullptr);
-    void dessinergrille(QVBoxLayout* couche);
+    void dessinergrille();
     unsigned int getTaille() const { return taille;}
 
 private slots:
