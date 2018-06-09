@@ -1,5 +1,6 @@
 #ifndef INTER_2D_H
 #define INTER_2D_H
+
 #include <QWidget>
 #include <QSpinBox>
 #include <QLineEdit>
@@ -32,12 +33,14 @@ class inter_2D: public QWidget {
     QLabel* listtxt;            //Label pour choix grille de départ
     QComboBox* listder;         //Liste déroulante avec grilles de départs
 
+    QPushButton* transi;        //Bouton pour aller choisir les transitions
+    QVBoxLayout* tran;
+
     QHBoxLayout* contlist;      //Contient à gauche choix dimension, à droite la liste
 
     QVBoxLayout* top;           //Contient verticalement les boutons, contlist
 
     QVBoxLayout* couche;        //set top
-
 
 
     QLabel* simulation;         //Label pour toute la partie simulation
@@ -62,13 +65,16 @@ class inter_2D: public QWidget {
 
     QTableWidget* etats;        //Grille
 
-    static unsigned int taille;     //Taille max de la grille
-    static unsigned int dimension;  //dimension de la grille
+    unsigned int taille;     //Taille max de la grille
+    unsigned int dimension;  //dimension de la grille
 
 public:
-    explicit inter_2D(QWidget* parent = nullptr);
+    explicit inter_2D(unsigned int t = 400, unsigned int d = 10);
     void dessinergrille();
-    unsigned int getTaille() const { return taille;}
+    const unsigned int getTaille() const { return taille;}
+    const unsigned int getDimension() const { return dimension;}
+    void setDimension(const unsigned int d) { dimension = d;}
+
 
 private slots:
     /*void synchronizeNumToNumBit(int i);
@@ -76,12 +82,13 @@ private slots:
     //void cellActivation(const QModelIndex& index);
     void clickcell(int, int);
     void backtomain();
+    void pushdimvalid();
+    void pushdiminval();
+    void pushtransi();
     void pushcont();
     void pushfeet();
     void pushstop();
     void pushreset();
-    void pushdimvalid();
-    void pushdiminval();
     //void faireSimulation();
 };
 

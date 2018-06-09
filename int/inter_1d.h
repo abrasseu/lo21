@@ -11,6 +11,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QPushButton>
+#include <QComboBox>
 
 
 class inter_1D: public QWidget {

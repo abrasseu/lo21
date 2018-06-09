@@ -1,9 +1,7 @@
 #include "inclu_fich.h"
 
-unsigned int inter_2D::dimension=10;
-unsigned int inter_2D::taille=400;
 
-inter_2D::inter_2D(QWidget* parent): QWidget(parent){
+inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
 
     //Deux boutons pour aller au menu principal ou quitter tout en haut
     top=new QVBoxLayout;
@@ -61,13 +59,19 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
     list->setAlignment(Qt::AlignVCenter);
     contlist->addLayout(list);
 
+    transi = new QPushButton;
+    transi->setText("Choisir les transitions");
+    tran = new QVBoxLayout;
+    tran->addWidget(transi);
+    contlist->addLayout(tran);
+
     //On accumule tout dans top en vertical
     top->addLayout(buttons);
     top->addLayout(contlist);
 
     couche=new QVBoxLayout;
     couche->addLayout(top);
-    setLayout(couche);
+    //setLayout(couche);
 
 
     //Affichage des modes de simulation
@@ -128,22 +132,24 @@ inter_2D::inter_2D(QWidget* parent): QWidget(parent){
 
     etats=new QTableWidget;
     dessinergrille();
-    setLayout(couche);
 
-    QObject::connect(this->dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
-    QObject::connect(this->diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
-    QObject::connect(this->cont, SIGNAL(clicked()), this, SLOT(pushcont()));
-    QObject::connect(this->feet, SIGNAL(clicked()), this, SLOT(pushfeet()));
-    QObject::connect(this->stop, SIGNAL(clicked()), this, SLOT(pushstop()));
-    QObject::connect(this->reset, SIGNAL(clicked()), this, SLOT(pushreset()));
-    QObject::connect(this->quit, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(this->retur, SIGNAL(clicked()), this, SLOT(backtomain()));
+    QObject::connect(transi, SIGNAL(clicked()), this, SLOT(pushtransi()));
+    QObject::connect(dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
+    QObject::connect(diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
+    QObject::connect(cont, SIGNAL(clicked()), this, SLOT(pushcont()));
+    QObject::connect(feet, SIGNAL(clicked()), this, SLOT(pushfeet()));
+    QObject::connect(stop, SIGNAL(clicked()), this, SLOT(pushstop()));
+    QObject::connect(reset, SIGNAL(clicked()), this, SLOT(pushreset()));
+    QObject::connect(quit, SIGNAL(clicked()), this, SLOT(close()));
+    QObject::connect(retur, SIGNAL(clicked()), this, SLOT(backtomain()));
+
+    setLayout(couche);
 }
 
 void inter_2D::dessinergrille(){
     delete etats;
-    etats=new QTableWidget(inter_2D::dimension, inter_2D::dimension);
-    etats->setFixedSize(inter_2D::taille+inter_2D::dimension/3, inter_2D::taille+inter_2D::dimension/3);
+    etats=new QTableWidget(dimension, dimension);
+    etats->setFixedSize(taille+dimension/3, taille+dimension/3);
     etats->horizontalHeader()->setVisible(false);
     etats->verticalHeader()->setVisible(false);
     etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -151,8 +157,8 @@ void inter_2D::dessinergrille(){
     //non éditable
     etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
     for (unsigned int i=0; i<dimension; i++){
-        etats->setColumnWidth(i, inter_2D::taille/inter_2D::dimension);
-        etats->setRowHeight(i, inter_2D::taille/inter_2D::dimension);
+        etats->setColumnWidth(i, taille/dimension);
+        etats->setRowHeight(i, taille/dimension);
         for (unsigned int j=0; j<dimension; j++){
             etats->setItem(j, i, new QTableWidgetItem(""));
         }
@@ -170,7 +176,7 @@ void inter_2D::clickcell(int i, int j){
 }
 
 void inter_2D::pushdimvalid(){
-    inter_2D::dimension=this->nb->value();
+    dimension=this->nb->value();
     dessinergrille();
     //dimvalid->setEnabled(false);
     //nb->setEnabled(false);
@@ -180,9 +186,16 @@ void inter_2D::pushdiminval(){
     //dimvalid->setEnabled(true);
     //nb->setEnabled(true);
     this->nb->setValue(10);
-    inter_2D::dimension=10;
+    dimension=10;
     dessinergrille();
 }
+
+
+void inter_2D::pushtransi(){
+    trans* t=new trans;
+    t->show();
+}
+
 
 void inter_2D::pushcont(){
     this->cont->setEnabled(false);
@@ -220,6 +233,14 @@ void inter_2D::pushreset(){
     this->feet->setEnabled(true);
 }
 
+
+void inter_2D::backtomain()
+{
+    this->close();
+    qt_designer* q=new qt_designer;
+    q->show();
+}
+
 /*void AutoCell::faireSimulation(){
     Etat e(dimension);
     for (unsigned int i=0; i<dimension; i++)
@@ -240,13 +261,6 @@ void inter_2D::pushreset(){
     }
 }*/
 
-
-void inter_2D::backtomain()
-{
-    this->close();
-    qt_designer* q=new qt_designer;
-    q->show();
-}
 
 
 /*void inter_2D::cellActivation(const QModelIndex& index){
