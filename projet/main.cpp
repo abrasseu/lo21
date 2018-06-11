@@ -13,7 +13,7 @@
 int main() {
 	std::srand(std::time(nullptr));
 	std::cout << "Coucou" << std::endl;
-
+	/*
 	State** states;
 	states = new State*[5];
 
@@ -74,6 +74,6 @@ int main() {
 		simulatorLifeGame.printCells();
 		usleep(10000);
 	}
-
+	*/
 	return 0;
 }
