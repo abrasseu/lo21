@@ -4,6 +4,8 @@ unsigned int inter_1D::dimension=10;
 unsigned int inter_1D::taille=400;
 
 inter_1D::inter_1D(QWidget* parent): QWidget(parent){
+    setWindowTitle("Interface 1D");
+
     top=new QVBoxLayout;
     buttons=new QHBoxLayout;
     quit=new QPushButton("Quitter");

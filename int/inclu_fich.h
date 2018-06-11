@@ -7,5 +7,7 @@
 #include "inter_1D.h"
 #include "inter_2d.h"
 
+#include <vector>
+
 
 #endif // INCLU_FICH_H

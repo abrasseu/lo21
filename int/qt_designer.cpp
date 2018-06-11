@@ -6,8 +6,8 @@ qt_designer::qt_designer(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QObject::connect(ui->pushButton1D, SIGNAL(clicked()), this, SLOT(on_pushButton1D_clicked()));
-    QObject::connect(ui->pushButton2D, SIGNAL(clicked()), this, SLOT(on_pushButton2D_clicked()));
+    //QObject::connect(ui->pushButton1D, SIGNAL(clicked()), this, SLOT(on_pushButton1D_clicked()));
+    //QObject::connect(ui->pushButton2D, SIGNAL(clicked()), this, SLOT(on_pushButton2D_clicked()));
     QObject::connect(ui->quit, SIGNAL(clicked()), this, SLOT(close()));
 }
 

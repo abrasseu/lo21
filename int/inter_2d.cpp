@@ -2,6 +2,7 @@
 
 
 inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
+    setWindowTitle("Interface 2D");
 
     //Deux boutons pour aller au menu principal ou quitter tout en haut
     top=new QVBoxLayout;
@@ -234,8 +235,7 @@ void inter_2D::pushreset(){
 }
 
 
-void inter_2D::backtomain()
-{
+void inter_2D::backtomain(){
     this->close();
     qt_designer* q=new qt_designer;
     q->show();

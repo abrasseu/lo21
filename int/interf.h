@@ -10,11 +10,11 @@
 #include <QTextBrowser>
 #include <QLabel>
 #include <QSpinBox>
+#include <QComboBox>
 
 class trans : public QWidget {
-public:
-    trans();
-private:
+    Q_OBJECT
+
     QVBoxLayout* titre;
 
 
@@ -26,11 +26,22 @@ private:
     QSpinBox* etatcell2;
 
     QHBoxLayout* nbvois1;
-    QLabel* nbvoislab;
+
+    QPushButton* add;
+
+    QPushButton* valid;
+    QHBoxLayout* tabrules;
+    QVector < QPair< QVBoxLayout*, QVector < QSpinBox*> >* > rules;
+    unsigned int nbi;
+
+public:
+    explicit trans(QWidget* parent = nullptr);
+    void addnewtransi(QPair< QVBoxLayout*, QVector < QSpinBox*> >, int i);
+    void addtransitype(QPair< QVBoxLayout*, QVector < QSpinBox*> >*, int i);
 
 private slots:
     void addtransi();
-    void addnewtransi();
+    void validation();
 
 };
 
