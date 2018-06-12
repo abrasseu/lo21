@@ -10,7 +10,7 @@
 #include "Cell.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 void Simulator::createCells() {
 	std::cout << getCellsNbr() << std::endl;

@@ -7,7 +7,7 @@
 #include "Cell.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 bool Cell::mutate(State** states, uint size) {
     State* lastState = _state;

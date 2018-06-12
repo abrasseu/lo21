@@ -14,7 +14,7 @@
 #include "State.h"
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 int main() {
     std::srand(std::time(nullptr));

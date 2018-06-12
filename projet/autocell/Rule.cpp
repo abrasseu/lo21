@@ -9,7 +9,7 @@
 #include "State.h"
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 bool Rule::isTrue(State** states, uint size) {
     // Si on veut exactement le même ordre, il faut déjà qu'on ait la même longueur

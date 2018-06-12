@@ -12,13 +12,13 @@
 #include "Cell.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class SimulatorLifeGame : public Simulator2D {
 protected:
 public:
-    // Constructeurs
-    SimulatorLifeGame(uint cellsSize);
+	// Constructeurs
+	SimulatorLifeGame(uint cellsSize);
 };
 
 #endif
