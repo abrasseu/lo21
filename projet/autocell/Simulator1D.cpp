@@ -10,7 +10,7 @@
 #include "Simulator1D.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 State** Simulator1D::getNeighboursState(State** states, uint position) {
 	State** neighbors(new State*[getNeighbourNbr()]);

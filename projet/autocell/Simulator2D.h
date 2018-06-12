@@ -11,7 +11,7 @@
 #include "Simulator.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class Simulator2D : public Simulator {
 protected:

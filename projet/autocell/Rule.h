@@ -12,7 +12,7 @@
 #include <vector>
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class State;
 

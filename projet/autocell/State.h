@@ -13,7 +13,7 @@
 #include <vector>
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class Rule;
 

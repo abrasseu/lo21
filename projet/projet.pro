@@ -9,7 +9,11 @@ SOURCES += \
 	autocell/Simulator2D.cpp \
 	autocell/SimulatorLifeGame.cpp \
 	autocell/State.cpp \
-	autocell/SimulatorManager.cpp
+	autocell/SimulatorManager.cpp \
+	interface/interf.cpp \
+	interface/inter_1d.cpp \
+	interface/inter_2d.cpp \
+    interface/home_view.cpp
 
 HEADERS += \
 	autocell/Cell.h \
@@ -19,5 +23,9 @@ HEADERS += \
 	autocell/Simulator2D.h \
 	autocell/SimulatorLifeGame.h \
 	autocell/State.h \
-	autocell/SimulatorManager.h
-
+	autocell/SimulatorManager.h \
+	interface/inclu_fich.h \
+	interface/interf.h \
+	interface/inter_1d.h \
+	interface/inter_2d.h \
+    interface/home_view.h
