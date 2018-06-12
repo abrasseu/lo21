@@ -14,7 +14,8 @@ SOURCES += \
 	interface/inter_2d.cpp \
 	interface/HomeView.cpp \
 	interface/SimulatorInterface.cpp \
-	interface/Interface1D.cpp
+	interface/Interface1D.cpp \
+    interface/Interface2D.cpp
 
 HEADERS += \
 	autocell/Rule.h \
@@ -30,4 +31,5 @@ HEADERS += \
 	interface/inter_2d.h \
 	interface/HomeView.h \
 	interface/SimulatorInterface.h \
-	interface/Interface1D.h
+	interface/Interface1D.h \
+    interface/Interface2D.h

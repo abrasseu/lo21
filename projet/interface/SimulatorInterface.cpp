@@ -118,10 +118,11 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
  * @details Instancie et configure tous les éléments de l'interface
  * @param parent
  */
-SimulatorInterface::SimulatorInterface(QWidget* parent): QWidget(parent) {
-	setWindowTitle("Interface xD");
+SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): QWidget() {
+	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
 	grid_size = 400;
+	simulator = nullptr;
 
 	// === Main Layout
 	// Init Main Layouts

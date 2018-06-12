@@ -15,10 +15,13 @@
 #include <QPushButton>
 #include <QComboBox>
 
+#include "../autocell/Simulator.h"
+#include "../autocell/State.h"
+
 class SimulatorInterface : public QWidget {
 	Q_OBJECT		// Macro permettant d'avoir des slots (qui sont uniquement sur Qt)
 
-	private:
+	protected:
 		unsigned int grid_size;			// Taille max de la grille
 		unsigned int grid_dimension;
 
@@ -71,8 +74,16 @@ class SimulatorInterface : public QWidget {
 		void setSimulatorControls(QBoxLayout*);
 		void setInitialStateControls(QBoxLayout*);
 
+		// Methods & Attributes that must be overidded in children
+		Simulator* simulator;
+		State** initial_states;
+		State** possible_state_list;
+		virtual void setSimulatorView(QBoxLayout*) = 0;
+		virtual void resetSimulatorView() = 0;
+		virtual void setInitialStates() = 0;
+
 	public:
-		SimulatorInterface(QWidget* parent = nullptr);
+		SimulatorInterface(short unsigned int automate_dimension = 0);
 		void drawGrid();
 
 	private slots:
