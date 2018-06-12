@@ -303,7 +303,7 @@ void inter_1D::pushreset(){
 void inter_1D::backtomain()
 {
     this->close();
-    qt_designer* q=new qt_designer;
+    HomeView* q=new HomeView;
     q->show();
 }
 

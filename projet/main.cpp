@@ -19,6 +19,10 @@ int main(int argc, char* argv[]) {
 	srand(time(nullptr));
 	cout << "Coucou" << endl;
 
+	QApplication app(argc, argv);
+	HomeView homeView;
+	homeView.show();
+	return app.exec();
 
 	/*
 	// Managers

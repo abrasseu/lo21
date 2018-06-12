@@ -1,7 +1,8 @@
 #ifndef INCLU_FICH_H
 #define INCLU_FICH_H
 
-#include "qt_designer.h"
+#include "home_view.h"
+//#include "qt_designer.h"
 #include "ui_qt_designer.h"
 #include "interf.h"
 #include "inter_1D.h"

@@ -237,7 +237,7 @@ void inter_2D::pushreset(){
 
 void inter_2D::backtomain(){
     this->close();
-    qt_designer* q=new qt_designer;
+    HomeView* q=new HomeView;
     q->show();
 }
 
