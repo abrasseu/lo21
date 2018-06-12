@@ -28,12 +28,12 @@ protected:
 	State** getCellsState() const;
 	uint getNeighbourNbr() const { return pow(3, getDimension()) - 1; }
 	virtual State** getNeighboursState(State** states, uint position) = 0;
-	void createCells();
+	void generateCells();
 
 public:
 	// Constructeurs
 	Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
-		createCells();
+		generateCells();
 	}
 
 	// Setters
@@ -44,6 +44,14 @@ public:
 	uint getCellsSize() const { return _cellsSize; }
 	uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
 	State* getCell(uint position) const;
+
+	// Generators
+	void generateFirstStateCells();
+	void generateRandomCells();
+	void generateHorizontalSymetricRandomCells();
+	void generateVerticalSymetricRandomCells();
+	void generateAlternedCells();
+	void generateDescAlternedCells();
 
 	virtual void printCells() = 0;
 	void incrementState(uint position, bool allowNullState = false);

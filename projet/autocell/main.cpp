@@ -52,7 +52,7 @@ int main() {
     Rule rule6(states[0], forRule6, true);
     states[1]->addANewRule(&rule6);
 
-    Simulator1D simulation1D(states, 2, 10);
+    Simulator1D simulation1D(states, 3, 10);
     simulation1D.printCells();
     simulation1D.mutate();
     std::cout << std::endl;
@@ -65,6 +65,7 @@ int main() {
     simulation2D.printCells();
 
     SimulatorLifeGame simulatorLifeGame(68);
+    simulatorLifeGame.generateRandomCells();
     simulatorLifeGame.printCells();
 
     while (simulatorLifeGame.mutate()) {

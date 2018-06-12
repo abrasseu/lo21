@@ -15,18 +15,26 @@
 
 class Simulator2D : public Simulator {
 protected:
-	using Simulator::createCells;
+	using Simulator::generateCells;
 	State** getNeighboursState(State** states, uint position);
 
 public:
 	// Constructeurs
 	Simulator2D(State** states, uint stateNbr, uint cellsSize): Simulator(states, stateNbr, cellsSize, 2) {
-		createCells();
+		generateCells();
 	}
+
+	// Setters
+	using Simulator::setCell;
+	bool setCell(State* state, uint x, uint y);
 
 	// Getters
 	using Simulator::getCell;
 	State* getCell(uint x, uint y) const;
+
+	// Generators
+	void generateHorizontalSymetricRandomCells();
+	void generateVerticalSymetricRandomCells();
 
 	using Simulator::incrementState;
 	void incrementState(uint x, uint y, bool allowNullState = false);

@@ -6,18 +6,50 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "Simulator.h"
 #include "State.h"
 
 #define uint unsigned int
 
-void Simulator::createCells() {
-	std::cout << getCellsNbr() << std::endl;
+void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
 
+	generateFirstStateCells();
+}
 
+void Simulator::generateFirstStateCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
-		_cells[i] = (_states[std::rand() % _stateNbr]);
+		setCell(_states[0], i);
+}
+
+void Simulator::generateRandomCells() {
+	for (uint i = 0; i < getCellsNbr(); i++)
+		setCell(_states[std::rand() % _stateNbr], i);
+}
+
+void Simulator::generateHorizontalSymetricRandomCells() {
+	setCell(_states[std::rand() % _stateNbr], 0);
+
+	for (uint i = 1; i < getCellsNbr(); i++)
+		setCell(getCell(0), i);
+}
+
+void Simulator::generateVerticalSymetricRandomCells() {
+	for (uint i = 0; i < ceil(getCellsNbr() / 2); i++) {
+		setCell(_states[std::rand() % _stateNbr], i);
+		setCell(getCell(i), getCellsNbr() - 1 - i);
+	}
+}
+
+void Simulator::generateAlternedCells() {
+	for (uint i = 0; i < getCellsNbr(); i++)
+		setCell(_states[i % _stateNbr], i);
+}
+
+void Simulator::generateDescAlternedCells() {
+	for (uint i = 0; i < getCellsNbr(); i++)
+		setCell(_states[_stateNbr - (i % _stateNbr) - 1], i);
 }
 
 bool Simulator::setCell(State* state, uint position) {

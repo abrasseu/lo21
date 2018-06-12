@@ -21,7 +21,7 @@ private:
 public:
 	// Constructeurs
 	Simulator1D(State** states, uint stateNbr, uint cellsSize): Simulator(states, stateNbr, cellsSize, 1) {
-		createCells();
+		generateCells();
 	}
 
 	// Getters
