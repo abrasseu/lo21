@@ -1,5 +1,8 @@
 #include "inclu_fich.h"
 #include <iostream>
+#include <vector>
+
+using namespace std;
 
 trans::trans(QWidget* parent): QWidget(parent) {
     setWindowTitle("Choix des règles");
@@ -10,7 +13,7 @@ trans::trans(QWidget* parent): QWidget(parent) {
     texte->setAlignment(Qt::AlignCenter);
 
 
-    t1 = new QVBoxLayout;
+    t1 = new QVBoxLayout;     //pour transition sur 2 états statique
     transition = new QHBoxLayout;
     lab = new QLabel;
     lab->setText("Si la cellule est dans l'état ");
@@ -41,32 +44,21 @@ trans::trans(QWidget* parent): QWidget(parent) {
         rules[i]->addWidget(rulestitle[i]);
         addtransition(i);
         tabrules->addLayout(rules[i]);
-    }*/
-
-
-
-    //rules = new QVector < QPair< QVBoxLayout*, QVector < QSpinBox*> > >;
-    for (unsigned int i = 0; i < 2; ++i){
-        QPair<QVBoxLayout*, QVector<QPair < QSpinBox*, QPushButton* > > > *pair = new QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >;
-        pair->first = new QVBoxLayout;
-        pair->second = QVector< QPair <QSpinBox*, QPushButton*> >();
-        rules.push_back(pair);
-        tabrules->addLayout(pair->first);
     }
-    auto it = rules.begin();
-    //auto it = rules.begin();
-    for (unsigned int i = 0; i < 2; ++i){
-        addtransitype(*it);
-        ++it;
-    }
-
+*/
     t1->addLayout(tabrules);
     titre->addLayout(t1);
+
+    /*containerRule = new vector <QHBoxLayout*>;
+    containerRule->push_back(new QHBoxLayout);*/
 
     valid = new QPushButton("Valider");
     titre->addWidget(valid);
 
+    //gridtransition();
+
     QObject::connect(valid, SIGNAL(clicked()), this, SLOT(validation()));
+
     setLayout(titre);
 }
 
@@ -75,79 +67,103 @@ void trans::validation(){
     this->close();
 }
 
-/*void trans::addtransition(int i){
-    rulesvalue[nbrulesvalue[i]] = new QSpinBox;
-    rulesvalue[nbrulesvalue[i]]->setRange(-1,8);
-    rulesvalue[nbrulesvalue[i]]->setValue(-1);
-    rules[i]->addWidget(rulesvalue[nbrulesvalue[i]]);
-    rulesvalid[nbrulesvalue[i]] = new QPushButton("Valider");
-    rulesvalid[nbrulesvalue[i]]->setObjectName(QString::number(i));
-    rules[i]->addWidget(rulesvalid[nbrulesvalue[i]]);
-    QObject::connect(rulesvalid[nbrulesvalue[i]], SIGNAL(clicked()), this, SLOT(slot_addtransition()));
+/*void trans::addtransition(int i){     //pour transition sur 2 états statique
+    rulesvalue[nbrulesvalue[i]+10*i] = new QSpinBox;
+    rulesvalue[nbrulesvalue[i]+10*i]->setRange(-1,8);
+    rulesvalue[nbrulesvalue[i]+10*i]->setValue(-1);
+    rules[i]->addWidget(rulesvalue[nbrulesvalue[i]+10*i]);
+    rulesvalid[nbrulesvalue[i]+10*i] = new QPushButton("Valider");
+    rulesvalid[nbrulesvalue[i]+10*i]->setObjectName(QString::number(i));
+    QMessageBox::warning(this, "ok", (rulesvalid[nbrulesvalue[i]+i*10]->objectName()));
+    rules[i]->addWidget(rulesvalid[nbrulesvalue[i]+10*i]);
+    QObject::connect(rulesvalid[nbrulesvalue[i]+10*i], SIGNAL(clicked()), this, SLOT(slot_addtransition()));
     nbrulesvalue[i]++;
 }
+
 
 void trans::slot_addtransition(){
     QObject* senderObj = sender();
     QPushButton* qp = qobject_cast<QPushButton*>(senderObj);
-    qp->setEnabled(false);
+    //qp->setEnabled(false);
     QString senderObjName = senderObj->objectName();
-    if (senderObjName == "0")
-        addtransition(0);
-    else
-        addtransition(1);
+    QMessageBox::warning(this, "ok", QString::number(rulesvalue[0]->value()));
+    if (senderObjName == 0){
+//        if (rulesvalue[nbrulesvalue[0] - 1]->value() != -1)
+//            addtransition(0);
+//        else
+//            QMessageBox::warning(this, "Impossible", "Entrez une valeur positive ou nulle pour la règle");
+        QMessageBox::warning(this, "ok", rulesvalid[nbrulesvalue[0]]->objectName());
+        QMessageBox::warning(this, "ok", QString::number(rulesvalue[nbrulesvalue[0] - 1]->value()));
+    }
+    else{
+//        if (rulesvalue[nbrulesvalue[1] - 1]->value() != -1)
+//            addtransition(1);
+//        else
+//            QMessageBox::warning(this, "Impossible", "Entrez une valeur positive ou nulle pour la règle");
+        QMessageBox::warning(this, "ok", rulesvalid[nbrulesvalue[1]+10-1]->objectName());
+        QMessageBox::warning(this, "ok", QString::number(rulesvalue[nbrulesvalue[1] - 1]->value()));
+    }
 }*/
 
 
-void trans::addtransitype(QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >* it){
-    QLabel* nbneightitle = new QLabel;
-    nbneightitle->setAlignment(Qt::AlignCenter);
-    /*if (!i)
-        nbneightitle->setText("Nombre de voisins morts");
-    else if (i == 1)*/
-        nbneightitle->setText("Nombre de voisins vivants");
-    //it->first->addLayout();
-    it->first->addWidget(nbneightitle);
-    //tabrules->addLayout(it->first); //déjà fait dans le constructeur
+/*void trans::gridtransition(){
+    QHBoxLayout* qh = new QHBoxLayout;
+    grid = new QTableWidget(9, 9);
+    grid->setObjectName("grid");
+    grid->setFixedSize(50, 50);
+    grid->horizontalHeader()->setVisible(false);
+    grid->verticalHeader()->setVisible(false);
+    grid->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    grid->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    addnewtransi(*it);
+    for (unsigned int i = 0; i < 9; i++){
+        grid->setColumnWidth(i, 50/3);
+        grid->setRowHeight(i, 50/3);
+        for (unsigned int j = 0; j < 9; j++){
+            grid->setItem(j, i, new QTableWidgetItem(""));
+        }
+    }
+
+    QObject::connect(grid, SIGNAL(cellClicked(int,int)), this, SLOT(clickcell(int, int)));
+
+    validGrid = new QPushButton("Valider");
+    QObject::connect(validGrid, SIGNAL(clicked()), this, SLOT(validGrid_clicked()));
+
+    qh->addWidget(grid);
+    qh->addWidget(validGrid);
+    containerRule->push_back(qh);
+    titre->addLayout(containerRule->back());
 }
 
-
-void trans::addnewtransi(QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > > it){
-    QPair < QSpinBox*, QPushButton* >* nbpt = new QPair<QSpinBox*, QPushButton*>;
-    nbpt->first = new QSpinBox;
-    nbpt->second = new QPushButton;
-    nbpt->first->setRange(-1,8);
-    nbpt->first->setValue(-1);
-    nbpt->second->setText("ajouter nouvelle règle");
-    //nb.push_back(nbpt);
-    //QMessageBox::warning(this, "Impossible", QString::number(nbi));
-    /*auto ite = nb.begin();
-    for (unsigned int j = 0; j < i; j++)
-        ++ite;*/
-    //(*ite).second.push_back(nbpt);
-    it.second.push_back(*nbpt);
-    it.second.push_back(*nbpt);
-    it.first->addWidget(nbpt->first);
-    it.first->addWidget(nbpt->second);
-
-    //add->clicked();
-        //QMessageBox::warning(this, "Impossible", "Entrez une valeur valide !<br>La règle doit contenir une valeur positive ou nulle!");
-    //QPair<QSpinBox*, QPushButton*> qp = it.second.last();
-    QObject::connect(it.second.last().second, SIGNAL(clicked()), this, SLOT(addtransi()));
-}
-
-
-void trans::addtransi(){
-    QObject* send = sender();
-    QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >* sendpair = qobject_cast<QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >*>(send);
-    //QPushButton* sendpush = qobject_cast<QPushButton*>(sendpair->second.last().first);
-    QSpinBox* sendspin = qobject_cast<QSpinBox*>(sendpair->second.last().second);
-    if (sendspin->value() != -1)
-        addnewtransi(*sendpair);
+void trans::clickcell(int i, int j){
+    if (grid->item(i,j)->backgroundColor()== Qt::black)
+        grid->item(i,j)->setBackgroundColor(Qt::white);
     else
-        QMessageBox::warning(this, "Impossible", "Entrez une valeur valide !<br>La règle doit contenir une valeur positive ou nulle!");
+        grid->item(i,j)->setBackgroundColor(Qt::black);
 }
 
-
+void trans::validGrid_clicked(){
+    QWidget* gr1 = containerRule->back()->itemAt(0)->widget();
+    //QTableWidget* gr = containerRule->last()->findChild<QTableWidget*>(QString("grid"));
+    //QTableWidget* gr = qobject_cast<QTableWidget*>(gr1);
+    //QTableWidget* gr = qobject_cast<QTableWidget*>(containerRule->last()->findChild<QTableWidget*>());
+//    if (gr == 0)
+//        QMessageBox::warning(this, "erreur", "attention");
+//    containerRule->last()->addWidget(gr);
+    //containerRule->last()->addWidget(gr1);
+    bool cont = true;
+    for (vector<QHBoxLayout*>::iterator it = containerRule->begin(); it != containerRule->end(); ++it ){
+        bool empty = (*it)->children().empty();
+        if ((*it)->itemAt(0)->widget()){
+            cout << "aaaaaaaaaaaaaaaaaaaa" << endl;
+        }
+//        if ((*it)->itemAt(i)->widget() == gr1){
+//            cont = false;
+//            break;
+//        }
+    }
+    if (cont)
+        gridtransition();
+    else
+        QMessageBox::warning(this, "Impossible", "La règle existe déjà !");
+}*/

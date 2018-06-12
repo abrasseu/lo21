@@ -134,7 +134,7 @@ inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
     etats=new QTableWidget;
     dessinergrille();
 
-    QObject::connect(transi, SIGNAL(clicked()), this, SLOT(pushtransi()));
+    //QObject::connect(transi, SIGNAL(clicked()), this, SLOT(pushtransi()));
     QObject::connect(dimvalid, SIGNAL(clicked()), this, SLOT(pushdimvalid()));
     QObject::connect(diminval, SIGNAL(clicked()), this, SLOT(pushdiminval()));
     QObject::connect(cont, SIGNAL(clicked()), this, SLOT(pushcont()));
@@ -149,7 +149,7 @@ inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
 
 void inter_2D::dessinergrille(){
     delete etats;
-    etats=new QTableWidget(dimension, dimension);
+    etats = new QTableWidget(dimension, dimension);
     etats->setFixedSize(taille+dimension/3, taille+dimension/3);
     etats->horizontalHeader()->setVisible(false);
     etats->verticalHeader()->setVisible(false);
@@ -206,6 +206,7 @@ void inter_2D::pushcont(){
     this->sec->setEnabled(false);
     this->listder->setEnabled(false);
     this->feet->setEnabled(false);
+    this->transi->setEnabled(false);
 }
 
 void inter_2D::pushfeet(){
@@ -215,6 +216,7 @@ void inter_2D::pushfeet(){
     this->diminval->setEnabled(false);
     this->sec->setEnabled(true);
     this->listder->setEnabled(false);
+    this->transi->setEnabled(false);
     this->feet->setEnabled(true);
 }
 
@@ -232,6 +234,7 @@ void inter_2D::pushreset(){
     this->sec->setEnabled(true);
     this->listder->setEnabled(true);
     this->feet->setEnabled(true);
+    this->transi->setEnabled(true);
 }
 
 

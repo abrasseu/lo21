@@ -11,6 +11,10 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QComboBox>
+#include <QTableWidget>
+#include <vector>
+
+using namespace std;
 
 class trans : public QWidget {
     Q_OBJECT
@@ -31,25 +35,28 @@ class trans : public QWidget {
 
     QPushButton* valid;
     QHBoxLayout* tabrules;
-    QVector < QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >* > rules;
-    /*QVBoxLayout* rules[2];
+
+    QVBoxLayout* rules[2];    //pour transition sur 2 états statiques
     QLabel* rulestitle[2];
     QSpinBox* rulesvalue[20];
     QPushButton* rulesvalid[20];
-    unsigned int nbrulesvalue[2];*/
+    unsigned int nbrulesvalue[2];
+
+    /*vector<QHBoxLayout*>* containerRule;
+    QTableWidget* grid;
+    QPushButton* validGrid;*/
 
 public:
     explicit trans(QWidget* parent = nullptr);
-    void addnewtransi(QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >);
-    void addtransitype(QPair< QVBoxLayout*, QVector < QPair< QSpinBox*, QPushButton* > > >*);
+    //void addtransition(int i); //pour transition sur 2 états statique
 
-    /*void addtransition(int i);*/
+    //void gridtransition();
 
 private slots:
-    void addtransi();
     void validation();
-
-    /*void slot_addtransition();*/
+    /*void clickcell(int, int);
+    void validGrid_clicked();*/
+    //void slot_addtransition(); //pour transition sur 2 états statique
 
 };
 
