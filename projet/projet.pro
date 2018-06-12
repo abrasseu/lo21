@@ -1,8 +1,7 @@
 QT += core gui widgets
 
 SOURCES += \
-	main.cpp \
-	autocell/Cell.cpp \
+        main.cpp \
 	autocell/Rule.cpp \
 	autocell/Simulator.cpp \
 	autocell/Simulator1D.cpp \
@@ -17,7 +16,6 @@ SOURCES += \
     interface/HomeView.cpp
 
 HEADERS += \
-	autocell/Cell.h \
 	autocell/Rule.h \
 	autocell/Simulator.h \
 	autocell/Simulator1D.h \

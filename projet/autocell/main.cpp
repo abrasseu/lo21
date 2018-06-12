@@ -10,7 +10,6 @@
 #include "Simulator1D.h"
 #include "Simulator2D.h"
 #include "SimulatorLifeGame.h"
-#include "Cell.h"
 #include "State.h"
 #include "Rule.h"
 
@@ -65,20 +64,13 @@ int main() {
     std::cout << std::endl;
     simulation2D.printCells();
 
-    Cell cell(states[0]);
-
-    // On donne 4 voisins pour avoir la génération suivante, on respecte donc que la règle 2
-    std::cout << "Passage de la cellule à la génération " << cell.getGeneration() << " dans l'état " << cell.getState()->getName();
-    cell.mutate(states, 4);
-    std::cout << " à la génération " << cell.getGeneration() << " avec l'état " << cell.getState()->getName() << " via la règle 2" << std::endl;
-
     SimulatorLifeGame simulatorLifeGame(68);
     simulatorLifeGame.printCells();
 
     while (simulatorLifeGame.mutate()) {
         std::cout << "Génération suivante:" << std::endl;
         simulatorLifeGame.printCells();
-        usleep(10000);
+        usleep(60 * 1000);
     }
 
     return 0;

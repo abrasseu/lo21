@@ -1,7 +1,7 @@
 #include "inclu_fich.h"
+#include <QMessageBox>
 
-
-inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
+inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d), changeCellEnabled(true) {
     setWindowTitle("Interface 2D");
 
     //Deux boutons pour aller au menu principal ou quitter tout en haut
@@ -43,11 +43,14 @@ inter_2D::inter_2D(unsigned int t, unsigned int d): taille(t), dimension(d) {
 
     //listdet est la liste déroulante
     listder=new QComboBox;
+    listder->addItem("Vide", QVariant(0));
     listder->addItem("Symétrique", QVariant(1));
     listder->addItem("Au hasard", QVariant(2));
     listder->addItem("Diagonale principale", QVariant(3));
     listder->addItem("Diagonale opposée", QVariant(4));
     listder->addItem("Deux diagonales", QVariant(5));
+
+    QObject::connect(listder, SIGNAL(currentIndexChanged(int)), this, SLOT(change_grid(int)));
 
     // Pour centrer dans la liste mais pas l'élément affiché
     /*for (int i = 0 ; i < listder->count() ; ++i) {
@@ -170,15 +173,18 @@ void inter_2D::dessinergrille(){
 }
 
 void inter_2D::clickcell(int i, int j){
-    if (etats->item(i,j)->backgroundColor()== Qt::black)
-        etats->item(i,j)->setBackgroundColor(Qt::white);
-    else
-        etats->item(i,j)->setBackgroundColor(Qt::black);
+    if (changeCellEnabled){
+        if (etats->item(i,j)->backgroundColor()== Qt::black)
+            etats->item(i,j)->setBackgroundColor(Qt::white);
+        else
+            etats->item(i,j)->setBackgroundColor(Qt::black);
+    }
 }
 
 void inter_2D::pushdimvalid(){
     dimension=this->nb->value();
     dessinergrille();
+    this->listder->setCurrentIndex(0);
     //dimvalid->setEnabled(false);
     //nb->setEnabled(false);
 }
@@ -187,6 +193,7 @@ void inter_2D::pushdiminval(){
     //dimvalid->setEnabled(true);
     //nb->setEnabled(true);
     this->nb->setValue(10);
+    this->listder->setCurrentIndex(0);
     dimension=10;
     dessinergrille();
 }
@@ -206,6 +213,8 @@ void inter_2D::pushcont(){
     this->sec->setEnabled(false);
     this->listder->setEnabled(false);
     this->feet->setEnabled(false);
+
+    changeCellEnabled = false;
 }
 
 void inter_2D::pushfeet(){
@@ -216,12 +225,18 @@ void inter_2D::pushfeet(){
     this->sec->setEnabled(true);
     this->listder->setEnabled(false);
     this->feet->setEnabled(true);
+
+    changeCellEnabled = true;
+
+    //nextStep();
 }
 
 void inter_2D::pushstop(){
     this->cont->setEnabled(true);
     this->sec->setEnabled(true);
     this->feet->setEnabled(true);
+
+    changeCellEnabled = true;
 }
 
 void inter_2D::pushreset(){
@@ -232,8 +247,11 @@ void inter_2D::pushreset(){
     this->sec->setEnabled(true);
     this->listder->setEnabled(true);
     this->feet->setEnabled(true);
-}
 
+    change_grid(listder->currentData().toInt());
+    //QMessageBox::warning(this, "val", QString::number(listder->currentData().toInt()));
+    changeCellEnabled = true;
+}
 
 void inter_2D::backtomain(){
     this->close();
@@ -296,3 +314,61 @@ void AutoCell::synchronizeNumBitToNum(const QString& s){
     int n=NumBitToNum(str);
     num->setValue(n);
 }*/
+
+void inter_2D::change_grid(int v){
+    switch(v){
+        case 0 :
+            initGridWhite();
+            break;
+        case 1 :
+            initGrid12();
+            break;
+        case 2 :
+            initGridRandom();
+            break;
+    }
+}
+
+void inter_2D::initGridRandom(){
+    SimulatorLifeGame simu(dimension);
+    uint* tab = simu.getCells();
+
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++)
+                if (tab[i * simu.getCellsSize() + j])
+                    etats->item(i,j)->setBackgroundColor(Qt::black); // vivant
+                else
+                    etats->item(i,j)->setBackgroundColor(Qt::white); // mort
+    }
+}
+
+void inter_2D::initGrid12(){
+    SimulatorLifeGame simu(dimension);
+
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++){
+            if (i%2 == 0){
+                if (j%2 == 0)
+                    etats->item(i,j)->setBackgroundColor(Qt::white);
+                else
+                    etats->item(i,j)->setBackgroundColor(Qt::black);
+            }
+            else{
+                if (j%2 == 1)
+                    etats->item(i,j)->setBackgroundColor(Qt::white);
+                else
+                    etats->item(i,j)->setBackgroundColor(Qt::black);
+            }
+        }
+    }
+}
+
+void inter_2D::initGridWhite(){
+    SimulatorLifeGame simu(dimension);
+
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++)
+            etats->item(i,j)->setBackgroundColor(Qt::white);
+    }
+}
+
