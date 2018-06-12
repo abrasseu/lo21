@@ -2,6 +2,7 @@
 #include "SimulatorInterface.h"
 #include "Interface2D.h"
 
+#include "Interface1D.h"
 #include <string>
 
 HomeView::HomeView() : QWidget() {
@@ -77,8 +78,8 @@ HomeView::~HomeView() {
 */
 void HomeView::simulate1D() {
 	close();
-//	SimulatorInterface* view = new SimulatorInterface();
-//	view->show();
+    Interface1D* view = new Interface1D();
+	view->show();
 }
 
 void HomeView::simulate2D() {
