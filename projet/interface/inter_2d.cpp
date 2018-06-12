@@ -184,6 +184,7 @@ void inter_2D::clickcell(int i, int j){
 void inter_2D::pushdimvalid(){
     dimension=this->nb->value();
     dessinergrille();
+    this->listder->setCurrentIndex(0);
     //dimvalid->setEnabled(false);
     //nb->setEnabled(false);
 }
@@ -192,6 +193,7 @@ void inter_2D::pushdiminval(){
     //dimvalid->setEnabled(true);
     //nb->setEnabled(true);
     this->nb->setValue(10);
+    this->listder->setCurrentIndex(0);
     dimension=10;
     dessinergrille();
 }
@@ -226,7 +228,7 @@ void inter_2D::pushfeet(){
 
     changeCellEnabled = true;
 
-    //nextstep(etats, dimension);
+    //nextStep();
 }
 
 void inter_2D::pushstop(){
@@ -316,57 +318,57 @@ void AutoCell::synchronizeNumBitToNum(const QString& s){
 void inter_2D::change_grid(int v){
     switch(v){
         case 0 :
-            initGridWhite(etats, dimension);
+            initGridWhite();
             break;
         case 1 :
-            initGrid12(etats, dimension);
+            initGrid12();
             break;
         case 2 :
-            initGrid(etats, dimension);
+            initGridRandom();
             break;
     }
 }
 
-void inter_2D::initGrid(QTableWidget* grid, unsigned int d){
-    SimulatorLifeGame simu(d);
+void inter_2D::initGridRandom(){
+    SimulatorLifeGame simu(dimension);
+    uint* tab = simu.getCells();
 
-    for (unsigned int i = 0; i < d; i++){
-        for (unsigned int j =0; j < d; j++)
-            if (simu.getCell(i,j))
-                grid->item(i,j)->setBackgroundColor(Qt::black);
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++)
+                if (tab[i * simu.getCellsSize() + j])
+                    etats->item(i,j)->setBackgroundColor(Qt::black); // vivant
+                else
+                    etats->item(i,j)->setBackgroundColor(Qt::white); // mort
     }
 }
 
-void inter_2D::initGrid12(QTableWidget* grid, unsigned int d){
-    SimulatorLifeGame simu(d);
+void inter_2D::initGrid12(){
+    SimulatorLifeGame simu(dimension);
 
-    for (unsigned int i = 0; i < d; i++){
-        for (unsigned int j =0; j < d; j++){
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++){
             if (i%2 == 0){
                 if (j%2 == 0)
-                    grid->item(i,j)->setBackgroundColor(Qt::white);
+                    etats->item(i,j)->setBackgroundColor(Qt::white);
                 else
-                    grid->item(i,j)->setBackgroundColor(Qt::black);
+                    etats->item(i,j)->setBackgroundColor(Qt::black);
             }
             else{
                 if (j%2 == 1)
-                    grid->item(i,j)->setBackgroundColor(Qt::white);
+                    etats->item(i,j)->setBackgroundColor(Qt::white);
                 else
-                    grid->item(i,j)->setBackgroundColor(Qt::black);
+                    etats->item(i,j)->setBackgroundColor(Qt::black);
             }
         }
     }
 }
 
-void inter_2D::initGridWhite(QTableWidget* grid, unsigned int d){
-    SimulatorLifeGame simu(d);
+void inter_2D::initGridWhite(){
+    SimulatorLifeGame simu(dimension);
 
-    for (unsigned int i = 0; i < d; i++){
-        for (unsigned int j =0; j < d; j++)
-            grid->item(i,j)->setBackgroundColor(Qt::white);
+    for (unsigned int i = 0; i < dimension; i++){
+        for (unsigned int j =0; j < dimension; j++)
+            etats->item(i,j)->setBackgroundColor(Qt::white);
     }
 }
 
-/*void inter_2D::nextstep(QTableWidget *grid, unsigned int d){
-
-}*/

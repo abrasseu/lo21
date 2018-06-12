@@ -77,11 +77,11 @@ public:
     const unsigned int getDimension() const { return dimension;}
     void setDimension(const unsigned int d) { dimension = d;}
 
-    void initGrid(QTableWidget* grid, unsigned int dimension);
-    void initGridWhite(QTableWidget* grid, unsigned int dimension);
-    void initGrid12(QTableWidget* grid, unsigned int dimension);
+    void initGridRandom();
+    void initGridWhite();
+    void initGrid12();
 
-    //void nextstep(QTableWidget* grid, unsigned int d);
+    //void nextStep();
 
 
 private slots:

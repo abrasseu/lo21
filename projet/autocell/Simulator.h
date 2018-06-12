@@ -46,6 +46,7 @@ public:
 	State* getCell(uint position) const;
 
 	virtual void printCells() = 0;
+    uint* getCells();
 	void incrementState(uint position, bool allowNullState = false);
 
 	// Renvoi vrai si la grille a changé
