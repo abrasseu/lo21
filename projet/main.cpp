@@ -1,7 +1,8 @@
 #include <iostream>
 #include <ctime>
 #include <unistd.h>
-
+#include <QApplication>
+/*
 #include "autocell/SimulatorManager.h"
 #include "autocell/Simulator1D.h"
 #include "autocell/Simulator2D.h"
@@ -9,15 +10,14 @@
 #include "autocell/Cell.h"
 #include "autocell/State.h"
 #include "autocell/Rule.h"
-
-#include "interface/inclu_fich.h"
+*/
+#include "interface/HomeView.h"
 
 using uint = unsigned int;
 using namespace std;
 
 int main(int argc, char* argv[]) {
 	srand(time(nullptr));
-	cout << "Coucou" << endl;
 
 	QApplication app(argc, argv);
 	HomeView homeView;

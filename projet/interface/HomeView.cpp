@@ -1,4 +1,5 @@
-#include "home_view.h"
+#include "HomeView.h"
+#include "SimulatorInterface.h"
 #include <string>
 
 HomeView::HomeView() : QWidget() {
@@ -68,8 +69,8 @@ HomeView::~HomeView() {
 
 void HomeView::simulate1D() {
 	close();
-	inter_1D* interface1D = new inter_1D();
-	interface1D->show();
+	SimulatorInterface* view = new SimulatorInterface();
+	view->show();
 }
 
 void HomeView::simulate2D() {

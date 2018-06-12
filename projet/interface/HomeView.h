@@ -7,7 +7,9 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTextBlock>
-#include "inter_1d.h"
+
+#include "SimulatorInterface.h"
+//#include "inter_1d.h"
 #include "inter_2d.h"
 
 using suint = short unsigned int;
