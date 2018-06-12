@@ -68,12 +68,20 @@ class inter_2D: public QWidget {
     unsigned int taille;     //Taille max de la grille
     unsigned int dimension;  //dimension de la grille
 
+    bool changeCellEnabled;
+
 public:
     explicit inter_2D(unsigned int t = 400, unsigned int d = 10);
     void dessinergrille();
     const unsigned int getTaille() const { return taille;}
     const unsigned int getDimension() const { return dimension;}
     void setDimension(const unsigned int d) { dimension = d;}
+
+    void initGrid(QTableWidget* grid, unsigned int dimension);
+    void initGridWhite(QTableWidget* grid, unsigned int dimension);
+    void initGrid12(QTableWidget* grid, unsigned int dimension);
+
+    //void nextstep(QTableWidget* grid, unsigned int d);
 
 
 private slots:
@@ -89,6 +97,7 @@ private slots:
     void pushfeet();
     void pushstop();
     void pushreset();
+    void change_grid(int);
     //void faireSimulation();
 };
 
