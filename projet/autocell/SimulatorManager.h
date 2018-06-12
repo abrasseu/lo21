@@ -7,7 +7,7 @@
 #include "Simulator.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 using namespace std;
 
 class SimulatorManager {

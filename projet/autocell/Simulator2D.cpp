@@ -11,7 +11,7 @@
 #include "State.h"
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 State* Simulator2D::getCell(uint x, uint y) const {
 	return getCell((x * getCellsSize()) + y);

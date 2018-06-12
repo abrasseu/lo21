@@ -11,7 +11,7 @@
 #include "State.h"
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 SimulatorLifeGame::SimulatorLifeGame(uint cellsSize): Simulator2D(new State*[2], 2, cellsSize) {
 	_states[0] = new State(" - Mort"); // mort

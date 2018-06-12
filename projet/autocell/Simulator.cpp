@@ -10,7 +10,7 @@
 #include "Simulator.h"
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
@@ -78,11 +78,15 @@ State** Simulator::getCellsState() const {
 	return states;
 }
 
-void Simulator::printCells() {
-	for (uint i = 0; i < getCellsSize(); i++)
-		std::cout << _cells[i]->getName();
-
-	std::cout << std::endl;
+uint* Simulator::getCells(){        // retourne un tableau avec des 0 ou 1 (valide seulement pour 2 états dans le jeu de la vie)
+    uint* _tab = new uint[getCellsNbr()];
+    for (uint i = 0; i < getCellsNbr(); i++){
+        if (getCell(i)->getName()[0] == ' ')
+            _tab[i] = 0;
+        else if (_cells[i]->getName()[0] == 0)
+            _tab[i] = 1;
+    }
+    return _tab;
 }
 
 void Simulator::incrementState(uint position, bool allowNullState) {

@@ -7,7 +7,7 @@
 #include "State.h"
 #include "Rule.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 State* State::getNextGeneration(State** states, uint size) {
     for (Rule* rule : _rules) {

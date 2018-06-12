@@ -11,7 +11,7 @@
 #include <cmath>
 #include "State.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class Simulator {
 protected:
@@ -54,6 +54,7 @@ public:
 	void generateDescAlternedCells();
 
 	virtual void printCells() = 0;
+    uint* getCells();
 	void incrementState(uint position, bool allowNullState = false);
 
 	// Renvoi vrai si la grille a changé

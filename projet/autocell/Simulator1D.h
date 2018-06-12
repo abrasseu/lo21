@@ -12,7 +12,7 @@
 #include "State.h"
 #include "Simulator.h"
 
-#define uint unsigned int
+using uint = unsigned int;
 
 class Simulator1D : public Simulator {
 private:
