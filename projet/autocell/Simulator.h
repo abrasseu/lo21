@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <cmath>
-#include "Cell.h"
 #include "State.h"
 
 #define uint unsigned int
@@ -19,7 +18,7 @@ protected:
 	// Liste des états et cellules composant la simulation
 	State** _states;
 	uint _stateNbr;
-	Cell** _cells;
+	State** _cells;
 	uint _cellsSize;
 	uint _generation;
 	const uint _dimension;
@@ -36,16 +35,18 @@ public:
 	Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
 		createCells();
 	}
-//	virtual ~Simulator();
+
+	// Setters
+	bool setCell(State* state, uint position);
 
 	// Getters
 	State** getInitStates() const { return _states; }
 	uint getCellsSize() const { return _cellsSize; }
 	uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
-	Cell* getCell(uint position) const;
+	State* getCell(uint position) const;
 
 	virtual void printCells() = 0;
-	void incrementState(uint position);
+	void incrementState(uint position, bool allowNullState = false);
 
 	// Renvoi vrai si la grille a changé
 	virtual bool mutate();

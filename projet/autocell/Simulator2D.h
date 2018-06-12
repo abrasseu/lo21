@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include "Simulator.h"
-#include "Cell.h"
 #include "State.h"
 
 #define uint unsigned int
@@ -27,10 +26,10 @@ public:
 
 	// Getters
 	using Simulator::getCell;
-	Cell* getCell(uint x, uint y) const;
+	State* getCell(uint x, uint y) const;
 
 	using Simulator::incrementState;
-	void incrementState(uint x, uint y);
+	void incrementState(uint x, uint y, bool allowNullState = false);
 
 	void printCells();
 };

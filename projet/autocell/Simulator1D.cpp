@@ -8,7 +8,6 @@
 #include <vector>
 #include "Simulator.h"
 #include "Simulator1D.h"
-#include "Cell.h"
 #include "State.h"
 
 #define uint unsigned int
@@ -25,23 +24,7 @@ State** Simulator1D::getNeighboursState(State** states, uint position) {
 
 void Simulator1D::printCells() {
 	for (uint i = 0; i < getCellsSize(); i++)
-		std::cout << _cells[i]->getState()->getName();
+		std::cout << _cells[i]->getName()[0];
 
 	std::cout << std::endl;
-}
-
-void Simulator1D::incrementState(uint position) {
-	Cell* cellToUpdate(getCell(position));
-	State* currentState(cellToUpdate->getState());
-	uint toState = 0;
-
-	for (uint i = 0; i < _stateNbr; i++) {
-		if (_states[i] == currentState) {
-			toState = (i + 1) % _stateNbr;
-
-			break;
-		}
-	}
-
-	cellToUpdate->setState(_states[toState]);
 }

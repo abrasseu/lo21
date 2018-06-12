@@ -7,31 +7,30 @@
 #include <iostream>
 #include <vector>
 #include "Simulator.h"
-#include "Cell.h"
 #include "State.h"
 
 #define uint unsigned int
 
 void Simulator::createCells() {
 	std::cout << getCellsNbr() << std::endl;
-	_cells = new Cell*[getCellsNbr()];
+	_cells = new State*[getCellsNbr()];
 
 
 	for (uint i = 0; i < getCellsNbr(); i++)
-		_cells[i] = new Cell(_states[std::rand() % _stateNbr]);
+		_cells[i] = (_states[std::rand() % _stateNbr]);
 }
-/*
-State** Simulator1D::getNeighboursState(State** states, uint position) {
-	State** neighbours(new State*[getNeightborNbr()]);
 
-	// On ajoute le précédent et le suivant:
-	neighbours[0] = states[(position - 1) % getCellsNbr()];
-	neighbours[1] = states[(position + 1) % getCellsNbr()];
+bool Simulator::setCell(State* state, uint position) {
+	if (position >= getCellsNbr())
+	 	return false;
 
-	return neighbours;
+	State* lastState(getCell(position));
+	_cells[position] = state;
+
+	return state != lastState;
 }
-*/
-Cell* Simulator::getCell(uint position) const {
+
+State* Simulator::getCell(uint position) const {
 	if (position >= getCellsNbr())
 		return nullptr;
 
@@ -42,32 +41,37 @@ State** Simulator::getCellsState() const {
 	State** states(new State*[getCellsNbr()]);
 
 	for (uint i = 0; i < getCellsNbr(); i++)
-		states[i] = _cells[i]->getState();
+		states[i] = _cells[i];
 
 	return states;
 }
 
 void Simulator::printCells() {
 	for (uint i = 0; i < getCellsSize(); i++)
-		std::cout << _cells[i]->getState()->getName();
+		std::cout << _cells[i]->getName();
 
 	std::cout << std::endl;
 }
 
-void Simulator::incrementState(uint position) {
-	Cell* cellToUpdate(getCell(position));
-	State* currentState(cellToUpdate->getState());
-	uint toState = 0;
+void Simulator::incrementState(uint position, bool allowNullState) {
+	State* cellToUpdate(getCell(position));
+	State* toState;
+	uint toStateId = 0;
 
 	for (uint i = 0; i < _stateNbr; i++) {
-		if (_states[i] == currentState) {
-			toState = (i + 1) % _stateNbr;
+		if (_states[i] == cellToUpdate) {
+			toStateId = (i + 1) % _stateNbr;
 
 			break;
 		}
 	}
 
-	cellToUpdate->setState(_states[toState]);
+	if (toStateId == 0 && allowNullState)
+		toState = nullptr;
+	else
+		toState = _states[toStateId];
+
+	setCell(toState, position);
 }
 
 bool Simulator::mutate() {
@@ -77,7 +81,7 @@ bool Simulator::mutate() {
 	for (uint i = 0; i < getCellsNbr(); i++) {
 		State** neighboursState(getNeighboursState(statesOfThisGeneration, i));
 
-		if (_cells[i]->mutate(neighboursState, getNeighbourNbr()))
+		if (setCell(_cells[i]->getNextGeneration(neighboursState, getNeighbourNbr()), i))
 			isNextGeneration = true;
 
 		delete[] neighboursState;

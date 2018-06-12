@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <cmath>
-#include "Cell.h"
 #include "State.h"
 #include "Simulator.h"
 
@@ -27,7 +26,6 @@ public:
 
 	// Getters
 	void printCells();
-	void incrementState(uint position);
 };
 
 #endif

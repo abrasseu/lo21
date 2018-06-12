@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include "Simulator2D.h"
-#include "Cell.h"
 #include "State.h"
 
 #define uint unsigned int

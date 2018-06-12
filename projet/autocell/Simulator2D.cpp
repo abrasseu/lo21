@@ -13,7 +13,7 @@
 
 #define uint unsigned int
 
-Cell* Simulator2D::getCell(uint x, uint y) const {
+State* Simulator2D::getCell(uint x, uint y) const {
 	return getCell((x * getCellsSize()) + y);
 }
 
@@ -42,12 +42,12 @@ State** Simulator2D::getNeighboursState(State** states, uint position) {
 void Simulator2D::printCells() {
 	for (uint i = 0; i < getCellsSize(); i++) {
 		for (uint j = 0; j < getCellsSize(); j++)
-			std::cout << getCell(i, j)->getState()->getName()[0];
+			std::cout << getCell(i, j)->getName()[0];
 
 		std::cout << std::endl;
 	}
 }
 
-void Simulator2D::incrementState(uint x, uint y) {
-	incrementState((x * getCellsSize()) + y);
+void Simulator2D::incrementState(uint x, uint y, bool allowNullState) {
+	incrementState((x * getCellsSize()) + y, allowNullState);
 }
