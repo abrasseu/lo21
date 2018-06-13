@@ -12,7 +12,7 @@ Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
     grid_size = 650;
 
 	simulator = new Simulator2D(possible_state_list, 3, grid_dimension*grid_dimension);
-	resetSimulatorView(view_layout);
+    initSimulatorView(view_layout);
 }
 
 
@@ -22,14 +22,14 @@ void Interface2D::initSimulatorView(QBoxLayout* parent) {
 	setInitialStates();
 	simulator->generateStateCells();
 	drawGrid();
+    parent->addWidget(grid_view);
 }
 
 void Interface2D::drawGrid() {
 	// Delete and recreate grid is exists
 	if (grid_view != nullptr)
 		delete grid_view;
-	grid_view = new QTableWidget(grid_dimension, grid_dimension);
-	parent->addWidget(grid_view);
+    grid_view = new QTableWidget(grid_dimension, grid_dimension);
 
 	// Config grid
 	grid_view->setFixedSize(grid_size + grid_dimension/3, grid_size + grid_dimension/3);

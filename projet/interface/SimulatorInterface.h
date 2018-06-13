@@ -91,7 +91,7 @@ class SimulatorInterface : public QWidget {
 		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
 		virtual void drawGrid() = 0;
-
+        virtual void changeGridCells() = 0;
 	public:
 		SimulatorInterface(short unsigned int automate_dimension = 0);
 

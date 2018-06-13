@@ -40,6 +40,9 @@ class Interface1D : public SimulatorInterface
     private slots:
         void rotateCellState(QTableWidgetItem*);
 
+        // To prevent selecting cells on grid_view
+        void grid_view_clicked(QTableWidgetItem*);
+
         void grid_set_buf();
         void grid_reset_buf();
 };

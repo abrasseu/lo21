@@ -1,5 +1,6 @@
 #include "Interface1D.h"
 #include "SimulatorInterface.h"
+#include "autocell/Rule.h"
 #include <QMessageBox>
 
 // short unsigned int automate_dimension = 1;
@@ -8,8 +9,8 @@ Interface1D::Interface1D(): SimulatorInterface(automate_dimension), buffer_size(
     // Set state list
     setGridBufferLength(grid_dim_controls);
     possible_state_list = new State*[2];
-    possible_state_list[0] = new State("Mort", "#0000000");
-    possible_state_list[1] = new State("Vivant", "#fffffff");
+    possible_state_list[0] = new State("Mort", "#000000");
+    possible_state_list[1] = new State("Vivant", "#ffffff");
 
     simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
     initSimulatorView(view_layout);
@@ -62,13 +63,16 @@ void Interface1D::initSimulatorView(QBoxLayout* parent){
     parent->addWidget(grid_view);
 
     drawGrid(grid_view, buffer_size, grid_dimension);
+
+    QObject::connect(grid_view, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(grid_view_clicked(QTableWidgetItem*)));
 }
+
 void Interface1D::drawGrid() {
 
 }
 
 void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn){
-    // nbRow if one line
+    // nbRow if one line table
     if (nbRow == 1)
         grid->setFixedSize(grid_size, grid_size/nbColumn);
     else
@@ -106,17 +110,8 @@ void Interface1D::changeGridCells(){
     QColor color = QColor();
     for (uint i = 0; i < grid_dimension; i++){
         color.setNamedColor(QString::fromStdString(simulator->getCell(i)->getColor()));
-        grid_view->item(simulator->getGeneration() - 1, i)->setBackgroundColor(color);
+        grid_view->item(simulator->getGeneration(), i)->setBackgroundColor(color);
     }
-
-    /*// Set colors from Simulator's Cells
-    QColor color = QColor();
-    for (unsigned int i=0; i < grid_dimension; i++){
-        for (unsigned int j=0; j < grid_dimension; j++) {
-            color.setNamedColor(QString::fromStdString(simulator->getCell(i,j)->getColor()));
-            grid_view->item(i,j)->setBackgroundColor(color);
-        }
-    }*/
 }
 
 void Interface1D::setInitialStates(){
@@ -130,13 +125,13 @@ void Interface1D::setInitialStates(){
 // === Grid Slots
 
 void Interface1D::rotateCellState(QTableWidgetItem* it){
-    if (changeCellEnabled){
-        if (it->backgroundColor()== Qt::black)
-            it->setBackgroundColor(Qt::white);
-        else
-            it->setBackgroundColor(Qt::black);
+    it->setSelected(false);
+    if (changeCellEnabled) {
+        simulator->incrementState(it->column(), false);
+        QColor color;
+        color.setNamedColor(QString::fromStdString(simulator->getCell(it->column())->getColor()));
+        initial_view->item(0, it->column())->setBackgroundColor(color);
     }
-    QMessageBox::warning(this, "value", QString::number(it->column()));
 }
 
 
@@ -149,5 +144,9 @@ void Interface1D::grid_set_buf(){
 void Interface1D::grid_reset_buf(){
     grid_buffer_length_spin->setValue(10);
     buffer_size = grid_buffer_length_spin->value();
+}
+
+void Interface1D::grid_view_clicked(QTableWidgetItem* it){
+    it->setSelected(false);
 }
 

@@ -233,7 +233,9 @@ void SimulatorInterface::step_simulation() {
 	sim_is_running = true;
 	simulator->mutate();
 	sim_is_running = false;
+    changeGridCells();
 }
+
 void SimulatorInterface::stop_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);

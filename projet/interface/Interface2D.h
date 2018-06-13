@@ -17,6 +17,7 @@ class Interface2D : public SimulatorInterface
 		void initSimulatorView(QBoxLayout*);
 		void setInitialStates();
 		void drawGrid();
+        void changeGridCells();
 
 	protected slots:
 		void rotateCellState(int, int);
