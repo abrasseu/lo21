@@ -7,13 +7,19 @@
 
 class Interface1D : public SimulatorInterface
 {
+    Q_OBJECT
     protected:
-        const short unsigned int automate_dimension;
+        bool changeCellEnabled = true;
+        const short unsigned int automate_dimension = 1;
+        QTableWidget* grid_view = nullptr;
 	public:
         Interface1D();
-        void setSimulatorView(QBoxLayout* parent);
-        void resetSimulatorView();
+        void setSimulatorView(QBoxLayout*);
+        void resetSimulatorView(QBoxLayout*);
         void setInitialStates();
+
+    private slots:
+        void rotateCellState(int, int);
 };
 
 #endif // INTERFACE1D_H
