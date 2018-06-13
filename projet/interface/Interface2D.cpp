@@ -9,6 +9,8 @@ Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 	possible_state_list[1] = new State("Vivant", "#00ffff");
 	possible_state_list[2] = new State("Zombi", "#ff0000");
 
+    grid_size = 650;
+
 	simulator = new Simulator2D(possible_state_list, 3, grid_dimension*grid_dimension);
 	resetSimulatorView(view_layout);
 }

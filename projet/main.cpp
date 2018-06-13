@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ctime>
-#include <unistd.h>
+//#include <unistd.h>
 #include <QApplication>
 /*
 #include "autocell/SimulatorManager.h"

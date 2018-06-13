@@ -61,6 +61,7 @@ class Simulator {
 		uint getCellsSize() const { return _cellsSize; }
 		uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
 		State* getCell(uint position) const;
+        uint getGeneration() const { return _generation; }
 		uint* getCells(); // Seulement pour le JDV
 		virtual void printCells() = 0;
 
