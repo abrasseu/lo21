@@ -357,6 +357,15 @@ void SimulatorInterface::reset_simulation() {
 void SimulatorInterface::set_initial_state() {
 
 }
+
+void SimulatorInterface::grid_set_dim() {
+
+}
+void SimulatorInterface::grid_reset_dim() {
+
+}
+
+
 /*
 void SimulatorInterface::clickcell(int i, int j){
 	if (etats->item(i,j)->backgroundColor()== Qt::black)

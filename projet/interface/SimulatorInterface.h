@@ -79,7 +79,7 @@ class SimulatorInterface : public QWidget {
 		State** initial_states;
 		State** possible_state_list;
 		virtual void setSimulatorView(QBoxLayout*) = 0;
-		virtual void resetSimulatorView() = 0;
+		virtual void resetSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
 
 	public:
@@ -106,7 +106,6 @@ class SimulatorInterface : public QWidget {
 		/*
 		void cellActivation(const QModelIndex& index);
 		//void faireSimulation();
-		void clickcell(int, int);
 		*/
 };
 
