@@ -48,13 +48,13 @@ void Interface2D::setInitialStates() {
 	initial_states = new State*[grid_dimension];
 	// TODO
 	for (unsigned int i = 0; i < grid_dimension; i++)
-		intial_states[i] = possible_state_list[0];
+        initial_states[i] = possible_state_list[0];
 }
 
 
 // Slot
 
-void SimulatorInterface::rotateCellState(int i, int j) {
+void Interface2D::rotateCellState(int i, int j) {
 	/*
 	if (changeCellEnabled){
 		if (etats->item(i,j)->backgroundColor()== Qt::black)

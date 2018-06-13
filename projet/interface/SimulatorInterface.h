@@ -97,9 +97,9 @@ class SimulatorInterface : public QWidget {
 		void reset_simulation();
 
 		// Grid Slots
-		void set_initial_state();
+        void set_initial_state();
 		void grid_set_dim();
-		void grid_reset_dim();
+        void grid_reset_dim();
 
 //		void synchronizeNumToNumBit(int i);
 //		void synchronizeNumBitToNum(const QString& s);
