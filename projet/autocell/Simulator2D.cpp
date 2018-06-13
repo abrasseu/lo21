@@ -17,6 +17,28 @@ State* Simulator2D::getCell(uint x, uint y) const {
 	return getCell((x * getCellsSize()) + y);
 }
 
+bool Simulator2D::setCell(State* state, uint x, uint y) {
+	return setCell(state, (x * getCellsSize()) + y);
+}
+
+void Simulator2D::generateHorizontalSymetricRandomCells() {
+	for (uint i = 0; i < ceil(getCellsSize() / 2); i++) {
+		for (uint j = 0; j < getCellsSize(); j++) {
+			setCell(_states[std::rand() % _stateNbr], i, j);
+			setCell(getCell(i, j), getCellsSize() - 1 - i, j);
+		}
+	}
+}
+
+void Simulator2D::generateVerticalSymetricRandomCells() {
+	for (uint i = 0; i < getCellsSize(); i++) {
+		for (uint j = 0; j < ceil(getCellsSize() / 2); j++) {
+			setCell(_states[std::rand() % _stateNbr], i, j);
+			setCell(getCell(i, j), i, getCellsSize() - 1 - j);
+		}
+	}
+}
+
 State** Simulator2D::getNeighboursState(State** states, uint position) {
 	State** neighbors(new State*[getNeighbourNbr()]);
 	int x = position % getCellsSize();

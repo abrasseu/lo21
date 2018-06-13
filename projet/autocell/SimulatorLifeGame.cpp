@@ -32,5 +32,5 @@ SimulatorLifeGame::SimulatorLifeGame(uint cellsSize): Simulator2D(new State*[2],
 	Rule* rule3 = new Rule(_states[0], forRule3);
 	_states[1]->addANewRule(rule3);
 
-	Simulator2D::createCells();
+	Simulator2D::generateCells();
 }
