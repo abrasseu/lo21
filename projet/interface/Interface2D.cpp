@@ -1,4 +1,5 @@
 #include "Interface2D.h"
+#include <string>
 
 // TODO : automate_dimension
 Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
@@ -58,8 +59,11 @@ void Interface2D::setInitialStates() {
 
 void Interface2D::rotateCellState(int i, int j) {
 	if (changeCellEnabled) {
-		simulator->incrementState(i,j);
-//		simulator->getCell(i,j)->getColor();
-//		grid_view->item(i,j)->backgroundColor(QColor::fromRgb())
+        simulator->incrementState(i, j, false);
+        std::string color = simulator->getCell(i,j)->getColor();
+        uint intcolor[3];
+        for (uint i = 0; i < 3; i++)
+            intcolor[i] = color[2*i + 1]+color[2*i + 2] - '0' - '0';
+        grid_view->item(i,j)->setBackground(QColor::fromRgb(intcolor[0], intcolor[1], intcolor[2]));
 	}
 }
