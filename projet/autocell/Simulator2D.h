@@ -25,12 +25,12 @@ public:
 	}
 
 	// Setters
-	using Simulator::setCell;
 	bool setCell(State* state, uint x, uint y);
+	using Simulator::setCell;
 
 	// Getters
-	using Simulator::getCell;
 	State* getCell(uint x, uint y) const;
+	using Simulator::getCell;
 
 	// Generators
 	void generateHorizontalSymetricRandomCells();

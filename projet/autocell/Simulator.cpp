@@ -5,6 +5,7 @@
  */
 
 #include <iostream>
+#include <string>
 #include <vector>
 #include <cmath>
 #include "Simulator.h"
@@ -12,15 +13,28 @@
 
 using uint = unsigned int;
 
+/**
+ * @brief Création de du tableau cell
+ */
 void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
-
-	generateFirstStateCells();
+	generateStateCells();
 }
 
-void Simulator::generateFirstStateCells() {
+/*
+|--------------------------------------------------------------------------
+|	Générateurs
+|--------------------------------------------------------------------------
+*/
+
+/**
+ * @brief Met toutes les cellules dans le première état
+ */
+void Simulator::generateStateCells(uint s) {
+	if (s >= getStateNbr())
+		throw SimulatorException("Il n'y a que " + std::to_string(getStateNbr()) + " états possibles.");
 	for (uint i = 0; i < getCellsNbr(); i++)
-		setCell(_states[0], i);
+		setCell(_states[s], i);
 }
 
 void Simulator::generateRandomCells() {
@@ -52,9 +66,16 @@ void Simulator::generateDescAlternedCells() {
 		setCell(_states[_stateNbr - (i % _stateNbr) - 1], i);
 }
 
+
+/*
+|--------------------------------------------------------------------------
+|	Getters & Setters
+|--------------------------------------------------------------------------
+*/
+
 bool Simulator::setCell(State* state, uint position) {
 	if (position >= getCellsNbr())
-	 	return false;
+		return false;
 
 	State* lastState(getCell(position));
 	_cells[position] = state;
@@ -78,15 +99,18 @@ State** Simulator::getCellsState() const {
 	return states;
 }
 
-uint* Simulator::getCells(){        // retourne un tableau avec des 0 ou 1 (valide seulement pour 2 états dans le jeu de la vie)
-    uint* _tab = new uint[getCellsNbr()];
-    for (uint i = 0; i < getCellsNbr(); i++){
-        if (getCell(i)->getName()[0] == ' ')
-            _tab[i] = 0;
-        else if (_cells[i]->getName()[0] == 0)
-            _tab[i] = 1;
-    }
-    return _tab;
+
+// retourne un tableau avec des 0 ou 1 (valide seulement pour 2 états dans le jeu de la vie)
+// TODO : Pas ouf..
+uint* Simulator::getCells() {
+	uint* _tab = new uint[getCellsNbr()];
+	for (uint i = 0; i < getCellsNbr(); i++){
+		if (getCell(i)->getName()[0] == ' ')
+			_tab[i] = 0;
+		else if (_cells[i]->getName()[0] == 0)
+			_tab[i] = 1;
+	}
+	return _tab;
 }
 
 void Simulator::incrementState(uint position, bool allowNullState) {

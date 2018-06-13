@@ -10,16 +10,16 @@ class Interface2D : public SimulatorInterface
 	protected:
 		const short unsigned int automate_dimension = 2;
 		QTableWidget* grid_view = nullptr;
-	protected slots:
-		void rotateCellState(int, int);
-
+		Simulator2D* simulator;
 	public:
+
 		Interface2D();
 		void setSimulatorView(QBoxLayout*);
 		void resetSimulatorView(QBoxLayout*);
 		void setInitialStates();
 
-
+	protected slots:
+		void rotateCellState(int, int);
 };
 
 #endif // INTERFACE2D_H

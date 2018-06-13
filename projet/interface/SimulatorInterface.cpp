@@ -140,6 +140,7 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 	grid_dimension = 10;
 	grid_size = 400;
 	simulator = nullptr;
+	changeCellEnabled = true;
 
 	// === Main Layout
 	// Init Main Layouts
