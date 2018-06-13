@@ -25,6 +25,7 @@ class SimulatorInterface : public QWidget {
 		unsigned int grid_size;			// Taille max de la grille
 		unsigned int grid_dimension;
 		bool changeCellEnabled;
+		bool sim_is_running;
 
 		// === Main Layouts
 		QHBoxLayout* main_layout;
@@ -36,10 +37,10 @@ class SimulatorInterface : public QWidget {
 		QHBoxLayout* grid_controls;			// view or grid ?
 		QVBoxLayout* simulation_controls;
 
-        // === Automate Controls
-        QVBoxLayout* automate_controls;
-        QHBoxLayout* state_controls;
-        QHBoxLayout* transition_controls;
+		// === Automate Controls
+		QVBoxLayout* automate_controls;
+		QHBoxLayout* state_controls;
+		QHBoxLayout* transition_controls;
 
 		// === Window Controls
 		QPushButton* quit_bt;
@@ -75,10 +76,10 @@ class SimulatorInterface : public QWidget {
 		QPushButton* sim_reset_bt;				// Reset la simulation
 
 		// Constructor Setters
-        void setGridControls(QBoxLayout*);
-        void setAutomateControls(QBoxLayout*);
-        void setStateControls(QBoxLayout*);
-        void setTransitionControls(QBoxLayout*);
+		void setGridControls(QBoxLayout*);
+		void setAutomateControls(QBoxLayout*);
+		void setStateControls(QBoxLayout*);
+		void setTransitionControls(QBoxLayout*);
 		void setDimensionControls(QBoxLayout*);
 		void setSimulatorControls(QBoxLayout*);
 		void setInitialStateControls(QBoxLayout*);
@@ -87,13 +88,12 @@ class SimulatorInterface : public QWidget {
 		Simulator* simulator;
 		State** initial_states;
 		State** possible_state_list;
-		virtual void setSimulatorView(QBoxLayout*) = 0;
-		virtual void resetSimulatorView(QBoxLayout*) = 0;
+		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
+		virtual void drawGrid() = 0;
 
 	public:
 		SimulatorInterface(short unsigned int automate_dimension = 0);
-		void drawGrid();
 
 	private slots:
 		// Window Slots

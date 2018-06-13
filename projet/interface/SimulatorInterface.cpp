@@ -1,5 +1,6 @@
 #include "SimulatorInterface.h"
 #include "HomeView.h"
+#include <unistd.h>
 
 
 /*
@@ -16,20 +17,20 @@ void SimulatorInterface::setGridControls(QBoxLayout* parent) {
 }
 
 void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
-    automate_controls = new QVBoxLayout;
-    parent->addLayout(automate_controls);
-    setTransitionControls(automate_controls);
-    setStateControls(automate_controls);
+	automate_controls = new QVBoxLayout;
+	parent->addLayout(automate_controls);
+	setTransitionControls(automate_controls);
+	setStateControls(automate_controls);
 }
 
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
-    state_controls = new QHBoxLayout();
-    parent->addLayout(state_controls);
+	state_controls = new QHBoxLayout();
+	parent->addLayout(state_controls);
 }
 
 void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
-    transition_controls = new QHBoxLayout();
-    parent->addLayout(transition_controls);
+	transition_controls = new QHBoxLayout();
+	parent->addLayout(transition_controls);
 }
 
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
@@ -141,6 +142,7 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 	grid_size = 400;
 	simulator = nullptr;
 	changeCellEnabled = true;
+	sim_is_running = false;
 
 	// === Main Layout
 	// Init Main Layouts
@@ -171,145 +173,10 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 
 	// === Init Controls
 	setGridControls(controls_layout);
-    setAutomateControls(controls_layout);
+	setAutomateControls(controls_layout);
 	setSimulatorControls(controls_layout);
 
-
-  // Specifique à 1D
-/*
-	num=new QSpinBox(this);
-	num->setRange(0,255);
-	num->setValue(0);
-	numl=new QLabel("Numéro");
-	numc=new QHBoxLayout;
-	numc->addWidget(numl);
-	numc->addWidget(num);
-	numc->setAlignment(Qt::AlignBottom);
-
-	numeroc=new QHBoxLayout;
-	numeroc->addLayout(numc);
-
-	zeroOneValidator=new QIntValidator(this);
-	zeroOneValidator->setRange(0,1); // valeurs autorisées : 0 ou 1
-
-	for (unsigned int i=0; i<8; i++){
-		numeroBit[i]=new QLineEdit(this);
-		numeroBit[i]->setFixedWidth(20);
-		numeroBit[i]->setMaxLength(1);
-		numeroBit[i]->setText("0");
-		numeroBit[i]->setValidator(zeroOneValidator);	// Pour rentrer seulement 0 ou 1
-		numeroBitl[i]=new QLabel;
-		bitc[i]=new QVBoxLayout;
-		bitc[i]->addWidget(numeroBitl[i]);
-		bitc[i]->addWidget(numeroBit[i]);
-		numeroc->addLayout(bitc[i]);
-	}
-
-	numeroBitl[0]->setText("111");
-	numeroBitl[1]->setText("110");
-	numeroBitl[2]->setText("101");
-	numeroBitl[3]->setText("100");
-	numeroBitl[4]->setText("011");
-	numeroBitl[5]->setText("010");
-	numeroBitl[6]->setText("001");
-	numeroBitl[7]->setText("000");
-	//setLayout(numeroc);
-
-	couche=new QVBoxLayout;
-	couche->addLayout(main_layout);
-	couche->addLayout(numeroc);
-	depart=new QTableWidget(1, SimulatorInterface::dimension, this);
-	couche->addWidget(depart);
-	setLayout(couche);
-
-	depart->setFixedSize(SimulatorInterface::taille+SimulatorInterface::dimension/3, SimulatorInterface::taille/SimulatorInterface::dimension);
-	depart->horizontalHeader()->setVisible(false);
-	depart->verticalHeader()->setVisible(false);
-	depart->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	depart->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-	for (unsigned int i=0; i<SimulatorInterface::dimension; i++){
-		depart->setColumnWidth(i,SimulatorInterface::taille/SimulatorInterface::dimension);
-		depart->setItem(0, i, new QTableWidgetItem("0"));
-	}
-
-	//connect(num, SIGNAL(valueChanged(int)), this, SLOT(synchronizeNumToNumBit(int))); // dès qu'une valeur est
-																// modifiée, on fait appel à la fonction
-
-	//for (unsigned int i=0; i<8; i++)
-	//	connect(numeroBit[i], SIGNAL(textChanged(QString)), this, SLOT(synchronizeNumBitToNum(QString)));
-*/
-
-
-/*
-	//Layout stop reset
-	pause=new QVBoxLayout;
-	stop=new QPushButton;
-	stop->setText("stop");
-	reset=new QPushButton;
-	reset->setText("Reset");
-	pause->addWidget(stop);
-	pause->addWidget(reset);
-	couche->addLayout(pause);
-
-
-
-	etats=new QTableWidget;
-	drawGrid();
-	setLayout(couche);
-
-
-	//connect(simulation, SIGNAL(clicked()), this, SLOT(faireSimulation()));
-	connect(stop, SIGNAL(clicked()), this, SLOT(pushstop()));
-
-	*/
 }
-
-
-/*void AutoCell::faireSimulation(){
-	Etat e(dimension);
-	for (unsigned int i=0; i<dimension; i++)
-		if (depart->item(0, i)->text()!="0")
-			e.setCellule(i, true);
-	const Automate& A=AutomateManager::getInstance().getAutomate(num->value());//getAutomateManager //(au lieu de getInstance)
-	Simulateur S(A,e);
-	for (unsigned int i=0; i<dimension; i++){
-		S.Next();
-		const Etat& d=S.dernier();
-		for (unsigned int j=0; j<dimension; j++){
-			if (d.getCellule(j)){
-				etats->item(i,j)->setBackgroundColor("black");
-			}else{
-				etats->item(i,j)->setBackgroundColor("white");
-			}
-		}
-	}
-}*/
-
-void SimulatorInterface::drawGrid(){
-	/*
-	delete etats;
-	etats=new QTableWidget(SimulatorInterface::dimension, SimulatorInterface::dimension);
-	etats->setFixedSize(SimulatorInterface::taille+SimulatorInterface::dimension/3, SimulatorInterface::taille+SimulatorInterface::dimension/3);
-	etats->horizontalHeader()->setVisible(false);
-	etats->verticalHeader()->setVisible(false);
-	etats->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	etats->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	//non éditable
-	etats->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	for (unsigned int i=0; i<dimension; i++){
-		etats->setColumnWidth(i, SimulatorInterface::taille/SimulatorInterface::dimension);
-		etats->setRowHeight(i, SimulatorInterface::taille/SimulatorInterface::dimension);
-		for (unsigned int j=0; j<dimension; j++){
-			etats->setItem(j, i, new QTableWidgetItem(""));
-		}
-	}
-
-	QObject::connect(etats, SIGNAL(cellClicked(int,int)), this, SLOT(clickcell(int, int)));
-	couche->addWidget(etats);
-	*/
-}
-
 
 /*
 |--------------------------------------------------------------------------
@@ -344,7 +211,14 @@ void SimulatorInterface::start_simulation() {
 	grid_dim_reset_bt->setEnabled(false);
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
+
+	// Run simulation until it stage
+	sim_is_running = true;
+	while(sim_is_running && simulator->mutate())
+		usleep(60 * 1000);
+	sim_is_running = false;
 }
+
 void SimulatorInterface::step_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
@@ -354,11 +228,17 @@ void SimulatorInterface::step_simulation() {
 	grid_dim_reset_bt->setEnabled(false);
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
+
+	// Step simulation
+	sim_is_running = true;
+	simulator->mutate();
+	sim_is_running = false;
 }
 void SimulatorInterface::stop_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
 	speed_selector->setEnabled(true);
+	sim_is_running = false;
 }
 void SimulatorInterface::reset_simulation() {
 	sim_start_bt->setEnabled(true);
@@ -377,48 +257,3 @@ void SimulatorInterface::set_initial_state() {
 
 }
 
-
-/*
-void SimulatorInterface::clickcell(int i, int j){
-	if (etats->item(i,j)->backgroundColor()== Qt::black)
-		etats->item(i,j)->setBackgroundColor(Qt::white);
-	else
-		etats->item(i,j)->setBackgroundColor(Qt::black);
-}
-*/
-
-
-/*
-void SimulatorInterface::cellActivation(const QModelIndex& index){
-	if (depart->item(0, index.column())->text()==""){ // cellule désactivée
-		depart->item(0,index.column())->setText("_");
-		depart->item(0,index.column())->setBackgroundColor("black");
-		depart->item(0,index.column())->setTextColor("black");
-	}
-	else{ // activée
-		depart->item(0,index.column())->setText("");
-		depart->item(0,index.column())->setBackgroundColor("white");
-		depart->item(0,index.column())->setTextColor("white");
-	}
-}
-
-/*void AutoCell::synchronizeNumToNumBit(int n){
-	for (unsigned int i=0; i<8; i++)
-		if (numeroBit[i]->text()=="")
-			return;
-	std::string numbit=NumToNumBit(n);
-	for (unsigned int i=0; i<8; i++){
-		numeroBit[i]->setText(QString(numbit[i]));
-	}
-}
-
-
-void AutoCell::synchronizeNumBitToNum(const QString& s){
-	if (s=="")
-		return;
-	std::string str;
-	for (unsigned int i=0; i<8; i++)
-		str+=numeroBit[i]->text().toStdString();
-	int n=NumBitToNum(str);
-	num->setValue(n);
-}*/
