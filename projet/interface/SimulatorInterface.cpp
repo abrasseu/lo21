@@ -15,6 +15,23 @@ void SimulatorInterface::setGridControls(QBoxLayout* parent) {
 	setInitialStateControls(grid_controls);
 }
 
+void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
+    automate_controls = new QVBoxLayout;
+    parent->addLayout(automate_controls);
+    setTransitionControls(automate_controls);
+    setStateControls(automate_controls);
+}
+
+void SimulatorInterface::setStateControls(QBoxLayout* parent) {
+    state_controls = new QHBoxLayout();
+    parent->addLayout(state_controls);
+}
+
+void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
+    transition_controls = new QHBoxLayout();
+    parent->addLayout(transition_controls);
+}
+
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
 	grid_dim_controls = new QVBoxLayout();
 	parent->addLayout(grid_dim_controls);
@@ -153,6 +170,7 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 
 	// === Init Controls
 	setGridControls(controls_layout);
+    setAutomateControls(controls_layout);
 	setSimulatorControls(controls_layout);
 
 
