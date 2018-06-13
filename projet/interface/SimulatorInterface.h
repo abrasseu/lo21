@@ -15,6 +15,7 @@
 #include <QPushButton>
 #include <QComboBox>
 
+#include "transitioninterface.h"
 #include "../autocell/Simulator.h"
 #include "../autocell/State.h"
 
@@ -40,7 +41,10 @@ class SimulatorInterface : public QWidget {
 		// === Automate Controls
 		QVBoxLayout* automate_controls;
 		QHBoxLayout* state_controls;
-		QHBoxLayout* transition_controls;
+        QHBoxLayout* transition_controls;
+
+        QPushButton* set_transition_rules;
+        QPushButton* set_transition_game_life;
 
 		// === Window Controls
 		QPushButton* quit_bt;
@@ -104,6 +108,9 @@ class SimulatorInterface : public QWidget {
 		void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
+
+        // Transition Slots
+        void choose_transition_rules();
 
 		// Grid Slots
 		void set_initial_state();

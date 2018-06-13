@@ -31,6 +31,12 @@ void SimulatorInterface::setStateControls(QBoxLayout* parent) {
 void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
+    set_transition_rules = new QPushButton("Choix des transitions");
+    set_transition_game_life = new QPushButton("Jeu de la vie");
+    transition_controls->addWidget(set_transition_rules);
+    transition_controls->addWidget(set_transition_game_life);
+
+    QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
 
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
@@ -259,3 +265,11 @@ void SimulatorInterface::set_initial_state() {
 
 }
 
+
+// === Transition Slots
+
+void SimulatorInterface::choose_transition_rules(){
+    //this->setEnabled(false);
+    TransitionInterface* windowtransition = new TransitionInterface();
+    windowtransition->show();
+}
