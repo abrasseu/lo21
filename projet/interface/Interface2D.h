@@ -8,7 +8,6 @@ class Interface2D : public SimulatorInterface
 {
 	Q_OBJECT
 	protected:
-		const short unsigned int automate_dimension = 2;
 		QTableWidget* grid_view = nullptr;
 	public:
 

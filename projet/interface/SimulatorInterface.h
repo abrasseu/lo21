@@ -24,11 +24,6 @@ class SimulatorInterface : public QWidget {
 	Q_OBJECT		// Macro permettant d'avoir des slots (qui sont uniquement sur Qt)
 
 	protected:
-		unsigned int grid_size;			// Taille max de la grille
-		unsigned int grid_dimension;
-		bool changeCellEnabled;
-		bool sim_is_running;
-
 		// === Main Layouts
 		QHBoxLayout* main_layout;
 		QVBoxLayout* controls_layout;
@@ -90,23 +85,32 @@ class SimulatorInterface : public QWidget {
 		void setSimulatorControls(QBoxLayout*);
 		void setInitialStateControls(QBoxLayout*);
 
-		// Methods & Attributes that must be overidded in children
+		// Simulation
 		Simulator* simulator;
+		void iterate_simulation();
+		bool sim_is_running;
+
+		// Grid
+		unsigned int grid_size;			// Taille max de la grille
+		unsigned int grid_dimension;
+		bool changeCellEnabled;
+
+		// States
 		State** initial_states;
 		State** possible_state_list;
 		unsigned int possible_state_number;
 		unsigned int getPossibleStateNumber() const { return possible_state_number; }
 
-//		Simulator* getSimulator() const { return simulator; }
+		// Methods & Attributes that must be overidded in children
 		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
 		virtual void redrawGrid(QBoxLayout*) = 0;
 		virtual void changeGridCells() = 0;
+
 	public:
-		SimulatorInterface(short unsigned int automate_dimension = 0);
+		SimulatorInterface(const short unsigned int automate_dimension = 0);
 
 	private slots:
-		// Window Slots
 		void home();
 
 		// Simulation Slots
@@ -114,7 +118,6 @@ class SimulatorInterface : public QWidget {
 		void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
-		void iterate_simulation();
 
 		// Transition Slots
 		void choose_transition_rules();
@@ -124,13 +127,6 @@ class SimulatorInterface : public QWidget {
 		void set_initial_state();
 		void grid_set_dim();
 		void grid_reset_dim();
-
-//		void synchronizeNumToNumBit(int i);
-//		void synchronizeNumBitToNum(const QString& s);
-		/*
-		void cellActivation(const QModelIndex& index);
-		//void faireSimulation();
-		*/
 };
 
 #endif // SIMULATOR_H

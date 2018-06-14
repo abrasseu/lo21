@@ -142,53 +142,45 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 /**
  * @brief Constructeur de la classe abstraite SimulatorInterface
  * @details Instancie et configure tous les éléments de l'interface
- * @param parent
+ * @param La dimension du Simulateur
  */
-SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): QWidget() {
+SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimension): QWidget() {
 	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
 	grid_size = 400;
-//	simulator = nullptr;
 	changeCellEnabled = true;
 	sim_is_running = false;
 
-	// === Main Layout
+	// =========== Main Layout ===========
 	// Init Main Layouts
 	main_layout = new QHBoxLayout();
 	controls_layout = new QVBoxLayout();
 	view_layout = new QVBoxLayout();
-
 	// Configure Main Layouts
 	setLayout(main_layout);
 	main_layout->addLayout(controls_layout);
 	main_layout->addLayout(view_layout);
 
-
-	// === Window Controls
+	// =========== Window Controls ===========
 	window_controls = new QHBoxLayout();
 	controls_layout->addLayout(window_controls);
-
 	// Add items
 	quit_bt = new QPushButton("Quitter");
 	home_bt = new QPushButton("Retour au menu principal");
 	window_controls->addWidget(quit_bt);
 	window_controls->addWidget(home_bt);
-
-	// Simulation Timer
-	sim_timer = new QTimer(this);
-	connect(sim_timer, SIGNAL(timeout()), this, SLOT(iterate_simulation()));
-
-
-	// Configure Slots
+	// Connect slots
 	QObject::connect(quit_bt, SIGNAL(clicked()), this, SLOT(close()));
 	QObject::connect(home_bt, SIGNAL(clicked()), this, SLOT(home()));
 
-
-	// === Init Controls
+	// =========== Init Controls ===========
 	setGridControls(controls_layout);
 	setAutomateControls(controls_layout);
 	setSimulatorControls(controls_layout);
 
+	// Simulation Timer
+	sim_timer = new QTimer(this);
+	connect(sim_timer, SIGNAL(timeout()), this, SLOT(iterate_simulation()));
 }
 
 

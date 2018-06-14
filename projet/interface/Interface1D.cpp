@@ -12,7 +12,7 @@ void setRules(State** states) {
 	Rule* rule2 = new Rule(states[1], forRule2);
 	states[0]->addANewRule(rule2);
 }
-Interface1D::Interface1D(): SimulatorInterface(automate_dimension), buffer_size(10) {
+Interface1D::Interface1D(): SimulatorInterface(1), buffer_size(10) {
 	// Set state list
 	setGridBufferLength(grid_dim_controls);
 	possible_state_list = new State*[2];

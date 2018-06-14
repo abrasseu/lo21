@@ -19,11 +19,9 @@ class Interface1D : public SimulatorInterface
 		QPushButton* grid_buffer_length_valid;
 		QPushButton* grid_buffer_length_reset;
 
-		bool changeCellEnabled = true;
-		const short unsigned int automate_dimension = 1;
-		QTableWidget* initial_view = nullptr;
-
-		QTableWidget* grid_view = nullptr;
+		bool changeCellEnabled;
+		QTableWidget* initial_view;
+		QTableWidget* grid_view;
 
 		unsigned int buffer_size;
 

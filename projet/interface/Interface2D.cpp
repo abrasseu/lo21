@@ -19,8 +19,8 @@ void setRules2(State** states) {
 	states[1]->addANewRule(rule3);
 }
 
-// TODO : automate_dimension
-Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
+
+Interface2D::Interface2D() : SimulatorInterface(2) {
 	// Set state list
 	possible_state_list = new State*[3];
 	possible_state_number = 3;
