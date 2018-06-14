@@ -67,7 +67,7 @@ void TransitionInterface::add_new_transition_rule(){
         for (unsigned int i = 0; i < tr->getNbStates(); i++)
             sum += tr->neighbours[i]->second->value();
         if (sum > tr->getNeighboursNb()){
-            QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins totaux possibles");
+            QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins total possibles");
             return;
         }
         else{
@@ -88,7 +88,6 @@ void TransitionInterface::add_new_transition_rule(){
         transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
         transition_layout->addLayout(transition_vector->last());
     }
-
 }
 
 
@@ -109,7 +108,7 @@ bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
 
 
 Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
-    : QHBoxLayout(), neighbours_nb(state_list_number), nb_states(state_list_number), state_list(state_list) {
+    : QHBoxLayout(), neighbours_nb(neighbour_number), nb_states(state_list_number), state_list(state_list) {
     // "Simulateur" à 2 cases pour pouvoir utiliser la fonction incrementState
 
     // Set Start State Layout

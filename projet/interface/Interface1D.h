@@ -20,8 +20,8 @@ class Interface1D : public SimulatorInterface
 		QPushButton* grid_buffer_length_reset;
 
 		bool changeCellEnabled;
-		QTableWidget* initial_view;
-		QTableWidget* grid_view;
+        QTableWidget* initial_view = nullptr;
+        QTableWidget* grid_view = nullptr;
 
 		unsigned int buffer_size;
 
