@@ -87,7 +87,6 @@ class SimulatorInterface : public QWidget {
 
 		// Simulation
 		Simulator* simulator;
-		void iterate_simulation();
 		bool sim_is_running;
 
 		// Grid
@@ -118,6 +117,7 @@ class SimulatorInterface : public QWidget {
 		void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
+		void iterate_simulation();
 
 		// Transition Slots
 		void choose_transition_rules();
