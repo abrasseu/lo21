@@ -1,6 +1,6 @@
 #include "SimulatorInterface.h"
 #include "HomeView.h"
-#include <unistd.h>
+//#include <unistd.h>
 
 #include <QMessageBox>
 
@@ -34,9 +34,9 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
-	set_transition_game_life = new QPushButton("Jeu de la vie");
-	transition_controls->addWidget(set_transition_rules);
-	transition_controls->addWidget(set_transition_game_life);
+    transition_controls->addWidget(set_transition_rules);
+//	set_transition_game_life = new QPushButton("Jeu de la vie");
+//	transition_controls->addWidget(set_transition_game_life);
 
 	QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
@@ -87,7 +87,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-	connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
+    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
@@ -304,8 +304,8 @@ void SimulatorInterface::grid_reset_dim() {
 
 void SimulatorInterface::choose_transition_rules(){
 	//this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
-//	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
-//	windowtransition->show();
+    TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
+    windowtransition->show();
 
 	//QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
 }

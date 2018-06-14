@@ -4,6 +4,7 @@
 #include "autocell/State.h"
 
 #include <QMessageBox>
+#include <QScrollArea>
 
 class Transition : public QHBoxLayout {
     protected:
@@ -15,6 +16,7 @@ class Transition : public QHBoxLayout {
         unsigned int neighbours_nb;
         unsigned int nb_states;
         State* final_state;
+        State** state_list;
 
         // Layout
 
@@ -24,19 +26,24 @@ class Transition : public QHBoxLayout {
 
         // start_layout widget
         QLabel* start_label;
-        QTableWidget* start_cell;
+        QHBoxLayout* start_layout_combo;
+        QComboBox* start_cell;
+        QTableWidget* start_color;
 
         // neighbours_layout widget
         QLabel** neighbours_label = nullptr;
 
         // final_layout widget
         QLabel* final_label;
-        QTableWidget* final_cell;
+        QHBoxLayout* final_layout_combo;
+        QComboBox* final_cell;
+        QTableWidget* final_color;
 
     public:
         friend class TransitionInterface;
 
         // Getters
+        QPair<State*, QSpinBox*>** getNeighbour() const { return neighbours; }
         unsigned int getNeighboursNb() const { return neighbours_nb; }
         unsigned int getNbStates() const { return nb_states; }
 
@@ -52,8 +59,11 @@ class Transition : public QHBoxLayout {
 
     protected slots:
 
-        // start_state cell slots
-        //void rotateCellState(QTableWidgetItem*);
+        void preventSelection(QTableWidgetItem*);
+
+        // change color on change combobox
+        void changedStartState(int);
+        void changedFinalState(int);
 };
 
 
@@ -84,6 +94,7 @@ class TransitionInterface : public QWidget {
     protected slots:
         void validate_rules();
         void add_new_transition_rule();
+        bool add_new_transition_rule_valid(Transition*);
 };
 
 

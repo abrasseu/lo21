@@ -16,7 +16,7 @@
 #include <QComboBox>
 #include <QTimer>
 
-#include "transitioninterface.h"
+#include "TransitionInterface.h"
 #include "../autocell/Simulator.h"
 #include "../autocell/State.h"
 

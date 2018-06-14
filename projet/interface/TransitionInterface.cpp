@@ -4,10 +4,21 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     : QWidget(), state_list(state_list), state_list_number(state_list_number), neighbour_number(neighbour_number) {
 
     setWindowTitle("Transitions");
+    QVBoxLayout* princ = new QVBoxLayout;
+    setLayout(princ);
 
     // Set Main Layout
+    QScrollArea *scroll = new QScrollArea;
+    princ->addWidget(scroll);
+//    QWidget *central = new QWidget;
+//    scroll->setWidget(central);
+//    scroll->setWidgetResizable(true);
+    scroll->setFixedSize(500,500);
+    scroll->horizontalScrollBar();
     main_layout = new QVBoxLayout;
-    setLayout(main_layout);
+    scroll->setLayout(main_layout);
+//    central->show();
+//    setLayout(main_layout);
 
     title = new QLabel("Choisissez les règles de transition de l'automate");
     main_layout->addWidget(title);
@@ -42,36 +53,65 @@ void TransitionInterface::validate_rules(){
     this->close();
 }
 
+//void TransitionInterface::add_new_transition_rule(){
+//    transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
+//    transition_layout->addLayout(transition_vector->last());
+//}
+
+
 void TransitionInterface::add_new_transition_rule(){
-    transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-    transition_layout->addLayout(transition_vector->last());
-}
-
-
-/*void TransitionInterface::add_new_transition_rule(){  // a tester, non fonctionnel !!
-    Transition* tr = transition_vector->last();
-    if (tr != 0){
+    // On test si le nombre de voisins dans les n'est pas supérieur au nombre de voisin maximum
+    if (!transition_vector->empty()){
+        Transition* tr = transition_vector->last();
         unsigned int sum = 0;
         for (unsigned int i = 0; i < tr->getNbStates(); i++)
             sum += tr->neighbours[i]->second->value();
-        if (sum > tr->getNeighboursNb())
+        if (sum > tr->getNeighboursNb()){
             QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins totaux possibles");
+            return;
+        }
         else{
-            transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-            transition_layout->addLayout(transition_vector->last());
+            Transition* add_transi = new Transition(state_list, state_list_number, neighbour_number);
+            if (add_new_transition_rule_valid(add_transi)){
+                tr->start_cell->setEnabled(false);
+                tr->final_cell->setEnabled(false);
+                for (unsigned int i = 0; i < tr->getNbStates(); i++)
+                    tr->neighbours[i]->second->setEnabled(false);
+                transition_vector->push_back(add_transi);
+                transition_layout->addLayout(transition_vector->last());
+            }
+            else
+                QMessageBox::warning(this, "ERREUR", "Cette règle existe déjà");
         }
     }
     else{
         transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
         transition_layout->addLayout(transition_vector->last());
     }
-}*/
 
+}
+
+
+bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
+    for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
+        bool cont = true;
+        for (unsigned int i = 0; i < transi->nb_states; i++)
+            if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
+                cont = false;
+                break;
+            }
+        if ((*it)->start_cell == transi->start_cell && (*it)->final_cell == transi->final_cell && cont)
+            return false;
+    }
+    return true;
+}
 
 
 
 Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
-    : QHBoxLayout(), neighbours_nb(state_list_number), nb_states(state_list_number) {
+    : QHBoxLayout(), neighbours_nb(state_list_number), nb_states(state_list_number), state_list(state_list) {
+    // "Simulateur" à 2 cases pour pouvoir utiliser la fonction incrementState
+
     // Set Start State Layout
     start_layout = new QVBoxLayout;
     this->addLayout(start_layout);
@@ -88,20 +128,32 @@ Transition::Transition(State** state_list, unsigned int state_list_number, unsig
 void Transition::setStartState(QVBoxLayout* parent){
     start_label = new QLabel("Etat de départ");
     parent->addWidget(start_label);
-    start_cell = new QTableWidget(1, 1);
-    parent->addWidget(start_cell);
-    start_cell->setFixedSize(50, 50);
-    start_cell->horizontalHeader()->setVisible(false);
-    start_cell->verticalHeader()->setVisible(false);
-    start_cell->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    start_cell->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    start_cell->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    start_cell->setColumnWidth(0, 50);
-    start_cell->setRowHeight(0, 50);
-    start_cell->setItem(0, 0, new QTableWidgetItem(""));
+    start_layout_combo = new QHBoxLayout;
+    parent->addLayout(start_layout_combo);
+    start_cell = new QComboBox();
+    start_layout_combo->addWidget(start_cell);
+    for (unsigned int i =0; i < nb_states; i++){
+        start_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+    }
 
-    QObject::connect(start_cell, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(rotateCellState(QTableWidgetItem*)));
+    // Cell with color of state depending on combobox chosen
+    start_color = new QTableWidget(1, 1);
+    start_layout_combo->addWidget(start_color);
+    start_color->setFixedSize(10, 10);
+    start_color->horizontalHeader()->setVisible(false);
+    start_color->verticalHeader()->setVisible(false);
+    start_color->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    start_color->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    start_color->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    start_color->setItem(0, 0, new QTableWidgetItem(""));
+    QColor color;
+    color.setNamedColor(QString::fromStdString(state_list[0]->getColor()));
+    start_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
+
+    QObject::connect(start_color, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(preventSelection(QTableWidgetItem*)));
+    QObject::connect(start_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedStartState(int)));
 }
 
 void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent){
@@ -125,20 +177,33 @@ void Transition::setNeighboursNumber(State** state_list, unsigned int state_list
 void Transition::setFinalState(QVBoxLayout* parent){
     final_label = new QLabel("Etat d'arrivée");
     parent->addWidget(final_label);
-    final_cell = new QTableWidget(1, 1);
-    parent->addWidget(final_cell);
-    final_cell->setFixedSize(50, 50);
-    final_cell->horizontalHeader()->setVisible(false);
-    final_cell->verticalHeader()->setVisible(false);
-    final_cell->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    final_cell->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    final_cell->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    final_cell->setColumnWidth(0, 50);
-    final_cell->setRowHeight(0, 50);
-    final_cell->setItem(0, 0, new QTableWidgetItem(""));
+    final_layout_combo = new QHBoxLayout;
+    parent->addLayout(final_layout_combo);
+    // ComboBox
+    final_cell = new QComboBox();
+    final_layout_combo->addWidget(final_cell);
+    for (unsigned int i =0; i < nb_states; i++){
+        final_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+    }
 
-    QObject::connect(final_cell, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(rotateCellState(QTableWidgetItem*)));
+    // Cell with color of state depending on combobox chosen
+    final_color = new QTableWidget(1, 1);
+    final_layout_combo->addWidget(final_color);
+    final_color->setFixedSize(10, 10);
+    final_color->horizontalHeader()->setVisible(false);
+    final_color->verticalHeader()->setVisible(false);
+    final_color->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    final_color->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    final_color->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    final_color->setItem(0, 0, new QTableWidgetItem(""));
+    QColor color;
+    color.setNamedColor(QString::fromStdString(state_list[0]->getColor()));
+    final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
+
+    QObject::connect(final_color, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(preventSelection(QTableWidgetItem*)));
+    QObject::connect(final_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedFinalState(int)));
 }
 
 /*
@@ -146,3 +211,18 @@ void Transition::setFinalState(QVBoxLayout* parent){
 |	Slots
 |--------------------------------------------------------------------------
 */
+void Transition::preventSelection(QTableWidgetItem* cell){
+    cell->setSelected(false);
+}
+
+void Transition::changedStartState(int nb){
+    QColor color;
+    color.setNamedColor(QString::fromStdString(state_list[nb]->getColor()));
+    start_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
+}
+
+void Transition::changedFinalState(int nb){
+    QColor color;
+    color.setNamedColor(QString::fromStdString(state_list[nb]->getColor()));
+    final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
+}

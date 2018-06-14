@@ -28,6 +28,10 @@ Interface2D::Interface2D() : SimulatorInterface(2) {
 	possible_state_list[1] = new State("Vivant", "#000");
 	possible_state_list[2] = new State("Zombi", "#ff0000");
 
+    // Ajout du bouton du choix des paramètres du jeu de la vie
+    set_transition_game_life = new QPushButton("Jeu de la vie");
+    transition_controls->addWidget(set_transition_game_life);
+
 	setRules2(possible_state_list);
 	grid_size = 650;
 
