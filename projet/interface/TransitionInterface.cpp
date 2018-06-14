@@ -60,28 +60,40 @@ void TransitionInterface::validate_rules(){
 
 
 void TransitionInterface::add_new_transition_rule(){
-    // On test si le nombre de voisins dans les n'est pas supérieur au nombre de voisin maximum
+    // On test si le nombre de voisins dans la règle n'est pas supérieur au nombre de voisin maximum
     if (!transition_vector->empty()){
-        Transition* tr = transition_vector->last();
-        unsigned int sum = 0;
-        for (unsigned int i = 0; i < tr->getNbStates(); i++)
-            sum += tr->neighbours[i]->second->value();
-        if (sum > tr->getNeighboursNb()){
-            QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins total possibles");
-            return;
-        }
-        else{
-            Transition* add_transi = new Transition(state_list, state_list_number, neighbour_number);
-            if (add_new_transition_rule_valid(add_transi)){
-                tr->start_cell->setEnabled(false);
-                tr->final_cell->setEnabled(false);
-                for (unsigned int i = 0; i < tr->getNbStates(); i++)
-                    tr->neighbours[i]->second->setEnabled(false);
-                transition_vector->push_back(add_transi);
-                transition_layout->addLayout(transition_vector->last());
+        // Si il y a déjà au moins 1 règle
+        if (transition_vector->size() != 1){
+            Transition* tr = transition_vector->last();
+            unsigned int sum = 0;
+            for (unsigned int i = 0; i < tr->getNbStates(); i++)
+                sum += tr->neighbours[i]->second->value();
+            if (sum > tr->getNeighboursNb()){
+                QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins total possibles");
+                return;
             }
-            else
-                QMessageBox::warning(this, "ERREUR", "Cette règle existe déjà");
+            else{
+                Transition* add_transi = new Transition(state_list, state_list_number, neighbour_number);
+                if (add_new_transition_rule_valid(tr)){
+                    tr->start_cell->setEnabled(false);
+                    tr->final_cell->setEnabled(false);
+                    for (unsigned int i = 0; i < tr->getNbStates(); i++)
+                        tr->neighbours[i]->second->setEnabled(false);
+                    transition_vector->push_back(add_transi);
+                    transition_layout->addLayout(transition_vector->last());
+                }
+                else
+                    QMessageBox::warning(this, "ERREUR", "Cette règle existe déjà");
+            }
+        }
+        // Si il y a pas encore de règle, il faut en mettre une première
+        else{
+            transition_vector->last()->start_cell->setEnabled(false);
+            transition_vector->last()->final_cell->setEnabled(false);
+            for (unsigned int i = 0; i < transition_vector->last()->getNbStates(); i++)
+                transition_vector->last()->neighbours[i]->second->setEnabled(false);
+            transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
+            transition_layout->addLayout(transition_vector->last());
         }
     }
     else{
@@ -93,13 +105,19 @@ void TransitionInterface::add_new_transition_rule(){
 
 bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
     for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
-        bool cont = true;
-        for (unsigned int i = 0; i < transi->nb_states; i++)
-            if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
-                cont = false;
-                break;
+        bool spinboxequals = true;
+        if ((*it) != transition_vector->last()){
+            for (unsigned int i = 0; i < transi->nb_states; i++){
+                if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
+                    spinboxequals = false;
+                    break;
+                }
             }
-        if ((*it)->start_cell == transi->start_cell && (*it)->final_cell == transi->final_cell && cont)
+        }
+        else
+            spinboxequals = false;
+        if ((*it)->start_cell->currentData() == transi->start_cell->currentData()
+                && (*it)->final_cell->currentData() == transi->final_cell->currentData() && spinboxequals)
             return false;
     }
     return true;
