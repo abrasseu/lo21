@@ -1,6 +1,8 @@
 #include "SimulatorInterface.h"
 #include "HomeView.h"
-#include <unistd.h>
+//#include <unistd.h>
+
+#include <QMessageBox>
 
 
 /*
@@ -269,7 +271,15 @@ void SimulatorInterface::grid_reset_dim() {
 // === Transition Slots
 
 void SimulatorInterface::choose_transition_rules(){
-	//this->setEnabled(false);
-//    TransitionInterface* windowtransition = new TransitionInterface();
-//    windowtransition->show();
+    //this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
+    TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
+    windowtransition->show();
+
+    //QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
 }
+
+/*
+void SimulatorInterface::choose_transition_rules_finished(){
+    QMessageBox::warning(this, "Attention", "ao");
+    this->setEnabled(true);
+}*/

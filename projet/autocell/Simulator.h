@@ -29,8 +29,7 @@ class Simulator {
 
 		// Getters
 		uint getDimension() const { return _dimension; }
-		State** getCellsState() const;
-		uint getNeighbourNbr() const { return pow(3, getDimension()) - 1; }
+        State** getCellsState() const;
 		virtual State** getNeighboursState(State** states, uint position) = 0;
 		void generateCells();
 
@@ -57,6 +56,7 @@ class Simulator {
 		void generateDescAlternedCells();
 
 		// Getters
+        uint getNeighbourNbr() const { return pow(3, getDimension()) - 1; }
 		State** getInitStates() const { return _states; }
 		uint getStateNbr() const { return _stateNbr; }
 		uint getCellsSize() const { return _cellsSize; }

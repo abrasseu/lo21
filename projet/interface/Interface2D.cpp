@@ -22,10 +22,11 @@ void setRules2(State** states) {
 // TODO : automate_dimension
 Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 	// Set state list
-	possible_state_list = new State*[2];
-	possible_state_list[0] = new State("Mort",		"#ffffff");
-	possible_state_list[1] = new State("Vivant",	"#000000");
-//	possible_state_list[2] = new State("Zombi",		"#ff0000");
+	possible_state_list = new State*[3];
+    possible_state_number = 3;
+	possible_state_list[0] = new State("Mort", "#0000ff");
+	possible_state_list[1] = new State("Vivant", "#00ffff");
+	possible_state_list[2] = new State("Zombi", "#ff0000");
 
 	setRules2(possible_state_list);
 	grid_size = 650;
