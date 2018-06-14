@@ -1,6 +1,6 @@
 #include "SimulatorInterface.h"
 #include "HomeView.h"
-//#include <unistd.h>
+#include <unistd.h>
 
 #include <QMessageBox>
 
@@ -211,13 +211,10 @@ void SimulatorInterface::start_simulation() {
 
 	// Run simulation until it stage
 	sim_is_running = true;
-	while(sim_is_running && simulator->mutate()) {
-		changeGridCells();
-		usleep(60 * 1000);
-	}
-	sim_is_running = false;
+	while(sim_is_running && step_simulator())
+		usleep(600 * 1000 * speed_selector->value());
+	stop_simulation();
 }
-#include <iostream>
 void SimulatorInterface::step_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
@@ -230,12 +227,10 @@ void SimulatorInterface::step_simulation() {
 
 	// Step simulation
 	sim_is_running = true;
-	// TODO FIX
-	simulator->mutate();
-	sim_is_running = false;
-	changeGridCells();
+	usleep(600 * 1000);
+	step_simulator();
+	stop_simulation();
 }
-
 void SimulatorInterface::stop_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
@@ -271,15 +266,15 @@ void SimulatorInterface::grid_reset_dim() {
 // === Transition Slots
 
 void SimulatorInterface::choose_transition_rules(){
-    //this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
-    TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
-    windowtransition->show();
+	//this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
+//	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
+//	windowtransition->show();
 
-    //QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
+	//QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
 }
 
 /*
 void SimulatorInterface::choose_transition_rules_finished(){
-    QMessageBox::warning(this, "Attention", "ao");
-    this->setEnabled(true);
+	QMessageBox::warning(this, "Attention", "ao");
+	this->setEnabled(true);
 }*/

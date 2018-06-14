@@ -1,6 +1,11 @@
 #include "Interface2D.h"
 #include <string>
 
+bool Interface2D::step_simulator() {
+	bool has_mutated = simulator->mutate();
+	changeGridCells();
+	return has_mutated;
+}
 
 void setRules2(State** states) {
 	// Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
@@ -23,9 +28,9 @@ void setRules2(State** states) {
 Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 	// Set state list
 	possible_state_list = new State*[3];
-    possible_state_number = 3;
-	possible_state_list[0] = new State("Mort", "#0000ff");
-	possible_state_list[1] = new State("Vivant", "#00ffff");
+	possible_state_number = 3;
+	possible_state_list[0] = new State("Mort", "#fff");
+	possible_state_list[1] = new State("Vivant", "#000");
 	possible_state_list[2] = new State("Zombi", "#ff0000");
 
 	setRules2(possible_state_list);

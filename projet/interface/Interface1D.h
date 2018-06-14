@@ -36,6 +36,7 @@ class Interface1D : public SimulatorInterface
 		void redrawGrid(QBoxLayout*);
 		void drawGrid(QTableWidget*, uint, uint);
 		void changeGridCells();
+		bool step_simulator();
 
 	private slots:
 		void rotateCellState(QTableWidgetItem*);

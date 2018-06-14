@@ -1,7 +1,11 @@
 #include "Interface1D.h"
-#include "SimulatorInterface.h"
 
-// short unsigned int automate_dimension = 1;
+
+bool Interface1D::step_simulator() {
+	bool has_mutated = simulator->mutate();
+	changeGridCells();
+	return has_mutated;
+}
 
 void setRules(State** states) {
 	// Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
@@ -20,12 +24,12 @@ void setRules(State** states) {
 	states[1]->addANewRule(rule3);
 }
 Interface1D::Interface1D(): SimulatorInterface(automate_dimension), buffer_size(10) {
-    // Set state list
-    setGridBufferLength(grid_dim_controls);
-    possible_state_list = new State*[2];
-    possible_state_number = 2;
-    possible_state_list[0] = new State("Mort", "#000000");
-    possible_state_list[1] = new State("Vivant", "#ffffff");
+	// Set state list
+	setGridBufferLength(grid_dim_controls);
+	possible_state_list = new State*[2];
+	possible_state_number = 2;
+	possible_state_list[0] = new State("Mort", "#000000");
+	possible_state_list[1] = new State("Vivant", "#ffffff");
 
 	setRules(possible_state_list);
 

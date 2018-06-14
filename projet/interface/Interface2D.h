@@ -18,6 +18,7 @@ class Interface2D : public SimulatorInterface
 		void setInitialStates();
 		void redrawGrid(QBoxLayout*);
 		void changeGridCells();
+		bool step_simulator();
 
 	protected slots:
 		void rotateCellState(int, int);

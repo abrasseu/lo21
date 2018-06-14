@@ -92,13 +92,14 @@ class SimulatorInterface : public QWidget {
 		Simulator* simulator;
 		State** initial_states;
 		State** possible_state_list;
-        unsigned int possible_state_number;
-        unsigned int getPossibleStateNumber() const { return possible_state_number; }
+		unsigned int possible_state_number;
+		unsigned int getPossibleStateNumber() const { return possible_state_number; }
 		Simulator* getSimulator() const { return simulator; }
 		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
 		virtual void redrawGrid(QBoxLayout*) = 0;
 		virtual void changeGridCells() = 0;
+		virtual bool step_simulator() = 0;
 	public:
 		SimulatorInterface(short unsigned int automate_dimension = 0);
 
@@ -112,9 +113,9 @@ class SimulatorInterface : public QWidget {
 		void stop_simulation();
 		void reset_simulation();
 
-        // Transition Slots
-        void choose_transition_rules();
-        //void choose_transition_rules_finished();
+		// Transition Slots
+		void choose_transition_rules();
+		//void choose_transition_rules_finished();
 
 		// Grid Slots
 		void set_initial_state();
