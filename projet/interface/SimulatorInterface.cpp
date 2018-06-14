@@ -174,6 +174,11 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 	window_controls->addWidget(quit_bt);
 	window_controls->addWidget(home_bt);
 
+	// Simulation Timer
+	sim_timer = new QTimer(this);
+	connect(sim_timer, SIGNAL(timeout()), this, SLOT(iterate_simulation()));
+
+
 	// Configure Slots
 	QObject::connect(quit_bt, SIGNAL(clicked()), this, SLOT(close()));
 	QObject::connect(home_bt, SIGNAL(clicked()), this, SLOT(home()));
@@ -186,69 +191,108 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 
 }
 
+
 /*
 |--------------------------------------------------------------------------
 |	Slots
 |--------------------------------------------------------------------------
 */
 
+/**
+ * @brief Ferme la fenêtre et affiche la page d'accueil
+ */
 void SimulatorInterface::home() {
 	close();
 	HomeView* home = new HomeView();
 	home->show();
 }
 
-// === Simulation Slots
+
+// ==================== Simulation Slots ====================
+
+/**
+ * @brief Lance la simulation de manière continue
+ */
 void SimulatorInterface::start_simulation() {
+	// Disable start/step/reset/speed changes
 	sim_start_bt->setEnabled(false);
 	sim_step_bt->setEnabled(false);
+	sim_reset_bt->setEnabled(false);
 	speed_selector->setEnabled(false);
+	// Disable dimension changes
 	grid_dim_spinbox->setEnabled(false);
 	grid_dim_set_bt->setEnabled(false);
 	grid_dim_reset_bt->setEnabled(false);
+	// Disable initial state changes
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
 	// Run simulation until it stage
 	sim_is_running = true;
-	while(sim_is_running && step_simulator())
-		usleep(600 * 1000 * speed_selector->value());
-	stop_simulation();
+	if (speed_selector->value() > 0)
+		sim_timer->start(1000 * speed_selector->value());
+	else
+		sim_timer->start(10);
 }
+
+/**
+ * @brief Avance la simulation d'un itération
+ */
 void SimulatorInterface::step_simulation() {
-	sim_start_bt->setEnabled(true);
-	sim_step_bt->setEnabled(true);
-	speed_selector->setEnabled(true);
+	// Disable dimension changes
 	grid_dim_spinbox->setEnabled(false);
 	grid_dim_set_bt->setEnabled(false);
 	grid_dim_reset_bt->setEnabled(false);
+	// Disable initial state changes
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
 	// Step simulation
-	sim_is_running = true;
-	usleep(600 * 1000);
-	step_simulator();
-	stop_simulation();
+	iterate_simulation();
 }
+
+/**
+ * @brief Arrête la simulation
+ */
 void SimulatorInterface::stop_simulation() {
-	sim_start_bt->setEnabled(true);
-	sim_step_bt->setEnabled(true);
-	speed_selector->setEnabled(true);
+	// Stop simulation
 	sim_is_running = false;
-}
-void SimulatorInterface::reset_simulation() {
+	sim_timer->stop();
+
+	// Enable start/step/reset/speed changes
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
+	sim_reset_bt->setEnabled(true);
+	speed_selector->setEnabled(true);
+}
+
+/**
+ * @brief Remet le simulateur dans son état initial
+ */
+void SimulatorInterface::reset_simulation() {
+	// Enable grid dimension changes
 	grid_dim_spinbox->setEnabled(true);
 	grid_dim_set_bt->setEnabled(true);
 	grid_dim_reset_bt->setEnabled(true);
-	speed_selector->setEnabled(true);
+	// Enable initial state selection
 	initial_state_selector->setEnabled(true);
 	initial_state_setter->setEnabled(true);
+
+	// Set initial states
+	setInitialStates();
 }
 
-// === Grid Slots
+/**
+ * @brief Fait muter les cellules du simulateur et affiche les changements
+ */
+void SimulatorInterface::iterate_simulation() {
+	if (!simulator->mutate())
+		sim_timer->stop();
+	changeGridCells();
+}
+
+
+// ==================== Grid Slots ====================
 
 void SimulatorInterface::set_initial_state() {
 
@@ -263,7 +307,8 @@ void SimulatorInterface::grid_reset_dim() {
 	redrawGrid(view_layout);
 }
 
-// === Transition Slots
+
+// ==================== Transition Slots ====================
 
 void SimulatorInterface::choose_transition_rules(){
 	//this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture

@@ -10,7 +10,6 @@ class Interface2D : public SimulatorInterface
 	protected:
 		const short unsigned int automate_dimension = 2;
 		QTableWidget* grid_view = nullptr;
-		Simulator2D* simulator;
 	public:
 
 		Interface2D();
@@ -18,7 +17,6 @@ class Interface2D : public SimulatorInterface
 		void setInitialStates();
 		void redrawGrid(QBoxLayout*);
 		void changeGridCells();
-		bool step_simulator();
 
 	protected slots:
 		void rotateCellState(int, int);

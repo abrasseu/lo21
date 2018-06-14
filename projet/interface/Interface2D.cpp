@@ -1,11 +1,6 @@
 #include "Interface2D.h"
 #include <string>
 
-bool Interface2D::step_simulator() {
-	bool has_mutated = simulator->mutate();
-	changeGridCells();
-	return has_mutated;
-}
 
 void setRules2(State** states) {
 	// Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
@@ -36,7 +31,7 @@ Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 	setRules2(possible_state_list);
 	grid_size = 650;
 
-	simulator = new Simulator2D(possible_state_list, 2, grid_dimension*grid_dimension);
+	simulator = new Simulator2D(possible_state_list, 3, grid_dimension*grid_dimension);
 	initSimulatorView(view_layout);
 }
 
@@ -78,10 +73,11 @@ void Interface2D::redrawGrid(QBoxLayout* parent) {
 
 void Interface2D::changeGridCells() {
 	QColor color = QColor();
+	Simulator2D* sim2d = static_cast<Simulator2D*>(this->simulator);
 	for (unsigned int i=0; i < grid_dimension; i++) {
 		for (unsigned int j=0; j < grid_dimension; j++) {
 			// Get and Set Color from each cell's state
-			color.setNamedColor(QString::fromStdString(simulator->getCell(i,j)->getColor()));
+			color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
 			grid_view->item(i,j)->setBackground(QBrush(color, Qt::SolidPattern));
 		}
 	}
@@ -99,9 +95,10 @@ void Interface2D::setInitialStates() {
 
 void Interface2D::rotateCellState(int i, int j) {
 	if (changeCellEnabled) {
-		simulator->incrementState(i, j, false);
+		Simulator2D* sim2d = static_cast<Simulator2D*>(this->simulator);
+		sim2d->incrementState(i, j, false);
 		QColor color;
-		color.setNamedColor(QString::fromStdString(simulator->getCell(i,j)->getColor()));
+		color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
 		grid_view->item(i,j)->setBackground(color);
 	}
 }

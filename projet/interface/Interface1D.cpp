@@ -1,35 +1,24 @@
 #include "Interface1D.h"
 
 
-bool Interface1D::step_simulator() {
-	bool has_mutated = simulator->mutate();
-	changeGridCells();
-	return has_mutated;
-}
-
 void setRules(State** states) {
-	// Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
-	std::vector<State*> forRule1({states[0], states[0], states[0], states[0], states[0], states[0], states[0]});
+	// Si une cellule vivante est entourée d'au moins 2 cellules mortes, elle meurt à son tour
+	std::vector<State*> forRule1({states[0], states[0]});
 	Rule* rule1 = new Rule(states[0], forRule1);
 	states[1]->addANewRule(rule1);
 
-	// Si une cellule morte est entourée de 3 cellules vivantes, elle vit à son tour
-	std::vector<State*> forRule2({states[1], states[1], states[1], states[0], states[0], states[0], states[0], states[0]});
+	// Si une cellule morte est entourée de 2 cellules vivantes, elle vit à son tour
+	std::vector<State*> forRule2({states[1], states[1]});
 	Rule* rule2 = new Rule(states[1], forRule2);
 	states[0]->addANewRule(rule2);
-
-	// Si une cellule vivante est entourée d'au moins 4 cellules vivantes, elle meurt par étouffement
-	std::vector<State*> forRule3({states[1], states[1], states[1], states[1]});
-	Rule* rule3 = new Rule(states[0], forRule3);
-	states[1]->addANewRule(rule3);
 }
 Interface1D::Interface1D(): SimulatorInterface(automate_dimension), buffer_size(10) {
 	// Set state list
 	setGridBufferLength(grid_dim_controls);
 	possible_state_list = new State*[2];
 	possible_state_number = 2;
-	possible_state_list[0] = new State("Mort", "#000000");
-	possible_state_list[1] = new State("Vivant", "#ffffff");
+	possible_state_list[0] = new State("Mort", "#fff");
+	possible_state_list[1] = new State("Vivant", "#000");
 
 	setRules(possible_state_list);
 
@@ -61,7 +50,7 @@ void Interface1D::setGridBufferLength(QBoxLayout* parent){
 	QObject::connect(grid_buffer_length_reset, SIGNAL(clicked()), this, SLOT(grid_reset_buf()));
 }
 
-void Interface1D::initSimulatorView(QBoxLayout* parent){
+void Interface1D::initSimulatorView(QBoxLayout* parent) {
 	setInitialStates();
 	redrawGrid(parent);
 }
@@ -78,11 +67,10 @@ void Interface1D::redrawGrid(QBoxLayout* parent) {
 	// Initialisation du simulateur à state[0]
 	simulator->generateStateCells(0);
 	QColor color = QColor();
-	for (uint i = 0; i < grid_dimension; i++){
+	for (uint i = 0; i < grid_dimension; i++) {
 		color.setNamedColor(QString::fromStdString(simulator->getCell(i)->getColor()));
 		initial_view->item(0, i)->setBackgroundColor(color);
 	}
-
 	QObject::connect(initial_view, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(rotateCellState(QTableWidgetItem*)));
 
 
@@ -98,12 +86,13 @@ void Interface1D::redrawGrid(QBoxLayout* parent) {
 	QObject::connect(grid_view, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(grid_view_clicked(QTableWidgetItem*)));
 }
 
-void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn){
+void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn) {
 	// nbRow if one line table
 	if (nbRow == 1)
 		grid->setFixedSize(grid_size, grid_size/nbColumn);
 	else
 		grid->setFixedSize(grid_size, grid_size);
+	// Config grid
 	grid->horizontalHeader()->setVisible(false);
 	grid->verticalHeader()->setVisible(false);
 	grid->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -112,20 +101,19 @@ void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn){
 	grid->setEditTriggers(QAbstractItemView::NoEditTriggers);	// Non éditable
 
 	// Set size of cells
-	for (unsigned int i = 0; i < nbColumn; i++){
+	for (unsigned int i = 0; i < nbColumn; i++) {
 		grid->setColumnWidth(i, grid_size/nbColumn);
 		grid->setRowHeight(i, grid_size/nbRow);
-		if (nbRow != 1){
+		if (nbRow != 1) {
 			for (uint j = 0; j < nbRow; j++)
 				grid->setItem(j, i, new QTableWidgetItem(""));
-		}
-		else
+		} else {
 			grid->setItem(0, i, new QTableWidgetItem(""));
-//        grid->item(0, i)->setBackgroundColor(Qt::white);
+		}
 	}
 }
 
-void Interface1D::changeGridCells(){
+void Interface1D::changeGridCells() {
 	const uint currentGeneration = simulator->getGeneration();
 	if (currentGeneration > buffer_size)
 		for (uint i = 0; i < buffer_size - 1; i++)
@@ -137,7 +125,7 @@ void Interface1D::changeGridCells(){
 		if (currentGeneration < buffer_size)
 			lastLine = currentGeneration - 1;
 		else
-			buffer_size - 1;
+			lastLine = buffer_size - 1;
 		QColor color = QColor();
 		for (uint i = 0; i < grid_dimension; i++){
 			color.setNamedColor(QString::fromStdString(simulator->getCell(i)->getColor()));

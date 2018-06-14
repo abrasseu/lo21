@@ -14,6 +14,7 @@
 #include <QHeaderView>
 #include <QPushButton>
 #include <QComboBox>
+#include <QTimer>
 
 #include "transitioninterface.h"
 #include "../autocell/Simulator.h"
@@ -68,6 +69,7 @@ class SimulatorInterface : public QWidget {
 
 		// === Simulator Controls
 		QLabel* simulation_label;				// Label pour toute la partie simulation
+		QTimer* sim_timer;
 		// Speed Controls
 		QHBoxLayout* speed_layout;
 		QLabel* speed_label;
@@ -94,12 +96,12 @@ class SimulatorInterface : public QWidget {
 		State** possible_state_list;
 		unsigned int possible_state_number;
 		unsigned int getPossibleStateNumber() const { return possible_state_number; }
-		Simulator* getSimulator() const { return simulator; }
+
+//		Simulator* getSimulator() const { return simulator; }
 		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
 		virtual void redrawGrid(QBoxLayout*) = 0;
 		virtual void changeGridCells() = 0;
-		virtual bool step_simulator() = 0;
 	public:
 		SimulatorInterface(short unsigned int automate_dimension = 0);
 
@@ -112,6 +114,7 @@ class SimulatorInterface : public QWidget {
 		void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
+		void iterate_simulation();
 
 		// Transition Slots
 		void choose_transition_rules();
