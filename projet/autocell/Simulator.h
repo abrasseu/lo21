@@ -43,7 +43,8 @@ class Simulator {
 		 * @param cellsSize: le nombre de cellules en culture
 		 * @param dimension: la dimension du Simulator
 		 */
-		Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states), _stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
+		Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states),
+			_stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
 			generateCells();
 		}
 
@@ -61,7 +62,7 @@ class Simulator {
 		uint getCellsSize() const { return _cellsSize; }
 		uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
 		State* getCell(uint position) const;
-        uint getGeneration() const { return _generation; }
+		uint getGeneration() const { return _generation; }
 		uint* getCells(); // Seulement pour le JDV
 		virtual void printCells() = 0;
 
@@ -71,8 +72,6 @@ class Simulator {
 
 		virtual bool mutate();		// Mute et renvoi vrai si les cellules ont changé
 		void incrementState(uint position, bool allowNullState = false);
-
-
 
 };
 

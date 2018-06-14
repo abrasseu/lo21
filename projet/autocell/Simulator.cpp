@@ -147,7 +147,8 @@ bool Simulator::mutate() {
 		delete[] neighboursState;
 	}
 
-	_generation += isNextGeneration;
+	if (isNextGeneration)
+		_generation++;
 
 	delete[] statesOfThisGeneration;
 	return isNextGeneration;

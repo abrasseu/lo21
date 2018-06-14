@@ -41,10 +41,10 @@ class SimulatorInterface : public QWidget {
 		// === Automate Controls
 		QVBoxLayout* automate_controls;
 		QHBoxLayout* state_controls;
-        QHBoxLayout* transition_controls;
+		QHBoxLayout* transition_controls;
 
-        QPushButton* set_transition_rules;
-        QPushButton* set_transition_game_life;
+		QPushButton* set_transition_rules;
+		QPushButton* set_transition_game_life;
 
 		// === Window Controls
 		QPushButton* quit_bt;
@@ -92,10 +92,11 @@ class SimulatorInterface : public QWidget {
 		Simulator* simulator;
 		State** initial_states;
 		State** possible_state_list;
+		Simulator* getSimulator() const { return simulator; }
 		virtual void initSimulatorView(QBoxLayout*) = 0;
 		virtual void setInitialStates() = 0;
-		virtual void drawGrid() = 0;
-        virtual void changeGridCells() = 0;
+		virtual void redrawGrid(QBoxLayout*) = 0;
+		virtual void changeGridCells() = 0;
 	public:
 		SimulatorInterface(short unsigned int automate_dimension = 0);
 
@@ -109,8 +110,8 @@ class SimulatorInterface : public QWidget {
 		void stop_simulation();
 		void reset_simulation();
 
-        // Transition Slots
-        void choose_transition_rules();
+		// Transition Slots
+		void choose_transition_rules();
 
 		// Grid Slots
 		void set_initial_state();

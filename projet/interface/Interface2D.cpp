@@ -1,18 +1,37 @@
 #include "Interface2D.h"
 #include <string>
 
+
+void setRules2(State** states) {
+	// Si une cellule vivante est entourée d'au moins 7 cellules mortes, elle meurt à son tour
+	std::vector<State*> forRule1({states[0], states[0], states[0], states[0], states[0], states[0], states[0]});
+	Rule* rule1 = new Rule(states[0], forRule1);
+	states[1]->addANewRule(rule1);
+
+	// Si une cellule morte est entourée de 3 cellules vivantes, elle vit à son tour
+	std::vector<State*> forRule2({states[1], states[1], states[1], states[0], states[0], states[0], states[0], states[0]});
+	Rule* rule2 = new Rule(states[1], forRule2);
+	states[0]->addANewRule(rule2);
+
+	// Si une cellule vivante est entourée d'au moins 4 cellules vivantes, elle meurt par étouffement
+	std::vector<State*> forRule3({states[1], states[1], states[1], states[1]});
+	Rule* rule3 = new Rule(states[0], forRule3);
+	states[1]->addANewRule(rule3);
+}
+
 // TODO : automate_dimension
 Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 	// Set state list
-	possible_state_list = new State*[3];
-	possible_state_list[0] = new State("Mort", "#0000ff");
-	possible_state_list[1] = new State("Vivant", "#00ffff");
-	possible_state_list[2] = new State("Zombi", "#ff0000");
+	possible_state_list = new State*[2];
+	possible_state_list[0] = new State("Mort",		"#ffffff");
+	possible_state_list[1] = new State("Vivant",	"#000000");
+//	possible_state_list[2] = new State("Zombi",		"#ff0000");
 
-    grid_size = 650;
+	setRules2(possible_state_list);
+	grid_size = 650;
 
-	simulator = new Simulator2D(possible_state_list, 3, grid_dimension*grid_dimension);
-    initSimulatorView(view_layout);
+	simulator = new Simulator2D(possible_state_list, 2, grid_dimension*grid_dimension);
+	initSimulatorView(view_layout);
 }
 
 
@@ -21,15 +40,15 @@ Interface2D::Interface2D() : SimulatorInterface(automate_dimension) {
 void Interface2D::initSimulatorView(QBoxLayout* parent) {
 	setInitialStates();
 	simulator->generateStateCells();
-	drawGrid();
-    parent->addWidget(grid_view);
+	redrawGrid(parent);
 }
 
-void Interface2D::drawGrid() {
+void Interface2D::redrawGrid(QBoxLayout* parent) {
 	// Delete and recreate grid is exists
 	if (grid_view != nullptr)
 		delete grid_view;
-    grid_view = new QTableWidget(grid_dimension, grid_dimension);
+	grid_view = new QTableWidget(grid_dimension, grid_dimension);
+	parent->addWidget(grid_view);
 
 	// Config grid
 	grid_view->setFixedSize(grid_size + grid_dimension/3, grid_size + grid_dimension/3);
@@ -38,7 +57,7 @@ void Interface2D::drawGrid() {
 	grid_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	grid_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	grid_view->setEditTriggers(QAbstractItemView::NoEditTriggers);		// Non éditable
-	grid_view->setFocusPolicy(Qt::NoFocus);
+	grid_view->setSelectionMode(QAbstractItemView::NoSelection);		// Non sélectionnable
 
 	for (unsigned int i=0; i < grid_dimension; i++) {
 		grid_view->setColumnWidth(i, grid_size/grid_dimension);
@@ -48,6 +67,7 @@ void Interface2D::drawGrid() {
 	}
 
 	connect(grid_view, SIGNAL(cellClicked(int,int)), this, SLOT(rotateCellState(int, int)));
+	changeGridCells();
 }
 
 void Interface2D::changeGridCells() {
@@ -56,7 +76,7 @@ void Interface2D::changeGridCells() {
 		for (unsigned int j=0; j < grid_dimension; j++) {
 			// Get and Set Color from each cell's state
 			color.setNamedColor(QString::fromStdString(simulator->getCell(i,j)->getColor()));
-			grid_view->item(i,j)->setBackgroundColor(color);
+			grid_view->item(i,j)->setBackground(QBrush(color, Qt::SolidPattern));
 		}
 	}
 }
@@ -74,10 +94,8 @@ void Interface2D::setInitialStates() {
 void Interface2D::rotateCellState(int i, int j) {
 	if (changeCellEnabled) {
 		simulator->incrementState(i, j, false);
-		std::string color = simulator->getCell(i,j)->getColor();
-		uint intcolor[3];
-		for (uint i = 0; i < 3; i++)
-			intcolor[i] = color[2*i + 1]+color[2*i + 2] - '0' - '0';
-		grid_view->item(i,j)->setBackground(QColor::fromRgb(intcolor[0], intcolor[1], intcolor[2]));
+		QColor color;
+		color.setNamedColor(QString::fromStdString(simulator->getCell(i,j)->getColor()));
+		grid_view->item(i,j)->setBackground(color);
 	}
 }

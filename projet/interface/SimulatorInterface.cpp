@@ -31,12 +31,12 @@ void SimulatorInterface::setStateControls(QBoxLayout* parent) {
 void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
-    set_transition_rules = new QPushButton("Choix des transitions");
-    set_transition_game_life = new QPushButton("Jeu de la vie");
-    transition_controls->addWidget(set_transition_rules);
-    transition_controls->addWidget(set_transition_game_life);
+	set_transition_rules = new QPushButton("Choix des transitions");
+	set_transition_game_life = new QPushButton("Jeu de la vie");
+	transition_controls->addWidget(set_transition_rules);
+	transition_controls->addWidget(set_transition_game_life);
 
-    QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
+	QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
 
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
@@ -146,7 +146,7 @@ SimulatorInterface::SimulatorInterface(short unsigned int automate_dimension): Q
 	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
 	grid_size = 400;
-	simulator = nullptr;
+//	simulator = nullptr;
 	changeCellEnabled = true;
 	sim_is_running = false;
 
@@ -196,17 +196,6 @@ void SimulatorInterface::home() {
 	home->show();
 }
 
-// === Grid Dimension Slots
-void SimulatorInterface::grid_set_dim(){
-	grid_dimension = grid_dim_spinbox->value();
-	drawGrid();
-}
-void SimulatorInterface::grid_reset_dim() {
-	grid_dim_spinbox->setValue(10);
-	grid_dimension = 10;
-	drawGrid();
-}
-
 // === Simulation Slots
 void SimulatorInterface::start_simulation() {
 	sim_start_bt->setEnabled(false);
@@ -220,11 +209,13 @@ void SimulatorInterface::start_simulation() {
 
 	// Run simulation until it stage
 	sim_is_running = true;
-	while(sim_is_running && simulator->mutate())
+	while(sim_is_running && simulator->mutate()) {
+		changeGridCells();
 		usleep(60 * 1000);
+	}
 	sim_is_running = false;
 }
-
+#include <iostream>
 void SimulatorInterface::step_simulation() {
 	sim_start_bt->setEnabled(true);
 	sim_step_bt->setEnabled(true);
@@ -237,9 +228,10 @@ void SimulatorInterface::step_simulation() {
 
 	// Step simulation
 	sim_is_running = true;
+	// TODO FIX
 	simulator->mutate();
 	sim_is_running = false;
-    changeGridCells();
+	changeGridCells();
 }
 
 void SimulatorInterface::stop_simulation() {
@@ -264,12 +256,20 @@ void SimulatorInterface::reset_simulation() {
 void SimulatorInterface::set_initial_state() {
 
 }
-
+void SimulatorInterface::grid_set_dim(){
+	grid_dimension = grid_dim_spinbox->value();
+	redrawGrid(view_layout);
+}
+void SimulatorInterface::grid_reset_dim() {
+	grid_dim_spinbox->setValue(10);
+	grid_dimension = 10;
+	redrawGrid(view_layout);
+}
 
 // === Transition Slots
 
 void SimulatorInterface::choose_transition_rules(){
-    //this->setEnabled(false);
-    TransitionInterface* windowtransition = new TransitionInterface();
-    windowtransition->show();
+	//this->setEnabled(false);
+//    TransitionInterface* windowtransition = new TransitionInterface();
+//    windowtransition->show();
 }
