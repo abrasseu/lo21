@@ -10,15 +10,13 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     // Set Main Layout
     QScrollArea *scroll = new QScrollArea;
     princ->addWidget(scroll);
-//    QWidget *central = new QWidget;
-//    scroll->setWidget(central);
-//    scroll->setWidgetResizable(true);
+    scroll->setWidgetResizable(true);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scroll->setFixedSize(500,500);
-    scroll->horizontalScrollBar();
+    scroll->verticalScrollBar();
     main_layout = new QVBoxLayout;
     scroll->setLayout(main_layout);
-//    central->show();
-//    setLayout(main_layout);
+    setLayout(main_layout);
 
     title = new QLabel("Choisissez les règles de transition de l'automate");
     main_layout->addWidget(title);

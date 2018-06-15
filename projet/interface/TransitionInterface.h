@@ -5,6 +5,7 @@
 
 #include <QMessageBox>
 #include <QScrollArea>
+#include <QScrollBar>
 
 class Transition : public QHBoxLayout {
     protected:
