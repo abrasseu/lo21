@@ -100,6 +100,7 @@ void TransitionInterface::add_new_transition_rule(){
     }
 }
 
+}
 
 bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
     for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
@@ -121,7 +122,19 @@ bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
     return true;
 }
 
-
+bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
+    for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
+        bool cont = true;
+        for (unsigned int i = 0; i < transi->nb_states; i++)
+            if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
+                cont = false;
+                break;
+            }
+        if ((*it)->start_cell == transi->start_cell && (*it)->final_cell == transi->final_cell && cont)
+            return false;
+    }
+    return true;
+}
 
 Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
     : QHBoxLayout(), neighbours_nb(neighbour_number), nb_states(state_list_number), state_list(state_list) {

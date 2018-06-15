@@ -56,11 +56,10 @@ void Interface1D::initSimulatorView(QBoxLayout* parent) {
 }
 
 void Interface1D::redrawGrid(QBoxLayout* parent) {
-	// Initialisation du simulateur avec la bonne taille
-	if (simulator)
-		delete simulator;
-	simulator = new Simulator1D(possible_state_list, possible_state_number, grid_dimension);
-	simulator->generateStateCells();
+    // Initialisation du simulateur avec la bonne taille
+    if (simulator != nullptr)
+        delete simulator;
+    simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
 
 
 	// Initialisation de la ligne de départ

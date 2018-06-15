@@ -34,7 +34,7 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
-	transition_controls->addWidget(set_transition_rules);
+    transition_controls->addWidget(set_transition_rules);
 //	set_transition_game_life = new QPushButton("Jeu de la vie");
 //	transition_controls->addWidget(set_transition_game_life);
 
@@ -87,7 +87,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-	connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
+    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
