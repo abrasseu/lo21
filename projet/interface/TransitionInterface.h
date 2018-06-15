@@ -57,6 +57,8 @@ class Transition : public QHBoxLayout {
         void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*);
         void setFinalState(QVBoxLayout*);
 
+//        void modifyRule(QObject*);
+
 
     protected slots:
 
@@ -81,7 +83,7 @@ class TransitionInterface : public QWidget {
 
         // Transition Layout
         QVBoxLayout* transition_layout;
-        QVector < Transition* >* transition_vector;
+        QVector<QPair <Transition*, QPushButton* > >* transition_vector;
         // Add transition button
         QPushButton* transition_add_rule;
         // Valid PushButton
@@ -91,11 +93,15 @@ class TransitionInterface : public QWidget {
         friend class Transition;
         // Slot validate
         TransitionInterface(State**, unsigned int, unsigned int);
+//        displayExistingRules();
+
 
     protected slots:
-        void validate_rules();
-        void add_new_transition_rule();
-        bool add_new_transition_rule_valid(Transition*);
+        void validateRules();
+        void addNewTransitionRule();
+        bool addNewTransitionRuleValid(Transition*);
+
+        void modifyPreviousRule();
 };
 
 

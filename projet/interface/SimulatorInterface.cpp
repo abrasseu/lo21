@@ -34,7 +34,7 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
-	transition_controls->addWidget(set_transition_rules);
+    transition_controls->addWidget(set_transition_rules);
 //	set_transition_game_life = new QPushButton("Jeu de la vie");
 //	transition_controls->addWidget(set_transition_game_life);
 
@@ -87,7 +87,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-	connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
+    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
@@ -102,7 +102,7 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	// Speed Controls
 	speed_label = new QLabel("Vitesse (en secondes)");
 	speed_selector = new QDoubleSpinBox();
-	speed_selector->setValue(1.0);
+    speed_selector->setValue(0.1);
 	speed_selector->setRange(0.01, 5.0);
 	speed_selector->setSingleStep(0.1);
 	speed_selector->setAlignment(Qt::AlignHCenter);
@@ -220,6 +220,8 @@ void SimulatorInterface::start_simulation() {
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
+    changeCellEnabled = false;
+
 	// Run simulation until it stage
 	sim_is_running = true;
 	if (speed_selector->value() > 0)
@@ -250,6 +252,7 @@ void SimulatorInterface::step_simulation() {
 
 	// Step simulation
 	iterate_simulation();
+//    changeCellEnabled = false;
 }
 
 /**
@@ -265,6 +268,7 @@ void SimulatorInterface::stop_simulation() {
 	sim_step_bt->setEnabled(true);
 	sim_reset_bt->setEnabled(true);
 	speed_selector->setEnabled(true);
+    changeCellEnabled = true;
 }
 
 /**
@@ -278,6 +282,7 @@ void SimulatorInterface::reset_simulation() {
 	// Enable initial state selection
 	initial_state_selector->setEnabled(true);
 	initial_state_setter->setEnabled(true);
+    changeCellEnabled = true;
 
 	// Set initial states
 	setInitialStates();

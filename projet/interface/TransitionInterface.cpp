@@ -10,10 +10,11 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     // Set Main Layout
     QScrollArea *scroll = new QScrollArea;
     princ->addWidget(scroll);
-    scroll->setWidgetResizable(true);
+    scroll->setWidgetResizable(false);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    scroll->setFixedSize(500,500);
+    scroll->setFixedSize(700,500);
     scroll->verticalScrollBar();
+    scroll->adjustSize();
     main_layout = new QVBoxLayout;
     scroll->setLayout(main_layout);
     setLayout(main_layout);
@@ -28,8 +29,9 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     transition_layout = new QVBoxLayout;
     main_layout->addLayout(transition_layout);
 
-    transition_vector = new QVector< Transition *>;
-    add_new_transition_rule();
+    transition_vector = new QVector< QPair< Transition *, QPushButton* > >;
+//    displayExistingRules();
+    addNewTransitionRule();
 
     transition_add_rule = new QPushButton("Ajouter une nouvelle règle");
     transition_valid = new QPushButton("Valider");
@@ -37,8 +39,8 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     main_layout->addWidget(transition_valid);
 
 
-    QObject::connect(transition_add_rule, SIGNAL(clicked()), this, SLOT(add_new_transition_rule()));
-    QObject::connect(transition_valid, SIGNAL(clicked()), this, SLOT(validate_rules()));
+    QObject::connect(transition_add_rule, SIGNAL(clicked()), this, SLOT(addNewTransitionRule()));
+    QObject::connect(transition_valid, SIGNAL(clicked()), this, SLOT(validateRules()));
 }
 
 /*
@@ -46,39 +48,41 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
 |	Slots
 |--------------------------------------------------------------------------
 */
-
-void TransitionInterface::validate_rules(){
+void TransitionInterface::validateRules(){
     this->close();
 }
 
-//void TransitionInterface::add_new_transition_rule(){
-//    transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-//    transition_layout->addLayout(transition_vector->last());
-//}
-
-
-void TransitionInterface::add_new_transition_rule(){
+void TransitionInterface::addNewTransitionRule(){
     // On test si le nombre de voisins dans la règle n'est pas supérieur au nombre de voisin maximum
     if (!transition_vector->empty()){
         // Si il y a déjà au moins 1 règle
         if (transition_vector->size() != 1){
-            Transition* tr = transition_vector->last();
+            Transition* tr = transition_vector->last().first;
             unsigned int sum = 0;
             for (unsigned int i = 0; i < tr->getNbStates(); i++)
                 sum += tr->neighbours[i]->second->value();
+            // Si la somme des valeurs entrées dépasse le nombre de voisins possible, on affiche un message d'erreur
             if (sum > tr->getNeighboursNb()){
                 QMessageBox::warning(this, "ERREUR", "Le nombre de voisins est supérieur au nombre de voisins total possibles");
                 return;
             }
+            // On insère la valeur
             else{
                 Transition* add_transi = new Transition(state_list, state_list_number, neighbour_number);
-                if (add_new_transition_rule_valid(tr)){
+                if (addNewTransitionRuleValid(tr)){
                     tr->start_cell->setEnabled(false);
                     tr->final_cell->setEnabled(false);
+                    // On affiche le bouton modifier pour la règle précédente
+                    transition_vector->last().first->addWidget(transition_vector->last().second);
                     for (unsigned int i = 0; i < tr->getNbStates(); i++)
                         tr->neighbours[i]->second->setEnabled(false);
-                    transition_vector->push_back(add_transi);
-                    transition_layout->addLayout(transition_vector->last());
+                    QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
+                    pair->first = add_transi;
+                    pair->second = new QPushButton("Modifier");
+                    transition_vector->push_back(*pair);
+                    transition_layout->addLayout(transition_vector->last().first);
+
+                    QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
                 }
                 else
                     QMessageBox::warning(this, "ERREUR", "Cette règle existe déjà");
@@ -86,27 +90,41 @@ void TransitionInterface::add_new_transition_rule(){
         }
         // Si il y a pas encore de règle, il faut en mettre une première
         else{
-            transition_vector->last()->start_cell->setEnabled(false);
-            transition_vector->last()->final_cell->setEnabled(false);
-            for (unsigned int i = 0; i < transition_vector->last()->getNbStates(); i++)
-                transition_vector->last()->neighbours[i]->second->setEnabled(false);
-            transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-            transition_layout->addLayout(transition_vector->last());
+            transition_vector->last().first->start_cell->setEnabled(false);
+            transition_vector->last().first->final_cell->setEnabled(false);
+            // On affiche le bouton modifier pour la règle précédente
+            transition_vector->last().first->addWidget(transition_vector->last().second);
+            for (unsigned int i = 0; i < transition_vector->last().first->getNbStates(); i++)
+                transition_vector->last().first->neighbours[i]->second->setEnabled(false);
+            QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
+            pair->first = new Transition(state_list, state_list_number, neighbour_number);
+            pair->second = new QPushButton("Modifier");
+            transition_vector->push_back(*pair);
+            transition_layout->addLayout(transition_vector->last().first);
+
+            QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
         }
     }
+    // Si vide, on affiche la règle
     else{
-        transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-        transition_layout->addLayout(transition_vector->last());
+        QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
+        pair->first = new Transition(state_list, state_list_number, neighbour_number);
+        pair->second = new QPushButton("Modifier");
+        transition_vector->push_back(*pair);
+        transition_layout->addLayout(transition_vector->last().first);
+
+        QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
     }
 }
 
-
-bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
-    for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
+bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
+    Transition* ittr = nullptr;
+    for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
+        ittr = it->first;
         bool spinboxequals = true;
-        if ((*it) != transition_vector->last()){
+        if ( ittr != transition_vector->last().first){
             for (unsigned int i = 0; i < transi->nb_states; i++){
-                if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
+                if (ittr->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
                     spinboxequals = false;
                     break;
                 }
@@ -114,12 +132,46 @@ bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
         }
         else
             spinboxequals = false;
-        if ((*it)->start_cell->currentData() == transi->start_cell->currentData()
-                && (*it)->final_cell->currentData() == transi->final_cell->currentData() && spinboxequals)
+        if (ittr->start_cell->currentData() == transi->start_cell->currentData()
+                && ittr->final_cell->currentData() == transi->final_cell->currentData() && spinboxequals)
             return false;
     }
     return true;
 }
+
+void TransitionInterface::modifyPreviousRule(){
+    QObject* sdr = sender();
+    QPushButton* qp = dynamic_cast<QPushButton*>(sdr);
+    for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
+        if (it->second == qp){
+            if (qp->text() == QString::fromStdString("Modifier")){
+                qp->setText(QString::fromStdString("Valider"));
+                it->first->start_cell->setEnabled(true);
+                it->first->final_cell->setEnabled(true);
+                for (unsigned int i = 0; i < it->first->nb_states; i++)
+                    it->first->neighbours[i]->second->setEnabled(true);
+            }
+            // Validation de la modification
+            else{
+                qp->setText(QString::fromStdString("Modifier"));
+                it->first->start_cell->setEnabled(false);
+                it->first->final_cell->setEnabled(false);
+                for (unsigned int i = 0; i < it->first->nb_states; i++)
+                    it->first->neighbours[i]->second->setEnabled(false);
+                // Insérer le code pour modifier la règle du simulateur
+            }
+        }
+    }
+}
+
+//void TransitionInterface::displayExistingRules(){
+
+//}
+
+
+
+
+
 
 
 
@@ -172,13 +224,13 @@ void Transition::setStartState(QVBoxLayout* parent){
 }
 
 void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent){
-    neighbours = new QPair < State*, QSpinBox* >*[state_list_number];
     neighbours_layout = new QVBoxLayout*[state_list_number];
+    neighbours = new QPair < State*, QSpinBox* >*[state_list_number];
     neighbours_label = new QLabel*[state_list_number];
     for (unsigned int i = 0; i < state_list_number; i++) {
         neighbours_layout[i] = new QVBoxLayout;
         parent->addLayout(neighbours_layout[i]);
-        neighbours_label[i] = new QLabel("Nombre de voisins à l'état:<br>"+QString::number(i));
+        neighbours_label[i] = new QLabel("Nombre de voisins à l'état:<br><center>"+QString::number(i)+"</center>");
         neighbours_layout[i]->addWidget(neighbours_label[i]);
         neighbours[i] = new QPair < State*, QSpinBox* >;
         neighbours[i]->first = new State(state_list[i]->getName());
@@ -221,6 +273,7 @@ void Transition::setFinalState(QVBoxLayout* parent){
     QObject::connect(final_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedFinalState(int)));
 }
 
+
 /*
 |--------------------------------------------------------------------------
 |	Slots
@@ -241,3 +294,4 @@ void Transition::changedFinalState(int nb){
     color.setNamedColor(QString::fromStdString(state_list[nb]->getColor()));
     final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 }
+

@@ -24,7 +24,7 @@ class State {
 		string _color;
 
 		// Règles définies pour le changement d'état
-		vector<Rule*> _rules;
+        vector < Rule* > _rules;
 
 	public:
 		// Constructeurs

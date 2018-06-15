@@ -109,13 +109,13 @@ class SimulatorInterface : public QWidget {
 	public:
 		SimulatorInterface(const short unsigned int automate_dimension = 0);
 
-	private slots:
+    protected slots:
 		void home();
 
 		// Simulation Slots
-		void start_simulation();
+        virtual void start_simulation();
         void speedSelectorChangedValue(double);
-		void step_simulation();
+        virtual void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
 		void iterate_simulation();

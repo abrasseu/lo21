@@ -56,11 +56,10 @@ void Interface1D::initSimulatorView(QBoxLayout* parent) {
 }
 
 void Interface1D::redrawGrid(QBoxLayout* parent) {
-	// Initialisation du simulateur avec la bonne taille
-	if (simulator)
-		delete simulator;
-	simulator = new Simulator1D(possible_state_list, possible_state_number, grid_dimension);
-	simulator->generateStateCells();
+    // Initialisation du simulateur avec la bonne taille
+    if (simulator != nullptr)
+        delete simulator;
+    simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
 
 
 	// Initialisation de la ligne de départ
@@ -141,28 +140,70 @@ void Interface1D::changeGridCells() {
 void Interface1D::setInitialStates(){
 	initial_states = new State*[grid_dimension];
 	for (unsigned int i = 0; i < grid_dimension; i++)
-		initial_states[i] = possible_state_list[0];
+        initial_states[i] = possible_state_list[0];
 }
 
 
 
 // === Grid Slots
+void Interface1D::step_simulation() {
+    // Disable dimension changes
+    grid_dim_spinbox->setEnabled(false);
+    grid_dim_set_bt->setEnabled(false);
+    grid_dim_reset_bt->setEnabled(false);
+    // Disable initial state changes
+    initial_state_selector->setEnabled(false);
+    initial_state_setter->setEnabled(false);
+    changeCellEnabled = false;
+
+    // Step simulation
+    iterate_simulation();
+}
+void Interface1D::start_simulation() {
+    // Disable start/step/reset/speed changes
+    sim_start_bt->setEnabled(false);
+    sim_step_bt->setEnabled(false);
+    sim_reset_bt->setEnabled(false);
+    speed_selector->setEnabled(true);
+    // Disable dimension changes
+    grid_dim_spinbox->setEnabled(false);
+    grid_dim_set_bt->setEnabled(false);
+    grid_dim_reset_bt->setEnabled(false);
+    // Disable initial state changes
+    initial_state_selector->setEnabled(false);
+    initial_state_setter->setEnabled(false);
+
+    changeCellEnabled = false;
+
+    // Run simulation until it stage
+    sim_is_running = true;
+    if (speed_selector->value() > 0)
+        sim_timer->start(1000 * speed_selector->value());
+    else
+        sim_timer->start(10);
+    QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
+}
 
 void Interface1D::rotateCellState(QTableWidgetItem* it){
-	it->setSelected(false);
-	if (changeCellEnabled) {
-		simulator->incrementState(it->column(), false);
-		QColor color;
-		color.setNamedColor(QString::fromStdString(simulator->getCell(it->column())->getColor()));
-		initial_view->item(0, it->column())->setBackgroundColor(color);
-	}
+    it->setSelected(false);
+    if (changeCellEnabled) {
+        simulator->incrementState(it->column(), false);
+        QColor color;
+        color.setNamedColor(QString::fromStdString(simulator->getCell(it->column())->getColor()));
+        initial_view->item(0, it->column())->setBackgroundColor(color);
+    }
 }
 
 
 // === Buffer Slots
-
 void Interface1D::grid_set_buf(){
 	buffer_size = grid_buffer_length_spin->value();
+    if (grid_view != nullptr)
+        delete grid_view;
+    grid_view = new QTableWidget(buffer_size, grid_dimension);
+    view_layout->addWidget(grid_view);
+
+    drawGrid(grid_view, buffer_size, grid_dimension);
 }
 
 void Interface1D::grid_reset_buf(){
