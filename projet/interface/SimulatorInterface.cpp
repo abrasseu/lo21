@@ -35,8 +35,6 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
     transition_controls->addWidget(set_transition_rules);
-//	set_transition_game_life = new QPushButton("Jeu de la vie");
-//	transition_controls->addWidget(set_transition_game_life);
 
 	QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
@@ -53,8 +51,8 @@ void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
 	// Selectors
 	grid_dim_label = new QLabel("Choisissez les dimensions de la grille: ");
 	grid_dim_spinbox = new QSpinBox();
-	grid_dim_spinbox->setRange(3,100);
-	grid_dim_spinbox->setAlignment(Qt::AlignRight);
+    grid_dim_spinbox->setRange(3,100);
+    grid_dim_spinbox->setAlignment(Qt::AlignHCenter);
 	grid_dim_spinbox->setValue(10);
 	// Buttons
 	grid_dim_set_bt = new QPushButton("Valider");
@@ -75,11 +73,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	parent->addLayout(initial_state_controls);
 
 	initial_state_label = new QLabel("Sélectionner un état de départ");
-	initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
-	initial_state_selector->addItem("Un seul au milieu", QVariant(1));
-	initial_state_selector->addItem("Au hasard", QVariant(2));
-	initial_state_selector->addItem("Un sur deux", QVariant(3));
-	initial_state_selector->addItem("Un sur trois", QVariant(4));
+    initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
 	initial_state_setter = new QPushButton("Appliquer l'état");
 	// Add Items to Layout
 	initial_state_controls->addWidget(initial_state_label);
@@ -87,7 +81,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
+    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_default_grid()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
@@ -157,10 +151,16 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	main_layout = new QHBoxLayout();
 	controls_layout = new QVBoxLayout();
 	view_layout = new QVBoxLayout();
+    state_main_layout = new QVBoxLayout();
 	// Configure Main Layouts
 	setLayout(main_layout);
+    main_layout->addLayout(state_main_layout);
 	main_layout->addLayout(controls_layout);
-	main_layout->addLayout(view_layout);
+    main_layout->addLayout(view_layout);
+
+    state_vector = new QVector <StateInterface*>;
+    state_vector->push_back(new StateInterface());
+    state_main_layout->addLayout(state_vector->last());
 
 	// =========== Window Controls ===========
 	window_controls = new QHBoxLayout();
@@ -300,12 +300,9 @@ void SimulatorInterface::iterate_simulation() {
 
 // ==================== Grid Slots ====================
 
-void SimulatorInterface::set_initial_state() {
-
-}
 void SimulatorInterface::grid_set_dim(){
 	grid_dimension = grid_dim_spinbox->value();
-	redrawGrid(view_layout);
+    redrawGrid(view_layout);
 }
 void SimulatorInterface::grid_reset_dim() {
 	grid_dim_spinbox->setValue(10);

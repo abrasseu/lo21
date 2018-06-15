@@ -13,13 +13,13 @@
 using uint = unsigned int;
 
 State** Simulator1D::getNeighboursState(State** states, uint position) {
-	State** neighbors(new State*[getNeighbourNbr()]);
+    State** neighbours(new State*[getNeighbourNbr()]);
 
 	// On ajoute le précédent et le suivant:
-	neighbors[0] = states[(position - 1) % getCellsNbr()];
-	neighbors[1] = states[(position + 1) % getCellsNbr()];
+    neighbours[0] = states[(position - 1) % getCellsNbr()];
+    neighbours[1] = states[(position + 1) % getCellsNbr()];
 
-	return neighbors;
+    return neighbours;
 }
 
 void Simulator1D::printCells() {

@@ -32,6 +32,13 @@ Interface2D::Interface2D() : SimulatorInterface(2) {
     set_transition_game_life = new QPushButton("Jeu de la vie");
     transition_controls->addWidget(set_transition_game_life);
 
+    initial_state_selector->addItem("Vide", QVariant(0));
+    initial_state_selector->addItem("Au hasard", QVariant(1));
+    initial_state_selector->addItem("Symétrique vertical", QVariant(2));
+    initial_state_selector->addItem("Symétrique horizontal", QVariant(3));
+    initial_state_selector->addItem("Etats croissant", QVariant(4));
+    initial_state_selector->addItem("Etats décroissant", QVariant(5));
+
 	setRules2(possible_state_list);
 	grid_size = 650;
 
@@ -110,4 +117,45 @@ void Interface2D::rotateCellState(int i, int j) {
 		color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
 		grid_view->item(i,j)->setBackground(color);
 	}
+}
+
+
+void Interface2D::set_default_grid() {
+    unsigned int combo_value = initial_state_selector->currentIndex();
+//    QMessageBox::warning(this, "erreur", QString::number(combo_value));
+
+    switch (combo_value){
+        case 0 :
+            if (simulator)
+                delete simulator;
+            simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
+            simulator->generateStateCells();
+            break;
+        case 1 :
+            if (simulator)
+                delete simulator;
+            simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
+            simulator->generateRandomCells();
+            break;
+        case 2 :
+            if (simulator)
+                delete simulator;
+            simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
+            simulator->generateVerticalSymetricRandomCells();
+            break;
+        case 3 :
+            if (simulator)
+                delete simulator;
+            simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
+            simulator->generateAlternedCells();
+            break;
+        case 4 :
+            if (simulator)
+                delete simulator;
+            simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
+            simulator->generateDescAlternedCells();
+            break;
+
+    }
+    changeGridCells();
 }

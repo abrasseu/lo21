@@ -46,6 +46,8 @@ class Interface1D : public SimulatorInterface
 
 		void grid_set_buf();
 		void grid_reset_buf();
+
+        void set_default_grid();
 };
 
 #endif // INTERFACE1D_H

@@ -15,7 +15,9 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QTimer>
+#include <QVector>
 
+#include "stateinterface.h"
 #include "TransitionInterface.h"
 #include "../autocell/Simulator.h"
 #include "../autocell/State.h"
@@ -24,10 +26,15 @@ class SimulatorInterface : public QWidget {
 	Q_OBJECT		// Macro permettant d'avoir des slots (qui sont uniquement sur Qt)
 
 	protected:
+        friend class StateInterface;
 		// === Main Layouts
 		QHBoxLayout* main_layout;
+        QVBoxLayout* state_main_layout;
 		QVBoxLayout* controls_layout;
 		QVBoxLayout* view_layout;
+
+        // === State Widget
+        QVector < StateInterface* >* state_vector = nullptr;
 
 		// === Control Layouts
 		QHBoxLayout* window_controls;
@@ -86,7 +93,7 @@ class SimulatorInterface : public QWidget {
 		void setInitialStateControls(QBoxLayout*);
 
 		// Simulation
-		Simulator* simulator;
+        Simulator* simulator = 0;
 		bool sim_is_running;
 
 		// Grid
@@ -125,7 +132,7 @@ class SimulatorInterface : public QWidget {
 		//void choose_transition_rules_finished();
 
 		// Grid Slots
-		void set_initial_state();
+        virtual void set_default_grid() = 0;
 		void grid_set_dim();
 		void grid_reset_dim();
 };

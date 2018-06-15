@@ -61,7 +61,6 @@ class Transition : public QHBoxLayout {
 
 
     protected slots:
-
         void preventSelection(QTableWidgetItem*);
 
         // change color on change combobox

@@ -13,11 +13,12 @@ class Interface2D : public SimulatorInterface
 
 		Interface2D();
 		void initSimulatorView(QBoxLayout*);
-		void setInitialStates();
+        void setInitialStates();
 		void redrawGrid(QBoxLayout*);
 		void changeGridCells();
 
 	protected slots:
+        void set_default_grid();
 		void rotateCellState(int, int);
 };
 
