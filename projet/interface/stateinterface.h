@@ -12,18 +12,24 @@ class StateInterface : public QHBoxLayout {
         Q_OBJECT
     private:
         friend class SimulatorInterface;
+        // Main layout
+        QHBoxLayout* state_layout;
+
+        // === Name Layout
+        QVBoxLayout* name_layout;
         // Attributes
         QLabel* state_name_label;
         QLineEdit* state_name;
+
+        // === Color Layout
+        QVBoxLayout* color_layout;
+        // Attributes
+        QPushButton* color_button;
         QPalette* state_color;
         QLabel* state_color_label;
-        QPushButton* state_delete;
 
-        // Layout
-        QHBoxLayout* state_layout;
 
-        QVBoxLayout* name_layout;
-        QVBoxLayout* color_layout;
+//        QPushButton* state_delete;
 
         // Agencement
         void setNameLayout(QBoxLayout*);
@@ -31,11 +37,11 @@ class StateInterface : public QHBoxLayout {
 
     public:
         StateInterface();
-//        StateInterface* StateInterface(const StateInterface&);
 
 
     protected slots:
-
+        void display_palette_color();
+//        void delete_state();
 };
 
 

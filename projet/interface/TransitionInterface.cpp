@@ -168,6 +168,9 @@ void TransitionInterface::modifyPreviousRule(){
 
 //}
 
+void TransitionInterface::closeEvent(QCloseEvent* event){
+    emit close_transition_interface();
+}
 
 
 

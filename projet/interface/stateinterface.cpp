@@ -1,5 +1,7 @@
 #include "StateInterface.h"
 
+#include <QColorDialog>
+
 StateInterface::StateInterface(): QHBoxLayout() {
     // Layout contenant une règle d'état entière
     state_layout = new QHBoxLayout;
@@ -14,14 +16,7 @@ StateInterface::StateInterface(): QHBoxLayout() {
     color_layout = new QVBoxLayout;
     state_layout->addLayout(color_layout);
     setColorLayout(color_layout);
-
-    state_delete = new QPushButton("Supprimer");
-    state_layout->addWidget(state_delete);
 }
-
-//StateInterface* StateInterface::StateInterface(const StateInterface& st){
-//    return st;
-//}
 
 void StateInterface::setNameLayout(QBoxLayout* parent){
     name_layout = new QVBoxLayout;
@@ -39,11 +34,18 @@ void StateInterface::setColorLayout(QBoxLayout* parent){
     parent->addLayout(color_layout);
 
     state_color_label = new QLabel("Couleur de l'état :");
-    name_layout->addWidget(state_color_label);
+    color_layout->addWidget(state_color_label);
 
-    QWidget* widg = new QWidget;
-    name_layout->addWidget(widg);
-//    state_color = new QPalette;
-    QPalette* pal = widg->palette();
-    widg->setPalette(pal);
+    color_button = new QPushButton("Choisir couleur");
+    color_layout->addWidget(color_button);
+    QObject::connect(color_button, SIGNAL(clicked()), this, SLOT(display_palette_color()));
+}
+
+// SLOTS
+
+void StateInterface::display_palette_color(){
+    QPalette color;
+    QColor couleur = QColorDialog::getColor(Qt::black, color_button);
+    color.setColor(QPalette::ButtonText, couleur);
+    color_button->setPalette(couleur);
 }

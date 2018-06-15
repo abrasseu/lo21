@@ -95,10 +95,14 @@ class TransitionInterface : public QWidget {
 //        displayExistingRules();
 
 
+    signals:
+        void close_transition_interface();
     protected slots:
         void validateRules();
         void addNewTransitionRule();
         bool addNewTransitionRuleValid(Transition*);
+
+        void closeEvent(QCloseEvent*);
 
         void modifyPreviousRule();
 };

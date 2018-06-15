@@ -126,6 +126,15 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	connect(sim_reset_bt, SIGNAL(clicked()), this, SLOT(reset_simulation()));
 }
 
+void SimulatorInterface::addFirstState(QBoxLayout* parent){
+    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+    QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+    pair->first = new StateInterface();
+    pair->second = new QPushButton;
+    state_vector->push_back(*pair);
+    parent->addLayout(state_vector->last().first);
+}
+
 
 
 /*
@@ -158,9 +167,18 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	main_layout->addLayout(controls_layout);
     main_layout->addLayout(view_layout);
 
-    state_vector = new QVector <StateInterface*>;
-    state_vector->push_back(new StateInterface());
-    state_main_layout->addLayout(state_vector->last());
+    // Configure State Layout
+    valid_state = new QPushButton("Valider");
+    state_main_layout->addWidget(valid_state);
+    state_layout_display = new QVBoxLayout;
+    state_main_layout->addLayout(state_layout_display);
+
+    addFirstState(state_layout_display);
+
+    add_state = new QPushButton("Ajouter état");
+    state_main_layout->addWidget(add_state);
+
+    QObject::connect(add_state, SIGNAL(clicked()), this, SLOT(add_new_state()));
 
 	// =========== Window Controls ===========
 	window_controls = new QHBoxLayout();
@@ -314,15 +332,51 @@ void SimulatorInterface::grid_reset_dim() {
 // ==================== Transition Slots ====================
 
 void SimulatorInterface::choose_transition_rules(){
-	//this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
+    this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
 	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
 	windowtransition->show();
 
-	//QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
+    // A la fermeture de la fenêtre du choix des transitions
+    QObject::connect(windowtransition, SIGNAL(close_transition_interface()), this, SLOT(choose_transition_rules_finished()));
 }
 
-/*
+
 void SimulatorInterface::choose_transition_rules_finished(){
-	QMessageBox::warning(this, "Attention", "ao");
 	this->setEnabled(true);
-}*/
+}
+
+// ==================== State Slots ====================
+void SimulatorInterface::add_new_state(){
+//    state_vector->last().second->text(); // trouver pour obtenir la couleur du text
+    if (state_vector->last().first->state_name->text().isEmpty()) // Vérifier les valeurs des couleurs
+        QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs pour les champs");
+    else{
+        bool same_value = false;
+        // Ne marche pas
+        for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
+            StateInterface* st = it->first;
+            if (st != state_vector->last().first){
+                if ( (*st).state_name->text() == state_vector->last().first->state_name->text()){
+                    same_value = true;
+                    QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs différentes de celles existantes");
+                    break;
+                }
+            }
+        }
+        if (!same_value){
+            state_vector->last().first->state_name->setEnabled(false);
+            state_vector->last().first->color_button->setEnabled(false);
+            state_vector->last().second = new QPushButton("Supprimer");
+            state_vector->last().first->addWidget(state_vector->last().second);
+            QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+            pair->first = new StateInterface();
+            pair->second = new QPushButton;
+            state_vector->push_back(*pair);
+            state_layout_display->addLayout(state_vector->last().first);
+        }
+    }
+}
+
+
+
+

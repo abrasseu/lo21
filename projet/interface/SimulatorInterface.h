@@ -34,7 +34,10 @@ class SimulatorInterface : public QWidget {
 		QVBoxLayout* view_layout;
 
         // === State Widget
-        QVector < StateInterface* >* state_vector = nullptr;
+        QVBoxLayout* state_layout_display;
+        QVector < QPair < StateInterface*, QPushButton*> >* state_vector = nullptr;
+        QPushButton* valid_state;
+        QPushButton* add_state;
 
 		// === Control Layouts
 		QHBoxLayout* window_controls;
@@ -92,6 +95,8 @@ class SimulatorInterface : public QWidget {
 		void setSimulatorControls(QBoxLayout*);
 		void setInitialStateControls(QBoxLayout*);
 
+        void addFirstState(QBoxLayout*);
+
 		// Simulation
         Simulator* simulator = 0;
 		bool sim_is_running;
@@ -127,9 +132,12 @@ class SimulatorInterface : public QWidget {
 		void reset_simulation();
 		void iterate_simulation();
 
+        // State Slots
+        void add_new_state();
+
 		// Transition Slots
 		void choose_transition_rules();
-		//void choose_transition_rules_finished();
+        void choose_transition_rules_finished();
 
 		// Grid Slots
         virtual void set_default_grid() = 0;
