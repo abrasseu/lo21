@@ -210,7 +210,7 @@ void SimulatorInterface::start_simulation() {
 	sim_start_bt->setEnabled(false);
 	sim_step_bt->setEnabled(false);
 	sim_reset_bt->setEnabled(false);
-	speed_selector->setEnabled(false);
+    speed_selector->setEnabled(true);
 	// Disable dimension changes
 	grid_dim_spinbox->setEnabled(false);
 	grid_dim_set_bt->setEnabled(false);
@@ -225,6 +225,14 @@ void SimulatorInterface::start_simulation() {
 		sim_timer->start(1000 * speed_selector->value());
 	else
 		sim_timer->start(10);
+    QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
+}
+
+void SimulatorInterface::speedSelectorChangedValue(double val){
+    if (val > 0)
+        sim_timer->start(1000 * val);
+    else
+        sim_timer->start(10);
 }
 
 /**

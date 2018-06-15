@@ -114,6 +114,7 @@ class SimulatorInterface : public QWidget {
 
 		// Simulation Slots
 		void start_simulation();
+        void speedSelectorChangedValue(double);
 		void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
