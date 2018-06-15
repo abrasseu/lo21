@@ -10,10 +10,11 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
     // Set Main Layout
     QScrollArea *scroll = new QScrollArea;
     princ->addWidget(scroll);
-    scroll->setWidgetResizable(true);
+    scroll->setWidgetResizable(false);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    scroll->setFixedSize(500,500);
+    scroll->setFixedSize(700,500);
     scroll->verticalScrollBar();
+    scroll->adjustSize();
     main_layout = new QVBoxLayout;
     scroll->setLayout(main_layout);
     setLayout(main_layout);
@@ -50,12 +51,6 @@ TransitionInterface::TransitionInterface(State** state_list, unsigned int state_
 void TransitionInterface::validate_rules(){
     this->close();
 }
-
-//void TransitionInterface::add_new_transition_rule(){
-//    transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-//    transition_layout->addLayout(transition_vector->last());
-//}
-
 
 void TransitionInterface::add_new_transition_rule(){
     // On test si le nombre de voisins dans la règle n'est pas supérieur au nombre de voisin maximum
@@ -121,6 +116,14 @@ bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
     return true;
 }
 
+//void Transition::validRuleClick(){
+//    valid_rule->setEnabled(false);
+//    modify_rule->setEnabled(true);
+//}
+//void Transition::modifyRuleClick(){
+
+//}
+
 
 
 Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
@@ -137,11 +140,18 @@ Transition::Transition(State** state_list, unsigned int state_list_number, unsig
     final_layout = new QVBoxLayout;
     this->addLayout(final_layout);
     setFinalState(final_layout);
+
+    valid_layout = new QVBoxLayout;
+    this->addLayout(valid_layout);
+    setValidLayout(valid_layout);
+
+//    this->setAlignment(Qt::AlignTop);
 }
 
 
-void Transition::setStartState(QVBoxLayout* parent){
+void Transition::setStartState(QBoxLayout* parent){
     start_label = new QLabel("Etat de départ");
+//    start_label->setAlignment(Qt::AlignTop);
     parent->addWidget(start_label);
 
     start_layout_combo = new QHBoxLayout;
@@ -171,25 +181,27 @@ void Transition::setStartState(QVBoxLayout* parent){
     QObject::connect(start_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedStartState(int)));
 }
 
-void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent){
-    neighbours = new QPair < State*, QSpinBox* >*[state_list_number];
+void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QBoxLayout* parent){
     neighbours_layout = new QVBoxLayout*[state_list_number];
+    neighbours = new QPair < State*, QSpinBox* >*[state_list_number];
     neighbours_label = new QLabel*[state_list_number];
     for (unsigned int i = 0; i < state_list_number; i++) {
         neighbours_layout[i] = new QVBoxLayout;
         parent->addLayout(neighbours_layout[i]);
-        neighbours_label[i] = new QLabel("Nombre de voisins à l'état:<br>"+QString::number(i));
+        neighbours_label[i] = new QLabel("Nombre de voisins à l'état:<br><center>"+QString::number(i)+"</center>");
+//        neighbours_label[i]->setAlignment(Qt::AlignTop);
         neighbours_layout[i]->addWidget(neighbours_label[i]);
         neighbours[i] = new QPair < State*, QSpinBox* >;
         neighbours[i]->first = new State(state_list[i]->getName());
         neighbours[i]->second = new QSpinBox;
+//        neighbours[i]->second->setAlignment(Qt::AlignTop);
         neighbours[i]->second->setRange(0, neighbour_number);
         neighbours[i]->second->setValue(0);
         neighbours_layout[i]->addWidget(neighbours[i]->second);
     }
 }
 
-void Transition::setFinalState(QVBoxLayout* parent){
+void Transition::setFinalState(QBoxLayout* parent){
     final_label = new QLabel("Etat d'arrivée");
     parent->addWidget(final_label);
 
@@ -219,6 +231,16 @@ void Transition::setFinalState(QVBoxLayout* parent){
 
     QObject::connect(final_color, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(preventSelection(QTableWidgetItem*)));
     QObject::connect(final_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedFinalState(int)));
+}
+
+void Transition::setValidLayout(QBoxLayout* parent){
+    valid_rule = new QPushButton("Valider");
+    modify_rule = new QPushButton("Modifier");
+    parent->addWidget(valid_rule);
+    parent->addWidget(modify_rule);
+
+//    QObject::connect(valid_rule, SIGNAL(clicked()), this, SLOT(validRuleClick()));
+//    QObject::connect(modify_rule, SIGNAL(clicked()), this, SLOT(modifyRuleClick()));
 }
 
 /*

@@ -24,6 +24,7 @@ class Transition : public QHBoxLayout {
         QVBoxLayout* start_layout;
         QVBoxLayout** neighbours_layout = nullptr;
         QVBoxLayout* final_layout;
+        QVBoxLayout* valid_layout;
 
         // start_layout widget
         QLabel* start_label;
@@ -40,6 +41,10 @@ class Transition : public QHBoxLayout {
         QComboBox* final_cell;
         QTableWidget* final_color;
 
+        // valid_layout widget
+        QPushButton* valid_rule;
+        QPushButton* modify_rule;
+
     public:
         friend class TransitionInterface;
 
@@ -53,9 +58,10 @@ class Transition : public QHBoxLayout {
         State* getStartState() { return start_state; }
         State* getFinalState() { return final_state; }
 
-        void setStartState(QVBoxLayout*);
-        void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*);
-        void setFinalState(QVBoxLayout*);
+        void setStartState(QBoxLayout*);
+        void setNeighboursNumber(State**, unsigned int, unsigned int, QBoxLayout*);
+        void setFinalState(QBoxLayout*);
+        void setValidLayout(QBoxLayout*);
 
 
     protected slots:
@@ -65,6 +71,10 @@ class Transition : public QHBoxLayout {
         // change color on change combobox
         void changedStartState(int);
         void changedFinalState(int);
+
+        // Validate and modify previous rules
+//        void validRuleClick();
+//        void modifyRuleClick();
 };
 
 
