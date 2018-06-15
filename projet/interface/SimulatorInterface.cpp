@@ -34,7 +34,7 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
-    transition_controls->addWidget(set_transition_rules);
+	transition_controls->addWidget(set_transition_rules);
 //	set_transition_game_life = new QPushButton("Jeu de la vie");
 //	transition_controls->addWidget(set_transition_game_life);
 
@@ -87,12 +87,13 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
+	connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_initial_state()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	simulation_controls = new QVBoxLayout();
 	parent->addLayout(simulation_controls);
+	simulator = 0;
 
 	simulation_label = new QLabel("Mode de simulation");
 	simulation_label->setAlignment(Qt::AlignCenter);
@@ -102,9 +103,9 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	speed_label = new QLabel("Vitesse (en secondes)");
 	speed_selector = new QDoubleSpinBox();
 	speed_selector->setValue(1.0);
-	speed_selector->setRange(0.1, 10.0);
-	speed_selector->setSingleStep(0.5);
-	//speed_selector->setAlignment(Qt::AlignHCenter);
+	speed_selector->setRange(0.01, 5.0);
+	speed_selector->setSingleStep(0.1);
+	speed_selector->setAlignment(Qt::AlignHCenter);
 	// Speed Layout
 	speed_layout = new QHBoxLayout();
 	simulation_controls->addLayout(speed_layout);
@@ -206,15 +207,15 @@ void SimulatorInterface::home() {
  * @brief Lance la simulation de manière continue
  */
 void SimulatorInterface::start_simulation() {
-	// Disable start/step/reset/speed changes
-	sim_start_bt->setEnabled(false);
-	sim_step_bt->setEnabled(false);
-	sim_reset_bt->setEnabled(false);
-    speed_selector->setEnabled(true);
 	// Disable dimension changes
 	grid_dim_spinbox->setEnabled(false);
 	grid_dim_set_bt->setEnabled(false);
 	grid_dim_reset_bt->setEnabled(false);
+	// Disable start/step/reset/speed changes
+	sim_start_bt->setEnabled(false);
+	sim_step_bt->setEnabled(false);
+	sim_reset_bt->setEnabled(false);
+	speed_selector->setEnabled(false);
 	// Disable initial state changes
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
@@ -312,8 +313,8 @@ void SimulatorInterface::grid_reset_dim() {
 
 void SimulatorInterface::choose_transition_rules(){
 	//this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
-    TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
-    windowtransition->show();
+	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
+	windowtransition->show();
 
 	//QObject::connect(windowtransition, SIGNAL(event()), this, SLOT(choose_transition_rules_finished()));
 }

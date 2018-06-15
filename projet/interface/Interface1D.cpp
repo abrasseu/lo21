@@ -22,7 +22,7 @@ Interface1D::Interface1D(): SimulatorInterface(1), buffer_size(10) {
 
 	setRules(possible_state_list);
 
-	simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
+//	simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
 	initSimulatorView(view_layout);
 }
 
@@ -56,10 +56,11 @@ void Interface1D::initSimulatorView(QBoxLayout* parent) {
 }
 
 void Interface1D::redrawGrid(QBoxLayout* parent) {
-    // Initialisation du simulateur avec la bonne taille
-    if (simulator != nullptr)
-        delete simulator;
-    simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
+	// Initialisation du simulateur avec la bonne taille
+	if (simulator)
+		delete simulator;
+	simulator = new Simulator1D(possible_state_list, possible_state_number, grid_dimension);
+	simulator->generateStateCells();
 
 
 	// Initialisation de la ligne de départ
@@ -70,15 +71,12 @@ void Interface1D::redrawGrid(QBoxLayout* parent) {
 
 	drawGrid(initial_view, 1, grid_dimension);
 
-	// Initialisation du simulateur à state[0]
-	simulator->generateStateCells(0);
 	QColor color = QColor();
 	for (uint i = 0; i < grid_dimension; i++) {
 		color.setNamedColor(QString::fromStdString(simulator->getCell(i)->getColor()));
 		initial_view->item(0, i)->setBackgroundColor(color);
 	}
 	QObject::connect(initial_view, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(rotateCellState(QTableWidgetItem*)));
-
 
 	// Initialisation de la grille d'affichage
 	if (grid_view != nullptr)
