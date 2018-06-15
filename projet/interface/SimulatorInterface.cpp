@@ -228,14 +228,14 @@ void SimulatorInterface::start_simulation() {
 		sim_timer->start(1000 * speed_selector->value());
 	else
 		sim_timer->start(10);
-    QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
+	QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
 }
 
 void SimulatorInterface::speedSelectorChangedValue(double val){
-    if (val > 0)
-        sim_timer->start(1000 * val);
-    else
-        sim_timer->start(10);
+	if (val > 0)
+		sim_timer->start(1000 * val);
+	else
+		sim_timer->start(10);
 }
 
 /**

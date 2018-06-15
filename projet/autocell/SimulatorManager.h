@@ -10,47 +10,67 @@
 
 #include <vector>
 
-#include "Simulator.h"
 #include "SimulatorException.h"
+#include "Simulator.h"
 #include "State.h"
 #include "Rule.h"
 
+#include <iostream>
+using namespace std;
 using uint = unsigned int;
 
 class SimulatorManager {
 	private:
 		Simulator* _simulator;
-		std::vector<State*> _states;
-		std::vector<Rule*> _rules;
+		vector<State*> _states;
+		vector<Rule*> _rules;
 
 		// Singleton
 		static SimulatorManager* _instance;
-		SimulatorManager() {};
-		~SimulatorManager() noexcept { delete _simulator; delete _instance; };
+		SimulatorManager() {
+			_simulator = 0;
+		}
+		~SimulatorManager() {
+			if (_simulator)
+				delete _simulator;
+			_simulator = 0;
+		}
+
 	public:
 		// Singleton
-		static SimulatorManager* getManager() {	return _instance; };
+		static SimulatorManager* getManager() {
+			if (!(_instance))
+				_instance = new SimulatorManager();
+			return _instance;
+		}
+		static void freeManager() {
+			if (_instance)
+				delete _instance;
+			_instance = 0;
+		}
+
+
 
 		// Getters
 		State* getState(uint position);
-		std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
-		std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
+		vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
+		vector<State*>::const_iterator getLastState() const { return _states.end(); }
 
 		Rule* getRule(uint position);
-		std::vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
-		std::vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
+		vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
+		vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
 
 		// Setters
-		State* createNewState(std::string name, std::string color);
-		Rule* createNewRule(std::vector states, std::string endState);
+		State* createNewState(string name, string color);
+		Rule* createNewRule(vector<State*> states, string endState);
 
 		void removeState(State* state);
 		void removeRule(Rule* rule);
 
 
 
-		void export(std::string uri);
-		void import(std::string data);
+		void exportConfig(string uri);
+		void importConfig(string data);
 };
 
 #endif
