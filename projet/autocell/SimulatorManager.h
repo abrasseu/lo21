@@ -1,3 +1,9 @@
+/**
+ * Codé par BRASSEUR Alexandre
+ * Codé par NASTUZZI Samy
+ *
+ * Cette classe permet de gérer chaque simulation
+ */
 
 #ifndef __SIMULATOR_MANAGER_H_DEFINE__
 #define __SIMULATOR_MANAGER_H_DEFINE__
@@ -5,34 +11,34 @@
 #include <vector>
 
 #include "Simulator.h"
+#include "SimulatorException.h"
 #include "State.h"
+#include "Rule.h"
 
 using uint = unsigned int;
-using namespace std;
 
 class SimulatorManager {
 	private:
-		vector<Simulator> _simulators;
+		Simulator* _simulator;
+		std::vector<State> _states;
+		std::vector<Rule> _rules;
 
 		// Singleton
 		static SimulatorManager* _instance;
-		SimulatorManager();
-		~SimulatorManager();
+		SimulatorManager() {};
+		~SimulatorManager() noexcept { delete _simulator; delete _instance; };
 	public:
 		// Singleton
-		static SimulatorManager* getManager() {
-			if (!_instance)
-				_instance = new SimulatorManager();
-			return _instance;
-		}
-		static void freeManager() {
-			delete _instance;
-		}
+		static SimulatorManager* getManager() {	return _instance; };
 
-		// Accesseurs
-//		Simulator* createSimulator();
-//		 vector<string> listSimulator();
+		// Getters
+		State* getState(uint position);
+		std::vector<State>::const_iterator getFirstState() const { return _states.begin(); }
+		std::vector<State>::const_iterator getLastState() const { return _states.end(); }
 
+		Rule* getRule(uint position);
+		std::vector<Rule>::const_iterator getFirstRule() const { return _rules.begin(); }
+		std::vector<Rule>::const_iterator getLastRule() const { return _rules.end(); }
 };
 
 #endif

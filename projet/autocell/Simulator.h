@@ -1,20 +1,20 @@
+/**
+ * Codé par BRASSEUR Alexandre
+ * Codé par NASTUZZI Samy
+ *
+ * Cette classe permet de gérer chaque simulation
+ */
+
 #ifndef __SIMULATOR_H_DEFINE__
 #define __SIMULATOR_H_DEFINE__
 
 #include <iostream>
 #include <cmath>
 #include <string>
+#include "SimulatorException.h"
 #include "State.h"
 
 using uint = unsigned int;
-
-class SimulatorException {
-	private:
-		const std::string& _info;
-	public:
-		SimulatorException(const std::string& s) : _info(s) { }
-		const std::string& what() const { return _info; }
-};
 
 class Simulator {
 	protected:
@@ -41,8 +41,8 @@ class Simulator {
 		 * @param cellsSize: le nombre de cellules en culture
 		 * @param dimension: la dimension du Simulator
 		 */
-		Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _states(states),
-			_stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
+		Simulator(State** states, uint stateNbr, uint cellsSize, uint dimension): _dimension(dimension), _states(states),
+			_stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0) {
 			generateCells();
 		}
 		virtual ~Simulator() {
