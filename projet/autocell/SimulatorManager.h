@@ -18,65 +18,59 @@
 #include "Rule.h"
 
 #include <iostream>
-using namespace std;
 using uint = unsigned int;
 
 class SimulatorManager {
 	private:
 		Simulator* _simulator;
-		vector<State*> _states;
-		vector<Rule*> _rules;
+		uint _gridSize = 0;
+		std::vector<State*> _states;
+		std::vector<Rule*> _rules;
 
 		// Singleton
 		static SimulatorManager* _instance;
 		SimulatorManager() {
-			_simulator = 0;
+			_simulator = nullptr;
 		}
 		~SimulatorManager() {
-			if (_simulator)
+			if (_simulator != nullptr)
 				delete _simulator;
-			_simulator = 0;
 		}
 
 		// Template Methods
 		template<class T>
-		void removeObject(T* object, vector<T*> container);
+		void removeObject(T* object, std::vector<T*>* container);
 
 	public:
 		// Singleton
-		static SimulatorManager* getManager(bool throwException = true) {
-			if (!(_instance))
-				_instance = new SimulatorManager();
-			return _instance;
-		}
-		static void freeManager() {
-			if (_instance)
-				delete _instance;
-			_instance = 0;
-		}
+		static SimulatorManager* getManager() { return _instance; }
 
 		// Simulator
-		Simulator* getSimulator(bool throwException = true);
-		Simulator* createSimulator(uint dimension, uint cellsSize, vector<State*>* states = nullptr);
+		Simulator* getSimulator();
+		Simulator* createSimulator(uint dimension);
 		void deleteSimulator();
+
+		// Grid size
+		uint getGridSize() { return _gridSize; }
+		void setGridSize(uint gridSize) { _gridSize = gridSize; }
 
 		// States
 		State* getState(uint position);
-		vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
-		vector<State*>::const_iterator getLastState() const { return _states.end(); }
-		State* createNewState(string name, string color);
+		std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
+		std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
+		State* createNewState(std::string name, string color);
 		void removeState(State* state);
 
 		// Rules
 		Rule* getRule(uint position);
-		vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
-		vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
-		Rule* createNewRule(vector<State*> states, string endState);
+		std::vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
+		std::vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
+		Rule* createNewRule(std::vector<State*> states, State* endState);
 		void removeRule(Rule* rule);
 
 		// Save & Load
-		void exportConfig(string uri);
-		void importConfig(string uri);
+		void exportConfig(std::string uri);
+		void importConfig(std::string uri);
 };
 
 #endif
