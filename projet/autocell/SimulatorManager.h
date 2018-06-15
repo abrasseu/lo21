@@ -12,6 +12,8 @@
 
 #include "SimulatorException.h"
 #include "Simulator.h"
+#include "Simulator1D.h"
+#include "Simulator2D.h"
 #include "State.h"
 #include "Rule.h"
 
@@ -36,9 +38,13 @@ class SimulatorManager {
 			_simulator = 0;
 		}
 
+		// Template Methods
+		template<class T>
+		void removeObject(T* object, vector<T*> container);
+
 	public:
 		// Singleton
-		static SimulatorManager* getManager() {
+		static SimulatorManager* getManager(bool throwException = true) {
 			if (!(_instance))
 				_instance = new SimulatorManager();
 			return _instance;
@@ -49,28 +55,28 @@ class SimulatorManager {
 			_instance = 0;
 		}
 
+		// Simulator
+		Simulator* getSimulator(bool throwException = true);
+		Simulator* createSimulator(uint dimension, uint cellsSize, vector<State*>* states = nullptr);
+		void deleteSimulator();
 
-
-		// Getters
+		// States
 		State* getState(uint position);
 		vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
 		vector<State*>::const_iterator getLastState() const { return _states.end(); }
+		State* createNewState(string name, string color);
+		void removeState(State* state);
 
+		// Rules
 		Rule* getRule(uint position);
 		vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
 		vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
-
-		// Setters
-		State* createNewState(string name, string color);
 		Rule* createNewRule(vector<State*> states, string endState);
-
-		void removeState(State* state);
 		void removeRule(Rule* rule);
 
-
-
+		// Save & Load
 		void exportConfig(string uri);
-		void importConfig(string data);
+		void importConfig(string uri);
 };
 
 #endif
