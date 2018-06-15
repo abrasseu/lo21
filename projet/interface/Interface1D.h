@@ -36,7 +36,10 @@ class Interface1D : public SimulatorInterface
 		void changeGridCells();
 
 	private slots:
-		void rotateCellState(QTableWidgetItem*);
+        void rotateCellState(QTableWidgetItem*);
+
+        void step_simulation();
+        void start_simulation();
 
 		// To prevent selecting cells on grid_view
 		void grid_view_clicked(QTableWidgetItem*);

@@ -101,7 +101,7 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	// Speed Controls
 	speed_label = new QLabel("Vitesse (en secondes)");
 	speed_selector = new QDoubleSpinBox();
-	speed_selector->setValue(1.0);
+    speed_selector->setValue(0.1);
 	speed_selector->setRange(0.1, 10.0);
 	speed_selector->setSingleStep(0.5);
 	//speed_selector->setAlignment(Qt::AlignHCenter);
@@ -219,6 +219,8 @@ void SimulatorInterface::start_simulation() {
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
+    changeCellEnabled = false;
+
 	// Run simulation until it stage
 	sim_is_running = true;
 	if (speed_selector->value() > 0)
@@ -249,6 +251,7 @@ void SimulatorInterface::step_simulation() {
 
 	// Step simulation
 	iterate_simulation();
+//    changeCellEnabled = false;
 }
 
 /**
@@ -264,6 +267,7 @@ void SimulatorInterface::stop_simulation() {
 	sim_step_bt->setEnabled(true);
 	sim_reset_bt->setEnabled(true);
 	speed_selector->setEnabled(true);
+    changeCellEnabled = true;
 }
 
 /**
@@ -277,6 +281,7 @@ void SimulatorInterface::reset_simulation() {
 	// Enable initial state selection
 	initial_state_selector->setEnabled(true);
 	initial_state_setter->setEnabled(true);
+    changeCellEnabled = true;
 
 	// Set initial states
 	setInitialStates();
