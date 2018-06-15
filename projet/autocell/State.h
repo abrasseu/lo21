@@ -15,34 +15,34 @@
 
 using uint = unsigned int;
 
-class Rule;
+using namespace std;
 
 class State {
-private:
-    // Définition
-    std::string _name;
-    std::string _color;
+	private:
+		// Définition
+		string _name;
+		string _color;
 
-    // Règles définies pour le changement d'état
-    std::vector<Rule*> _rules;
+		// Règles définies pour le changement d'état
+		vector<Rule*> _rules;
 
-public:
-    // Constructeurs
-    State(std::string name, std::string color = "#000000"): _name(name), _color(color) {}
+	public:
+		// Constructeurs
+		State(string name, string color = "#ffffff"): _name(name), _color(color) {}
 
-    // Getters
-    std::string getName() const { return _name; }
-    std::string getColor() const { return _color; }
+		// Getters
+		string getName() const { return _name; }
+		string getColor() const { return _color; }
 
-    // Setters
-    void setName(std::string name) { _name = name; }
-    void setColor(std::string color) { _color = color; }
+		// Setters
+		void setName(string name) { _name = name; }
+		void setColor(string color) { _color = color; }
 
-    // Permet d'ajouter une nouvelle règle
-    void addANewRule(Rule* rule);
+		// Permet d'ajouter une nouvelle règle
+		void addANewRule(Rule* rule);
 
-    // Permet de récupérer l'état de la génération suivante en fonction des règles
-    State* getNextGeneration(State** states, uint size);
+		// Permet de récupérer l'état de la génération suivante en fonction des règles
+		State* getNextGeneration(State** states, uint size);
 };
 
 #endif

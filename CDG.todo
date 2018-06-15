@@ -1,0 +1,13 @@
+TODO:
+ ✔ Changement dim grille/buffer         @Brass @done (18-06-15 02:55)
+	 ☐	BUG : change dim and change state
+	 
+ ☐ Gestion d'état initial
+ ☐ Transitions affichage                @Bazin
+	 ☐	Scrollbar
+ ☐ Transitions algorithme
+ ☐ Etats
+ ☐ Save/Export
+ ☐ Design général
+ ☐ AutomateLoupGarou
+ ☐ Jeu de la Vie

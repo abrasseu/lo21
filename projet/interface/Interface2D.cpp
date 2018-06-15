@@ -28,14 +28,14 @@ Interface2D::Interface2D() : SimulatorInterface(2) {
 	possible_state_list[1] = new State("Vivant", "#000");
 	possible_state_list[2] = new State("Zombi", "#ff0000");
 
-    // Ajout du bouton du choix des paramètres du jeu de la vie
-    set_transition_game_life = new QPushButton("Jeu de la vie");
-    transition_controls->addWidget(set_transition_game_life);
+	// Ajout du bouton du choix des paramètres du jeu de la vie
+	set_transition_game_life = new QPushButton("Jeu de la vie");
+	transition_controls->addWidget(set_transition_game_life);
 
 	setRules2(possible_state_list);
 	grid_size = 650;
 
-	simulator = new Simulator2D(possible_state_list, 3, grid_dimension*grid_dimension);
+//	simulator = new Simulator2D(possible_state_list, 3, grid_dimension);
 	initSimulatorView(view_layout);
 }
 
@@ -44,12 +44,17 @@ Interface2D::Interface2D() : SimulatorInterface(2) {
 
 void Interface2D::initSimulatorView(QBoxLayout* parent) {
 	setInitialStates();
-	simulator->generateStateCells();
 	redrawGrid(parent);
 }
 
 void Interface2D::redrawGrid(QBoxLayout* parent) {
-	// Delete and recreate grid is exists
+	// Config Simulator Cells
+	if (simulator)
+		delete simulator;
+	simulator = new Simulator2D(possible_state_list, possible_state_number, grid_dimension);
+	simulator->generateStateCells();
+
+	// Delete and recreate grid if exists
 	if (grid_view != nullptr)
 		delete grid_view;
 	grid_view = new QTableWidget(grid_dimension, grid_dimension);
@@ -70,8 +75,8 @@ void Interface2D::redrawGrid(QBoxLayout* parent) {
 		for (unsigned int j=0; j < grid_dimension; j++)
 			grid_view->setItem(i, j, new QTableWidgetItem());
 	}
-
 	connect(grid_view, SIGNAL(cellClicked(int,int)), this, SLOT(rotateCellState(int, int)));
+
 	changeGridCells();
 }
 

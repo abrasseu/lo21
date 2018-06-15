@@ -29,12 +29,11 @@ class Simulator {
 
 		// Getters
 		uint getDimension() const { return _dimension; }
-        State** getCellsState() const;
+		State** getCellsState() const;
 		virtual State** getNeighboursState(State** states, uint position) = 0;
 		void generateCells();
 
 	public:
-		// Constructeurs
 		/**
 		 * @brief Simulator
 		 * @param states: State** la liste des états possibles
@@ -46,6 +45,10 @@ class Simulator {
 			_stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0), _dimension(dimension) {
 			generateCells();
 		}
+		virtual ~Simulator() {
+			delete[] _states;
+			delete[] _cells;
+		}
 
 		// Generators
 		void generateStateCells(uint s = 0);
@@ -56,7 +59,7 @@ class Simulator {
 		void generateDescAlternedCells();
 
 		// Getters
-        uint getNeighbourNbr() const { return pow(3, getDimension()) - 1; }
+		uint getNeighbourNbr() const { return pow(3, getDimension()) - 1; }
 		State** getInitStates() const { return _states; }
 		uint getStateNbr() const { return _stateNbr; }
 		uint getCellsSize() const { return _cellsSize; }
