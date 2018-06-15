@@ -51,12 +51,6 @@ void TransitionInterface::validate_rules(){
     this->close();
 }
 
-//void TransitionInterface::add_new_transition_rule(){
-//    transition_vector->push_back(new Transition(state_list, state_list_number, neighbour_number));
-//    transition_layout->addLayout(transition_vector->last());
-//}
-
-
 void TransitionInterface::add_new_transition_rule(){
     // On test si le nombre de voisins dans la règle n'est pas supérieur au nombre de voisin maximum
     if (!transition_vector->empty()){
@@ -100,8 +94,6 @@ void TransitionInterface::add_new_transition_rule(){
     }
 }
 
-}
-
 bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
     for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
         bool spinboxequals = true;
@@ -117,20 +109,6 @@ bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
             spinboxequals = false;
         if ((*it)->start_cell->currentData() == transi->start_cell->currentData()
                 && (*it)->final_cell->currentData() == transi->final_cell->currentData() && spinboxequals)
-            return false;
-    }
-    return true;
-}
-
-bool TransitionInterface::add_new_transition_rule_valid(Transition* transi){
-    for (Transition** it = transition_vector->begin(); it != transition_vector->end(); ++it){
-        bool cont = true;
-        for (unsigned int i = 0; i < transi->nb_states; i++)
-            if ((*it)->neighbours[i]->second->value() != transi->neighbours[i]->second->value()){
-                cont = false;
-                break;
-            }
-        if ((*it)->start_cell == transi->start_cell && (*it)->final_cell == transi->final_cell && cont)
             return false;
     }
     return true;
