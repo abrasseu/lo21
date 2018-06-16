@@ -4,6 +4,7 @@
 #include "Interface1D.h"
 
 #include <string>
+#include <QFileDialog>
 
 HomeView::HomeView() : QWidget() {
 	// Set up
@@ -21,9 +22,11 @@ HomeView::HomeView() : QWidget() {
 	title = new QLabel("AutoCell");
 	title->setAlignment(Qt::AlignCenter);
 	title->setMargin(10);
-	subtitle = new QLabel("Par Samy Nastuzzi, Simon Bazin and Alexandre Brasseur");
-	subtitle->setAlignment(Qt::AlignCenter);
+    QString comment = QString::fromStdString("<center>Le Jeu de la Vie est accessible à partir d'un fichier à charger grâce au bouton charger ci-dessous</center><br><br><br><br>");
+    subtitle = new QLabel("<center>Par<br>Samy Nastuzzi<br>Simon Bazin<br>Alexandre Brasseur</center><br><br><br>"+comment);
+    subtitle->setAlignment(Qt::AlignCenter);
 	// Buttons
+    load_automate = new QPushButton("Charger Automate");
 	quit_bt = new QPushButton("Quitter");
 
 	// === Init Automate Widgets
@@ -35,9 +38,9 @@ HomeView::HomeView() : QWidget() {
 		automate_titles[i]->setAlignment(Qt::AlignCenter);
 		automate_bts[i] = new QPushButton("Simuler");
 	}
-	automate_texts[0] = new QLabel("Automate 1D blabla");
+    automate_texts[0] = new QLabel("<center>Réaliser des simulations avec un automate à 1 dimension<br> avec les paramètres sélectionnés</center>");
 	automate_texts[0]->setWordWrap(true);
-	automate_texts[1] = new QLabel("Automate 2D blabla");
+    automate_texts[1] = new QLabel("<center>Réaliser des simulations avec un automate à 2 dimensions<br> avec les paramètres sélectionnés</center>");
 	automate_texts[1]->setWordWrap(true);
 
 
@@ -47,6 +50,7 @@ HomeView::HomeView() : QWidget() {
 	main_layout->addWidget(title);
 	main_layout->addWidget(subtitle);
 	main_layout->addLayout(automate_layout);
+    main_layout->addWidget(load_automate);
 	main_layout->addWidget(quit_bt);
 	// Automate Layouts
 	for (suint i = 0; i < nb_automates; i++) {
@@ -58,6 +62,7 @@ HomeView::HomeView() : QWidget() {
 
 	// === Connections
 	connect(quit_bt, SIGNAL(clicked()), this, SLOT(close()));
+    connect(load_automate, SIGNAL(clicked()), this, SLOT(loadAutomate()));
 	connect(automate_bts[0], SIGNAL(clicked()), this, SLOT(simulate1D()));
 	connect(automate_bts[1], SIGNAL(clicked()), this, SLOT(simulate2D()));
 }
@@ -86,6 +91,28 @@ void HomeView::simulate2D() {
 	close();
 	Interface2D* view = new Interface2D();
 	view->show();
+}
+
+void HomeView::loadAutomate(){
+    QString fileName = QFileDialog::getOpenFileName(this,
+           tr("Charger le fichier"), "",
+           tr("Adresse du fichier (*.json)"));
+    try{
+        SimulatorManager::getManager()->importConfig(fileName.toStdString());
+
+        if (SimulatorManager::getManager()->getDimension() == 1){
+            close();
+            Interface1D* view = new Interface1D();
+            view->show();
+        }
+        else if (SimulatorManager::getManager()->getDimension() == 2){
+            close();
+            Interface2D* view = new Interface2D();
+            view->show();
+        }
+    } catch(SimulatorException error) {
+        QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
+    }
 }
 
 

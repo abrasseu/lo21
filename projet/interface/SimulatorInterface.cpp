@@ -28,11 +28,14 @@ void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
 void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
 	choose_automate = new QPushButton("Choisir cet automate");
 	change_automate = new QPushButton("Changer d'automate");
+    save_automate = new QPushButton("Sauvegarder l'état de l'automate");
 	parent->addWidget(choose_automate);
 	parent->addWidget(change_automate);
+    parent->addWidget(save_automate);
 
 	QObject::connect(choose_automate, SIGNAL(clicked()), this, SLOT(chosenAutomate()));
 	QObject::connect(change_automate, SIGNAL(clicked()), this, SLOT(changedAutomate()));
+    QObject::connect(save_automate, SIGNAL(clicked()), this, SLOT(saveAutomate()));
 }
 
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
@@ -380,9 +383,10 @@ void SimulatorInterface::chosenAutomate(){
 	grid_dim_set_bt->setEnabled(false);
 	grid_dim_reset_bt->setEnabled(false);
 
-	choose_automate->setEnabled(false);
+    choose_automate->setEnabled(false);
 
 	// Enable right buttons
+    save_automate->setEnabled(true);
 	change_automate->setEnabled(true);
 	set_transition_rules->setEnabled(true);
 	speed_selector->setEnabled(true);
@@ -412,6 +416,7 @@ void SimulatorInterface::changedAutomate(){
 	choose_automate->setEnabled(true);
 
 	// Disnable right buttons
+    save_automate->setEnabled(false);
 	change_automate->setEnabled(false);
 	set_transition_rules->setEnabled(false);
 	speed_selector->setEnabled(false);
@@ -491,5 +496,24 @@ void SimulatorInterface::delete_state() {
 	} catch (SimulatorException error) {
 		QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
 	}
+}
+
+
+void SimulatorInterface::saveAutomate(){
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Sauvegarder l'automate"), "",
+            tr("Adresse du fichier (*.json)"));
+    if (fileName.isEmpty())
+            return;
+        else {
+            QFile file(fileName);
+            if (!file.open(QIODevice::WriteOnly)) {
+                QMessageBox::information(this, tr("Impossible d'ouvrir le fichier"),
+                    file.errorString());
+                return;
+            }
+    }
+
+    SimulatorManager::getManager()->importConfig(fileName.toStdString());
 }
 

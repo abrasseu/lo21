@@ -26,6 +26,7 @@ class HomeView : public QWidget
 		// Buttons
 		QPushButton* quit_bt;
 		QPushButton** automate_bts;
+        QPushButton* load_automate;
 
 		// Labels
 		QLabel* title;
@@ -40,6 +41,7 @@ class HomeView : public QWidget
 	private slots:
 		void simulate1D();
 		void simulate2D();
+        void loadAutomate();
 };
 
 #endif // HOMEVIEW_H

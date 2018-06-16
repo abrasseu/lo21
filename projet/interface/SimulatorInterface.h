@@ -16,6 +16,7 @@
 #include <QComboBox>
 #include <QTimer>
 #include <QVector>
+#include <QFileDialog>
 
 #include "../autocell/SimulatorManager.h"
 #include "StateInterface.h"
@@ -55,6 +56,7 @@ class SimulatorInterface : public QWidget {
 		// === Choose Automate
 		QPushButton* choose_automate;
 		QPushButton* change_automate;
+        QPushButton* save_automate;
 
 		QPushButton* set_transition_rules;
 		QPushButton* set_transition_game_life;
@@ -161,6 +163,8 @@ class SimulatorInterface : public QWidget {
 		virtual void set_default_grid() = 0;
 		void grid_set_dim();
 		void grid_reset_dim();
+
+        void saveAutomate();
 };
 
 #endif // SIMULATOR_H
