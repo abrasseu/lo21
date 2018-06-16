@@ -41,8 +41,8 @@ void SimulatorManager::setGridSize(uint gridSize) {
 Simulator* SimulatorManager::getSimulator() {
 	if (_simulator == nullptr)
 		throw SimulatorException("Aucune simulation n'a été instanciée");
-
-	return _simulator;
+    else
+        return _simulator;
 }
 
 Simulator* SimulatorManager::createSimulator(uint dimension) {
