@@ -34,7 +34,7 @@ TransitionInterface::TransitionInterface() : QWidget() {
     main_layout->addLayout(transition_layout);
 
     transition_vector = new QVector< QPair< Transition *, QPushButton* > >;
-//    displayExistingRules();
+    displayExistingRules();
     addNewTransitionRule();
 
     transition_add_rule = new QPushButton("Ajouter une nouvelle règle");
@@ -74,6 +74,8 @@ void TransitionInterface::addNewTransitionRule(){
             else{
                 Transition* add_transi = new Transition(state_list, state_list_number, neighbour_number);
                 if (addNewTransitionRuleValid(tr)){
+                    transition_vector->last().first->start_state = SimulatorManager::getManager()->getState(transition_vector->last().first->start_cell->currentIndex());
+                    transition_vector->last().first->final_state = SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex());
                     tr->start_cell->setEnabled(false);
                     tr->final_cell->setEnabled(false);
                     transition_vector->last().first->addWidget(transition_vector->last().second);
@@ -85,8 +87,9 @@ void TransitionInterface::addNewTransitionRule(){
                         for (unsigned int j = 0; j < tr->neighbours[i]->second->value(); j++)
                             vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
                     }
+                    Rule* rule = SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+                    transition_vector->last().first->start_state->addANewRule(rule);
 
-                    SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(tr->final_cell->currentIndex()));
                     QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
                     pair->first = add_transi;
                     pair->second = new QPushButton("Modifier");
@@ -101,6 +104,8 @@ void TransitionInterface::addNewTransitionRule(){
         }
         // Si il y a pas encore de règle, il faut en mettre une première
         else{
+            transition_vector->last().first->start_state = SimulatorManager::getManager()->getState(transition_vector->last().first->start_cell->currentIndex());
+            transition_vector->last().first->final_state = SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex());
             transition_vector->last().first->start_cell->setEnabled(false);
             transition_vector->last().first->final_cell->setEnabled(false);
 
@@ -114,7 +119,8 @@ void TransitionInterface::addNewTransitionRule(){
                 for (unsigned int j = 0; j < transition_vector->last().first->neighbours[i]->second->value(); j++)
                     vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
             }
-            SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+            Rule* rule = SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+            transition_vector->last().first->start_state->addANewRule(rule);
 
             QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
             pair->first = new Transition(state_list, state_list_number, neighbour_number);
@@ -136,11 +142,11 @@ void TransitionInterface::addNewTransitionRule(){
         std::vector<State*>* vector_state_manager = new std::vector<State*>;
         for (unsigned int i = 0; i < transition_vector->last().first->getNbStates(); i++){
             // On affiche le bouton modifier pour la règle précédent
-            transition_vector->last().first->neighbours[i]->second->setEnabled(false);
             for (unsigned int j = 0; j < transition_vector->last().first->neighbours[i]->second->value(); j++)
                 vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
-        }
-        SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+        }/*
+        Rule* rule = SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+        transition_vector->last().first->start_state->addANewRule(rule);*/
 
         QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
     }
@@ -201,6 +207,10 @@ void TransitionInterface::displayExistingRules(){
                     tab[j] = value_return_map->second;
                 }
             }
+
+            Transition* tr = new Transition(state_list, SimulatorManager::getManager()->getStateNumber(), SimulatorManager::getManager()->getSimulator()->getNeighbourNbr(),
+                                            tab, *ite_state, (*it)->getState());
+
         }
     }
 }
@@ -244,7 +254,7 @@ void Transition::setStartState(QVBoxLayout* parent, State* start_state){
     start_cell = new QComboBox();
     start_layout_combo->addWidget(start_cell);
     start_cell->addItem(QString::fromStdString(start_state->getName()), QVariant(0));
-    for (unsigned int i =1; i < nb_states; i++){
+    for (unsigned int i = 1; i < nb_states; i++){
         if (state_list[i]->getName() != start_state->getName())
             start_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
         else
@@ -304,7 +314,7 @@ void Transition::setFinalState(QVBoxLayout* parent, State* final_state){
     final_cell = new QComboBox();
     final_layout_combo->addWidget(final_cell);
     final_cell->addItem(QString::fromStdString(final_state->getName()), QVariant(0));
-    for (unsigned int i =0; i < nb_states; i++){
+    for (unsigned int i = 1; i < nb_states; i++){
         if (state_list[i]->getName() != final_state->getName())
             final_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
         else
