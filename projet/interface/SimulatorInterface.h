@@ -22,22 +22,24 @@
 #include "../autocell/Simulator.h"
 #include "../autocell/State.h"
 
+class StateInterface;
+
 class SimulatorInterface : public QWidget {
 	Q_OBJECT		// Macro permettant d'avoir des slots (qui sont uniquement sur Qt)
 
 	protected:
-        friend class StateInterface;
+		friend class StateInterface;
 		// === Main Layouts
 		QHBoxLayout* main_layout;
-        QVBoxLayout* state_main_layout;
+		QVBoxLayout* state_main_layout;
 		QVBoxLayout* controls_layout;
 		QVBoxLayout* view_layout;
 
-        // === State Widget
-        QVBoxLayout* state_layout_display;
-        QVector < QPair < StateInterface*, QPushButton*> >* state_vector = nullptr;
-        QPushButton* valid_state;
-        QPushButton* add_state;
+		// === State Widget
+		QVBoxLayout* state_layout_display;
+		QVector < QPair < StateInterface*, QPushButton*> >* state_vector = nullptr;
+		QPushButton* valid_state;
+		QPushButton* add_state;
 
 		// === Control Layouts
 		QHBoxLayout* window_controls;
@@ -95,11 +97,11 @@ class SimulatorInterface : public QWidget {
 		void setSimulatorControls(QBoxLayout*);
 		void setInitialStateControls(QBoxLayout*);
 
-        void addFirstState(QBoxLayout*);
-        void displayExistingStates();
+		void addFirstState(QBoxLayout*);
+		void displayExistingStates();
 
 		// Simulation
-        Simulator* simulator = 0;
+		Simulator* simulator = 0;
 		bool sim_is_running;
 
 		// Grid
@@ -122,26 +124,26 @@ class SimulatorInterface : public QWidget {
 	public:
 		SimulatorInterface(const short unsigned int automate_dimension = 0);
 
-    protected slots:
+	protected slots:
 		void home();
 
 		// Simulation Slots
-        virtual void start_simulation();
-        void speedSelectorChangedValue(double);
-        virtual void step_simulation();
+		virtual void start_simulation();
+		void speedSelectorChangedValue(double);
+		virtual void step_simulation();
 		void stop_simulation();
 		void reset_simulation();
 		void iterate_simulation();
 
-        // State Slots
-        void add_new_state();
+		// State Slots
+		void add_new_state();
 
 		// Transition Slots
 		void choose_transition_rules();
-        void choose_transition_rules_finished();
+		void choose_transition_rules_finished();
 
 		// Grid Slots
-        virtual void set_default_grid() = 0;
+		virtual void set_default_grid() = 0;
 		void grid_set_dim();
 		void grid_reset_dim();
 };

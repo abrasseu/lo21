@@ -1,6 +1,5 @@
 #include "SimulatorInterface.h"
 #include "HomeView.h"
-//#include <unistd.h>
 
 #include <QMessageBox>
 
@@ -34,7 +33,7 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 	transition_controls = new QHBoxLayout();
 	parent->addLayout(transition_controls);
 	set_transition_rules = new QPushButton("Choix des transitions");
-    transition_controls->addWidget(set_transition_rules);
+	transition_controls->addWidget(set_transition_rules);
 
 	QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
@@ -51,8 +50,8 @@ void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
 	// Selectors
 	grid_dim_label = new QLabel("Choisissez les dimensions de la grille: ");
 	grid_dim_spinbox = new QSpinBox();
-    grid_dim_spinbox->setRange(3,100);
-    grid_dim_spinbox->setAlignment(Qt::AlignHCenter);
+	grid_dim_spinbox->setRange(3,100);
+	grid_dim_spinbox->setAlignment(Qt::AlignHCenter);
 	grid_dim_spinbox->setValue(10);
 	// Buttons
 	grid_dim_set_bt = new QPushButton("Valider");
@@ -73,7 +72,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	parent->addLayout(initial_state_controls);
 
 	initial_state_label = new QLabel("Sélectionner un état de départ");
-    initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
+	initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
 	initial_state_setter = new QPushButton("Appliquer l'état");
 	// Add Items to Layout
 	initial_state_controls->addWidget(initial_state_label);
@@ -81,7 +80,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	initial_state_controls->addWidget(initial_state_setter);
 
 	// Slot
-    connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_default_grid()));
+	connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_default_grid()));
 }
 
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
@@ -96,7 +95,7 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	// Speed Controls
 	speed_label = new QLabel("Vitesse (en secondes)");
 	speed_selector = new QDoubleSpinBox();
-    speed_selector->setValue(0.1);
+	speed_selector->setValue(0.1);
 	speed_selector->setRange(0.01, 5.0);
 	speed_selector->setSingleStep(0.1);
 	speed_selector->setAlignment(Qt::AlignHCenter);
@@ -128,11 +127,11 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 
 void SimulatorInterface::addFirstState(QBoxLayout* parent){
 //    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
-    QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
-    pair->first = new StateInterface();
-    pair->second = new QPushButton;
-    state_vector->push_back(*pair);
-    parent->addLayout(state_vector->last().first);
+	QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+	pair->first = new StateInterface();
+	pair->second = new QPushButton;
+	state_vector->push_back(*pair);
+	parent->addLayout(state_vector->last().first);
 }
 
 
@@ -160,27 +159,27 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	main_layout = new QHBoxLayout();
 	controls_layout = new QVBoxLayout();
 	view_layout = new QVBoxLayout();
-    state_main_layout = new QVBoxLayout();
+	state_main_layout = new QVBoxLayout();
 	// Configure Main Layouts
 	setLayout(main_layout);
-    main_layout->addLayout(state_main_layout);
+	main_layout->addLayout(state_main_layout);
 	main_layout->addLayout(controls_layout);
-    main_layout->addLayout(view_layout);
+	main_layout->addLayout(view_layout);
 
-    // Configure State Layout
-    valid_state = new QPushButton("Valider");
-    state_main_layout->addWidget(valid_state);
-    state_layout_display = new QVBoxLayout;
-    state_main_layout->addLayout(state_layout_display);
+	// Configure State Layout
+	valid_state = new QPushButton("Valider");
+	state_main_layout->addWidget(valid_state);
+	state_layout_display = new QVBoxLayout;
+	state_main_layout->addLayout(state_layout_display);
 
-    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+	state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
 //    displayExistingStates();
-    addFirstState(state_layout_display);
+	addFirstState(state_layout_display);
 
-    add_state = new QPushButton("Ajouter état");
-    state_main_layout->addWidget(add_state);
+	add_state = new QPushButton("Ajouter état");
+	state_main_layout->addWidget(add_state);
 
-    QObject::connect(add_state, SIGNAL(clicked()), this, SLOT(add_new_state()));
+	QObject::connect(add_state, SIGNAL(clicked()), this, SLOT(add_new_state()));
 
 	// =========== Window Controls ===========
 	window_controls = new QHBoxLayout();
@@ -240,7 +239,7 @@ void SimulatorInterface::start_simulation() {
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
-    changeCellEnabled = false;
+	changeCellEnabled = false;
 
 	// Run simulation until it stage
 	sim_is_running = true;
@@ -288,7 +287,7 @@ void SimulatorInterface::stop_simulation() {
 	sim_step_bt->setEnabled(true);
 	sim_reset_bt->setEnabled(true);
 	speed_selector->setEnabled(true);
-    changeCellEnabled = true;
+	changeCellEnabled = true;
 }
 
 /**
@@ -302,7 +301,7 @@ void SimulatorInterface::reset_simulation() {
 	// Enable initial state selection
 	initial_state_selector->setEnabled(true);
 	initial_state_setter->setEnabled(true);
-    changeCellEnabled = true;
+	changeCellEnabled = true;
 
 	// Set initial states
 	setInitialStates();
@@ -322,7 +321,7 @@ void SimulatorInterface::iterate_simulation() {
 
 void SimulatorInterface::grid_set_dim(){
 	grid_dimension = grid_dim_spinbox->value();
-    redrawGrid(view_layout);
+	redrawGrid(view_layout);
 }
 void SimulatorInterface::grid_reset_dim() {
 	grid_dim_spinbox->setValue(10);
@@ -334,12 +333,12 @@ void SimulatorInterface::grid_reset_dim() {
 // ==================== Transition Slots ====================
 
 void SimulatorInterface::choose_transition_rules(){
-    this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
+	this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
 	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
 	windowtransition->show();
 
-    // A la fermeture de la fenêtre du choix des transitions
-    QObject::connect(windowtransition, SIGNAL(close_transition_interface()), this, SLOT(choose_transition_rules_finished()));
+	// A la fermeture de la fenêtre du choix des transitions
+	QObject::connect(windowtransition, SIGNAL(close_transition_interface()), this, SLOT(choose_transition_rules_finished()));
 }
 
 
@@ -350,50 +349,50 @@ void SimulatorInterface::choose_transition_rules_finished(){
 // ==================== State Slots ====================
 
 void SimulatorInterface::add_new_state(){
-    if (state_vector->last().first->state_name->text().isEmpty())
-        QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs pour les champs");
-    else{
-        bool same_value = false;
-        // Ne marche pas
-        for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
-            StateInterface* st = it->first;
-            if (st != state_vector->last().first){
-                if ( (*st).state_name->text() == state_vector->last().first->state_name->text()
-                     || (*st).color_button->item(0,0)->backgroundColor().name() == state_vector->last().first->color_button->item(0,0)->backgroundColor().name() ){
-                    same_value = true;
-                    QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs différentes de celles existantes");
-                    break;
-                }
-            }
-        }
-        if (!same_value){
-            state_vector->last().first->state_name->setEnabled(false);
-            state_vector->last().first->color_button->setEnabled(false);
-            state_vector->last().second = new QPushButton("Supprimer");
-            state_vector->last().first->addWidget(state_vector->last().second);
-            QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
-            pair->first = new StateInterface();
-            pair->second = new QPushButton;
-            state_vector->push_back(*pair);
-            state_layout_display->addLayout(state_vector->last().first);
-        }
-    }
+	if (state_vector->last().first->state_name->text().isEmpty())
+		QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs pour les champs");
+	else{
+		bool same_value = false;
+		// Ne marche pas
+		for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
+			StateInterface* st = it->first;
+			if (st != state_vector->last().first){
+				if ( (*st).state_name->text() == state_vector->last().first->state_name->text()
+					 || (*st).color_button->item(0,0)->backgroundColor().name() == state_vector->last().first->color_button->item(0,0)->backgroundColor().name() ){
+					same_value = true;
+					QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs différentes de celles existantes");
+					break;
+				}
+			}
+		}
+		if (!same_value){
+			state_vector->last().first->state_name->setEnabled(false);
+			state_vector->last().first->color_button->setEnabled(false);
+			state_vector->last().second = new QPushButton("Supprimer");
+			state_vector->last().first->addWidget(state_vector->last().second);
+			QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+			pair->first = new StateInterface();
+			pair->second = new QPushButton;
+			state_vector->push_back(*pair);
+			state_layout_display->addLayout(state_vector->last().first);
+		}
+	}
 }
 
 void SimulatorInterface::displayExistingStates(){
-    for (unsigned int i = 0; i < simulator->getStateNbr(); i++){
-        StateInterface* state_existing = new StateInterface(simulator->getInitStates()[i]->getName(),simulator->getInitStates()[i]->getColor());
-        QPushButton* but = new QPushButton("Supprimer");
+	for (unsigned int i = 0; i < simulator->getStateNbr(); i++){
+		StateInterface* state_existing = new StateInterface(simulator->getInitStates()[i]->getName(),simulator->getInitStates()[i]->getColor());
+		QPushButton* but = new QPushButton("Supprimer");
 
 //        state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
 
-        QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
-        pair->first = state_existing;
-        pair->second = but;
-        state_vector->push_back(*pair);
-        state_vector->last().first->addWidget(but);
-        state_layout_display->addLayout(state_vector->last().first);
-    }
+		QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+		pair->first = state_existing;
+		pair->second = but;
+		state_vector->push_back(*pair);
+		state_vector->last().first->addWidget(but);
+		state_layout_display->addLayout(state_vector->last().first);
+	}
 }
 
 

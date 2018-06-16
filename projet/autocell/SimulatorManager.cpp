@@ -72,7 +72,7 @@ void SimulatorManager::removeState(State* state) {
 
 Rule* SimulatorManager::getRule(uint position) {
 	if (position >= _rules.size())
-		throw new SimulatorException("La règle " + to_string(position) + " n'existe pas !");
+		throw new SimulatorException("La règle " + std::to_string(position) + " n'existe pas !");
 
 	return _rules[position];
 }

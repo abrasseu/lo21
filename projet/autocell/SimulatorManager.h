@@ -58,7 +58,7 @@ class SimulatorManager {
 		State* getState(uint position);
 		std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
 		std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
-		State* createNewState(std::string name, string color);
+		State* createNewState(std::string name, std::string color);
 		void removeState(State* state);
 
 		// Rules
