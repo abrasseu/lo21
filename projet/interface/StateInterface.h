@@ -24,7 +24,7 @@ class StateInterface : public QHBoxLayout {
         // === Color Layout
         QVBoxLayout* color_layout;
         // Attributes
-        QPushButton* color_button;
+        QTableWidget* color_button;
         QPalette* state_color;
         QLabel* state_color_label;
 
@@ -37,10 +37,11 @@ class StateInterface : public QHBoxLayout {
 
     public:
         StateInterface();
+        StateInterface(std::string, std::string);
 
 
     protected slots:
-        void display_palette_color();
+        void display_palette_color(QTableWidgetItem*);
 //        void delete_state();
 };
 

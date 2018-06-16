@@ -17,7 +17,7 @@
 #include <QTimer>
 #include <QVector>
 
-#include "stateinterface.h"
+#include "StateInterface.h"
 #include "TransitionInterface.h"
 #include "../autocell/Simulator.h"
 #include "../autocell/State.h"
@@ -96,6 +96,7 @@ class SimulatorInterface : public QWidget {
 		void setInitialStateControls(QBoxLayout*);
 
         void addFirstState(QBoxLayout*);
+        void displayExistingStates();
 
 		// Simulation
         Simulator* simulator = 0;

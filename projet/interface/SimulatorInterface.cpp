@@ -127,7 +127,7 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 }
 
 void SimulatorInterface::addFirstState(QBoxLayout* parent){
-    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+//    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
     QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
     pair->first = new StateInterface();
     pair->second = new QPushButton;
@@ -173,6 +173,8 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
     state_layout_display = new QVBoxLayout;
     state_main_layout->addLayout(state_layout_display);
 
+    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+//    displayExistingStates();
     addFirstState(state_layout_display);
 
     add_state = new QPushButton("Ajouter état");
@@ -346,9 +348,9 @@ void SimulatorInterface::choose_transition_rules_finished(){
 }
 
 // ==================== State Slots ====================
+
 void SimulatorInterface::add_new_state(){
-//    state_vector->last().second->text(); // trouver pour obtenir la couleur du text
-    if (state_vector->last().first->state_name->text().isEmpty()) // Vérifier les valeurs des couleurs
+    if (state_vector->last().first->state_name->text().isEmpty())
         QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs pour les champs");
     else{
         bool same_value = false;
@@ -356,7 +358,8 @@ void SimulatorInterface::add_new_state(){
         for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
             StateInterface* st = it->first;
             if (st != state_vector->last().first){
-                if ( (*st).state_name->text() == state_vector->last().first->state_name->text()){
+                if ( (*st).state_name->text() == state_vector->last().first->state_name->text()
+                     || (*st).color_button->item(0,0)->backgroundColor().name() == state_vector->last().first->color_button->item(0,0)->backgroundColor().name() ){
                     same_value = true;
                     QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs différentes de celles existantes");
                     break;
@@ -377,6 +380,20 @@ void SimulatorInterface::add_new_state(){
     }
 }
 
+void SimulatorInterface::displayExistingStates(){
+    for (unsigned int i = 0; i < simulator->getStateNbr(); i++){
+        StateInterface* state_existing = new StateInterface(simulator->getInitStates()[i]->getName(),simulator->getInitStates()[i]->getColor());
+        QPushButton* but = new QPushButton("Supprimer");
 
+//        state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+
+        QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+        pair->first = state_existing;
+        pair->second = but;
+        state_vector->push_back(*pair);
+        state_vector->last().first->addWidget(but);
+        state_layout_display->addLayout(state_vector->last().first);
+    }
+}
 
 

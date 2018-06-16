@@ -17,7 +17,7 @@ SOURCES += \
 	interface/Interface1D.cpp \
 	interface/Interface2D.cpp \
         interface/TransitionInterface.cpp \
-        interface/stateinterface.cpp
+        interface/StateInterface.cpp
 
 HEADERS += \
 	autocell/Rule.h \
@@ -36,4 +36,4 @@ HEADERS += \
 	interface/Interface1D.h \
 	interface/Interface2D.h \
         interface/TransitionInterface.h \
-        interface/stateinterface.h
+        interface/StateInterface.h
