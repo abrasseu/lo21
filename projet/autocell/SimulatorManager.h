@@ -9,6 +9,7 @@
 #define __SIMULATOR_MANAGER_H_DEFINE__
 
 #include <vector>
+#include <QMessageBox>
 
 #include "SimulatorException.h"
 #include "Simulator.h"
@@ -65,6 +66,7 @@ public:
 
 	// States
 	State* getState(uint position);
+	State* getState(const std::string& name)
 	std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
 	std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
 	State* createNewState(std::string name, std::string color);

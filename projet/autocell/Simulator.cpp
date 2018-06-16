@@ -14,7 +14,7 @@
 using uint = unsigned int;
 
 /**
- * @brief Création de du tableau cell
+ * @brief Création du tableau cell
  */
 void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
@@ -37,11 +37,17 @@ void Simulator::generateStateCells(uint s) {
 		setCell(_states[s], i);
 }
 
+/**
+ * @brief Génère des cellules avec un état aléatoire
+ */
 void Simulator::generateRandomCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[std::rand() % _stateNbr], i);
 }
 
+/**
+ * @brief Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à l'horizontal
+ */
 void Simulator::generateHorizontalSymetricRandomCells() {
 	setCell(_states[std::rand() % _stateNbr], 0);
 
@@ -49,6 +55,9 @@ void Simulator::generateHorizontalSymetricRandomCells() {
 		setCell(getCell(0), i);
 }
 
+/**
+ * @brief Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à la verticale
+ */
 void Simulator::generateVerticalSymetricRandomCells() {
 	for (uint i = 0; i < ceil(getCellsNbr() / 2); i++) {
 		setCell(_states[std::rand() % _stateNbr], i);
@@ -56,11 +65,17 @@ void Simulator::generateVerticalSymetricRandomCells() {
 	}
 }
 
+/**
+ * @brief Génère des cellules de manière alternée: dans l'ordre des états croissant
+ */
 void Simulator::generateAlternedCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[i % _stateNbr], i);
 }
 
+/**
+ * @brief Génère des cellules de manière alternée: dans l'ordre des états décroissant
+ */
 void Simulator::generateDescAlternedCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[_stateNbr - (i % _stateNbr) - 1], i);

@@ -16,7 +16,7 @@ class SimulatorException {
 		const std::string& _info;
 	public:
 		SimulatorException(const std::string& s) : _info(s) { }
-		const std::string& getMessage() const { return _info; }
+		const std::string& what() const { return _info; }
 };
 
 #endif
