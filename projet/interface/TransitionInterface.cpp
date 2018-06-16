@@ -1,7 +1,11 @@
+#include "../autocell/SimulatorManager.h"
 #include "TransitionInterface.h"
 
-TransitionInterface::TransitionInterface(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
-    : QWidget(), state_list(state_list), state_list_number(state_list_number), neighbour_number(neighbour_number) {
+TransitionInterface::TransitionInterface() : QWidget() {
+    Simulator* simulator = SimulatorManager::getManager()->getSimulator();
+    state_list = simulator->getInitStates();
+    state_list_number = simulator->getStateNbr();
+    neighbour_number = simulator->getNeighbourNbr();
 
     setWindowTitle("Transitions");
     QVBoxLayout* princ = new QVBoxLayout;

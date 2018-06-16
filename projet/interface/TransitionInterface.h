@@ -90,7 +90,7 @@ class TransitionInterface : public QWidget {
     public:
         friend class Transition;
         // Slot validate
-        TransitionInterface(State**, unsigned int, unsigned int);
+        TransitionInterface();
 //        displayExistingRules();
 
 
