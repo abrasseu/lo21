@@ -110,6 +110,10 @@ class SimulatorInterface : public QWidget {
 		SimulatorManager* manager;
 		Simulator* simulator = 0;
 		bool sim_is_running;
+        virtual void blockAfterChoosedAutomate() { }
+        virtual void blockAfterChangedAutomate() { }
+
+        void blockinitial();
 
 		// Grid
 		unsigned int grid_size;			// Taille max de la grille
@@ -143,7 +147,7 @@ class SimulatorInterface : public QWidget {
 		void iterate_simulation();
 
         // Choose Automate
-        virtual void chosenAutomate();
+        void chosenAutomate();
         void changedAutomate();
 
 		// State Slots
