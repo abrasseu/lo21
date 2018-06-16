@@ -20,21 +20,17 @@ int main() {
 
     SimulatorManager* manager(SimulatorManager::getManager());
 
-    manager->createNewState("0", "#000000");
-    manager->createNewState("1", "#FFFFFF");
+    manager->createNewState("Mort", "#FFFFFF");
+    manager->createNewState("Vivant", "#000000");
 
-    manager->createNewRule(std::vector<State*>{manager->getState(0)}, manager->getState(1));
-    manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(0), manager->getState(1), manager->getState(1)}, manager->getState(0));
+    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(0)));
+    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(1)));
+    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(0)));
 
-    manager->getState(0)->addANewRule(manager->getRule(0));
-    manager->getState(0)->addANewRule(manager->getRule(1));
-    manager->getState(1)->addANewRule(manager->getRule(1));
-
-    manager->setGridSize(2);
+    manager->setGridSize(50);
     manager->createSimulator(2);
-    manager->getSimulator()->mutate();
 
-    manager->exportConfig("../saves/test.json");
+    manager->exportConfig("../saves/life_game.json");
 
     return 0;
 }

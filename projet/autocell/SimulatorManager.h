@@ -9,7 +9,6 @@
 #define __SIMULATOR_MANAGER_H_DEFINE__
 
 #include <vector>
-#include <QMessageBox>
 
 #include "SimulatorException.h"
 #include "Simulator.h"

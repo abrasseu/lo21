@@ -8,7 +8,6 @@
 #include "SimulatorManager.h"
 #include "Simulator1D.h"
 #include "Simulator2D.h"
-#include "SimulatorLifeGame.h"
 
 #include <algorithm>
 #include <fstream>
@@ -138,6 +137,8 @@ void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 
 	container->erase(it);
 	delete object;
+
+	createSimulator();
 }
 
 template<class T>
@@ -210,8 +211,6 @@ void SimulatorManager::exportConfig(std::string uri) {
 		{"simulator", simulator},
 	};
 
-	std::ofstream exportFile;
-	exportFile.open(uri);
-	exportFile << config.dump(2);
-	exportFile.close();
+	std::ofstream exportFile(uri);
+	exportFile << std::setw(2) << config << std::endl;
 }
