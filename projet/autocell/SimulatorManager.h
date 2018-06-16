@@ -61,7 +61,7 @@ public:
 
 	// Grid size
 	uint getGridSize() { return _gridSize; }
-	void setGridSize(uint gridSize) { _gridSize = gridSize; }
+	void setGridSize(uint gridSize);
 
 	// States
 	State* getState(uint position);

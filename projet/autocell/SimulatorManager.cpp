@@ -20,6 +20,20 @@ SimulatorManager* SimulatorManager::_instance = new SimulatorManager;
 
 /*
 |--------------------------------------------------------------------------
+|	Grid size
+|--------------------------------------------------------------------------
+*/
+
+void SimulatorManager::setGridSize(uint gridSize) {
+	if (gridSize > 100)
+		throw SimulatorException("Il n'est pas possible de générer une grille avec une taille supérieure à 100");
+
+	_gridSize = gridSize;
+}
+
+
+/*
+|--------------------------------------------------------------------------
 |	Simulator
 |--------------------------------------------------------------------------
 */
@@ -290,8 +304,8 @@ void SimulatorManager::importConfig(std::string path) {
 			}
 		}
 
-		_dimension = config["simulator"]["dimension"].get<uint>();
-		_gridSize = config["simulator"]["grid_size"].get<uint>();
+		setDimension(config["simulator"]["dimension"].get<uint>());
+		setGridSize(config["simulator"]["grid_size"].get<uint>());
 
 		createSimulator();
 
