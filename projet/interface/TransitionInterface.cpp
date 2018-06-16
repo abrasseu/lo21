@@ -34,7 +34,7 @@ TransitionInterface::TransitionInterface() : QWidget() {
     main_layout->addLayout(transition_layout);
 
     transition_vector = new QVector< QPair< Transition *, QPushButton* > >;
-    displayExistingRules();
+//    displayExistingRules();
     addNewTransitionRule();
 
     transition_add_rule = new QPushButton("Ajouter une nouvelle règle");

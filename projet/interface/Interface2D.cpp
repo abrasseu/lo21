@@ -70,5 +70,4 @@ void Interface2D::blockAfterChoosedAutomate(){
 }
 void Interface2D::blockAfterChangedAutomate(){
 	grid_view->setEnabled(false);
-
 }
