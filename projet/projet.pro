@@ -7,7 +7,6 @@ SOURCES += \
 	autocell/Simulator.cpp \
 	autocell/Simulator1D.cpp \
 	autocell/Simulator2D.cpp \
-	autocell/SimulatorLifeGame.cpp \
 	autocell/State.cpp \
 	autocell/SimulatorManager.cpp \
 	interface/HomeView.cpp \
@@ -23,7 +22,6 @@ HEADERS += \
 	autocell/Simulator.h \
 	autocell/Simulator1D.h \
 	autocell/Simulator2D.h \
-	autocell/SimulatorLifeGame.h \
 	autocell/State.h \
 	autocell/SimulatorManager.h \
 	interface/HomeView.h \
