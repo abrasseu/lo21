@@ -30,14 +30,18 @@ int main() {
     manager->setGridSize(10);
     manager->createSimulator(2);
     manager->getSimulator()->generateRandomCells();
+    manager->getSimulator()->printCells();
 
     manager->exportConfig("../saves/life_game.json");
 
+    manager->getSimulator()->mutate();
     manager->getSimulator()->printCells();
     std::cout << std::endl;
 */
     try {
         manager->importConfig("../saves/life_game.json");
+        manager->getSimulator()->printCells();
+        manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
     } catch (SimulatorException e) {
         std::cout << e.what();
