@@ -17,6 +17,9 @@ class Interface2D : public SimulatorInterface
 		void redrawGrid(QBoxLayout*);
 		void changeGridCells();
 
+        void blockAfterChoosedAutomate();
+        void blockAfterChangedAutomate();
+
 	protected slots:
         void set_default_grid();
 		void rotateCellState(int, int);

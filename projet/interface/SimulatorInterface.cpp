@@ -165,6 +165,8 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	// Get Manager
 	manager = SimulatorManager::getManager();
 
+//    emit changedAutomate();
+
 	// Set Config
 	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
@@ -391,6 +393,9 @@ void SimulatorInterface::chosenAutomate(){
     sim_stop_bt->setEnabled(true);
     sim_reset_bt->setEnabled(true);
 
+    initial_state_selector->setEnabled(true);
+    initial_state_setter->setEnabled(true);
+
     blockAfterChoosedAutomate();
 }
 
@@ -416,6 +421,9 @@ void SimulatorInterface::changedAutomate(){
     sim_step_bt->setEnabled(false);
     sim_stop_bt->setEnabled(false);
     sim_reset_bt->setEnabled(false);
+
+    initial_state_selector->setEnabled(false);
+    initial_state_setter->setEnabled(false);
 
     blockAfterChangedAutomate();
 }

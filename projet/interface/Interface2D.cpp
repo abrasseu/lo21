@@ -159,3 +159,13 @@ void Interface2D::set_default_grid() {
     }
     changeGridCells();
 }
+
+void Interface2D::blockAfterChoosedAutomate(){
+    set_transition_game_life->setEnabled(true);
+    grid_view->setEnabled(true);
+}
+void Interface2D::blockAfterChangedAutomate(){
+    set_transition_game_life->setEnabled(false);
+    grid_view->setEnabled(false);
+
+}

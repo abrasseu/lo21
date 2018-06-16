@@ -280,6 +280,8 @@ void Interface1D::blockAfterChoosedAutomate(){
     grid_buffer_length_valid->setEnabled(false);
     grid_buffer_length_reset->setEnabled(false);
 
+    initial_view->setEnabled(true);
+
 }
 
 void Interface1D::blockAfterChangedAutomate(){
@@ -288,5 +290,8 @@ void Interface1D::blockAfterChangedAutomate(){
     grid_buffer_length_spin->setEnabled(true);
     grid_buffer_length_valid->setEnabled(true);
     grid_buffer_length_reset->setEnabled(true);
+
+    initial_view->setEnabled(false);
+
 
 }
