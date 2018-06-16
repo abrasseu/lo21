@@ -39,8 +39,6 @@ public:
 
     std::vector<State*> getListStates() const { return _states; }
 
-    std::vector<State*> getListStates() const { return _states; }
-
     // Permet de vérifier si la règle est vraie
     bool isTrue(State** states, uint size);
 };
