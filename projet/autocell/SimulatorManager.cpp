@@ -55,6 +55,7 @@ Simulator* SimulatorManager::createSimulator(uint dimension) {
 void SimulatorManager::deleteSimulator() {
 	if (_simulator != nullptr)
 		delete _simulator;
+	_simulator = nullptr;
 }
 
 

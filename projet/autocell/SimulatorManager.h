@@ -64,9 +64,9 @@ public:
 	void setGridSize(uint gridSize) { _gridSize = gridSize; }
 
 	// States
-    State* getState(uint position);
-    State* getState(const std::string& name);
-    uint getStateNbr() { return _states.size(); }
+	State* getState(uint position);
+	State* getState(const std::string& name);
+	uint getStateNumber() const { return _states.size(); }
 	std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
 	std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
 	State* createNewState(std::string name, std::string color);
