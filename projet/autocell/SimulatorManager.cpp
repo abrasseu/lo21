@@ -93,10 +93,30 @@ State* SimulatorManager::createNewState(std::string name, std::string color) {
 	// Add State to the vector
 	State* state = new State(name, color);
 	_states.push_back(state);
+
 	return state;
 }
+
 void SimulatorManager::removeState(State* state) {
 	removeObject<State>(state, &_states);
+
+	for (std::vector<Rule*>::const_iterator rule = getFirstRule(); rule != getLastRule(); rule++) {
+		if ((*rule)->getState() != state) {
+			bool isIn = false;
+
+			for (std::vector<State*>::const_iterator stateOfRule = (*rule)->getFirstState(); stateOfRule != (*rule)->getLastState(); stateOfRule++) {
+				if ((*stateOfRule) == state)
+					isIn = true;
+			}
+
+			if (!isIn)
+				continue;
+		}
+
+		removeRule((*rule));
+	}
+
+	createSimulator();
 }
 
 /*
@@ -119,6 +139,15 @@ Rule* SimulatorManager::createNewRule(std::vector<State*> states, State* endStat
 }
 void SimulatorManager::removeRule(Rule* rule) {
 	removeObject<Rule>(rule, &_rules);
+
+	for (std::vector<State*>::const_iterator state = getFirstState(); state != getLastState(); state++) {
+		for (std::vector<Rule*>::const_iterator ruleOfState = (*state)->getFirstRule(); ruleOfState != (*state)->getLastRule(); ruleOfState++) {
+			if ((*ruleOfState) == rule)
+				(*state)->getRules().erase(ruleOfState);
+		}
+	}
+
+	createSimulator();
 }
 
 
@@ -137,8 +166,6 @@ void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 
 	container->erase(it);
 	delete object;
-
-	createSimulator();
 }
 
 template<class T>
