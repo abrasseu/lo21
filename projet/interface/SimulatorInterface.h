@@ -58,8 +58,7 @@ class SimulatorInterface : public QWidget {
 		QPushButton* change_automate;
         QPushButton* save_automate;
 
-		QPushButton* set_transition_rules;
-		QPushButton* set_transition_game_life;
+        QPushButton* set_transition_rules;
 
 		// === Window Controls
 		QPushButton* quit_bt;

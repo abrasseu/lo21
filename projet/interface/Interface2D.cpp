@@ -2,9 +2,6 @@
 #include <string>
 
 Interface2D::Interface2D() : SimulatorInterface(2) {
-	// Ajout du bouton du choix des paramètres du jeu de la vie
-	set_transition_game_life = new QPushButton("Jeu de la vie");
-	transition_controls->addWidget(set_transition_game_life);
 
 	grid_size = 650;
 
@@ -69,11 +66,9 @@ void Interface2D::rotateCellState(int i, int j) {
 
 
 void Interface2D::blockAfterChoosedAutomate(){
-	set_transition_game_life->setEnabled(true);
 	grid_view->setEnabled(true);
 }
 void Interface2D::blockAfterChangedAutomate(){
-	set_transition_game_life->setEnabled(false);
 	grid_view->setEnabled(false);
 
 }

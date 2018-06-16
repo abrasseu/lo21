@@ -474,9 +474,6 @@ void SimulatorInterface::changedAutomate(){
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
 
-	// Delete Simulator
-	SimulatorManager::getManager()->deleteSimulator();
-
 	blockAfterAutomateChanged();
 }
 
