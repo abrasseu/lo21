@@ -8,11 +8,13 @@
 #include <QVector>
 
 #include "SimulatorInterface.h"
-
+#include <iostream>
 class StateInterface : public QHBoxLayout {
 	Q_OBJECT
 	private:
 		friend class SimulatorInterface;
+		State* state;
+
 		// Main layout
 		QHBoxLayout* state_layout;
 
@@ -33,13 +35,16 @@ class StateInterface : public QHBoxLayout {
 //        QPushButton* state_delete;
 
 		// Agencement
-		void setNameLayout(QBoxLayout*);
-		void setColorLayout(QBoxLayout*);
+		void setNameLayout(QBoxLayout* parent, std::string name = std::string());
+		void setColorLayout(QBoxLayout* parent, std::string name = std::string());
 
 	public:
-		StateInterface();
-		StateInterface(std::string, std::string);
-
+		StateInterface(std::string name = std::string(), std::string c = std::string(), State* s = nullptr);
+		void setState(State*s ) { state = s; }
+		State* getState() const {
+			std::cout << state->getName() << std::endl;
+			return state;
+		}
 
 	protected slots:
 		void display_palette_color(QTableWidgetItem*);
