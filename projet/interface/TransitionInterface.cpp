@@ -34,7 +34,7 @@ TransitionInterface::TransitionInterface() : QWidget() {
     main_layout->addLayout(transition_layout);
 
     transition_vector = new QVector< QPair< Transition *, QPushButton* > >;
-//    displayExistingRules();
+    displayExistingRules();
     addNewTransitionRule();
 
     transition_add_rule = new QPushButton("Ajouter une nouvelle règle");
@@ -182,31 +182,23 @@ void TransitionInterface::deleteRule(){
 }
 
 void TransitionInterface::displayExistingRules(){
-//    State** list_state = SimulatorManager::getManager()->getSimulator() ;
-
-    // TODO simulator non crée
-    uint nb_state = SimulatorManager::getManager()->getSimulator()->getStateNbr();
-    for (uint i = 0; i < nb_state; i++){
-        State* list_state = SimulatorManager::getManager()->getState(i);
-//        std::vector<Rule*> rules = list_state->getRules();
-        for (auto it = list_state->getRules().begin(); it != list_state->getRules().end(); ++it){
-            std::map<std::string, uint> sum;
-//            std::map<std::string, uint>::iterator it_sum;
-            for (auto it_vec_state = (*it)->getListStates().begin(); it_vec_state != (*it)->getListStates().end(); ++it_vec_state){
-//                it_sum = sum.find((*it_vec_state)->getName())
-                if ( sum.find((*it_vec_state)->getName()) != sum.end()){
-                    sum[(*it_vec_state)->getName()]++;
+    for (auto ite_state = SimulatorManager::getManager()->getFirstState(); ite_state != SimulatorManager::getManager()->getLastState(); ite_state++){
+        for (auto it = (*ite_state)->getFirstRule(); it != (*ite_state)->getLastRule(); ++it){
+            std::map<State*, uint> sum;
+            for (auto it_vec_state = (*it)->getFirstState(); it_vec_state != (*it)->getLastState(); ++it_vec_state){
+                if ( sum.find(*it_vec_state) != sum.end()){
+                    sum[*it_vec_state]++;
                 }
                 else {
-                    sum[(*it_vec_state)->getName()] = 1;
+                    sum[*it_vec_state] = 1;
                 }
             }
-            uint* tab = new uint[nb_state];
-            for (uint j = 0; j < nb_state; i++){
-                std::map<std::string, uint>::iterator value_return_map = sum.find(SimulatorManager::getManager()->getState(j)->getName());
+            uint* tab = new uint[SimulatorManager::getManager()->getStateNbr()];
+            for (uint j = 0; j < SimulatorManager::getManager()->getStateNbr(); j++){
+                std::map<State*, uint>::iterator value_return_map = sum.find(*ite_state);
 
                 if (value_return_map != sum.end()){
-                    tab[i] = (value_return_map)->second;
+                    tab[j] = value_return_map->second;
                 }
             }
         }
