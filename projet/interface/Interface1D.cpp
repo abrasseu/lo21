@@ -273,12 +273,20 @@ void Interface1D::set_default_grid() {
     changeGridCells();
 }
 
-void Interface1D::chosenAutomate(){
-    state_vector->last().second->setEnabled(false);
-    state_vector->last().first->state_name->setEnabled(false);
-    state_vector->last().first->color_button->setEnabled(false);
-    grid_dim_controls->setEnabled(false);
-    grid_dim_set_bt->setEnabled(false);
-    grid_dim_reset_bt->setEnabled(false);
+void Interface1D::blockAfterChoosedAutomate(){
+    // Disable left buttons
+
+    grid_buffer_length_spin->setEnabled(false);
+    grid_buffer_length_valid->setEnabled(false);
+    grid_buffer_length_reset->setEnabled(false);
+
+}
+
+void Interface1D::blockAfterChangedAutomate(){
+    // Disable left buttons
+
+    grid_buffer_length_spin->setEnabled(true);
+    grid_buffer_length_valid->setEnabled(true);
+    grid_buffer_length_reset->setEnabled(true);
 
 }
