@@ -3,7 +3,7 @@
 #include "HomeView.h"
 
 #include <QMessageBox>
-
+#include <algorithm>
 
 /*
 |--------------------------------------------------------------------------
@@ -178,7 +178,7 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	state_main_layout->addLayout(state_layout_display);
 
 	state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
-//    displayExistingStates();
+	displayExistingStates();
 	addFirstState(state_layout_display);
 
 	add_state = new QPushButton("Ajouter état");
@@ -352,7 +352,7 @@ void SimulatorInterface::choose_transition_rules_finished(){
 }
 
 // ==================== State Slots ====================
-#include <iostream>
+
 void SimulatorInterface::add_new_state(){
 	QPair<StateInterface*,QPushButton*>& lastState = state_vector->last();
 	if (lastState.first->state_name->text().isEmpty()) {
@@ -360,46 +360,61 @@ void SimulatorInterface::add_new_state(){
 	} else {
 		std::string name = lastState.first->state_name->text().toStdString();
 		std::string color = lastState.first->color_button->item(0,0)->backgroundColor().name().toStdString();
-		std::cout << color << std::endl;
 		try {
-			// Try to create State
-			manager->createNewState(name, color);
+			// Try to create State and add it to StateInterface
+			State* newState = manager->createNewState(name, color);
+			lastState.first->setState(newState);
+
 			// Config View
 			lastState.first->state_name->setEnabled(false);
 			lastState.first->color_button->setEnabled(false);
 			lastState.second = new QPushButton("Supprimer");
 			lastState.first->addWidget(state_vector->last().second);
+			QObject::connect(state_vector->last().second, SIGNAL(clicked()), this, SLOT(delete_state()));
+
 			// Add new slot
-			QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+			QPair <StateInterface*, QPushButton*>* pair = new QPair <StateInterface*, QPushButton*> ;
 			pair->first = new StateInterface();
 			pair->second = new QPushButton;
 			state_vector->push_back(*pair);
 			state_layout_display->addLayout(state_vector->last().first);
 		} catch(SimulatorException error) {
-			std::cout << error.what() << std::endl;
 			QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
 		}
-
 	}
 }
 
-
 void SimulatorInterface::displayExistingStates(){
-	// TODO
-	Simulator* simulator = SimulatorManager::getManager()->getSimulator();
-	for (unsigned int i = 0; i < simulator->getStateNbr(); i++){
-		StateInterface* state_existing = new StateInterface(simulator->getInitStates()[i]->getName(),simulator->getInitStates()[i]->getColor());
-		QPushButton* but = new QPushButton("Supprimer");
+	SimulatorManager* manager = SimulatorManager::getManager();
+	std::vector<State*>::const_iterator it;
+	for (it = manager->getFirstState(); it != manager->getLastState(); it++) {
+		// Create view elements
+		StateInterface* state_interface = new StateInterface((*it)->getName(), (*it)->getColor(), (*it));
+		QPushButton* button = new QPushButton("Supprimer");
+		QObject::connect(button, SIGNAL(clicked()), this, SLOT(delete_state()));
 
-//        state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
-
+		// Configure view
 		QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
-		pair->first = state_existing;
-		pair->second = but;
+		pair->first = state_interface;
+		pair->second = button;
 		state_vector->push_back(*pair);
-		state_vector->last().first->addWidget(but);
+		state_vector->last().first->addWidget(button);
 		state_layout_display->addLayout(state_vector->last().first);
 	}
 }
 
+
+void SimulatorInterface::delete_state() {
+	QObject* sdr = sender();
+	QPushButton* button = dynamic_cast<QPushButton*>(sdr);
+	QVector< QPair<StateInterface*, QPushButton*> >::iterator it;
+	it = std::remove_if(state_vector->begin(), state_vector->end(),
+		[&sdr, &button](QPair<StateInterface*, QPushButton*> pair) { return pair.second == button; });
+	// TODO FIX getState = 0 ???
+	try {
+		SimulatorManager::getManager()->removeState(it->first->getState());
+	} catch (SimulatorException error) {
+		QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
+	}
+}
 

@@ -139,6 +139,7 @@ class SimulatorInterface : public QWidget {
 
 		// State Slots
 		void add_new_state();
+		void delete_state();
 
 		// Transition Slots
 		void choose_transition_rules();
