@@ -41,6 +41,8 @@ class Interface1D : public SimulatorInterface
         void step_simulation();
         void start_simulation();
 
+        void chosenAutomate();
+
 		// To prevent selecting cells on grid_view
 		void grid_view_clicked(QTableWidgetItem*);
 
@@ -48,6 +50,8 @@ class Interface1D : public SimulatorInterface
 		void grid_reset_buf();
 
         void set_default_grid();
+
+        void chosenAutomate();
 };
 
 #endif // INTERFACE1D_H

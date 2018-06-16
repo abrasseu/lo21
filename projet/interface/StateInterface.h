@@ -11,8 +11,9 @@
 #include <iostream>
 class StateInterface : public QHBoxLayout {
 	Q_OBJECT
-	private:
+    protected:
 		friend class SimulatorInterface;
+        friend class Interface1D;
 		State* state;
 
 		// Main layout

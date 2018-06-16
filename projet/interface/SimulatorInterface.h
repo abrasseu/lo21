@@ -52,6 +52,10 @@ class SimulatorInterface : public QWidget {
 		QHBoxLayout* state_controls;
 		QHBoxLayout* transition_controls;
 
+        // === Choose Automate
+        QPushButton* choose_automate;
+        QPushButton* change_automate;
+
 		QPushButton* set_transition_rules;
 		QPushButton* set_transition_game_life;
 
@@ -92,6 +96,7 @@ class SimulatorInterface : public QWidget {
 		// Constructor Setters
 		void setGridControls(QBoxLayout*);
 		void setAutomateControls(QBoxLayout*);
+        void setAutomateChoice(QBoxLayout*);
 		void setStateControls(QBoxLayout*);
 		void setTransitionControls(QBoxLayout*);
 		void setDimensionControls(QBoxLayout*);
@@ -137,6 +142,10 @@ class SimulatorInterface : public QWidget {
 		void reset_simulation();
 		void iterate_simulation();
 
+        // Choose Automate
+        virtual void chosenAutomate();
+        void changedAutomate();
+
 		// State Slots
 		void add_new_state();
 		void delete_state();
@@ -147,7 +156,7 @@ class SimulatorInterface : public QWidget {
 
 		// Grid Slots
 		virtual void set_default_grid() = 0;
-		void grid_set_dim();
+        void grid_set_dim();
 		void grid_reset_dim();
 };
 

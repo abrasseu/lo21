@@ -14,6 +14,7 @@ class Transition : public QHBoxLayout {
 		Q_OBJECT
 
 		// Attributes
+//        State* state = nullptr;
 		State* start_state;
 		QPair<State*, QSpinBox*>** neighbours = nullptr;
 		unsigned int neighbours_nb;
@@ -48,15 +49,20 @@ class Transition : public QHBoxLayout {
 		QPair<State*, QSpinBox*>** getNeighbour() const { return neighbours; }
 		unsigned int getNeighboursNb() const { return neighbours_nb; }
 		unsigned int getNbStates() const { return nb_states; }
+//        void getState() const { return state; }
+
+        // Setters
+//        void setState(State* s) { state = s; }
 
 		// Initializers
-		Transition(State**, unsigned int, unsigned int);
+        Transition(State**, unsigned int, unsigned int, unsigned int* spin_box_tab = nullptr,
+                                    State* state_start = nullptr, State* state_final = nullptr);
 		State* getStartState() { return start_state; }
 		State* getFinalState() { return final_state; }
 
-		void setStartState(QVBoxLayout*);
-		void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*);
-		void setFinalState(QVBoxLayout*);
+        void setStartState(QVBoxLayout*, State*);
+        void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*, unsigned int* spin_value = nullptr);
+        void setFinalState(QVBoxLayout*, State*);
 
 //        void modifyRule(QObject*);
 
@@ -93,7 +99,7 @@ class TransitionInterface : public QWidget {
 		friend class Transition;
 		// Slot validate
 		TransitionInterface();
-//        displayExistingRules();
+        void displayExistingRules();
 
 
 	signals:
@@ -105,7 +111,7 @@ class TransitionInterface : public QWidget {
 
 		void closeEvent(QCloseEvent*);
 
-		void modifyPreviousRule();
+        void deleteRule();
 };
 
 
