@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include "Simulator1D.h"
 #include "Simulator2D.h"
-#include "SimulatorLifeGame.h"
+#include "SimulatorManager.h"
 #include "State.h"
 #include "Rule.h"
 
@@ -17,62 +17,24 @@ using uint = unsigned int;
 
 int main() {
     std::srand(std::time(nullptr));
-    std::cout << "Coucou" << std::endl;
 
-    State** states;
-    states = new State*[5];
+    SimulatorManager* manager(SimulatorManager::getManager());
 
-    // On crée 5 états avec les idées {0, 1, 2, 3, 4}
-    for (uint i = 0; i < 5; i++)
-        states[i] = new State(std::to_string(i));
+    manager->createNewState("0", "#000000");
+    manager->createNewState("1", "#FFFFFF");
 
-    // On crée une règle qui prend en compte un ordre de 5 états
-    Rule rule1(states[1], states, 5, true);
-    states[0]->addANewRule(&rule1);
+    manager->createNewRule(std::vector<State*>{manager->getState(0)}, manager->getState(1));
+    manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(0), manager->getState(1), manager->getState(1)}, manager->getState(0));
 
-    // On crée une règle qui demande à ce que les voisins possèdent au moins les 3 états.
-    Rule rule2(states[2], states, 3);
-    states[0]->addANewRule(&rule2);
+    manager->getState(0)->addANewRule(manager->getRule(0));
+    manager->getState(0)->addANewRule(manager->getRule(1));
+    manager->getState(1)->addANewRule(manager->getRule(1));
 
-    // On crée une règle qui demande à ce qu'au moins 2 voisins aient l'état 2
-    std::vector<State*> forRule3({states[2], states[2]});
-    Rule rule3(states[3], forRule3);
-    states[0]->addANewRule(&rule3);
+    manager->setGridSize(2);
+    manager->createSimulator(2);
+    manager->getSimulator()->mutate();
 
-    // On crée une règle qui demande à ce que les voisins dans l'ordre soient de l'état 2 puis 3 puis 0 puis 3
-    std::vector<State*> forRule4({states[2], states[3], states[0], states[3]});
-    Rule rule4(states[4], forRule4, true);
-    states[0]->addANewRule(&rule4);
-
-    std::vector<State*> forRule5({states[1], states[1], states[1]});
-    Rule rule5(states[1], forRule5);
-    states[0]->addANewRule(&rule5);
-
-    std::vector<State*> forRule6({states[0], states[1]});
-    Rule rule6(states[0], forRule6, true);
-    states[1]->addANewRule(&rule6);
-
-    Simulator1D simulation1D(states, 3, 10);
-    simulation1D.printCells();
-    simulation1D.mutate();
-    std::cout << std::endl;
-    simulation1D.printCells();
-
-    Simulator2D simulation2D(states, 2, 5);
-    simulation2D.printCells();
-    simulation2D.mutate();
-    std::cout << std::endl;
-    simulation2D.printCells();
-
-    SimulatorLifeGame simulatorLifeGame(68);
-    simulatorLifeGame.generateRandomCells();
-    simulatorLifeGame.printCells();
-
-    while (simulatorLifeGame.mutate()) {
-        std::cout << "Génération suivante:" << std::endl;
-        simulatorLifeGame.printCells();
-        usleep(60 * 1000);
-    }
+    manager->exportConfig("../saves/test.json");
 
     return 0;
 }

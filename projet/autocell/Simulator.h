@@ -29,7 +29,6 @@ class Simulator {
 
 		// Getters
 		uint getDimension() const { return _dimension; }
-		State** getCellsState() const;
 		virtual State** getNeighboursState(State** states, uint position) = 0;
 		void generateCells();
 
@@ -64,6 +63,7 @@ class Simulator {
 		uint getStateNbr() const { return _stateNbr; }
 		uint getCellsSize() const { return _cellsSize; }
 		uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
+		State** getCellsState() const;
 		State* getCell(uint position) const;
 		uint getGeneration() const { return _generation; }
 		uint* getCells(); // Seulement pour le JDV

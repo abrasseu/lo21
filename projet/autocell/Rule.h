@@ -23,20 +23,19 @@ private:
 
     // Liste des états à trouver
     std::vector<State*> _states;
-    bool _orderedStates;
 
 public:
     // Constructeurs
-    Rule(State* state, std::vector<State*> states, bool orderedStates = false): _state(state), _states(states), _orderedStates(orderedStates) {}
-    Rule(State* state, State** states, uint size, bool orderedStates = false): _state(state), _orderedStates(orderedStates) {
+    Rule(State* state, std::vector<State*> states): _state(state), _states(states) {}
+    Rule(State* state, State** states, uint size): _state(state) {
         for (uint i = 0; i < size; i++)
             _states.push_back(states[i]);
     }
 
     // Getters
-    State* getState() const {
-        return _state;
-    }
+    State* getState() const { return _state; }
+    std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
+	std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
 
     // Permet de vérifier si la règle est vraie
     bool isTrue(State** states, uint size);

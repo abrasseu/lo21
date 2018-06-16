@@ -18,59 +18,68 @@
 #include "Rule.h"
 
 #include <iostream>
+#include "nlohmann/json.hpp"
+
 using uint = unsigned int;
 
 class SimulatorManager {
-	private:
-		Simulator* _simulator;
-		uint _gridSize = 0;
-		std::vector<State*> _states;
-		std::vector<Rule*> _rules;
+private:
+	Simulator* _simulator;
+	uint _dimension = 0;
+	uint _gridSize = 0;
+	std::vector<State*> _states;
+	std::vector<Rule*> _rules;
 
-		// Singleton
-		static SimulatorManager* _instance;
-		SimulatorManager() {
-			_simulator = nullptr;
-		}
-		~SimulatorManager() {
-			if (_simulator != nullptr)
-				delete _simulator;
-		}
+	// Singleton
+	static SimulatorManager* _instance;
+	SimulatorManager() {
+		_simulator = nullptr;
+	}
+	~SimulatorManager() {
+		if (_simulator != nullptr)
+			delete _simulator;
+	}
 
-		// Template Methods
-		template<class T>
-		void removeObject(T* object, std::vector<T*>* container);
+	// Template Methods
+	template<class T>
+	void removeObject(T* object, std::vector<T*>* container);
+	template<class T>
+	uint findObject(T* object, std::vector<T*>* container);
 
-	public:
-		// Singleton
-		static SimulatorManager* getManager() { return _instance; }
+public:
+	// Singleton
+	static SimulatorManager* getManager() { return _instance; }
 
-		// Simulator
-		Simulator* getSimulator();
-		Simulator* createSimulator(uint dimension);
-		void deleteSimulator();
+	// Simulator
+	Simulator* getSimulator();
+	Simulator* createSimulator(uint dimension = 0);
+	void deleteSimulator();
 
-		// Grid size
-		uint getGridSize() { return _gridSize; }
-		void setGridSize(uint gridSize) { _gridSize = gridSize; }
+	// Dimension
+	uint getDimension() { return _dimension; }
+	void setDimension(uint dimension) { _dimension = dimension; }
 
-		// States
-		State* getState(uint position);
-		std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
-		std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
-		State* createNewState(std::string name, string color);
-		void removeState(State* state);
+	// Grid size
+	uint getGridSize() { return _gridSize; }
+	void setGridSize(uint gridSize) { _gridSize = gridSize; }
 
-		// Rules
-		Rule* getRule(uint position);
-		std::vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
-		std::vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
-		Rule* createNewRule(std::vector<State*> states, State* endState);
-		void removeRule(Rule* rule);
+	// States
+	State* getState(uint position);
+	std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
+	std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
+	State* createNewState(std::string name, std::string color);
+	void removeState(State* state);
 
-		// Save & Load
-		void exportConfig(std::string uri);
-		void importConfig(std::string uri);
+	// Rules
+	Rule* getRule(uint position);
+	std::vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
+	std::vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
+	Rule* createNewRule(std::vector<State*> states, State* endState);
+	void removeRule(Rule* rule);
+
+	// Save & Load
+	void exportConfig(std::string uri);
+	void importConfig(std::string uri);
 };
 
 #endif
