@@ -94,25 +94,28 @@ void HomeView::simulate2D() {
 }
 
 void HomeView::loadAutomate(){
-    QString fileName = QFileDialog::getOpenFileName(this,
-           tr("Charger le fichier"), "",
-           tr("Adresse du fichier (*.json)"));
-    try{
-        SimulatorManager::getManager()->importConfig(fileName.toStdString());
+    try {
+        QString fileName = QFileDialog::getOpenFileName(this,
+               tr("Charger le fichier"), "",
+               tr("Adresse du fichier (*.json)"));
 
-        if (SimulatorManager::getManager()->getDimension() == 1){
-            close();
-            Interface1D* view = new Interface1D();
-            view->show();
+        try {
+            SimulatorManager::getManager()->importConfig(fileName.toStdString());
+
+            if (SimulatorManager::getManager()->getDimension() == 1){
+                close();
+                Interface1D* view = new Interface1D();
+                view->show();
+            }
+            else if (SimulatorManager::getManager()->getDimension() == 2){
+                close();
+                Interface2D* view = new Interface2D();
+                view->show();
+            }
+        } catch(SimulatorException error) {
+            QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
         }
-        else if (SimulatorManager::getManager()->getDimension() == 2){
-            close();
-            Interface2D* view = new Interface2D();
-            view->show();
-        }
-    } catch(SimulatorException error) {
-        QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
-    }
+    } catch (...) {}
 }
 
 
