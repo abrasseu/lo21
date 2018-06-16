@@ -79,8 +79,8 @@ public:
 	void removeRule(Rule* rule);
 
 	// Save & Load
-	void exportConfig(std::string uri);
-	void importConfig(std::string uri);
+	void exportConfig(std::string path);
+	void importConfig(std::string path);
 };
 
 #endif

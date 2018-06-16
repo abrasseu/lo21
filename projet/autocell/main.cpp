@@ -19,18 +19,29 @@ int main() {
     std::srand(std::time(nullptr));
 
     SimulatorManager* manager(SimulatorManager::getManager());
-
-    manager->createNewState("Mort", "#FFFFFF");
+/*
     manager->createNewState("Vivant", "#000000");
+    manager->createNewState("Mort", "#FFFFFF");
 
-    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(0)));
-    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(1)));
-    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(0)));
+    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(1)));
+    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(1)));
+    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(0)));
 
-    manager->setGridSize(50);
+    manager->setGridSize(10);
     manager->createSimulator(2);
+    manager->getSimulator()->generateRandomCells();
 
     manager->exportConfig("../saves/life_game.json");
+
+    manager->getSimulator()->printCells();
+    std::cout << std::endl;
+*/
+    try {
+        manager->importConfig("../saves/life_game.json");
+        manager->getSimulator()->printCells();
+    } catch (SimulatorException e) {
+        std::cout << e.what();
+    }
 
     return 0;
 }

@@ -185,7 +185,7 @@ uint SimulatorManager::findObject(T* object, std::vector<T*>* container) {
 |--------------------------------------------------------------------------
 */
 
-void SimulatorManager::exportConfig(std::string uri) {
+void SimulatorManager::exportConfig(std::string path) {
 	nlohmann::json states = nlohmann::json::array();
 	nlohmann::json rules = nlohmann::json::array();
 
@@ -238,6 +238,71 @@ void SimulatorManager::exportConfig(std::string uri) {
 		{"simulator", simulator},
 	};
 
-	std::ofstream exportFile(uri);
+	std::ofstream exportFile(path);
 	exportFile << std::setw(2) << config << std::endl;
+}
+
+
+void SimulatorManager::importConfig(std::string path) {
+	std::ifstream importFile(path);
+	nlohmann::json config;
+	importFile >> config;
+
+	Simulator* beforeSimulator(_simulator);
+	uint beforeDimension(_dimension);
+	uint beforeGridSize(_gridSize);
+	std::vector<State*> beforeStates(_states);
+	std::vector<Rule*> beforeRules(_rules);
+
+	try {
+		_simulator = nullptr;
+		_states.clear();
+		_rules.clear();
+
+		for (nlohmann::json::const_iterator state = config["states"].begin(); state != config["states"].end(); state++)
+			createNewState(state.value().at("name").get<std::string>(), state.value().at("color").get<std::string>());
+
+		for (nlohmann::json::const_iterator rule = config["rules"].begin(); rule != config["rules"].end(); rule++) {
+			std::vector<State*> states;
+
+			for (nlohmann::json::const_iterator transition = rule.value().at("transition_states").begin(); transition != rule.value().at("transition_states").end(); transition++)
+				states.push_back(_states[transition.value().get<uint>()]);
+
+			createNewRule(states, _states[rule.value().at("state").get<uint>()]);
+		}
+
+		for (nlohmann::json::const_iterator state = config["states"].begin(); state != config["states"].end(); state++) {
+			for (nlohmann::json::const_iterator transition = state.value().at("transition_rules").begin(); transition != state.value().at("transition_rules").end(); transition++)
+			_states[state - config["states"].begin()]->addANewRule(_rules[transition.value().get<uint>()]);
+		}
+
+		_dimension = config["simulator"]["dimension"].get<uint>();
+		_gridSize = config["simulator"]["grid_size"].get<uint>();
+
+		createSimulator();
+
+		if (config["simulator"]["states"].size() != _simulator->getCellsNbr())
+			throw SimulatorException("Les états de la simulation ne correspondent pas à la grille donnée");
+
+		for (nlohmann::json::const_iterator state = config["simulator"]["states"].begin(); state != config["simulator"]["states"].end(); state++)
+			_simulator->setCell(_states[state.value().get<uint>()], state - config["simulator"]["states"].begin());
+
+		delete beforeSimulator;
+	} catch (SimulatorException e) {
+		_simulator = beforeSimulator;
+		_dimension = beforeDimension;
+		_gridSize = beforeGridSize;
+		_states = beforeStates;
+		_rules = beforeRules;
+
+		throw e;
+	} catch (...) {
+		_simulator = beforeSimulator;
+		_dimension = beforeDimension;
+		_gridSize = beforeGridSize;
+		_states = beforeStates;
+		_rules = beforeRules;
+		
+		throw SimulatorException("Le fichier json n'est pas valide");
+	}
 }

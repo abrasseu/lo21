@@ -12,7 +12,6 @@
 using uint = unsigned int;
 
 bool Rule::isTrue(State** states, uint size) {
-    // On crée un vector tampon
     std::vector<State*> statesToHave(_states);
 
     for (uint i = 0; i < size; i++) {
