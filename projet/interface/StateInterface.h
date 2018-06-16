@@ -41,11 +41,8 @@ class StateInterface : public QHBoxLayout {
 
 	public:
 		StateInterface(std::string name = std::string(), std::string c = std::string(), State* s = nullptr);
-		void setState(State*s ) { state = s; }
-		State* getState() const {
-			std::cout << state->getName() << std::endl;
-			return state;
-		}
+		void setState(State* s) { state = s; }
+		State* getState() const { return state; }
 
 	protected slots:
 		void display_palette_color(QTableWidgetItem*);
