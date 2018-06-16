@@ -1,10 +1,12 @@
 #include "Interface2D.h"
 #include <string>
 
-Interface2D::Interface2D() : SimulatorInterface(2) {
+Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
 
 	grid_size = 650;
 
+    if (draw)
+        redrawGrid(view_layout);
 }
 
 

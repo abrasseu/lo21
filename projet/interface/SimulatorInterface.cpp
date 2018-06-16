@@ -404,7 +404,6 @@ void SimulatorInterface::chosenAutomate(){
             // Create Simulator
             manager = SimulatorManager::getManager();
             try {
-                manager->createSimulator();
                 simulator = manager->getSimulator();
                 grid_dimension = manager->getGridSize();
             } catch(SimulatorException error) {

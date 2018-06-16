@@ -10,14 +10,14 @@ class Interface2D : public SimulatorInterface
 	protected:
 		QTableWidget* grid_view = nullptr;
 
-		void redrawGrid(QBoxLayout*);
-		void changeGridCells();
+        void redrawGrid(QBoxLayout*);
+        void changeGridCells();
 
-		void blockAfterChoosedAutomate();
-		void blockAfterChangedAutomate();
+        void blockAfterChoosedAutomate();
+        void blockAfterChangedAutomate();
 
-	public:
-		Interface2D();
+    public:
+        Interface2D(bool draw = false);
 
 	protected slots:
 		void rotateCellState(int, int);

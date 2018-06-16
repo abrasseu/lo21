@@ -104,12 +104,12 @@ void HomeView::loadAutomate(){
 
             if (SimulatorManager::getManager()->getDimension() == 1){
                 close();
-                Interface1D* view = new Interface1D();
+                Interface1D* view = new Interface1D(true);
                 view->show();
             }
             else if (SimulatorManager::getManager()->getDimension() == 2){
                 close();
-                Interface2D* view = new Interface2D();
+                Interface2D* view = new Interface2D(true);
                 view->show();
             }
         } catch(SimulatorException error) {

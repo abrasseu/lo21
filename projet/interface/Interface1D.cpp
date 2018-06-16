@@ -1,9 +1,12 @@
 #include "Interface1D.h"
 
 
-Interface1D::Interface1D(): SimulatorInterface(1), buffer_size(10) {
+Interface1D::Interface1D(bool draw): SimulatorInterface(1), buffer_size(10) {
 	// Set state list
 	setGridBufferLength(grid_dim_controls);
+
+    if (draw)
+        redrawGrid(view_layout);
 }
 
 void Interface1D::setGridBufferLength(QBoxLayout* parent){

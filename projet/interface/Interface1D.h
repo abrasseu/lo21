@@ -26,7 +26,7 @@ class Interface1D : public SimulatorInterface
 		unsigned int buffer_size;
 		void setGridBufferLength(QBoxLayout*);
 
-		void redrawGrid(QBoxLayout*);
+        void redrawGrid(QBoxLayout*);
 		void drawGrid(QTableWidget*, uint, uint);
 		void changeGridCells();
 
@@ -34,7 +34,7 @@ class Interface1D : public SimulatorInterface
 		void blockAfterAutomateChanged();
 
 	public:
-		Interface1D();
+        Interface1D(bool draw = false);
 
 	private slots:
 		void rotateCellState(QTableWidgetItem*);
