@@ -76,10 +76,17 @@ void TransitionInterface::addNewTransitionRule(){
                 if (addNewTransitionRuleValid(tr)){
                     tr->start_cell->setEnabled(false);
                     tr->final_cell->setEnabled(false);
-                    // On affiche le bouton modifier pour la règle précédente
                     transition_vector->last().first->addWidget(transition_vector->last().second);
-                    for (unsigned int i = 0; i < tr->getNbStates(); i++)
+
+                    std::vector<State*>* vector_state_manager = new std::vector<State*>;
+                    for (unsigned int i = 0; i < tr->getNbStates(); i++){
+                        // On affiche le bouton modifier pour la règle précédent
                         tr->neighbours[i]->second->setEnabled(false);
+                        for (unsigned int j = 0; j < tr->neighbours[i]->second->value(); j++)
+                            vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
+                    }
+
+                    SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(tr->final_cell->currentIndex()));
                     QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
                     pair->first = add_transi;
                     pair->second = new QPushButton("Modifier");
@@ -96,10 +103,19 @@ void TransitionInterface::addNewTransitionRule(){
         else{
             transition_vector->last().first->start_cell->setEnabled(false);
             transition_vector->last().first->final_cell->setEnabled(false);
-            // On affiche le bouton modifier pour la règle précédente
+
+            std::vector<State*>* vector_state_manager = new std::vector<State*>;
             transition_vector->last().first->addWidget(transition_vector->last().second);
-            for (unsigned int i = 0; i < transition_vector->last().first->getNbStates(); i++)
+            for (unsigned int i = 0; i < transition_vector->last().first->getNbStates(); i++){
+                // On affiche le bouton modifier pour la règle précédent
                 transition_vector->last().first->neighbours[i]->second->setEnabled(false);
+
+                // On push le nombre de fois indiqué dans la box de l'état concerné
+                for (unsigned int j = 0; j < transition_vector->last().first->neighbours[i]->second->value(); j++)
+                    vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
+            }
+            SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
+
             QPair<Transition*, QPushButton*>* pair = new QPair < Transition*, QPushButton* >;
             pair->first = new Transition(state_list, state_list_number, neighbour_number);
             pair->second = new QPushButton("Modifier");
@@ -116,6 +132,15 @@ void TransitionInterface::addNewTransitionRule(){
         pair->second = new QPushButton("Modifier");
         transition_vector->push_back(*pair);
         transition_layout->addLayout(transition_vector->last().first);
+
+        std::vector<State*>* vector_state_manager = new std::vector<State*>;
+        for (unsigned int i = 0; i < transition_vector->last().first->getNbStates(); i++){
+            // On affiche le bouton modifier pour la règle précédent
+            transition_vector->last().first->neighbours[i]->second->setEnabled(false);
+            for (unsigned int j = 0; j < transition_vector->last().first->neighbours[i]->second->value(); j++)
+                vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
+        }
+        SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
 
         QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
     }
