@@ -1,4 +1,5 @@
 #include "SimulatorInterface.h"
+#include "../autocell/SimulatorException.h"
 #include "HomeView.h"
 
 #include <QMessageBox>
@@ -148,6 +149,10 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
  * @param La dimension du Simulateur
  */
 SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimension): QWidget() {
+	// Get Manager
+	manager = SimulatorManager::getManager();
+
+	// Set Config
 	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
 	grid_size = 400;
@@ -311,7 +316,7 @@ void SimulatorInterface::reset_simulation() {
  * @brief Fait muter les cellules du simulateur et affiche les changements
  */
 void SimulatorInterface::iterate_simulation() {
-	if (!simulator->mutate())
+	if (!SimulatorManager::getManager()->getSimulator()->mutate())
 		sim_timer->stop();
 	changeGridCells();
 }
@@ -334,7 +339,7 @@ void SimulatorInterface::grid_reset_dim() {
 
 void SimulatorInterface::choose_transition_rules(){
 	this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
-	TransitionInterface* windowtransition = new TransitionInterface(possible_state_list, getPossibleStateNumber(), simulator->getNeighbourNbr());
+	TransitionInterface* windowtransition = new TransitionInterface();
 	windowtransition->show();
 
 	// A la fermeture de la fenêtre du choix des transitions
@@ -347,39 +352,41 @@ void SimulatorInterface::choose_transition_rules_finished(){
 }
 
 // ==================== State Slots ====================
-
+#include <iostream>
 void SimulatorInterface::add_new_state(){
-	if (state_vector->last().first->state_name->text().isEmpty())
+	QPair<StateInterface*,QPushButton*>& lastState = state_vector->last();
+	if (lastState.first->state_name->text().isEmpty()) {
 		QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs pour les champs");
-	else{
-		bool same_value = false;
-		// Ne marche pas
-		for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
-			StateInterface* st = it->first;
-			if (st != state_vector->last().first){
-				if ( (*st).state_name->text() == state_vector->last().first->state_name->text()
-					 || (*st).color_button->item(0,0)->backgroundColor().name() == state_vector->last().first->color_button->item(0,0)->backgroundColor().name() ){
-					same_value = true;
-					QMessageBox::critical(this, "ERREUR", "Vous devez entrer des valeurs différentes de celles existantes");
-					break;
-				}
-			}
-		}
-		if (!same_value){
-			state_vector->last().first->state_name->setEnabled(false);
-			state_vector->last().first->color_button->setEnabled(false);
-			state_vector->last().second = new QPushButton("Supprimer");
-			state_vector->last().first->addWidget(state_vector->last().second);
+	} else {
+		std::string name = lastState.first->state_name->text().toStdString();
+		std::string color = lastState.first->color_button->item(0,0)->backgroundColor().name().toStdString();
+		std::cout << color << std::endl;
+		try {
+			// Try to create State
+			manager->createNewState(name, color);
+			// Config View
+			lastState.first->state_name->setEnabled(false);
+			lastState.first->color_button->setEnabled(false);
+			lastState.second = new QPushButton("Supprimer");
+			lastState.first->addWidget(state_vector->last().second);
+			// Add new slot
 			QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
 			pair->first = new StateInterface();
 			pair->second = new QPushButton;
 			state_vector->push_back(*pair);
 			state_layout_display->addLayout(state_vector->last().first);
+		} catch(SimulatorException error) {
+			std::cout << error.what() << std::endl;
+			QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
 		}
+
 	}
 }
 
+
 void SimulatorInterface::displayExistingStates(){
+	// TODO
+	Simulator* simulator = SimulatorManager::getManager()->getSimulator();
 	for (unsigned int i = 0; i < simulator->getStateNbr(); i++){
 		StateInterface* state_existing = new StateInterface(simulator->getInitStates()[i]->getName(),simulator->getInitStates()[i]->getColor());
 		QPushButton* but = new QPushButton("Supprimer");

@@ -22,6 +22,12 @@ SimulatorManager* SimulatorManager::_instance = new SimulatorManager;
 |--------------------------------------------------------------------------
 */
 
+Simulator* SimulatorManager::getSimulator() {
+	if (_simulator == nullptr)
+		throw SimulatorException("Le simulateur n'existe pas");
+	return _simulator;
+}
+
 Simulator* SimulatorManager::createSimulator(uint dimension) {
 	deleteSimulator();
 
@@ -54,10 +60,34 @@ void SimulatorManager::deleteSimulator() {
 |--------------------------------------------------------------------------
 */
 
+State* SimulatorManager::getState(uint position) {
+	if (position >= _states.size())
+		throw SimulatorException("L'état n'existe pas");
+	return _states[position];
+}
+
+State* SimulatorManager::getState(const std::string& name) {
+	std::vector<State*>::iterator it = std::find_if(_states.begin(), _states.end(),
+		[&name](State* state) { return state->getName() == name; });
+	if (it == _states.end())
+		throw SimulatorException("L'état n'existe pas");
+	return (*it);
+}
+
 State* SimulatorManager::createNewState(std::string name, std::string color) {
+	bool already_exists = false;
+	// Verification de doublon
+	for (std::vector<State*>::const_iterator it = _states.begin(); it != _states.end(); ++it) {
+		if ((*it)->getName() == name)
+			already_exists = true;
+		if ((*it)->getColor() == color)
+			already_exists = true;
+		if (already_exists)
+			throw SimulatorException("L'état existe déjà");
+	}
+	// Add State to the vector
 	State* state = new State(name, color);
 	_states.push_back(state);
-
 	return state;
 }
 void SimulatorManager::removeState(State* state) {

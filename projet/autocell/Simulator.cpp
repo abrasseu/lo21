@@ -14,7 +14,7 @@
 using uint = unsigned int;
 
 /**
- * @brief Création de du tableau cell
+ * @brief Création du tableau cell
  */
 void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
