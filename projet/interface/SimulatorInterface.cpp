@@ -26,13 +26,13 @@ void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
 }
 
 void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
-    choose_automate = new QPushButton("Choisir cet automate");
-    change_automate = new QPushButton("Changer d'automate");
-    parent->addWidget(choose_automate);
-    parent->addWidget(change_automate);
+	choose_automate = new QPushButton("Choisir cet automate");
+	change_automate = new QPushButton("Changer d'automate");
+	parent->addWidget(choose_automate);
+	parent->addWidget(change_automate);
 
-    QObject::connect(choose_automate, SIGNAL(clicked()), this, SLOT(chosenAutomate()));
-    QObject::connect(change_automate, SIGNAL(clicked()), this, SLOT(changedAutomate()));
+	QObject::connect(choose_automate, SIGNAL(clicked()), this, SLOT(chosenAutomate()));
+	QObject::connect(change_automate, SIGNAL(clicked()), this, SLOT(changedAutomate()));
 }
 
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
@@ -145,10 +145,6 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
 	parent->addLayout(state_vector->last().first);
 }
 
-void SimulatorInterface::blockinitial(){
-
-}
-
 
 /*
 |--------------------------------------------------------------------------
@@ -161,7 +157,7 @@ void SimulatorInterface::blockinitial(){
  * @details Instancie et configure tous les éléments de l'interface
  * @param La dimension du Simulateur
  */
-SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimension): QWidget() {
+SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(), automate_dimension(dim) {
 	// Get Manager
 	manager = SimulatorManager::getManager();
 
@@ -217,9 +213,11 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 
 	// =========== Init Controls ===========
 	setGridControls(controls_layout);
-    setAutomateChoice(controls_layout);
-    setAutomateControls(controls_layout);
+	setAutomateChoice(controls_layout);
+	setAutomateControls(controls_layout);
 	setSimulatorControls(controls_layout);
+	// Block simulation by default
+	changedAutomate();
 
 	// Simulation Timer
 	sim_timer = new QTimer(this);
@@ -371,61 +369,61 @@ void SimulatorInterface::choose_transition_rules_finished(){
 
 // ==================== Automate choice Slots ====================
 void SimulatorInterface::chosenAutomate(){
-    // Disable every left buttons
-    add_state->setEnabled(false);
-    state_vector->last().second->setEnabled(false);
-    state_vector->last().first->state_name->setEnabled(false);
-    state_vector->last().first->color_button->setEnabled(false);
+	// Disable every left buttons
+	add_state->setEnabled(false);
+	state_vector->last().second->setEnabled(false);
+	state_vector->last().first->state_name->setEnabled(false);
+	state_vector->last().first->color_button->setEnabled(false);
 
-    grid_dim_spinbox->setEnabled(false);
-    grid_dim_controls->setEnabled(false);
-    grid_dim_set_bt->setEnabled(false);
-    grid_dim_reset_bt->setEnabled(false);
+	grid_dim_spinbox->setEnabled(false);
+	grid_dim_controls->setEnabled(false);
+	grid_dim_set_bt->setEnabled(false);
+	grid_dim_reset_bt->setEnabled(false);
 
-    choose_automate->setEnabled(false);
+	choose_automate->setEnabled(false);
 
-    // Enable right buttons
-    change_automate->setEnabled(true);
-    set_transition_rules->setEnabled(true);
-    speed_selector->setEnabled(true);
-    sim_start_bt->setEnabled(true);
-    sim_step_bt->setEnabled(true);
-    sim_stop_bt->setEnabled(true);
-    sim_reset_bt->setEnabled(true);
+	// Enable right buttons
+	change_automate->setEnabled(true);
+	set_transition_rules->setEnabled(true);
+	speed_selector->setEnabled(true);
+	sim_start_bt->setEnabled(true);
+	sim_step_bt->setEnabled(true);
+	sim_stop_bt->setEnabled(true);
+	sim_reset_bt->setEnabled(true);
 
-    initial_state_selector->setEnabled(true);
-    initial_state_setter->setEnabled(true);
+	initial_state_selector->setEnabled(true);
+	initial_state_setter->setEnabled(true);
 
-    blockAfterChoosedAutomate();
+	blockAfterAutomateChosen();
 }
 
 void SimulatorInterface::changedAutomate(){
-    // Disable every left buttons
-    add_state->setEnabled(true);
-    state_vector->last().second->setEnabled(true);
-    state_vector->last().first->state_name->setEnabled(true);
-    state_vector->last().first->color_button->setEnabled(true);
+	// Enable every left buttons
+	add_state->setEnabled(true);
+	state_vector->last().second->setEnabled(true);
+	state_vector->last().first->state_name->setEnabled(true);
+	state_vector->last().first->color_button->setEnabled(true);
 
-    grid_dim_spinbox->setEnabled(true);
-    grid_dim_controls->setEnabled(true);
-    grid_dim_set_bt->setEnabled(true);
-    grid_dim_reset_bt->setEnabled(true);
+	grid_dim_spinbox->setEnabled(true);
+	grid_dim_controls->setEnabled(true);
+	grid_dim_set_bt->setEnabled(true);
+	grid_dim_reset_bt->setEnabled(true);
 
-    choose_automate->setEnabled(true);
+	choose_automate->setEnabled(true);
 
-    // Enable right buttons
-    change_automate->setEnabled(false);
-    set_transition_rules->setEnabled(false);
-    speed_selector->setEnabled(false);
-    sim_start_bt->setEnabled(false);
-    sim_step_bt->setEnabled(false);
-    sim_stop_bt->setEnabled(false);
-    sim_reset_bt->setEnabled(false);
+	// Disnable right buttons
+	change_automate->setEnabled(false);
+	set_transition_rules->setEnabled(false);
+	speed_selector->setEnabled(false);
+	sim_start_bt->setEnabled(false);
+	sim_step_bt->setEnabled(false);
+	sim_stop_bt->setEnabled(false);
+	sim_reset_bt->setEnabled(false);
 
-    initial_state_selector->setEnabled(false);
-    initial_state_setter->setEnabled(false);
+	initial_state_selector->setEnabled(false);
+	initial_state_setter->setEnabled(false);
 
-    blockAfterChangedAutomate();
+	blockAfterAutomateChanged();
 }
 
 // ==================== State Slots ====================

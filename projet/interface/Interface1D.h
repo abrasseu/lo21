@@ -20,10 +20,11 @@ class Interface1D : public SimulatorInterface
 		QPushButton* grid_buffer_length_reset;
 
 		bool changeCellEnabled;
-        QTableWidget* initial_view = nullptr;
-        QTableWidget* grid_view = nullptr;
+		QTableWidget* initial_view = nullptr;
+		QTableWidget* grid_view = nullptr;
 
 		unsigned int buffer_size;
+//		void blockAfterAutomateChoosed();
 
 	public:
 		Interface1D();
@@ -35,15 +36,14 @@ class Interface1D : public SimulatorInterface
 		void drawGrid(QTableWidget*, uint, uint);
 		void changeGridCells();
 
-        void blockAfterChoosedAutomate();
-        void blockAfterChangedAutomate();
+		void blockAfterAutomateChosen();
+		void blockAfterAutomateChanged();
 
 	private slots:
-        void rotateCellState(QTableWidgetItem*);
+		void rotateCellState(QTableWidgetItem*);
 
-        void step_simulation();
-        void start_simulation();
-
+		void step_simulation();
+		void start_simulation();
 
 		// To prevent selecting cells on grid_view
 		void grid_view_clicked(QTableWidgetItem*);
@@ -51,7 +51,7 @@ class Interface1D : public SimulatorInterface
 		void grid_set_buf();
 		void grid_reset_buf();
 
-        void set_default_grid();
+		void set_default_grid();
 };
 
 #endif // INTERFACE1D_H

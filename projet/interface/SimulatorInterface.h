@@ -38,7 +38,7 @@ class SimulatorInterface : public QWidget {
 
 		// === State Widget
 		QVBoxLayout* state_layout_display;
-		QVector < QPair < StateInterface*, QPushButton*> >* state_vector = nullptr;
+		QVector< QPair<StateInterface*, QPushButton*> >* state_vector = nullptr;
 		QPushButton* valid_state;
 		QPushButton* add_state;
 
@@ -52,9 +52,9 @@ class SimulatorInterface : public QWidget {
 		QHBoxLayout* state_controls;
 		QHBoxLayout* transition_controls;
 
-        // === Choose Automate
-        QPushButton* choose_automate;
-        QPushButton* change_automate;
+		// === Choose Automate
+		QPushButton* choose_automate;
+		QPushButton* change_automate;
 
 		QPushButton* set_transition_rules;
 		QPushButton* set_transition_game_life;
@@ -96,7 +96,7 @@ class SimulatorInterface : public QWidget {
 		// Constructor Setters
 		void setGridControls(QBoxLayout*);
 		void setAutomateControls(QBoxLayout*);
-        void setAutomateChoice(QBoxLayout*);
+		void setAutomateChoice(QBoxLayout*);
 		void setStateControls(QBoxLayout*);
 		void setTransitionControls(QBoxLayout*);
 		void setDimensionControls(QBoxLayout*);
@@ -107,13 +107,12 @@ class SimulatorInterface : public QWidget {
 		void displayExistingStates();
 
 		// Simulation
+		const unsigned int automate_dimension;
 		SimulatorManager* manager;
 		Simulator* simulator = 0;
 		bool sim_is_running;
-        virtual void blockAfterChoosedAutomate() { }
-        virtual void blockAfterChangedAutomate() { }
-
-        void blockinitial();
+		virtual void blockAfterAutomateChosen() { }
+		virtual void blockAfterAutomateChanged() { }
 
 		// Grid
 		unsigned int grid_size;			// Taille max de la grille
@@ -133,7 +132,7 @@ class SimulatorInterface : public QWidget {
 		virtual void changeGridCells() = 0;
 
 	public:
-		SimulatorInterface(const short unsigned int automate_dimension = 0);
+		SimulatorInterface(const short unsigned int dim);
 
 	protected slots:
 		void home();
@@ -146,9 +145,9 @@ class SimulatorInterface : public QWidget {
 		void reset_simulation();
 		void iterate_simulation();
 
-        // Choose Automate
-        void chosenAutomate();
-        void changedAutomate();
+		// Choose Automate
+		void chosenAutomate();
+		void changedAutomate();
 
 		// State Slots
 		void add_new_state();
@@ -160,7 +159,7 @@ class SimulatorInterface : public QWidget {
 
 		// Grid Slots
 		virtual void set_default_grid() = 0;
-        void grid_set_dim();
+		void grid_set_dim();
 		void grid_reset_dim();
 };
 
