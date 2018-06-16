@@ -52,6 +52,8 @@ class Interface1D : public SimulatorInterface
 		void grid_reset_buf();
 
         void set_default_grid();
+
+        void chosenAutomate();
 };
 
 #endif // INTERFACE1D_H
