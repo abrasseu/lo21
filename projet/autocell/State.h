@@ -31,7 +31,7 @@ class State {
 		// Getters
 		std::string getName() const { return _name; }
 		std::string getColor() const { return _color; }
-		std::vector<Rule*>::const_iterator getRules() const { return _rules.cbegin(); }
+        std::vector<Rule*> getRules() const { return _rules; }
 
 		// Setters
 		void setName(std::string name) { _name = name; }

@@ -165,7 +165,12 @@ void TransitionInterface::modifyPreviousRule(){
 }
 
 //void TransitionInterface::displayExistingRules(){
-
+//    State** list_states;
+//    for (unsigned int i = 0; i < nb_state; i++){
+//        std::vector<Rule*>::const_iterator it = list_states[i]->getRules();
+//        it.
+//        for (auto it = list_states[i]->getRules().begin(); it != list_states[i]->getRules().begin(); ++it)
+//    }
 //}
 
 void TransitionInterface::closeEvent(QCloseEvent* event){

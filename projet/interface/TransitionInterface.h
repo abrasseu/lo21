@@ -20,18 +20,17 @@ class Transition : public QHBoxLayout {
         State** state_list;
 
         // Layout
-
         QVBoxLayout* start_layout;
         QVBoxLayout** neighbours_layout = nullptr;
         QVBoxLayout* final_layout;
 
-        // start_layout widget
+        // Start_layout widget
         QLabel* start_label;
         QHBoxLayout* start_layout_combo;
         QComboBox* start_cell;
         QTableWidget* start_color;
 
-        // neighbours_layout widget
+        // Neighbours_layout widget
         QLabel** neighbours_label = nullptr;
 
         // final_layout widget
