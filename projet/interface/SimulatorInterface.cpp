@@ -363,14 +363,17 @@ void SimulatorInterface::set_default_grid() {
 			break;
 		case 1 :
 			simulator->generateRandomCells();
-			break;
-		case 2 :
-			simulator->generateVerticalSymetricRandomCells();
-			break;
-		case 3 :
+            break;
+        case 2 :
+            simulator->generateVerticalSymetricRandomCells();
+            break;
+        case 3 :
+            simulator->generateHorizontalSymetricRandomCells();
+            break;
+        case 4 :
 			simulator->generateAlternedCells();
 			break;
-		case 4 :
+        case 5 :
 			simulator->generateDescAlternedCells();
 			break;
 	}
