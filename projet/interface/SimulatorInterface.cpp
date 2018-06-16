@@ -410,7 +410,6 @@ void SimulatorInterface::chosenAutomate(){
             } catch(SimulatorException error) {
                 manager->setGridSize(grid_dimension);
                 simulator = manager->createSimulator(automate_dimension);
-                QMessageBox::critical(this, "zeubi", QString::fromStdString(error.what()));
             }
 
             // Disable every left buttons
@@ -438,8 +437,8 @@ void SimulatorInterface::chosenAutomate(){
             initial_state_selector->setEnabled(true);
             initial_state_setter->setEnabled(true);
 
-            blockAfterAutomateChosen();
             redrawGrid(view_layout);
+            blockAfterAutomateChosen();
             changeCellEnabled = true;
         } catch (SimulatorException error) {
             QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
