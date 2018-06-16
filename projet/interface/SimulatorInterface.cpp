@@ -86,8 +86,14 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 	parent->addLayout(initial_state_controls);
 
 	initial_state_label = new QLabel("Sélectionner un état de départ");
-	initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
 	initial_state_setter = new QPushButton("Appliquer l'état");
+	initial_state_selector = new QComboBox();      // Liste déroulante avec grilles de départs
+	initial_state_selector->addItem("Vide", QVariant(0));
+	initial_state_selector->addItem("Au hasard", QVariant(1));
+	initial_state_selector->addItem("Symétrique vertical", QVariant(2));
+	initial_state_selector->addItem("Symétrique horizontal", QVariant(3));
+	initial_state_selector->addItem("Etats croissant", QVariant(4));
+	initial_state_selector->addItem("Etats décroissant", QVariant(5));
 	// Add Items to Layout
 	initial_state_controls->addWidget(initial_state_label);
 	initial_state_controls->addWidget(initial_state_selector);
@@ -100,7 +106,6 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 	simulation_controls = new QVBoxLayout();
 	parent->addLayout(simulation_controls);
-	simulator = 0;
 
 	simulation_label = new QLabel("Mode de simulation");
 	simulation_label->setAlignment(Qt::AlignCenter);
@@ -164,15 +169,12 @@ SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(),
 	// Get Manager
 	manager = SimulatorManager::getManager();
 
-//    emit changedAutomate();
-
 	// Set Config
 	setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
 	grid_dimension = 10;
 	grid_size = 400;
 	changeCellEnabled = true;
 	sim_is_running = false;
-
 
 
 	// =========== Main Layout ===========
@@ -219,6 +221,7 @@ SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(),
 	setAutomateChoice(controls_layout);
 	setAutomateControls(controls_layout);
 	setSimulatorControls(controls_layout);
+
 	// Block simulation by default
 	changedAutomate();
 
@@ -326,9 +329,6 @@ void SimulatorInterface::reset_simulation() {
 	initial_state_selector->setEnabled(true);
 	initial_state_setter->setEnabled(true);
 	changeCellEnabled = true;
-
-	// Set initial states
-	setInitialStates();
 }
 
 /**
@@ -345,12 +345,36 @@ void SimulatorInterface::iterate_simulation() {
 
 void SimulatorInterface::grid_set_dim(){
 	grid_dimension = grid_dim_spinbox->value();
-	redrawGrid(view_layout);
+//	redrawGrid(view_layout);
 }
 void SimulatorInterface::grid_reset_dim() {
 	grid_dim_spinbox->setValue(10);
 	grid_dimension = 10;
-	redrawGrid(view_layout);
+//	redrawGrid(view_layout);
+}
+
+void SimulatorInterface::set_default_grid() {
+	unsigned int combo_value = initial_state_selector->currentIndex();
+	simulator = SimulatorManager::getManager()->getSimulator();
+
+	switch (combo_value){
+		case 0 :
+			simulator->generateStateCells();
+			break;
+		case 1 :
+			simulator->generateRandomCells();
+			break;
+		case 2 :
+			simulator->generateVerticalSymetricRandomCells();
+			break;
+		case 3 :
+			simulator->generateAlternedCells();
+			break;
+		case 4 :
+			simulator->generateDescAlternedCells();
+			break;
+	}
+	changeGridCells();
 }
 
 
@@ -372,36 +396,53 @@ void SimulatorInterface::choose_transition_rules_finished(){
 
 // ==================== Automate choice Slots ====================
 void SimulatorInterface::chosenAutomate(){
-	// Disable every left buttons
-	add_state->setEnabled(false);
-	state_vector->last().second->setEnabled(false);
-	state_vector->last().first->state_name->setEnabled(false);
-	state_vector->last().first->color_button->setEnabled(false);
+	if (SimulatorManager::getManager()->getStateNumber() < 1) {
+		QMessageBox::critical(this, "Attention", "Il faut définir au moins 1 état");
+		return;
+	} else {
+		try {
+			// Create Simulator
+			manager = SimulatorManager::getManager();
+			manager->setGridSize(grid_dimension);
+			manager->createSimulator(automate_dimension);
 
-	grid_dim_spinbox->setEnabled(false);
-	grid_dim_controls->setEnabled(false);
-	grid_dim_set_bt->setEnabled(false);
-	grid_dim_reset_bt->setEnabled(false);
+			// Disable every left buttons
+			add_state->setEnabled(false);
+			state_vector->last().second->setEnabled(false);
+			state_vector->last().first->state_name->setEnabled(false);
+			state_vector->last().first->color_button->setEnabled(false);
 
-    choose_automate->setEnabled(false);
+			grid_dim_spinbox->setEnabled(false);
+			grid_dim_controls->setEnabled(false);
+			grid_dim_set_bt->setEnabled(false);
+			grid_dim_reset_bt->setEnabled(false);
 
-	// Enable right buttons
-    save_automate->setEnabled(true);
-	change_automate->setEnabled(true);
-	set_transition_rules->setEnabled(true);
-	speed_selector->setEnabled(true);
-	sim_start_bt->setEnabled(true);
-	sim_step_bt->setEnabled(true);
-	sim_stop_bt->setEnabled(true);
-	sim_reset_bt->setEnabled(true);
+			choose_automate->setEnabled(false);
 
-	initial_state_selector->setEnabled(true);
-	initial_state_setter->setEnabled(true);
+			// Enable right buttons
+			change_automate->setEnabled(true);
+			set_transition_rules->setEnabled(true);
+			speed_selector->setEnabled(true);
+			sim_start_bt->setEnabled(true);
+			sim_step_bt->setEnabled(true);
+			sim_stop_bt->setEnabled(true);
+			sim_reset_bt->setEnabled(true);
 
-	blockAfterAutomateChosen();
+			initial_state_selector->setEnabled(true);
+			initial_state_setter->setEnabled(true);
+
+			blockAfterAutomateChosen();
+			redrawGrid(view_layout);
+			changeCellEnabled = true;
+		} catch (SimulatorException error) {
+			QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
+		}
+	}
 }
 
 void SimulatorInterface::changedAutomate(){
+	changeCellEnabled = false;
+
 	// Enable every left buttons
 	add_state->setEnabled(true);
 	state_vector->last().second->setEnabled(true);
@@ -427,6 +468,9 @@ void SimulatorInterface::changedAutomate(){
 
 	initial_state_selector->setEnabled(false);
 	initial_state_setter->setEnabled(false);
+
+	// Delete Simulator
+	SimulatorManager::getManager()->deleteSimulator();
 
 	blockAfterAutomateChanged();
 }

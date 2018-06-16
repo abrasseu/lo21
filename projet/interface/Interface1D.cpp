@@ -1,36 +1,9 @@
 #include "Interface1D.h"
 
 
-void setRules(State** states) {
-	// Si une cellule vivante est entourée d'au moins 2 cellules mortes, elle meurt à son tour
-	std::vector<State*> forRule1({states[0], states[0]});
-	Rule* rule1 = new Rule(states[0], forRule1);
-	states[1]->addANewRule(rule1);
-
-	// Si une cellule morte est entourée de 2 cellules vivantes, elle vit à son tour
-	std::vector<State*> forRule2({states[1], states[1]});
-	Rule* rule2 = new Rule(states[1], forRule2);
-	states[0]->addANewRule(rule2);
-}
 Interface1D::Interface1D(): SimulatorInterface(1), buffer_size(10) {
 	// Set state list
 	setGridBufferLength(grid_dim_controls);
-	possible_state_list = new State*[2];
-	possible_state_number = 2;
-	possible_state_list[0] = new State("Mort", "#fff");
-	possible_state_list[1] = new State("Vivant", "#000");
-
-	initial_state_selector->clear();
-	initial_state_selector->addItem("Vide", QVariant(0));
-	initial_state_selector->addItem("Au hasard", QVariant(1));
-	initial_state_selector->addItem("Symétrique", QVariant(2));
-	initial_state_selector->addItem("Etats croissant", QVariant(3));
-	initial_state_selector->addItem("Etats décroissant", QVariant(4));
-
-	setRules(possible_state_list);
-
-//	simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-	initSimulatorView(view_layout);
 }
 
 void Interface1D::setGridBufferLength(QBoxLayout* parent){
@@ -58,16 +31,8 @@ void Interface1D::setGridBufferLength(QBoxLayout* parent){
 	QObject::connect(grid_buffer_length_reset, SIGNAL(clicked()), this, SLOT(grid_reset_buf()));
 }
 
-void Interface1D::initSimulatorView(QBoxLayout* parent) {
-	setInitialStates();
-	redrawGrid(parent);
-}
-
 void Interface1D::redrawGrid(QBoxLayout* parent) {
-	// Initialisation du simulateur avec la bonne taille
-	if (simulator)
-		delete simulator;
-	simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
+	simulator = SimulatorManager::getManager()->getSimulator();
 
 //    QMessageBox::warning(this, "taille", QString::number(grid_dimension));
 	// Initialisation de la ligne de départ
@@ -122,6 +87,7 @@ void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn) {
 }
 
 void Interface1D::changeGridCells() {
+	simulator = SimulatorManager::getManager()->getSimulator();
 	const uint currentGeneration = simulator->getGeneration();
 	if (currentGeneration > buffer_size)
 		for (uint i = 0; i < buffer_size - 1; i++)
@@ -148,13 +114,6 @@ void Interface1D::changeGridCells() {
 		}
 	}
 }
-
-void Interface1D::setInitialStates(){
-	initial_states = new State*[grid_dimension];
-	for (unsigned int i = 0; i < grid_dimension; i++)
-		initial_states[i] = possible_state_list[0];
-}
-
 
 
 // === Grid Slots
@@ -197,6 +156,7 @@ void Interface1D::start_simulation() {
 }
 
 void Interface1D::rotateCellState(QTableWidgetItem* it){
+	simulator = SimulatorManager::getManager()->getSimulator();
 	it->setSelected(false);
 	if (changeCellEnabled) {
 		simulator->incrementState(it->column(), false);
@@ -233,46 +193,6 @@ void Interface1D::grid_view_clicked(QTableWidgetItem* it){
 	it->setSelected(false);
 }
 
-void Interface1D::set_default_grid() {
-	unsigned int combo_value = initial_state_selector->currentIndex();
-//    QMessageBox::warning(this, "erreur", QString::number(combo_value));
-
-	switch (combo_value){
-		case 0 :
-			if (simulator)
-				delete simulator;
-			simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-			simulator->generateStateCells();
-			break;
-		case 1 :
-			if (simulator)
-				delete simulator;
-			simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-			simulator->generateRandomCells();
-			break;
-		case 2 :
-			if (simulator)
-				delete simulator;
-			simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-			simulator->generateVerticalSymetricRandomCells();
-			break;
-		case 3 :
-			if (simulator)
-				delete simulator;
-			simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-			simulator->generateAlternedCells();
-			break;
-		case 4 :
-			if (simulator)
-				delete simulator;
-			simulator = new Simulator1D(possible_state_list, 2, grid_dimension);
-			simulator->generateDescAlternedCells();
-			break;
-
-	}
-	changeGridCells();
-}
-
 void Interface1D::blockAfterAutomateChosen(){
 	// Disable left buttons
 
@@ -280,7 +200,7 @@ void Interface1D::blockAfterAutomateChosen(){
 	grid_buffer_length_valid->setEnabled(false);
 	grid_buffer_length_reset->setEnabled(false);
 
-    initial_view->setEnabled(true);
+	initial_view->setEnabled(true);
 
 }
 
@@ -291,7 +211,7 @@ void Interface1D::blockAfterAutomateChanged(){
 	grid_buffer_length_valid->setEnabled(true);
 	grid_buffer_length_reset->setEnabled(true);
 
-    initial_view->setEnabled(false);
+	initial_view->setEnabled(false);
 
 
 }

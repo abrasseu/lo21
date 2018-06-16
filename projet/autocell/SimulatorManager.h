@@ -65,7 +65,8 @@ public:
 
 	// States
 	State* getState(uint position);
-    State* getState(const std::string& name);
+	State* getState(const std::string& name);
+	uint getStateNumber() const { return _states.size(); }
 	std::vector<State*>::const_iterator getFirstState() const { return _states.begin(); }
 	std::vector<State*>::const_iterator getLastState() const { return _states.end(); }
 	State* createNewState(std::string name, std::string color);

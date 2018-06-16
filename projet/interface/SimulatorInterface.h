@@ -128,8 +128,6 @@ class SimulatorInterface : public QWidget {
 		unsigned int getPossibleStateNumber() const { return possible_state_number; }
 
 		// Methods & Attributes that must be overidded in children
-		virtual void initSimulatorView(QBoxLayout*) = 0;
-		virtual void setInitialStates() = 0;
 		virtual void redrawGrid(QBoxLayout*) = 0;
 		virtual void changeGridCells() = 0;
 
@@ -160,7 +158,7 @@ class SimulatorInterface : public QWidget {
 		void choose_transition_rules_finished();
 
 		// Grid Slots
-		virtual void set_default_grid() = 0;
+		void set_default_grid();
 		void grid_set_dim();
 		void grid_reset_dim();
 
