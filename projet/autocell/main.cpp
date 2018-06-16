@@ -18,31 +18,54 @@ using uint = unsigned int;
 int main() {
     std::srand(std::time(nullptr));
 
-    SimulatorManager* manager(SimulatorManager::getManager());
-/*
-    manager->createNewState("Vivant", "#000000");
-    manager->createNewState("Mort", "#FFFFFF");
-
-    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(1)));
-    manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(1)));
-    manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(0)));
-
-    manager->setGridSize(10);
-    manager->createSimulator(2);
-    manager->getSimulator()->generateRandomCells();
-    manager->getSimulator()->printCells();
-
-    manager->exportConfig("../saves/life_game.json");
-
-    manager->getSimulator()->mutate();
-    manager->getSimulator()->printCells();
-    std::cout << std::endl;
-*/
     try {
+
+
+        SimulatorManager* manager(SimulatorManager::getManager());
+
+        manager->createNewState("Blink", "#0033FF");
+        manager->createNewState("Unblink", "#FFFFFF");
+
+        manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0)}, manager->getState(1)));
+        manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1)}, manager->getState(0)));
+
+        manager->setGridSize(10);
+        manager->createSimulator(1);
+        manager->getSimulator()->printCells();
+
+        manager->exportConfig("../saves/blinker.json");
+        manager->getSimulator()->mutate();
+        manager->getSimulator()->printCells();
+
+        // Jeu de la vie
+
+        manager->removeState(manager->getState(0));
+        std::cout << manager->getStateNumber() << manager->getRuleNbr() << std::endl;
+        manager->removeState(manager->getState(0));/*
+        std::cout << manager->getStateNumber() << manager->getRuleNbr();
+
+        manager->createNewState("Vivant", "#FFFFFF");
+        manager->createNewState("Mort", "#000000");
+
+        manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(1)));
+        manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(0)}, manager->getState(1)));
+        manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(0), manager->getState(0), manager->getState(0), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(0)));
+
+        manager->setGridSize(10);
+        manager->createSimulator(2);
+        manager->getSimulator()->generateRandomCells();
+        manager->getSimulator()->printCells();
+
+        manager->exportConfig("../saves/life_game.json");
+
+        manager->getSimulator()->mutate();
+        manager->getSimulator()->printCells();
+        std::cout << std::endl;
+
         manager->importConfig("../saves/life_game.json");
         manager->getSimulator()->printCells();
         manager->getSimulator()->mutate();
-        manager->getSimulator()->printCells();
+        manager->getSimulator()->printCells();*/
     } catch (SimulatorException e) {
         std::cout << e.what();
     }

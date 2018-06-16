@@ -130,8 +130,6 @@ void SimulatorManager::removeState(State* state) {
 
 		removeRule((*rule));
 	}
-
-	createSimulator();
 }
 
 /*
@@ -161,8 +159,6 @@ void SimulatorManager::removeRule(Rule* rule) {
 				(*state)->getRules().erase(ruleOfState);
 		}
 	}
-
-	createSimulator();
 }
 
 
@@ -181,6 +177,8 @@ void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 
 	container->erase(it);
 	delete object;
+
+	deleteSimulator();
 }
 
 template<class T>

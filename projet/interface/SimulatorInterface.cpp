@@ -168,6 +168,7 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
 SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(), automate_dimension(dim) {
     // Get Manager
     manager = SimulatorManager::getManager();
+    manager->setDimension(dim);
 
     // Set Config
     setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
@@ -404,6 +405,7 @@ void SimulatorInterface::chosenAutomate(){
             // Create Simulator
             manager = SimulatorManager::getManager();
             try {
+                manager->createSimulator();
                 simulator = manager->getSimulator();
                 grid_dimension = manager->getGridSize();
             } catch(SimulatorException error) {

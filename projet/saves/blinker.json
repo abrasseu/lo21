@@ -1,0 +1,48 @@
+{
+  "rules": [
+    {
+      "state": 1,
+      "transition_states": [
+        0
+      ]
+    },
+    {
+      "state": 0,
+      "transition_states": [
+        1
+      ]
+    }
+  ],
+  "simulator": {
+    "dimension": 1,
+    "grid_size": 10,
+    "states": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "states": [
+    {
+      "color": "#0033FF",
+      "name": "Blink",
+      "transition_rules": [
+        0
+      ]
+    },
+    {
+      "color": "#FFFFFF",
+      "name": "Unblink",
+      "transition_rules": [
+        1
+      ]
+    }
+  ]
+}
