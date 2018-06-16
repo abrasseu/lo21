@@ -403,8 +403,13 @@ void SimulatorInterface::chosenAutomate(){
 		try {
 			// Create Simulator
 			manager = SimulatorManager::getManager();
-			manager->setGridSize(grid_dimension);
-			manager->createSimulator(automate_dimension);
+            try {
+                simulator = manager->getSimulator();
+                grid_dimension = manager->getGridSize();
+            } catch(SimulatorException error) {
+                manager->setGridSize(grid_dimension);
+                simulator = manager->createSimulator(automate_dimension);
+            }
 
 			// Disable every left buttons
 			add_state->setEnabled(false);

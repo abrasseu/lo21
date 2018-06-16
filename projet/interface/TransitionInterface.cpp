@@ -193,8 +193,8 @@ void TransitionInterface::displayExistingRules(){
                     sum[*it_vec_state] = 1;
                 }
             }
-            uint* tab = new uint[SimulatorManager::getManager()->getStateNbr()];
-            for (uint j = 0; j < SimulatorManager::getManager()->getStateNbr(); j++){
+            uint* tab = new uint[SimulatorManager::getManager()->getStateNumber()];
+            for (uint j = 0; j < SimulatorManager::getManager()->getStateNumber(); j++){
                 std::map<State*, uint>::iterator value_return_map = sum.find(*ite_state);
 
                 if (value_return_map != sum.end()){
