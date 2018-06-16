@@ -536,15 +536,20 @@ void SimulatorInterface::displayExistingStates(){
 void SimulatorInterface::delete_state() {
 	QObject* sdr = sender();
 	QPushButton* button = dynamic_cast<QPushButton*>(sdr);
-	QVector< QPair<StateInterface*, QPushButton*> >::iterator it;
-	it = std::remove_if(state_vector->begin(), state_vector->end(),
-		[&sdr, &button](QPair<StateInterface*, QPushButton*> pair) { return pair.second == button; });
-	// TODO FIX getState = 0 ???
-	try {
-		SimulatorManager::getManager()->removeState(it->first->getState());
-	} catch (SimulatorException error) {
-		QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
-	}
+
+    for (auto it = state_vector->begin(); it != state_vector->end(); it++) {
+        if (it->second == button) {
+            try {
+                SimulatorManager::getManager()->removeState(it->first->getState());
+            } catch (SimulatorException error) {}
+
+            delete it->first;
+            delete it->second;
+            state_vector->erase(it);
+
+            break;
+        }
+    }
 }
 
 

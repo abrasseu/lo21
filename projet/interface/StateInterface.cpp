@@ -11,6 +11,18 @@ StateInterface::StateInterface(std::string n, std::string c, State* s): QHBoxLay
 	setColorLayout(state_layout, c);
 }
 
+StateInterface::~StateInterface() {
+    delete color_button;
+    delete state_color_label;
+    delete color_layout;
+
+    delete state_name;
+    delete state_name_label;
+    delete name_layout;
+
+    delete state_layout;
+}
+
 void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
 	// Create Layout
 	name_layout = new QVBoxLayout;
