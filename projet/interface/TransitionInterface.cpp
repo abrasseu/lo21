@@ -122,7 +122,7 @@ void TransitionInterface::addNewTransitionRule(){
             transition_vector->push_back(*pair);
             transition_layout->addLayout(transition_vector->last().first);
 
-            QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
+            QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(deleteRule()));
         }
     }
     // Si vide, on affiche la règle
@@ -168,39 +168,50 @@ bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
     return true;
 }
 
-void TransitionInterface::modifyPreviousRule(){
-    QObject* sdr = sender();
-    QPushButton* qp = dynamic_cast<QPushButton*>(sdr);
-    for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
-        if (it->second == qp){
-            if (qp->text() == QString::fromStdString("Modifier")){
-                qp->setText(QString::fromStdString("Valider"));
-                it->first->start_cell->setEnabled(true);
-                it->first->final_cell->setEnabled(true);
-                for (unsigned int i = 0; i < it->first->nb_states; i++)
-                    it->first->neighbours[i]->second->setEnabled(true);
+void TransitionInterface::deleteRule(){
+//1    QObject* sdr = sender();
+//1    QPushButton* button = dynamic_cast<QPushButton*>(sdr);
+//    for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
+//        if (it->second == button){
+//            (*it)
+//        }
+//    }
+//1    std::vector<QPair<Transition*, QPushButton*> >::iterator it;
+//1    it = std::remove_if(transition_vector->begin(), transition_vector->end(), [&sdr](QPair<Transition*, QPushButton*> pair) { return pair.second == button; })
+//    SimulatorManager::getManager()->removeRule((*it).);
+}
+
+void TransitionInterface::displayExistingRules(){
+//    State** list_state = SimulatorManager::getManager()->getSimulator() ;
+
+    // TODO simulator non crée
+    uint nb_state = SimulatorManager::getManager()->getSimulator()->getStateNbr();
+    for (uint i = 0; i < nb_state; i++){
+        State* list_state = SimulatorManager::getManager()->getState(i);
+//        std::vector<Rule*> rules = list_state->getRules();
+        for (auto it = list_state->getRules().begin(); it != list_state->getRules().end(); ++it){
+            std::map<std::string, uint> sum;
+//            std::map<std::string, uint>::iterator it_sum;
+            for (auto it_vec_state = (*it)->getListStates().begin(); it_vec_state != (*it)->getListStates().end(); ++it_vec_state){
+//                it_sum = sum.find((*it_vec_state)->getName())
+                if ( sum.find((*it_vec_state)->getName()) != sum.end()){
+                    sum[(*it_vec_state)->getName()]++;
+                }
+                else {
+                    sum[(*it_vec_state)->getName()] = 1;
+                }
             }
-            // Validation de la modification
-            else{
-                qp->setText(QString::fromStdString("Modifier"));
-                it->first->start_cell->setEnabled(false);
-                it->first->final_cell->setEnabled(false);
-                for (unsigned int i = 0; i < it->first->nb_states; i++)
-                    it->first->neighbours[i]->second->setEnabled(false);
-                // Insérer le code pour modifier la règle du simulateur
+            uint* tab = new uint[nb_state];
+            for (uint j = 0; j < nb_state; i++){
+                std::map<std::string, uint>::iterator value_return_map = sum.find(SimulatorManager::getManager()->getState(j)->getName());
+
+                if (value_return_map != sum.end()){
+                    tab[i] = (value_return_map)->second;
+                }
             }
         }
     }
 }
-
-//void TransitionInterface::displayExistingRules(){
-//    State** list_states;
-//    for (unsigned int i = 0; i < nb_state; i++){
-//        std::vector<Rule*>::const_iterator it = list_states[i]->getRules();
-//        it.
-//        for (auto it = list_states[i]->getRules().begin(); it != list_states[i]->getRules().begin(); ++it)
-//    }
-//}
 
 void TransitionInterface::closeEvent(QCloseEvent* event){
     emit close_transition_interface();
@@ -212,24 +223,27 @@ void TransitionInterface::closeEvent(QCloseEvent* event){
 
 
 
-Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number)
-    : QHBoxLayout(), neighbours_nb(neighbour_number), nb_states(state_list_number), state_list(state_list) {
-    // "Simulateur" à 2 cases pour pouvoir utiliser la fonction incrementState
+Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number,
+                            unsigned int* spin_box_tab, State* state_start, State* state_final) :
+                            QHBoxLayout(), neighbours_nb(neighbour_number), nb_states(state_list_number),
+                            state_list(state_list), start_state(state_start), final_state(state_final) {
 
     // Set Start State Layout
     start_layout = new QVBoxLayout;
     this->addLayout(start_layout);
-    setStartState(start_layout);
+    setStartState(start_layout, state_start);
 
     setNeighboursNumber(state_list, state_list_number, neighbour_number, this);
 
     final_layout = new QVBoxLayout;
     this->addLayout(final_layout);
-    setFinalState(final_layout);
+    setFinalState(final_layout, state_final);
 }
 
+void Transition::setStartState(QVBoxLayout* parent, State* start_state){
+    if (start_state == nullptr)
+        start_state = state_list[0];
 
-void Transition::setStartState(QVBoxLayout* parent){
     start_label = new QLabel("Etat de départ");
     parent->addWidget(start_label);
 
@@ -237,8 +251,12 @@ void Transition::setStartState(QVBoxLayout* parent){
     parent->addLayout(start_layout_combo);
     start_cell = new QComboBox();
     start_layout_combo->addWidget(start_cell);
-    for (unsigned int i =0; i < nb_states; i++){
-        start_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+    start_cell->addItem(QString::fromStdString(start_state->getName()), QVariant(0));
+    for (unsigned int i =1; i < nb_states; i++){
+        if (state_list[i]->getName() != start_state->getName())
+            start_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+        else
+            i--;
     }
 
     // Cell with color of state depending on combobox chosen
@@ -253,14 +271,18 @@ void Transition::setStartState(QVBoxLayout* parent){
     start_color->setEditTriggers(QAbstractItemView::NoEditTriggers);
     start_color->setItem(0, 0, new QTableWidgetItem(""));
     QColor color;
-    color.setNamedColor(QString::fromStdString(state_list[0]->getColor()));
+    color.setNamedColor(QString::fromStdString(start_state->getColor()));
     start_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 
     QObject::connect(start_color, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(preventSelection(QTableWidgetItem*)));
     QObject::connect(start_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedStartState(int)));
 }
 
-void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent){
+void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent, unsigned int* spin_value){
+    if (spin_value == nullptr)
+        spin_value = new unsigned int[nb_states];
+    for (unsigned int i = 0; i < nb_states; i++)
+        spin_value[i] = 0;
     neighbours_layout = new QVBoxLayout*[state_list_number];
     neighbours = new QPair < State*, QSpinBox* >*[state_list_number];
     neighbours_label = new QLabel*[state_list_number];
@@ -273,12 +295,14 @@ void Transition::setNeighboursNumber(State** state_list, unsigned int state_list
         neighbours[i]->first = new State(state_list[i]->getName());
         neighbours[i]->second = new QSpinBox;
         neighbours[i]->second->setRange(0, neighbour_number);
-        neighbours[i]->second->setValue(0);
+        neighbours[i]->second->setValue(spin_value[i]);
         neighbours_layout[i]->addWidget(neighbours[i]->second);
     }
 }
 
-void Transition::setFinalState(QVBoxLayout* parent){
+void Transition::setFinalState(QVBoxLayout* parent, State* final_state){
+    if (final_state == nullptr)
+        final_state = state_list[0];
     final_label = new QLabel("Etat d'arrivée");
     parent->addWidget(final_label);
 
@@ -287,8 +311,12 @@ void Transition::setFinalState(QVBoxLayout* parent){
     // ComboBox
     final_cell = new QComboBox();
     final_layout_combo->addWidget(final_cell);
+    final_cell->addItem(QString::fromStdString(final_state->getName()), QVariant(0));
     for (unsigned int i =0; i < nb_states; i++){
-        final_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+        if (state_list[i]->getName() != final_state->getName())
+            final_cell->addItem(QString::fromStdString(state_list[i]->getName()), QVariant(i));
+        else
+            i--;
     }
 
     // Cell with color of state depending on combobox chosen
@@ -303,14 +331,12 @@ void Transition::setFinalState(QVBoxLayout* parent){
     final_color->setEditTriggers(QAbstractItemView::NoEditTriggers);
     final_color->setItem(0, 0, new QTableWidgetItem(""));
     QColor color;
-    color.setNamedColor(QString::fromStdString(state_list[0]->getColor()));
+    color.setNamedColor(QString::fromStdString(final_state->getColor()));
     final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 
     QObject::connect(final_color, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(preventSelection(QTableWidgetItem*)));
     QObject::connect(final_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedFinalState(int)));
 }
-
-
 /*
 |--------------------------------------------------------------------------
 |	Slots

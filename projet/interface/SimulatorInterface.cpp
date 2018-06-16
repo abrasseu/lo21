@@ -25,6 +25,14 @@ void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
 	setStateControls(automate_controls);
 }
 
+void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
+    choose_automate = new QPushButton("Choisir cet automate");
+    change_automate = new QPushButton("Changer d'automate");
+
+    QObject::connect(choose_automate, SIGNAL(clicked()), this, SLOT(chosenAutomate()));
+    QObject::connect(change_automate, SIGNAL(clicked()), this, SLOT(changedAutomate()));
+}
+
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
 	state_controls = new QHBoxLayout();
 	parent->addLayout(state_controls);
@@ -172,8 +180,8 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	main_layout->addLayout(view_layout);
 
 	// Configure State Layout
-	valid_state = new QPushButton("Valider");
-	state_main_layout->addWidget(valid_state);
+//	valid_state = new QPushButton("Valider");
+//	state_main_layout->addWidget(valid_state);
 	state_layout_display = new QVBoxLayout;
 	state_main_layout->addLayout(state_layout_display);
 
@@ -201,6 +209,7 @@ SimulatorInterface::SimulatorInterface(const short unsigned int automate_dimensi
 	// =========== Init Controls ===========
 	setGridControls(controls_layout);
 	setAutomateControls(controls_layout);
+    setAutomateChoice(controls_layout);
 	setSimulatorControls(controls_layout);
 
 	// Simulation Timer
@@ -349,6 +358,20 @@ void SimulatorInterface::choose_transition_rules(){
 
 void SimulatorInterface::choose_transition_rules_finished(){
 	this->setEnabled(true);
+}
+
+// ==================== Automate choice Slots ====================
+void SimulatorInterface::chosenAutomate(){
+    state_vector->last().second->setEnabled(false);
+    state_vector->last().first->state_name->setEnabled(false);
+    state_vector->last().first->color_button->setEnabled(false);
+    grid_dim_controls->setEnabled(false);
+    grid_dim_set_bt->setEnabled(false);
+    grid_dim_reset_bt->setEnabled(false);
+}
+
+void SimulatorInterface::changedAutomate(){
+
 }
 
 // ==================== State Slots ====================

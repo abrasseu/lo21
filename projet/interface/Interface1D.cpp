@@ -273,3 +273,12 @@ void Interface1D::set_default_grid() {
     changeGridCells();
 }
 
+void Interface1D::chosenAutomate(){
+    state_vector->last().second->setEnabled(false);
+    state_vector->last().first->state_name->setEnabled(false);
+    state_vector->last().first->color_button->setEnabled(false);
+    grid_dim_controls->setEnabled(false);
+    grid_dim_set_bt->setEnabled(false);
+    grid_dim_reset_bt->setEnabled(false);
+
+}
