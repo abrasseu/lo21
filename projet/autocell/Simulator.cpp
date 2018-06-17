@@ -118,16 +118,27 @@ bool Simulator::setCell(State* state, uint position) {
 	return state != lastState;
 }
 
+/**
+ * \brief Remet les cellules de l'état initial à l'état actuel
+ */
 void Simulator::setInitialCellsToActual() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setInitialCell(getCell(i), i);
 }
 
+/**
+ * \brief Remet les cellules de l'état actuel à l'état initial
+ */
 void Simulator::resetToInitialCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(getInitialCell(i), i);
 }
 
+
+/**
+ * \brief Changer une cellule de l'état initial
+ * \return Renvoie un \em booléen qui indique si la modification a réussi
+ */
 bool Simulator::setInitialCell(State* state, uint position) {
 	if (position >= getCellsNbr())
 		return false;
@@ -150,6 +161,11 @@ State* Simulator::getCell(uint position) const {
 	return _cells[position];
 }
 
+/**
+ * \brief Récupère l'état d'une cellule à l'état initial
+ * \param position       position de la cellule
+ * \return Un \em pointeur \em d' \em état
+ */
 State* Simulator::getInitialCell(uint position) const {
 	if (position >= getCellsNbr())
 		return nullptr;
@@ -173,8 +189,6 @@ State** Simulator::getCellsState() const {
 }
 
 
-// retourne un tableau avec des 0 ou 1 (valide seulement pour 2 états dans le jeu de la vie)
-// TODO : Pas ouf..
 /**
  * \brief Renvoie un tableau de 0 et 1 utilisé pour l'affichage du jeu de la vie en console
  * \return Renvoie un \em tableau \em d' \em entiers
@@ -190,12 +204,12 @@ uint* Simulator::getCells() {
 	return _tab;
 }
 
-void Simulator::incrementState(uint position) {
 /**
  * \brief Incrémente un état
  * \param position     position de l'état
  * \param allowNullState   autorise un état nul
  */
+void Simulator::incrementState(uint position) {
 	State* cellToUpdate(getCell(position));
     uint toStateId = 0;
 
@@ -210,11 +224,19 @@ void Simulator::incrementState(uint position) {
 	setCell(_states[toStateId], position);
 }
 
+/**
+ * \brief Modifie les états possibles de la simulation
+ */
 void Simulator::setStates(State** states, uint stateNbr) {
     _stateNbr = stateNbr;
     _states = states;
 }
 
+
+/**
+ * \brief Applique une mutation sur un simulateur
+ * \return Renvoie un \em booléen signifiant qu'une mutation a été effectuée ou non
+ */
 bool Simulator::mutate() {
 	State** statesOfThisGeneration = getCellsState();
 	bool isNextGeneration = false;
