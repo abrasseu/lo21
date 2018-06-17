@@ -1,6 +1,10 @@
 #include "Interface2D.h"
 #include <string>
 
+/**
+ * \brief Constructeur de l'interface 2D
+ * \details Construit l'interface 2D en héritant de la classe \em SimulatorInterface et de son constructeur
+ */
 Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
 
 	grid_size = 650;
@@ -12,6 +16,10 @@ Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
 
 // ----------------------- Methods to implement -----------------------
 
+/**
+ * \brief Constructeur de l'interface 1D
+ * \details Construit l'interface 1D en héritant de la classe \em SimulatorInterface et de son constructeur
+ */
 void Interface2D::redrawGrid(QBoxLayout* parent) {
 	// Delete and recreate grid if exists
 	if (grid_view != nullptr)

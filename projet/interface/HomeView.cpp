@@ -6,6 +6,10 @@
 #include <string>
 #include <QFileDialog>
 
+/**
+ * \brief Constructeur du menu principal
+ * \details Crée et affiche le menu principal avec les label et boutons pour changer de menu
+ */
 HomeView::HomeView() : QWidget() {
 	// Set up
 	setWindowTitle("AutoCell");
@@ -67,6 +71,10 @@ HomeView::HomeView() : QWidget() {
 	connect(automate_bts[1], SIGNAL(clicked()), this, SLOT(simulate2D()));
 }
 
+
+/**
+ * \brief Destructeur du menu principal
+ */
 HomeView::~HomeView() {
 	delete[] automate_bts;
 	delete[] automate_texts;
@@ -81,18 +89,31 @@ HomeView::~HomeView() {
 |	Slots
 |--------------------------------------------------------------------------
 */
+
+/**
+ * \brief Fonction pour afficher l'interface 1D
+ * \details Slot activé lors de l'appui sur le bouton pour afficher l'interface 1D
+ */
 void HomeView::simulate1D() {
 	close();
 	Interface1D* view = new Interface1D();
 	view->show();
 }
 
+/**
+ * \brief Fonction pour afficher l'interface 2D
+ * \details Slot activé lors de l'appui sur le bouton pour afficher l'interface 2D
+ */
 void HomeView::simulate2D() {
 	close();
 	Interface2D* view = new Interface2D();
 	view->show();
 }
 
+/**
+ * \brief Fonction pour charger des fichiers
+ * \details Permet de charger des fichiers qui correspondent à des automates. Les fichiers sont des fichiers \b .json uniquement
+ */
 void HomeView::loadAutomate(){
     try {
         QString fileName = QFileDialog::getOpenFileName(this,

@@ -1,6 +1,9 @@
 #include "Interface1D.h"
 
-
+/**
+ * \brief Constructeur de l'interface 1D
+ * \details Construit l'interface 1D en héritant de la classe \em SimulatorInterface et de son constructeur
+ */
 Interface1D::Interface1D(bool draw): SimulatorInterface(1), buffer_size(10) {
 	// Set state list
 	setGridBufferLength(grid_dim_controls);
@@ -9,6 +12,10 @@ Interface1D::Interface1D(bool draw): SimulatorInterface(1), buffer_size(10) {
         redrawGrid(view_layout);
 }
 
+/**
+ * \brief Affiche l'interface concernant le choix de la taille du buffer
+ * \details Construit l'interface concernant le choix de la taille du buffer, avec les boutons et autres widgets
+ */
 void Interface1D::setGridBufferLength(QBoxLayout* parent){
 	grid_buffer_length_controls = new QVBoxLayout;
 	parent->addLayout(grid_buffer_length_controls);
@@ -34,6 +41,12 @@ void Interface1D::setGridBufferLength(QBoxLayout* parent){
 	QObject::connect(grid_buffer_length_reset, SIGNAL(clicked()), this, SLOT(grid_reset_buf()));
 }
 
+/**
+ * \brief Génère les deux grilles d'affichage
+ * \details Supprime et construit les deux grilles d'affichage, avec la ligne initiale et la grille contenant les états successifs
+ *          au sein du layout parent
+ * \param parent    layout contenant tous les widgets
+ */
 void Interface1D::redrawGrid(QBoxLayout* parent) {
 	simulator = SimulatorManager::getManager()->getSimulator();
 
@@ -65,6 +78,14 @@ void Interface1D::redrawGrid(QBoxLayout* parent) {
 	QObject::connect(grid_view, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(grid_view_clicked(QTableWidgetItem*)));
 }
 
+/**
+ * \brief Actualise une grille d'affichage avec les tailles prescrites
+ * \details Permet d'actualiser une grille avec les paramètres, les tailles sont prises en compte en fonction de la dimension
+ *          de l'automate
+ * \param grid      Grille passée en paramètre pour être actualisée
+ * \param nbRow     Nombre de lignes de la grille à manipuler
+ * \param nbColumn  Nombre de colonnes de la grille à manipuler
+ */
 void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn) {
 	// nbRow if one line table
 	if (nbRow == 1)
@@ -89,6 +110,11 @@ void Interface1D::drawGrid(QTableWidget* grid, uint nbRow, uint nbColumn) {
 	}
 }
 
+/**
+ * \brief Actualise les cellules de la grille en fonction des états du simulateur
+ * \details Change l'état des cellules en modifiant leur couleur en fonction du simulateur.
+ *          Vérifie la taille du buffer déjà utilisé pour réaliser l'affichage
+ */
 void Interface1D::changeGridCells() {
 	simulator = SimulatorManager::getManager()->getSimulator();
 	const uint currentGeneration = simulator->getGeneration();
@@ -120,6 +146,10 @@ void Interface1D::changeGridCells() {
 
 
 // === Grid Slots
+/**
+ * \brief Avance la simulation d'une transition
+ * \details \a Slot. Avance la simulation et le simulateur d'une transition
+ */
 void Interface1D::step_simulation() {
 	// Disable dimension changes
 	grid_dim_spinbox->setEnabled(false);
@@ -133,6 +163,10 @@ void Interface1D::step_simulation() {
 	// Step simulation
 	iterate_simulation();
 }
+/**
+ * \brief Lance la simulation
+ * \details \a Slot. Lance la simulation avec la vitesse sélectionnée
+ */
 void Interface1D::start_simulation() {
 	// Disable start/step/reset/speed changes
 	sim_start_bt->setEnabled(false);
@@ -158,6 +192,11 @@ void Interface1D::start_simulation() {
 	QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
 }
 
+/**
+ * \brief Change l'état de la cellule cliquée
+ * \details \a Slot. Change l'état de la cellule en modifiant sa couleur en augmentant son état
+ * \param it    cellule cliquée
+ */
 void Interface1D::rotateCellState(QTableWidgetItem* it){
 	simulator = SimulatorManager::getManager()->getSimulator();
 	it->setSelected(false);
@@ -171,6 +210,10 @@ void Interface1D::rotateCellState(QTableWidgetItem* it){
 
 
 // === Buffer Slots
+/**
+ * \brief Modifie la taille du buffer
+ * \details \a Slot. Intègre la taille du buffer qui a été modifiée
+ */
 void Interface1D::grid_set_buf(){
 	buffer_size = grid_buffer_length_spin->value();
 	if (grid_view != nullptr)
@@ -181,6 +224,10 @@ void Interface1D::grid_set_buf(){
 	drawGrid(grid_view, buffer_size, grid_dimension);
 }
 
+/**
+ * \brief Remet la taille du buffer à la valeur initiale
+ * \details \a Slot. Remet la taille du buffer à sa valeur initiale
+ */
 void Interface1D::grid_reset_buf(){
 	grid_buffer_length_spin->setValue(10);
 	buffer_size = grid_buffer_length_spin->value();
@@ -192,10 +239,19 @@ void Interface1D::grid_reset_buf(){
 	drawGrid(grid_view, buffer_size, grid_dimension);
 }
 
+/**
+ * \brief Empêche que la cellule cliquée devienne sélectionnée
+ * \details \a Slot. Empêche que la cellule qui a été cliquée devienne bleue lors de la sélection
+ * \param it    cellule cliquée
+ */
 void Interface1D::grid_view_clicked(QTableWidgetItem* it){
 	it->setSelected(false);
 }
 
+/**
+ * \brief Bloque des boutons lorsque les paramètres de l'automate ont été choisie
+ * \details \a Slot. Bloque les boutons de la partie gauche lorsque les états et les dimensions de l'automate ont été choisis
+ */
 void Interface1D::blockAfterAutomateChosen(){
 	// Disable left buttons
 
@@ -207,6 +263,10 @@ void Interface1D::blockAfterAutomateChosen(){
 
 }
 
+/**
+ * \brief Bloque des boutons lorsqu'on change les paramètres de l'automate
+ * \details \a Slot. Bloque les boutons de la partie droite quand l'utilisateur veut changer les états et dimensions de l'automate
+ */
 void Interface1D::blockAfterAutomateChanged(){
 	// Disable left buttons
 
