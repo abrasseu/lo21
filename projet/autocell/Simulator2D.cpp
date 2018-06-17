@@ -13,6 +13,9 @@
 
 using uint = unsigned int;
 
+/**
+ * \brief Renvoie
+ */
 State* Simulator2D::getCell(uint x, uint y) const {
 	return getCell((x * getCellsSize()) + y);
 }
