@@ -30,6 +30,7 @@ void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
 
 	// Add Label
 	state_name_label = new QLabel("Nom de l'état :");
+    state_name_label->setAlignment(Qt::AlignHCenter|Qt::AlignBottom);
 	name_layout->addWidget(state_name_label);
 
 	// Add LineEdit
@@ -49,6 +50,7 @@ void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
 
 	// Add Label
 	state_color_label = new QLabel("Couleur de l'état :");
+    state_color_label->setAlignment(Qt::AlignHCenter|Qt::AlignBottom);
 	color_layout->addWidget(state_color_label);
 
 	// Add Case to select Color

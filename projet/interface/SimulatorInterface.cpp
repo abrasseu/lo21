@@ -168,7 +168,11 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
 SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(), automate_dimension(dim) {
     // Get Manager
     manager = SimulatorManager::getManager();
+<<<<<<< HEAD
     manager->setDimension(dim);
+=======
+    modify_speed_value = false;
+>>>>>>> automate-manager
 
     // Set Config
     setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
@@ -262,7 +266,13 @@ void SimulatorInterface::start_simulation() {
     sim_start_bt->setEnabled(false);
     sim_step_bt->setEnabled(false);
     sim_reset_bt->setEnabled(false);
-    speed_selector->setEnabled(false);
+    sim_stop_bt->setEnabled(true);
+
+
+    speed_selector->setEnabled(true);
+    modify_speed_value = true;
+
+
     // Disable initial state changes
     initial_state_selector->setEnabled(false);
     initial_state_setter->setEnabled(false);
@@ -279,10 +289,12 @@ void SimulatorInterface::start_simulation() {
 }
 
 void SimulatorInterface::speedSelectorChangedValue(double val){
-    if (val > 0)
-        sim_timer->start(1000 * val);
-    else
-        sim_timer->start(10);
+    if (modify_speed_value){
+        if (val > 0)
+            sim_timer->start(1000 * val);
+        else
+            sim_timer->start(10);
+    }
 }
 
 /**
@@ -296,6 +308,8 @@ void SimulatorInterface::step_simulation() {
     // Disable initial state changes
     initial_state_selector->setEnabled(false);
     initial_state_setter->setEnabled(false);
+
+    modify_speed_value = false;
 
     // Step simulation
     iterate_simulation();
@@ -315,6 +329,8 @@ void SimulatorInterface::stop_simulation() {
     sim_step_bt->setEnabled(true);
     sim_reset_bt->setEnabled(true);
     speed_selector->setEnabled(true);
+    sim_stop_bt->setEnabled(false);
+    modify_speed_value = false;
     changeCellEnabled = true;
 }
 
@@ -323,9 +339,9 @@ void SimulatorInterface::stop_simulation() {
  */
 void SimulatorInterface::reset_simulation() {
     // Enable grid dimension changes
-    grid_dim_spinbox->setEnabled(true);
-    grid_dim_set_bt->setEnabled(true);
-    grid_dim_reset_bt->setEnabled(true);
+    grid_dim_spinbox->setEnabled(false);
+    grid_dim_set_bt->setEnabled(false);
+    grid_dim_reset_bt->setEnabled(false);
     // Enable initial state selection
     initial_state_selector->setEnabled(true);
     initial_state_setter->setEnabled(true);
@@ -336,8 +352,13 @@ void SimulatorInterface::reset_simulation() {
  * @brief Fait muter les cellules du simulateur et affiche les changements
  */
 void SimulatorInterface::iterate_simulation() {
-    if (!SimulatorManager::getManager()->getSimulator()->mutate())
+    if (!SimulatorManager::getManager()->getSimulator()->mutate()){
         sim_timer->stop();
+        sim_start_bt->setEnabled(true);
+        sim_step_bt->setEnabled(true);
+        sim_reset_bt->setEnabled(true);
+        sim_stop_bt->setEnabled(false);
+    }
     changeGridCells();
 }
 
@@ -419,6 +440,10 @@ void SimulatorInterface::chosenAutomate(){
             state_vector->last().first->state_name->setEnabled(false);
             state_vector->last().first->color_button->setEnabled(false);
 
+            for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
+                it->second->setEnabled(false);
+            }
+
             grid_dim_spinbox->setEnabled(false);
             grid_dim_controls->setEnabled(false);
             grid_dim_set_bt->setEnabled(false);
@@ -427,12 +452,13 @@ void SimulatorInterface::chosenAutomate(){
             choose_automate->setEnabled(false);
 
             // Enable right buttons
+            save_automate->setEnabled(true);
             change_automate->setEnabled(true);
             set_transition_rules->setEnabled(true);
             speed_selector->setEnabled(true);
             sim_start_bt->setEnabled(true);
             sim_step_bt->setEnabled(true);
-            sim_stop_bt->setEnabled(true);
+            sim_stop_bt->setEnabled(false);
             sim_reset_bt->setEnabled(true);
 
             initial_state_selector->setEnabled(true);
@@ -461,9 +487,13 @@ void SimulatorInterface::changedAutomate(){
     grid_dim_set_bt->setEnabled(true);
     grid_dim_reset_bt->setEnabled(true);
 
+    for (auto it = state_vector->begin(); it != state_vector->end(); ++it){
+        it->second->setEnabled(true);
+    }
+
     choose_automate->setEnabled(true);
 
-    // Disnable right buttons
+    // Disable right buttons
     save_automate->setEnabled(false);
     change_automate->setEnabled(false);
     set_transition_rules->setEnabled(false);

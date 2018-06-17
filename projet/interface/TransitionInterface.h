@@ -56,13 +56,13 @@ class Transition : public QHBoxLayout {
 
 		// Initializers
         Transition(State**, unsigned int, unsigned int, unsigned int* spin_box_tab = nullptr,
-                                    State* state_start = nullptr, State* state_final = nullptr);
+                                    State* state_start = nullptr, State* state_final = nullptr, bool modify = true);
 		State* getStartState() { return start_state; }
 		State* getFinalState() { return final_state; }
 
-        void setStartState(QVBoxLayout*, State*);
-        void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*, unsigned int* spin_value = nullptr);
-        void setFinalState(QVBoxLayout*, State*);
+        void setStartState(QVBoxLayout*, State*, bool modify = true);
+        void setNeighboursNumber(State**, unsigned int, unsigned int, QHBoxLayout*, unsigned int* spin_value = nullptr, bool modify = true);
+        void setFinalState(QVBoxLayout*, State*, bool modify = true);
 
 //        void modifyRule(QObject*);
 

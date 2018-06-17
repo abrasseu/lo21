@@ -38,9 +38,9 @@ HomeView::HomeView() : QWidget() {
 		automate_titles[i]->setAlignment(Qt::AlignCenter);
 		automate_bts[i] = new QPushButton("Simuler");
 	}
-    automate_texts[0] = new QLabel("<center>Réaliser des simulations avec un automate à 1 dimension<br> avec les paramètres sélectionnés</center>");
+    automate_texts[0] = new QLabel("<center>Réaliser des simulations avec un automate à<br>1 dimension<br> avec les paramètres sélectionnés</center>");
 	automate_texts[0]->setWordWrap(true);
-    automate_texts[1] = new QLabel("<center>Réaliser des simulations avec un automate à 2 dimensions<br> avec les paramètres sélectionnés</center>");
+    automate_texts[1] = new QLabel("<center>Réaliser des simulations avec un automate à<br>2 dimensions<br> avec les paramètres sélectionnés</center>");
 	automate_texts[1]->setWordWrap(true);
 
 
