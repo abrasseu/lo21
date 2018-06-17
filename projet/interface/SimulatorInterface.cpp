@@ -425,6 +425,7 @@ void SimulatorInterface::chosenAutomate(){
             choose_automate->setEnabled(false);
 
             // Enable right buttons
+            save_automate->setEnabled(true);
             change_automate->setEnabled(true);
             set_transition_rules->setEnabled(true);
             speed_selector->setEnabled(true);
@@ -461,7 +462,7 @@ void SimulatorInterface::changedAutomate(){
 
     choose_automate->setEnabled(true);
 
-    // Disnable right buttons
+    // Disable right buttons
     save_automate->setEnabled(false);
     change_automate->setEnabled(false);
     set_transition_rules->setEnabled(false);
