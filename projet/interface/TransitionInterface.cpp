@@ -72,7 +72,6 @@ void TransitionInterface::displayExistingRules(){
             uint j = 0;
             for (auto compare = SimulatorManager::getManager()->getFirstState(); compare != SimulatorManager::getManager()->getLastState(); compare++){
                 std::map<State*, uint>::iterator value_return_map = sum.find(*compare);
-
                 if (value_return_map != sum.end()){
                     tab[j] = value_return_map->second;
                 }

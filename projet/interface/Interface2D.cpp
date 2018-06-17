@@ -58,11 +58,11 @@ void Interface2D::redrawGrid(QBoxLayout* parent) {
 void Interface2D::changeGridCells() {
 	QColor color = QColor();
 	simulator = SimulatorManager::getManager()->getSimulator();
-	Simulator2D* sim2d = static_cast<Simulator2D*>(simulator);
+    Simulator2D* sim2d = dynamic_cast<Simulator2D*>(simulator);
 	for (unsigned int i=0; i < grid_dimension; i++) {
 		for (unsigned int j=0; j < grid_dimension; j++) {
 			// Get and Set Color from each cell's state
-			color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
+            color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
 			grid_view->item(i,j)->setBackground(QBrush(color, Qt::SolidPattern));
 		}
 	}

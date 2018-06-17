@@ -14,16 +14,29 @@
 using uint = unsigned int;
 
 /**
- * \brief Renvoie
+ * \brief Renvoie la cellule aux positions sélectionnées
+ * \param x ligne de la cellule sélectionnée
+ * \param y colonne de la cellule sélectionnée
+ * \return Renvoie un \em pointeur d'état
  */
 State* Simulator2D::getCell(uint x, uint y) const {
 	return getCell((x * getCellsSize()) + y);
 }
 
+/**
+ * \brief Met une cellule à jour
+ * \param state pointeur de l'état à copier
+ * \param x ligne de la cellule sélectionnée
+ * \param y colonne de la cellule sélectionnée
+ * \return Renvoie un \em booléen pour indiquer si la mise à jour à réussi
+ */
 bool Simulator2D::setCell(State* state, uint x, uint y) {
 	return setCell(state, (x * getCellsSize()) + y);
 }
 
+/**
+ * \brief Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à l'horizontal
+ */
 void Simulator2D::generateHorizontalSymetricRandomCells() {
 	for (uint i = 0; i < ceil(getCellsSize() / 2); i++) {
 		for (uint j = 0; j < getCellsSize(); j++) {
@@ -33,6 +46,9 @@ void Simulator2D::generateHorizontalSymetricRandomCells() {
 	}
 }
 
+/**
+ * \brief Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à la verticale
+ */
 void Simulator2D::generateVerticalSymetricRandomCells() {
 	for (uint i = 0; i < getCellsSize(); i++) {
 		for (uint j = 0; j < ceil(getCellsSize() / 2); j++) {
@@ -41,7 +57,12 @@ void Simulator2D::generateVerticalSymetricRandomCells() {
 		}
 	}
 }
-
+/**
+ * \brief Retourne les états des voisins de la cellule
+ * \param states     liste des états
+ * \param position       position de la cellule
+ * \return Renvoie un \em tableau \em de \em pointeurs d'états
+ */
 State** Simulator2D::getNeighboursState(State** states, uint position) {
 	State** neighbors(new State*[getNeighbourNbr()]);
 	int x = position % getCellsSize();
@@ -64,6 +85,9 @@ State** Simulator2D::getNeighboursState(State** states, uint position) {
 	return neighbors;
 }
 
+/**
+ * \brief Affiche les cellules en console
+ */
 void Simulator2D::printCells() {
 	for (uint i = 0; i < getCellsSize(); i++) {
 		for (uint j = 0; j < getCellsSize(); j++)
@@ -72,7 +96,11 @@ void Simulator2D::printCells() {
 		std::cout << std::endl;
 	}
 }
-
+/**
+ * \brief Incrémente un état
+ * \param x     ligne de la cellule
+ * \param y colonne de la cellule
+ */
 void Simulator2D::incrementState(uint x, uint y) {
     incrementState((x * getCellsSize()) + y);
 }

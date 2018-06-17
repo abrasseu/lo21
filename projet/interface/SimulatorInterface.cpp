@@ -425,7 +425,7 @@ void SimulatorInterface::iterate_simulation() {
  */
 void SimulatorInterface::grid_set_dim(){
     grid_dimension = grid_dim_spinbox->value();
-//    redrawGrid(view_layout);
+    redrawGrid(view_layout);
 }
 /**
  * \brief Réinitialise la dimension de la grille

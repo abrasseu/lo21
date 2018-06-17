@@ -207,7 +207,6 @@ uint* Simulator::getCells() {
 /**
  * \brief Incrémente un état
  * \param position     position de l'état
- * \param allowNullState   autorise un état nul
  */
 void Simulator::incrementState(uint position) {
 	State* cellToUpdate(getCell(position));

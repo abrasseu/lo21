@@ -23,7 +23,10 @@ SimulatorManager* SimulatorManager::_instance = new SimulatorManager;
 |	Grid size
 |--------------------------------------------------------------------------
 */
-
+/**
+ * \brief Implémente une grille de taille demandée
+ * \param gridSize     taille de la grille à implémenter
+ */
 void SimulatorManager::setGridSize(uint gridSize) {
 	if (gridSize > 100)
 		throw SimulatorException("Il n'est pas possible de générer une grille avec une taille supérieure à 100");
@@ -38,10 +41,18 @@ void SimulatorManager::setGridSize(uint gridSize) {
 |--------------------------------------------------------------------------
 */
 
+/**
+ * \brief Test si le simulateur existe
+ * \return Renvoie un \em booléen pour indiquer si le simulateur existe
+ */
 bool SimulatorManager::simulatorExists() {
 	return _simulator != nullptr;
 }
 
+/**
+ * \brief Renvoie le simulateur instancié
+ * \return Renvoie un \em pointeur sur le \em simulateur
+ */
 Simulator* SimulatorManager::getSimulator() {
 	if (!simulatorExists())
 		throw SimulatorException("Aucune simulation n'a été instanciée");
@@ -49,6 +60,11 @@ Simulator* SimulatorManager::getSimulator() {
         return _simulator;
 }
 
+/**
+ * \brief Créer un simulateur de taille demandée
+ * \param dimension     dimension de l'automate
+ * \return Renvoie un \em pointeur sur le \em simulateur créé
+ */
 Simulator* SimulatorManager::createSimulator(uint dimension) {
 	deleteSimulator();
 
@@ -70,6 +86,9 @@ Simulator* SimulatorManager::createSimulator(uint dimension) {
 	return _simulator;
 }
 
+/**
+ * \brief Supprime le simulateur existant
+ */
 void SimulatorManager::deleteSimulator() {
 	if (simulatorExists())
 		delete _simulator;
@@ -84,6 +103,11 @@ void SimulatorManager::deleteSimulator() {
 |--------------------------------------------------------------------------
 */
 
+/**
+ * \brief Renvoie l'état à la position demandée
+ * \param position  position de l'état
+ * \return Renvoie un \em pointeur sur le \em état
+ */
 State* SimulatorManager::getState(uint position) {
 	if (position >= _states.size())
 		throw SimulatorException("L'état " + std::to_string(position) + " n'existe pas !");
@@ -91,6 +115,11 @@ State* SimulatorManager::getState(uint position) {
 	return _states[position];
 }
 
+/**
+ * \brief Renvoie l'état du nom demandé
+ * \param name  nom de l'état
+ * \return Renvoie un \em pointeur sur le \em état
+ */
 State* SimulatorManager::getState(const std::string& name) {
 	std::vector<State*>::iterator it = std::find_if(_states.begin(), _states.end(),
 		[&name](State* state) { return state->getName() == name; });
@@ -99,6 +128,12 @@ State* SimulatorManager::getState(const std::string& name) {
 	return (*it);
 }
 
+/**
+ * \brief Crée un nouvel état avec les paramètres précisés
+ * \param name  nom de l'état
+ * \param color couleur de l'état à créer
+ * \return Renvoie un \em pointeur sur l' \em état créé
+ */
 State* SimulatorManager::createNewState(std::string name, std::string color) {
 	bool already_exists = false;
 	// Verification de doublon
@@ -120,6 +155,10 @@ State* SimulatorManager::createNewState(std::string name, std::string color) {
 	return state;
 }
 
+/**
+ * \brief Supprime l'état demandé
+ * \param state  pointeur sur l'état à supprimer
+ */
 void SimulatorManager::removeState(State* state) {
 	removeObject<State>(state, &_states);
 
@@ -160,6 +199,11 @@ void SimulatorManager::removeState(State* state) {
 |--------------------------------------------------------------------------
 */
 
+/**
+ * \brief Renvoie une règle
+ * \param position  position de la règle
+ * \return Renvoie un \em pointeur sur la \em règle
+ */
 Rule* SimulatorManager::getRule(uint position) {
 	if (position >= _rules.size())
 		throw SimulatorException("La règle " + std::to_string(position) + " n'existe pas !");
@@ -167,11 +211,22 @@ Rule* SimulatorManager::getRule(uint position) {
 	return _rules[position];
 }
 
+/**
+ * \brief Crée une nouvelle règle
+ * \param states  vecteur d'état correspondant à la règle
+ * \param endState  pointeur sur l'état d'arrivée de la règle
+ * \return Renvoie un \em pointeur sur la \em règle
+ */
 Rule* SimulatorManager::createNewRule(std::vector<State*> states, State* endState) {
 	_rules.push_back(new Rule(endState, states));
 
 	return _rules.back();
 }
+
+/**
+ * \brief Supprime la règle
+ * \param rule  pointeur sur la règle à supprimer
+ */
 void SimulatorManager::removeRule(Rule* rule) {
 	removeObject<Rule>(rule, &_rules);
 
@@ -192,6 +247,11 @@ void SimulatorManager::removeRule(Rule* rule) {
 |--------------------------------------------------------------------------
 */
 
+/**
+ * \brief Supprime l'objet
+ * \param object  pointeur sur l'objet à supprimer
+ * \param container pointeur sur un vecteur d'objets
+ */
 template<class T>
 void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 	typename std::vector<T*>::const_iterator it = find(container->begin(), container->end(), object);
@@ -203,6 +263,12 @@ void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 	delete object;
 }
 
+/**
+ * \brief Cherche l'objet souhaité
+ * \param object  pointeur sur l'objet à chercher
+ * \param conainer pointuer sur le vecteur d'objets où chercher
+ * \return Renvoie la position de l'objet
+ */
 template<class T>
 uint SimulatorManager::findObject(T* object, std::vector<T*>* container) {
 	typename std::vector<T*>::const_iterator it = find(container->begin(), container->end(), object);
@@ -219,7 +285,10 @@ uint SimulatorManager::findObject(T* object, std::vector<T*>* container) {
 |	Import/Export Methods
 |--------------------------------------------------------------------------
 */
-
+/**
+ * \brief Exporte la configuration à sauvegarder
+ * \param path chemin du fichier à exporter
+ */
 void SimulatorManager::exportConfig(std::string path) {
 	nlohmann::json states = nlohmann::json::array();
 	nlohmann::json rules = nlohmann::json::array();
@@ -282,6 +351,10 @@ void SimulatorManager::exportConfig(std::string path) {
 }
 
 
+/**
+ * \brief Importe la configuration
+ * \param path chemin du fichier à importer
+ */
 void SimulatorManager::importConfig(std::string path) {
     Simulator* beforeSimulator(_simulator);
     uint beforeDimension(_dimension);
