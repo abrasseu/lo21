@@ -116,7 +116,7 @@ State* SimulatorManager::getState(uint position) {
 }
 
 /**
- * \brief Renvoie l'état du nom demandé
+ * \brief Renvoie l'état avec le nom demandé
  * \param name  nom de l'état
  * \return Renvoie un \em pointeur sur le \em état
  */
@@ -213,6 +213,7 @@ Rule* SimulatorManager::getRule(uint position) {
 
 /**
  * \brief Crée une nouvelle règle
+ * \details L'état d'arrivée est l'état que deviendra l'état en question si la règle est respectée
  * \param states  vecteur d'état correspondant à la règle
  * \param endState  pointeur sur l'état d'arrivée de la règle
  * \return Renvoie un \em pointeur sur la \em règle

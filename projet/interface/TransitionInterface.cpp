@@ -202,6 +202,7 @@ void TransitionInterface::addNewTransitionRule(){
  * \brief Vérifie que la règle de transition peut être insérée
  * \details Slot. Vérifie que la règle de transition peut être insérée si le nombre de voisins
  *          est valide et vérifie que la règle n'existe pas déjà
+ * \param transi pointeur sur la transition de la transition à ajouter
  */
 bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
     Transition* ittr = nullptr;
@@ -273,6 +274,16 @@ TransitionInterface::~TransitionInterface(){
 
 
 
+/**
+ * \brief Constructeur de l'affichage d'une transition
+ * \param state_list tableau de pointeurs sur les états
+ * \param state_list_number nombre d'états
+ * \param neighbour_number nombre de voisins pour une cellule
+ * \param spin_box_tab tableau du nombre de voisins pour chaque état à avoir pour la transition
+ * \param state_start état initial
+ * \param state_final l'état initial deviendra cet état si la règle est respectée
+ * \param modify booléen indiquant si les widgets doivent être modifiables
+ */
 Transition::Transition(State** state_list, unsigned int state_list_number, unsigned int neighbour_number,
                             unsigned int* spin_box_tab, State* state_start, State* state_final, bool modify) :
                             QHBoxLayout(), neighbours_nb(neighbour_number), nb_states(state_list_number),
@@ -290,6 +301,12 @@ Transition::Transition(State** state_list, unsigned int state_list_number, unsig
     setFinalState(final_layout, state_final, modify);
 }
 
+/**
+ * \brief Affichage de l'état initial
+ * \param parent pointeur sur le layout de l'affichage
+ * \param start_state état de départ
+ * \param modify booléen indiquant si les widgets doivent être modifiables
+ */
 void Transition::setStartState(QVBoxLayout* parent, State* start_state, bool modify){
     if (start_state == nullptr)
         start_state = state_list[0];
@@ -331,6 +348,15 @@ void Transition::setStartState(QVBoxLayout* parent, State* start_state, bool mod
     QObject::connect(start_cell, SIGNAL(currentIndexChanged(int)), this, SLOT(changedStartState(int)));
 }
 
+/**
+ * \brief Affichage du nombre d'états voisins pour respecter la règle
+ * \param state_list tableau de pointeurs d'états
+ * \param state_list_number nombre d'états
+ * \param neighbour_number nombre de voisins pour une cellule
+ * \param parent pointeur sur le layout contenant l'affichage
+ * \param spin_value tableau du nombre de voisins pour chaque état à avoir pour la transition
+ * \param modify booléen indiquant si les widgets doivent être modifiables
+ */
 void Transition::setNeighboursNumber(State** state_list, unsigned int state_list_number, unsigned int neighbour_number, QHBoxLayout* parent, unsigned int* spin_value, bool modify){
     if (spin_value == nullptr){
         spin_value = new unsigned int[nb_states];
@@ -356,6 +382,12 @@ void Transition::setNeighboursNumber(State** state_list, unsigned int state_list
     }
 }
 
+/**
+ * \brief Affichage de l'état final
+ * \param parent pointeur sur le layout de l'affichage
+ * \param final_state état de départ
+ * \param modify booléen indiquant si les widgets doivent être modifiables
+ */
 void Transition::setFinalState(QVBoxLayout* parent, State* final_state, bool modify){
     if (final_state == nullptr)
         final_state = state_list[0];
@@ -401,22 +433,37 @@ void Transition::setFinalState(QVBoxLayout* parent, State* final_state, bool mod
 |	Slots
 |--------------------------------------------------------------------------
 */
+/**
+ * \brief Empêche de sélectionner une cellule lors du clic
+ * \param cell pointeur sur la cellule cliquée
+ */
 void Transition::preventSelection(QTableWidgetItem* cell){
     cell->setSelected(false);
 }
 
+/**
+ * \brief Change la couleur de la cellule de l'état de départ
+ * \param nb valeur de la position de l'état
+ */
 void Transition::changedStartState(int nb){
     QColor color;
     color.setNamedColor(QString::fromStdString(state_list[nb]->getColor()));
     start_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 }
 
+/**
+ * \brief Change la couleur de la cellule de l'état de fin
+ * \param nb valeur de la position de l'état
+ */
 void Transition::changedFinalState(int nb){
     QColor color;
     color.setNamedColor(QString::fromStdString(state_list[nb]->getColor()));
     final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 }
 
+/**
+ * \brief Destructeur d'une transition
+ */
 Transition::~Transition(){
     delete final_color;
     delete final_label;

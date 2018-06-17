@@ -13,7 +13,7 @@
 using uint = unsigned int;
 /**
  * \brief Retourne les états des voisins de la cellule
- * \param states     liste des états
+ * \param states     tableau de pointeurs d'états
  * \param position       position de la cellule
  * \return Renvoie un \em tableau \em de \em pointeurs d'états
  */

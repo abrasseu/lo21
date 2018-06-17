@@ -14,7 +14,7 @@
 /**
  * \brief Crée et affiche le layout de choix des différents
  * \details Crée un premier état vide pour sélectionner les paramètres de l'état et l'affiche
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::addFirstState(QBoxLayout* parent){
 //    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
@@ -28,7 +28,7 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
 /**
  * \brief Met en place l'affichage pour le choix des dimensions de la grille
  * \details Met en place les layout qui contiennent les choix de dimension et d'état initial de la grille
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setGridControls(QBoxLayout* parent) {
     grid_controls = new QHBoxLayout();			// view or grid ?
@@ -40,7 +40,7 @@ void SimulatorInterface::setGridControls(QBoxLayout* parent) {
 /**
  * \brief Met en place l'affichage pour le choix de transitions
  * \details Crée les layout qui contiennent les affichages pour régler les transitions et états
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
     automate_controls = new QVBoxLayout;
@@ -52,7 +52,7 @@ void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
 /**
  * \brief Met en place l'affichage pour le choix des transitions et des états
  * \details Affiche le bouton pour choisir les différentes règles de transitions
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
     choose_automate = new QPushButton("Choisir cet automate");
@@ -69,7 +69,7 @@ void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
 
 /**
  * \brief Crée un layout pour le choix des états
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
     state_controls = new QHBoxLayout();
@@ -79,7 +79,7 @@ void SimulatorInterface::setStateControls(QBoxLayout* parent) {
 /**
  * \brief Crée l'affichage pour le choix des transitions
  * \details Affiche le bouton pour choisir les différentes règles de transitions
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
     transition_controls = new QHBoxLayout();
@@ -93,7 +93,7 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
 /**
  * \brief Crée l'affichage pour le choix des dimensions de la grille
  * \details Affiche les boutons, textes et zones éditables pour choisir les dimensions de la grille
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
     grid_dim_controls = new QVBoxLayout();
@@ -127,7 +127,7 @@ void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
 /**
  * \brief Crée un affichage pour choisir l'état initial de la grille
  * \details Crée le texte, les boutons ainsi qu'une liste déroulante pour choisir l'état initial de la grille
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
     initial_state_controls = new QVBoxLayout();
@@ -154,7 +154,7 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
 /**
  * \brief Crée l'affichage pour sélectionner les options de simulation: départ, pas à pas, stop, état initial
  * \details Affiche les boutons pour choisir les options de simulation et la lancer
- * \param parent    layout contenant l'affichage
+ * \param parent    pointeur sur le layout contenant l'affichage
  */
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
     simulation_controls = new QVBoxLayout();
@@ -205,9 +205,9 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
 */
 
 /**
- * @brief Constructeur de la classe abstraite SimulatorInterface
- * @details Instancie et configure tous les éléments de l'interface
- * @param La dimension du Simulateur
+ * \brief Constructeur de la classe abstraite SimulatorInterface
+ * \details Instancie et configure tous les éléments de l'interface
+ * \param dim la dimension du Simulateur
  */
 SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(), automate_dimension(dim) {
     // Get Manager
@@ -385,7 +385,7 @@ void SimulatorInterface::stop_simulation() {
 }
 
 /**
- * @brief Remet le simulateur dans son état initial
+ * \brief Remet le simulateur dans son état initial
  */
 void SimulatorInterface::reset_simulation() {
     SimulatorManager::getManager()->getSimulator()->resetToInitialCells();
@@ -403,7 +403,7 @@ void SimulatorInterface::reset_simulation() {
 }
 
 /**
- * @brief Fait muter les cellules du simulateur et affiche les changements
+ * \brief Fait muter les cellules du simulateur et affiche les changements
  */
 void SimulatorInterface::iterate_simulation() {
     if (!SimulatorManager::getManager()->getSimulator()->mutate()){
