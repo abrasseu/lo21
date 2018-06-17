@@ -1,0 +1,187 @@
+\hypertarget{class_interface1_d}{}\section{Interface1D Class Reference}
+\label{class_interface1_d}\index{Interface1D@{Interface1D}}
+Inheritance diagram for Interface1D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_interface1_d}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_interface1_d_a896f89a887e9b880679ded91a5782ac1}{Interface1D}} (bool draw=false)
+\begin{DoxyCompactList}\small\item\em Constructeur de l\textquotesingle{}interface 1D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_interface1_d_ac4e37f73f171f053a9eccb9c6cc60481}{set\+Grid\+Buffer\+Length}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Affiche l\textquotesingle{}interface concernant le choix de la taille du buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface1_d_aec2151a4097181448aaf9281ddec576e}{redraw\+Grid}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Génère les deux grilles d\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface1_d_a3b1bb8608a015f321804762ee684c76c}{draw\+Grid}} (Q\+Table\+Widget $\ast$, uint, uint)
+\begin{DoxyCompactList}\small\item\em Actualise une grille d\textquotesingle{}affichage avec les tailles prescrites. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface1_d_a1f9cecc4a8c0dbfab493ceb01bb27717}{change\+Grid\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Actualise les cellules de la grille en fonction des états du simulateur. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface1_d_a99c01732178e56bfbac46b70d22f710c}{block\+After\+Automate\+Chosen}} ()
+\begin{DoxyCompactList}\small\item\em Bloque des boutons lorsque les paramètres de l\textquotesingle{}automate ont été choisie. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface1_d_a24cf627d76f7e315b78ae79570cbbbef}{block\+After\+Automate\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Bloque des boutons lorsqu\textquotesingle{}on change les paramètres de l\textquotesingle{}automate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_interface1_d_a94fcd4a2c4fc2af984388ddb39685979}\label{class_interface1_d_a94fcd4a2c4fc2af984388ddb39685979}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_interface1_d_a4f37ee00aa2dbe531c80a0c25974f4c3}\label{class_interface1_d_a4f37ee00aa2dbe531c80a0c25974f4c3}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+select}
+\item 
+\mbox{\Hypertarget{class_interface1_d_aaf04992c3409e657053f3e1d0cb0f953}\label{class_interface1_d_aaf04992c3409e657053f3e1d0cb0f953}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+bts\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_interface1_d_adde16cc46be8553a0398043524ced7d2}\label{class_interface1_d_adde16cc46be8553a0398043524ced7d2}} 
+Q\+Label $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_interface1_d_a8cc808b00bc37e73b14c3e4067e8df21}\label{class_interface1_d_a8cc808b00bc37e73b14c3e4067e8df21}} 
+Q\+Spin\+Box $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+spin}
+\item 
+\mbox{\Hypertarget{class_interface1_d_aa5933ea7eaa0d542227a0ac2c86ec86d}\label{class_interface1_d_aa5933ea7eaa0d542227a0ac2c86ec86d}} 
+Q\+Push\+Button $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+valid}
+\item 
+\mbox{\Hypertarget{class_interface1_d_ae81745200d277ea2526fb168a4663bf2}\label{class_interface1_d_ae81745200d277ea2526fb168a4663bf2}} 
+Q\+Push\+Button $\ast$ {\bfseries grid\+\_\+buffer\+\_\+length\+\_\+reset}
+\item 
+\mbox{\Hypertarget{class_interface1_d_ac16b734a2603de2797d683496c00aacf}\label{class_interface1_d_ac16b734a2603de2797d683496c00aacf}} 
+bool {\bfseries change\+Cell\+Enabled}
+\item 
+\mbox{\Hypertarget{class_interface1_d_a7dce37e12e11b953432797de8ed7bd3d}\label{class_interface1_d_a7dce37e12e11b953432797de8ed7bd3d}} 
+Q\+Table\+Widget $\ast$ {\bfseries initial\+\_\+view} = nullptr
+\item 
+\mbox{\Hypertarget{class_interface1_d_a7cf579567eaba4a567e70aa3681fc46c}\label{class_interface1_d_a7cf579567eaba4a567e70aa3681fc46c}} 
+Q\+Table\+Widget $\ast$ {\bfseries grid\+\_\+view} = nullptr
+\item 
+\mbox{\Hypertarget{class_interface1_d_a0dbe452783da185442c185d315e02019}\label{class_interface1_d_a0dbe452783da185442c185d315e02019}} 
+unsigned int {\bfseries buffer\+\_\+size}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_interface1_d_a896f89a887e9b880679ded91a5782ac1}\label{class_interface1_d_a896f89a887e9b880679ded91a5782ac1}} 
+\index{Interface1D@{Interface1D}!Interface1D@{Interface1D}}
+\index{Interface1D@{Interface1D}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{Interface1\+D()}{Interface1D()}}
+{\footnotesize\ttfamily Interface1\+D\+::\+Interface1D (\begin{DoxyParamCaption}\item[{bool}]{draw = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Constructeur de l\textquotesingle{}interface 1D. 
+
+Construit l\textquotesingle{}interface 1D en héritant de la classe {\itshape \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}} et de son constructeur 
+\begin{DoxyParams}{Parameters}
+{\em draw} & indique si la grille doit être affichée \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_interface1_d_a24cf627d76f7e315b78ae79570cbbbef}\label{class_interface1_d_a24cf627d76f7e315b78ae79570cbbbef}} 
+\index{Interface1D@{Interface1D}!block\+After\+Automate\+Changed@{block\+After\+Automate\+Changed}}
+\index{block\+After\+Automate\+Changed@{block\+After\+Automate\+Changed}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{block\+After\+Automate\+Changed()}{blockAfterAutomateChanged()}}
+{\footnotesize\ttfamily void Interface1\+D\+::block\+After\+Automate\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Bloque des boutons lorsqu\textquotesingle{}on change les paramètres de l\textquotesingle{}automate. 
+
+{\itshape Slot}. Bloque les boutons de la partie droite quand l\textquotesingle{}utilisateur veut changer les états et dimensions de l\textquotesingle{}automate 
+
+Reimplemented from \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface1_d_a99c01732178e56bfbac46b70d22f710c}\label{class_interface1_d_a99c01732178e56bfbac46b70d22f710c}} 
+\index{Interface1D@{Interface1D}!block\+After\+Automate\+Chosen@{block\+After\+Automate\+Chosen}}
+\index{block\+After\+Automate\+Chosen@{block\+After\+Automate\+Chosen}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{block\+After\+Automate\+Chosen()}{blockAfterAutomateChosen()}}
+{\footnotesize\ttfamily void Interface1\+D\+::block\+After\+Automate\+Chosen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Bloque des boutons lorsque les paramètres de l\textquotesingle{}automate ont été choisie. 
+
+{\itshape Slot}. Bloque les boutons de la partie gauche lorsque les états et les dimensions de l\textquotesingle{}automate ont été choisis 
+
+Reimplemented from \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface1_d_a1f9cecc4a8c0dbfab493ceb01bb27717}\label{class_interface1_d_a1f9cecc4a8c0dbfab493ceb01bb27717}} 
+\index{Interface1D@{Interface1D}!change\+Grid\+Cells@{change\+Grid\+Cells}}
+\index{change\+Grid\+Cells@{change\+Grid\+Cells}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{change\+Grid\+Cells()}{changeGridCells()}}
+{\footnotesize\ttfamily void Interface1\+D\+::change\+Grid\+Cells (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Actualise les cellules de la grille en fonction des états du simulateur. 
+
+Change l\textquotesingle{}état des cellules en modifiant leur couleur en fonction du simulateur. Vérifie la taille du buffer déjà utilisé pour réaliser l\textquotesingle{}affichage 
+
+Implements \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface1_d_a3b1bb8608a015f321804762ee684c76c}\label{class_interface1_d_a3b1bb8608a015f321804762ee684c76c}} 
+\index{Interface1D@{Interface1D}!draw\+Grid@{draw\+Grid}}
+\index{draw\+Grid@{draw\+Grid}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{draw\+Grid()}{drawGrid()}}
+{\footnotesize\ttfamily void Interface1\+D\+::draw\+Grid (\begin{DoxyParamCaption}\item[{Q\+Table\+Widget $\ast$}]{grid,  }\item[{uint}]{nb\+Row,  }\item[{uint}]{nb\+Column }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Actualise une grille d\textquotesingle{}affichage avec les tailles prescrites. 
+
+Permet d\textquotesingle{}actualiser une grille avec les paramètres, les tailles sont prises en compte en fonction de la dimension de l\textquotesingle{}automate 
+\begin{DoxyParams}{Parameters}
+{\em grid} & pointeur sur la grille passée en paramètre pour être actualisée \\
+\hline
+{\em nb\+Row} & Nombre de lignes de la grille à manipuler \\
+\hline
+{\em nb\+Column} & Nombre de colonnes de la grille à manipuler \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_interface1_d_aec2151a4097181448aaf9281ddec576e}\label{class_interface1_d_aec2151a4097181448aaf9281ddec576e}} 
+\index{Interface1D@{Interface1D}!redraw\+Grid@{redraw\+Grid}}
+\index{redraw\+Grid@{redraw\+Grid}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{redraw\+Grid()}{redrawGrid()}}
+{\footnotesize\ttfamily void Interface1\+D\+::redraw\+Grid (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Génère les deux grilles d\textquotesingle{}affichage. 
+
+Supprime et construit les deux grilles d\textquotesingle{}affichage, avec la ligne initiale et la grille contenant les états successifs au sein du layout parent 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant tous les widgets \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface1_d_ac4e37f73f171f053a9eccb9c6cc60481}\label{class_interface1_d_ac4e37f73f171f053a9eccb9c6cc60481}} 
+\index{Interface1D@{Interface1D}!set\+Grid\+Buffer\+Length@{set\+Grid\+Buffer\+Length}}
+\index{set\+Grid\+Buffer\+Length@{set\+Grid\+Buffer\+Length}!Interface1D@{Interface1D}}
+\subsubsection{\texorpdfstring{set\+Grid\+Buffer\+Length()}{setGridBufferLength()}}
+{\footnotesize\ttfamily void Interface1\+D\+::set\+Grid\+Buffer\+Length (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Affiche l\textquotesingle{}interface concernant le choix de la taille du buffer. 
+
+Construit l\textquotesingle{}interface concernant le choix de la taille du buffer, avec les boutons et autres widgets 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant tous les widgets \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/Interface1\+D.\+h\item 
+interface/Interface1\+D.\+cpp\end{DoxyCompactItemize}
