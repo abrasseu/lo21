@@ -118,7 +118,6 @@ bool Simulator::setCell(State* state, uint position) {
 	return state != lastState;
 }
 
-<<<<<<< Updated upstream
 void Simulator::setInitialCellsToActual() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setInitialCell(getCell(i), i);
@@ -139,13 +138,11 @@ bool Simulator::setInitialCell(State* state, uint position) {
 	return state != lastState;
 }
 
-=======
 /**
  * \brief Récupère l'état de la cellule
  * \param position       position de la cellule
  * \return Un \em pointeur \em d' \em état
  */
->>>>>>> Stashed changes
 State* Simulator::getCell(uint position) const {
 	if (position >= getCellsNbr())
 		return nullptr;
@@ -153,7 +150,6 @@ State* Simulator::getCell(uint position) const {
 	return _cells[position];
 }
 
-<<<<<<< Updated upstream
 State* Simulator::getInitialCell(uint position) const {
 	if (position >= getCellsNbr())
 		return nullptr;
@@ -161,14 +157,12 @@ State* Simulator::getInitialCell(uint position) const {
 	return _initialCells[position];
 }
 
-=======
 /**
  * \brief Applique la règle si les conditions sont respectées
  * \param states     liste des états
  * \param size       position de la règle
  * \return Renvoie un \em tableau \em de \em pointeurs d'états
  */
->>>>>>> Stashed changes
 State** Simulator::getCellsState() const {
 	State** states(new State*[getCellsNbr()]);
 
@@ -196,16 +190,12 @@ uint* Simulator::getCells() {
 	return _tab;
 }
 
-<<<<<<< Updated upstream
 void Simulator::incrementState(uint position) {
-=======
 /**
  * \brief Incrémente un état
  * \param position     position de l'état
  * \param allowNullState   autorise un état nul
  */
-void Simulator::incrementState(uint position, bool allowNullState) {
->>>>>>> Stashed changes
 	State* cellToUpdate(getCell(position));
     uint toStateId = 0;
 
