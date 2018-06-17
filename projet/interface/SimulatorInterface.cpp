@@ -541,6 +541,9 @@ void SimulatorInterface::add_new_state(){
             QMessageBox::critical(this, "Erreur", QString::fromStdString(error.what()));
         }
     }
+
+    if (SimulatorManager::getManager()->simulatorExists())
+        changeGridCells();
 }
 
 void SimulatorInterface::displayExistingStates(){
@@ -567,18 +570,24 @@ void SimulatorInterface::delete_state() {
 	QObject* sdr = sender();
 	QPushButton* button = dynamic_cast<QPushButton*>(sdr);
 
-    for (auto it = state_vector->begin(); it != state_vector->end(); it++) {
-        if (it->second == button) {
-            try {
-                SimulatorManager::getManager()->removeState(it->first->getState());
-            } catch (SimulatorException error) {}
+    if (state_vector->size() < 3)
+        QMessageBox::critical(this, "Erreur", "Il est nécessaire d'avoir au moins un état");
+    else {
+        for (auto it = state_vector->begin(); it != state_vector->end(); it++) {
+            if (it->second == button) {
+                try {
+                    SimulatorManager::getManager()->removeState(it->first->getState());
+                } catch (SimulatorException error) {}
 
-            delete it->first;
-            delete it->second;
-            state_vector->erase(it);
+                delete it->first;
+                delete it->second;
+                state_vector->erase(it);
 
-            break;
+                break;
+            }
         }
+
+        changeGridCells();
     }
 }
 

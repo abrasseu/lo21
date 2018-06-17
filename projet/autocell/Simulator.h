@@ -76,6 +76,7 @@ class Simulator {
 
 		virtual bool mutate();		// Mute et renvoi vrai si les cellules ont changé
 		void incrementState(uint position);
+        void setStates(State** state, uint stateNbr);
 };
 
 #endif

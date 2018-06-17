@@ -51,6 +51,7 @@ public:
 	static SimulatorManager* getManager() { return _instance; }
 
 	// Simulator
+	bool simulatorExists();
 	Simulator* getSimulator();
 	Simulator* createSimulator(uint dimension = 0);
 	void deleteSimulator();

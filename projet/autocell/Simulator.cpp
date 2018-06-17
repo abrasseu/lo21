@@ -170,7 +170,7 @@ uint* Simulator::getCells() {
 
 void Simulator::incrementState(uint position) {
 	State* cellToUpdate(getCell(position));
-	uint toStateId = 0;
+    uint toStateId = 0;
 
 	for (uint i = 0; i < _stateNbr; i++) {
 		if (_states[i] == cellToUpdate) {
@@ -181,6 +181,11 @@ void Simulator::incrementState(uint position) {
 	}
 
 	setCell(_states[toStateId], position);
+}
+
+void Simulator::setStates(State** states, uint stateNbr) {
+    _stateNbr = stateNbr;
+    _states = states;
 }
 
 bool Simulator::mutate() {

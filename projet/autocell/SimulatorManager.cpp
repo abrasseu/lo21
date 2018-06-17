@@ -38,8 +38,12 @@ void SimulatorManager::setGridSize(uint gridSize) {
 |--------------------------------------------------------------------------
 */
 
+bool SimulatorManager::simulatorExists() {
+	return _simulator != nullptr;
+}
+
 Simulator* SimulatorManager::getSimulator() {
-	if (_simulator == nullptr)
+	if (!simulatorExists())
 		throw SimulatorException("Aucune simulation n'a été instanciée");
     else
         return _simulator;
@@ -53,10 +57,10 @@ Simulator* SimulatorManager::createSimulator(uint dimension) {
 
 	switch (dimension) {
 		case 1:
-			_simulator = new Simulator1D(&_states[0], _states.size(), _gridSize);
+			_simulator = new Simulator1D(_states.data(), _states.size(), _gridSize);
 			break;
 		case 2:
-			_simulator = new Simulator2D(&_states[0], _states.size(), _gridSize);
+			_simulator = new Simulator2D(_states.data(), _states.size(), _gridSize);
 			break;
 		default:
 			throw SimulatorException("Cette dimension de simulation n'est pas encore implémentée.");
@@ -67,7 +71,7 @@ Simulator* SimulatorManager::createSimulator(uint dimension) {
 }
 
 void SimulatorManager::deleteSimulator() {
-	if (_simulator != nullptr)
+	if (simulatorExists())
 		delete _simulator;
 
 	_simulator = nullptr;
@@ -110,6 +114,9 @@ State* SimulatorManager::createNewState(std::string name, std::string color) {
 	State* state = new State(name, color);
 	_states.push_back(state);
 
+    if (simulatorExists())
+        getSimulator()->setStates(_states.data(), _states.size());
+
 	return state;
 }
 
@@ -133,6 +140,18 @@ void SimulatorManager::removeState(State* state) {
 
 		removeRule((*rule));
 	}
+
+    if (simulatorExists()) {
+        getSimulator()->setStates(_states.data(), _states.size());
+
+        for (uint i = 0; i < getSimulator()->getCellsNbr(); i++) {
+            if (getSimulator()->getCell(i) == state)
+                getSimulator()->setCell(_states[0], i);
+
+            if (getSimulator()->getInitialCell(i) == state)
+                getSimulator()->setInitialCell(_states[0], i);
+        }
+    }
 }
 
 /*
@@ -182,8 +201,6 @@ void SimulatorManager::removeObject(T* object, std::vector<T*>* container) {
 
 	container->erase(it);
 	delete object;
-
-	deleteSimulator();
 }
 
 template<class T>

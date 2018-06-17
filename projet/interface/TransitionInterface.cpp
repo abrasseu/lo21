@@ -175,16 +175,22 @@ bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
 }
 
 void TransitionInterface::deleteRule(){
-//1    QObject* sdr = sender();
-//1    QPushButton* button = dynamic_cast<QPushButton*>(sdr);
-//    for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
-//        if (it->second == button){
-//            (*it)
-//        }
-//    }
-//1    std::vector<QPair<Transition*, QPushButton*> >::iterator it;
-//1    it = std::remove_if(transition_vector->begin(), transition_vector->end(), [&sdr](QPair<Transition*, QPushButton*> pair) { return pair.second == button; })
-//    SimulatorManager::getManager()->removeRule((*it).);
+    QObject* sdr = sender();
+    QPushButton* button = dynamic_cast<QPushButton*>(sdr);
+
+    for (auto it = transition_vector->begin(); it != transition_vector->end(); it++) {
+        if (it->second == button) {
+            try {
+                SimulatorManager::getManager()->removeRule(SimulatorManager::getManager()->getRule(it - transition_vector->begin()));
+            } catch (SimulatorException error) {}
+
+            delete it->first;
+            delete it->second;
+            transition_vector->erase(it);
+
+            break;
+        }
+    }
 }
 
 void TransitionInterface::displayExistingRules(){
@@ -386,16 +392,19 @@ void Transition::changedFinalState(int nb){
 
 Transition::~Transition(){
     delete final_color;
+    delete final_label;
     delete final_cell;
     delete final_layout_combo;
 
-    delete[] neighbours_label;
     for (unsigned int i = 0; i < nb_states; i++) {
+        delete neighbours_label[i];
         delete neighbours[i]->second;
     }
+    delete[] neighbours_label;
     delete[] neighbours_layout;
 
     delete start_color;
+    delete start_label;
     delete start_cell;
     delete start_layout_combo;
 
