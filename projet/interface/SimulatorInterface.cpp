@@ -11,6 +11,25 @@
 |--------------------------------------------------------------------------
 */
 
+/**
+ * \brief Crée et affiche le layout de choix des différents
+ * \details Crée un premier état vide pour sélectionner les paramètres de l'état et l'affiche
+ * \param parent    layout contenant l'affichage
+ */
+void SimulatorInterface::addFirstState(QBoxLayout* parent){
+//    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
+    QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
+    pair->first = new StateInterface();
+    pair->second = new QPushButton;
+    state_vector->push_back(*pair);
+    parent->addLayout(state_vector->last().first);
+}
+
+/**
+ * \brief Met en place l'affichage pour le choix des dimensions de la grille
+ * \details Met en place les layout qui contiennent les choix de dimension et d'état initial de la grille
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setGridControls(QBoxLayout* parent) {
     grid_controls = new QHBoxLayout();			// view or grid ?
     parent->addLayout(grid_controls);
@@ -18,6 +37,11 @@ void SimulatorInterface::setGridControls(QBoxLayout* parent) {
     setInitialStateControls(grid_controls);
 }
 
+/**
+ * \brief Met en place l'affichage pour le choix de transitions
+ * \details Crée les layout qui contiennent les affichages pour régler les transitions et états
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
     automate_controls = new QVBoxLayout;
     parent->addLayout(automate_controls);
@@ -25,6 +49,11 @@ void SimulatorInterface::setAutomateControls(QBoxLayout* parent){
     setStateControls(automate_controls);
 }
 
+/**
+ * \brief Met en place l'affichage pour le choix des transitions et des états
+ * \details Affiche le bouton pour choisir les différentes règles de transitions
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
     choose_automate = new QPushButton("Choisir cet automate");
     change_automate = new QPushButton("Changer d'automate");
@@ -38,11 +67,20 @@ void SimulatorInterface::setAutomateChoice(QBoxLayout* parent){
     QObject::connect(save_automate, SIGNAL(clicked()), this, SLOT(saveAutomate()));
 }
 
+/**
+ * \brief Crée un layout pour le choix des états
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setStateControls(QBoxLayout* parent) {
     state_controls = new QHBoxLayout();
     parent->addLayout(state_controls);
 }
 
+/**
+ * \brief Crée l'affichage pour le choix des transitions
+ * \details Affiche le bouton pour choisir les différentes règles de transitions
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
     transition_controls = new QHBoxLayout();
     parent->addLayout(transition_controls);
@@ -52,6 +90,11 @@ void SimulatorInterface::setTransitionControls(QBoxLayout* parent) {
     QObject::connect(set_transition_rules, SIGNAL(clicked()), this, SLOT(choose_transition_rules()));
 }
 
+/**
+ * \brief Crée l'affichage pour le choix des dimensions de la grille
+ * \details Affiche les boutons, textes et zones éditables pour choisir les dimensions de la grille
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
     grid_dim_controls = new QVBoxLayout();
     parent->addLayout(grid_dim_controls);
@@ -81,6 +124,11 @@ void SimulatorInterface::setDimensionControls(QBoxLayout* parent) {
     connect(grid_dim_reset_bt, SIGNAL(clicked()), this, SLOT(grid_reset_dim()));
 }
 
+/**
+ * \brief Crée un affichage pour choisir l'état initial de la grille
+ * \details Crée le texte, les boutons ainsi qu'une liste déroulante pour choisir l'état initial de la grille
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
     initial_state_controls = new QVBoxLayout();
     parent->addLayout(initial_state_controls);
@@ -103,6 +151,11 @@ void SimulatorInterface::setInitialStateControls(QBoxLayout* parent) {
     connect(initial_state_setter, SIGNAL(clicked()), this, SLOT(set_default_grid()));
 }
 
+/**
+ * \brief Crée l'affichage pour sélectionner les options de simulation: départ, pas à pas, stop, état initial
+ * \details Affiche les boutons pour choisir les options de simulation et la lancer
+ * \param parent    layout contenant l'affichage
+ */
 void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
     simulation_controls = new QVBoxLayout();
     parent->addLayout(simulation_controls);
@@ -142,15 +195,6 @@ void SimulatorInterface::setSimulatorControls(QBoxLayout* parent) {
     connect(sim_step_bt, SIGNAL(clicked()), this, SLOT(step_simulation()));
     connect(sim_stop_bt, SIGNAL(clicked()), this, SLOT(stop_simulation()));
     connect(sim_reset_bt, SIGNAL(clicked()), this, SLOT(reset_simulation()));
-}
-
-void SimulatorInterface::addFirstState(QBoxLayout* parent){
-//    state_vector = new QVector <QPair<StateInterface*, QPushButton*> >;
-    QPair < StateInterface*, QPushButton*>* pair = new QPair < StateInterface*, QPushButton*> ;
-    pair->first = new StateInterface();
-    pair->second = new QPushButton;
-    state_vector->push_back(*pair);
-    parent->addLayout(state_vector->last().first);
 }
 
 
@@ -240,7 +284,7 @@ SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(),
 */
 
 /**
- * @brief Ferme la fenêtre et affiche la page d'accueil
+ * \brief Ferme la fenêtre et affiche la page d'accueil
  */
 void SimulatorInterface::home() {
     SimulatorManager::getManager()->deleteSimulator();
@@ -253,7 +297,8 @@ void SimulatorInterface::home() {
 // ==================== Simulation Slots ====================
 
 /**
- * @brief Lance la simulation de manière continue
+ * \brief Lance la simulation de manière continue
+ * \details Arrête la simulation et remet à jour l'état des boutons pour pouvoir cliquer sur les bons boutons
  */
 void SimulatorInterface::start_simulation() {
     // Disable dimension changes
@@ -286,6 +331,11 @@ void SimulatorInterface::start_simulation() {
     QObject::connect(speed_selector, SIGNAL(valueChanged(double)), this, SLOT(speedSelectorChangedValue(double)));
 }
 
+/**
+ * \brief Met à jour la vitesse de simulation
+ * \details Met à jour la vitesse de simulation lors du changement de vitesse en cours de simulation
+ * \param val   valeur de la vitesse de simulation
+ */
 void SimulatorInterface::speedSelectorChangedValue(double val){
     if (modify_speed_value){
         if (val > 0)
@@ -296,7 +346,8 @@ void SimulatorInterface::speedSelectorChangedValue(double val){
 }
 
 /**
- * @brief Avance la simulation d'un itération
+ * \brief Avance la simulation d'une itération
+ * \details Arrête la simulation et remet à jour l'état des boutons pour pouvoir cliquer sur les bons boutons
  */
 void SimulatorInterface::step_simulation() {
     // Disable dimension changes
@@ -315,7 +366,8 @@ void SimulatorInterface::step_simulation() {
 }
 
 /**
- * @brief Arrête la simulation
+ * \brief Arrête la simulation
+ * \details Arrête la simulation et remet à jour l'état des boutons pour pouvoir cliquer sur les bons boutons
  */
 void SimulatorInterface::stop_simulation() {
     // Stop simulation
@@ -367,16 +419,27 @@ void SimulatorInterface::iterate_simulation() {
 
 // ==================== Grid Slots ====================
 
+/**
+ * \brief Change la dimension de la grille
+ * \details Slot. Change la dimension de la grille avec la valeur entrée
+ */
 void SimulatorInterface::grid_set_dim(){
     grid_dimension = grid_dim_spinbox->value();
-//	redrawGrid(view_layout);
+//    redrawGrid(view_layout);
 }
+/**
+ * \brief Réinitialise la dimension de la grille
+ * \details Slot. Remet la dimension de la grille à la valeur initiale (10)
+ */
 void SimulatorInterface::grid_reset_dim() {
     grid_dim_spinbox->setValue(10);
     grid_dimension = 10;
-//	redrawGrid(view_layout);
+//    redrawGrid(view_layout);
 }
 
+/**
+ * \brief Affiche la grille avec un état choisi parmi les états par défaut de la liste déroulante
+ */
 void SimulatorInterface::set_default_grid() {
     unsigned int combo_value = initial_state_selector->currentIndex();
     simulator = SimulatorManager::getManager()->getSimulator();
@@ -403,7 +466,11 @@ void SimulatorInterface::set_default_grid() {
 
 
 // ==================== Transition Slots ====================
-
+/**
+ * \brief Ouvre la fenêtre du choix des transitions
+ * \details Slot. Ouvre la fenêtre du choix des transitions et bloque la fenêtre d'interface tant que la fenêtre
+ *          transition n'est pas fermée
+ */
 void SimulatorInterface::choose_transition_rules(){
     this->setEnabled(false); // A voir pour bloquer la fenetre mere et débloquer à la fermeture
     TransitionInterface* windowtransition = new TransitionInterface();
@@ -413,12 +480,18 @@ void SimulatorInterface::choose_transition_rules(){
     QObject::connect(windowtransition, SIGNAL(close_transition_interface()), this, SLOT(choose_transition_rules_finished()));
 }
 
-
+/**
+ * \brief Fenêtre interface est de nouveau disponible car la fenêtre transition est fermée
+ */
 void SimulatorInterface::choose_transition_rules_finished(){
     this->setEnabled(true);
 }
 
 // ==================== Automate choice Slots ====================
+/**
+ * \brief Définit les paramètres choisis de l'automate
+ * \details Slot. Bloque et débloque les boutons une fois que les états et dimensions ont été choisis
+ */
 void SimulatorInterface::chosenAutomate(){
     if (SimulatorManager::getManager()->getStateNumber() < 1) {
         QMessageBox::critical(this, "Attention", "Il faut définir au moins 1 état");
@@ -474,6 +547,10 @@ void SimulatorInterface::chosenAutomate(){
     }
 }
 
+/**
+ * \brief Définit les paramètres choisis de l'automate
+ * \details Slot. Bloque et débloque les boutons pour pouvoir changer les états et dimensions
+ */
 void SimulatorInterface::changedAutomate(){
     changeCellEnabled = false;
 
@@ -511,7 +588,10 @@ void SimulatorInterface::changedAutomate(){
 }
 
 // ==================== State Slots ====================
-
+/**
+ * \brief Ajoute un nouvel état
+ * \details Slot. Ajoute un nouvel état à la liste des états et vérifie qu'on peut l'ajouter
+ */
 void SimulatorInterface::add_new_state(){
     QPair<StateInterface*,QPushButton*>& lastState = state_vector->last();
     if (lastState.first->state_name->text().isEmpty()) {
@@ -546,6 +626,9 @@ void SimulatorInterface::add_new_state(){
         changeGridCells();
 }
 
+/**
+ * \brief Affiche les états déjà existant
+ */
 void SimulatorInterface::displayExistingStates(){
     SimulatorManager* manager = SimulatorManager::getManager();
     std::vector<State*>::const_iterator it;
@@ -565,7 +648,9 @@ void SimulatorInterface::displayExistingStates(){
     }
 }
 
-
+/**
+ * \brief Supprime un état et le retire de l'affichage
+ */
 void SimulatorInterface::delete_state() {
 	QObject* sdr = sender();
 	QPushButton* button = dynamic_cast<QPushButton*>(sdr);
@@ -591,7 +676,10 @@ void SimulatorInterface::delete_state() {
     }
 }
 
-
+/**
+ * \brief Enregistre un automate
+ * \details Slot. Enregistre les paramètres d'un automate: états, dimensions, règles de transitions
+ */
 void SimulatorInterface::saveAutomate(){
     QString fileName = QFileDialog::getSaveFileName(this,
             tr("Sauvegarder l'automate"), "",

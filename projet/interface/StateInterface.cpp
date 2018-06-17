@@ -1,6 +1,10 @@
 #include "StateInterface.h"
 #include <QColorDialog>
 
+/**
+ * \brief Constructeur de l'affichage d'un état
+ * \details Crée les layout qui contiennet les différents champs d'affichage d'un état
+ */
 StateInterface::StateInterface(std::string n, std::string c, State* s): QHBoxLayout(), state(s) {
     // Layout contenant une règle d'état entière
     state_layout = new QHBoxLayout;
@@ -11,6 +15,9 @@ StateInterface::StateInterface(std::string n, std::string c, State* s): QHBoxLay
     setColorLayout(state_layout, c);
 }
 
+/**
+ * \brief Destructeur de l'affichage d'un état
+ */
 StateInterface::~StateInterface() {
     delete color_button;
     delete state_color_label;
@@ -23,6 +30,9 @@ StateInterface::~StateInterface() {
     delete state_layout;
 }
 
+/**
+ * \brief Crée et affiche les champs pour entrer le nom de l'état
+ */
 void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
     // Create Layout
     name_layout = new QVBoxLayout;
@@ -43,6 +53,9 @@ void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
 
 }
 
+/**
+ * \brief Crée et affiche les champs pour entrer la couleur de l'état
+ */
 void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
     // Create Layout
     color_layout = new QVBoxLayout;
@@ -76,7 +89,10 @@ void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
 }
 
 // ==================== Color Slots ====================
-
+/**
+ * \brief Affiche la fenêtre du choix des couleurs pour l'état
+ * \details Slot. Ouvre la fenêtre des choix de couleurs lors du clic sur le bouton
+ */
 void StateInterface::display_palette_color(QTableWidgetItem* button){
     button->setSelected(false);
     // Preset Color

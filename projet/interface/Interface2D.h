@@ -13,8 +13,8 @@ class Interface2D : public SimulatorInterface
         void redrawGrid(QBoxLayout*);
         void changeGridCells();
 
-        void blockAfterChoosedAutomate();
-        void blockAfterChangedAutomate();
+        void blockAfterAutomateChosen();
+        void blockAfterAutomateChanged();
 
     public:
         Interface2D(bool draw = false);

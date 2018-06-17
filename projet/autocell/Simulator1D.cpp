@@ -11,7 +11,12 @@
 #include "State.h"
 
 using uint = unsigned int;
-
+/**
+ * \brief Retourne les états des voisins de la cellule
+ * \param states     liste des états
+ * \param position       position de la cellule
+ * \return Renvoie un \em tableau \em de \em pointeurs d'états
+ */
 State** Simulator1D::getNeighboursState(State** states, uint position) {
     State** neighbours(new State*[getNeighbourNbr()]);
 
@@ -22,6 +27,9 @@ State** Simulator1D::getNeighboursState(State** states, uint position) {
     return neighbours;
 }
 
+/**
+ * \brief Affiche les cellules en console
+ */
 void Simulator1D::printCells() {
 	for (uint i = 0; i < getCellsSize(); i++)
 		std::cout << _cells[i]->getName()[0];
