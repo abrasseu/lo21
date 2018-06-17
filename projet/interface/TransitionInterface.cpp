@@ -27,8 +27,7 @@ TransitionInterface::TransitionInterface() : QWidget() {
 
     title = new QLabel("Choisissez les règles de transition de l'automate");
     main_layout->addWidget(title);
-    title->setAlignment(Qt::AlignTop);
-    title->setAlignment(Qt::AlignHCenter);
+    title->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
 
 
     // Set Transition Layout
@@ -249,6 +248,7 @@ void Transition::setStartState(QVBoxLayout* parent, State* start_state, bool mod
         start_state = state_list[0];
 
     start_label = new QLabel("Etat de départ");
+    start_label->setAlignment(Qt::AlignBottom|Qt::AlignCenter);
     parent->addWidget(start_label);
 
     start_layout_combo = new QHBoxLayout;
@@ -301,6 +301,7 @@ void Transition::setNeighboursNumber(State** state_list, unsigned int state_list
         neighbours[i]->second = new QSpinBox;
         neighbours[i]->second->setEnabled(modify);
         neighbours_label[i] = new QLabel("Nombre de voisins à l'état:<br><center>"+QString::fromStdString(neighbours[i]->first->getName())+"</center>");
+        neighbours_label[i]->setAlignment(Qt::AlignBottom|Qt::AlignHCenter);
         neighbours_layout[i]->addWidget(neighbours_label[i]);
         neighbours[i]->second->setRange(0, neighbour_number);
         neighbours[i]->second->setValue(spin_value[i]);
@@ -312,6 +313,7 @@ void Transition::setFinalState(QVBoxLayout* parent, State* final_state, bool mod
     if (final_state == nullptr)
         final_state = state_list[0];
     final_label = new QLabel("Etat d'arrivée");
+    final_label->setAlignment(Qt::AlignBottom|Qt::AlignCenter);
     parent->addWidget(final_label);
 
     final_layout_combo = new QHBoxLayout;
