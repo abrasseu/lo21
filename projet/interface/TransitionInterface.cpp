@@ -1,6 +1,9 @@
 #include "../autocell/SimulatorManager.h"
 #include "TransitionInterface.h"
 
+/**
+ * \brief Constructeur de la fenêtre d'affichage des transitions
+ */
 TransitionInterface::TransitionInterface() : QWidget() {
     Simulator* simulator = SimulatorManager::getManager()->getSimulator();
     state_list = simulator->getInitStates();
@@ -48,15 +51,61 @@ TransitionInterface::TransitionInterface() : QWidget() {
     QObject::connect(transition_valid, SIGNAL(clicked()), this, SLOT(validateRules()));
 }
 
+/**
+ * \brief Affiche les règles déjà existantes
+ */
+void TransitionInterface::displayExistingRules(){
+    for (auto ite_state = SimulatorManager::getManager()->getFirstState(); ite_state != SimulatorManager::getManager()->getLastState(); ite_state++){
+
+        for (auto it = (*ite_state)->getFirstRule(); it != (*ite_state)->getLastRule(); ++it){
+            uint* tab = new uint[SimulatorManager::getManager()->getStateNumber()];
+
+            std::map<State*, uint> sum;
+            for (auto it_vec_state = (*it)->getFirstState(); it_vec_state != (*it)->getLastState(); ++it_vec_state){
+                if ( sum.find(*it_vec_state) != sum.end()){
+                    sum[*it_vec_state]++;
+                }
+                else {
+                    sum[*it_vec_state] = 1;
+                }
+            }
+            uint j = 0;
+            for (auto compare = SimulatorManager::getManager()->getFirstState(); compare != SimulatorManager::getManager()->getLastState(); compare++){
+                std::map<State*, uint>::iterator value_return_map = sum.find(*compare);
+
+                if (value_return_map != sum.end()){
+                    tab[j] = value_return_map->second;
+                }
+                else{
+                    tab[j] = 0;
+                }
+                j++;
+            }
+
+            Transition* tr = new Transition(state_list, SimulatorManager::getManager()->getStateNumber(), SimulatorManager::getManager()->getSimulator()->getNeighbourNbr(),
+                                            tab, *ite_state, (*it)->getState(), false);
+            transition_layout->addLayout(tr);
+
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 |	Slots
 |--------------------------------------------------------------------------
 */
+/**
+ * \brief Ferme la fenêtre des transitions
+ * \details Slot. Ferme la fenêtre des transitions une fois qu'elles sont choisies
+ */
 void TransitionInterface::validateRules(){
     this->close();
 }
 
+/**
+ * \brief Slot. Ajoute une règle de transition
+ */
 void TransitionInterface::addNewTransitionRule(){
     // On test si le nombre de voisins dans la règle n'est pas supérieur au nombre de voisin maximum
     if (!transition_vector->empty()){
@@ -152,6 +201,11 @@ void TransitionInterface::addNewTransitionRule(){
     }
 }
 
+/**
+ * \brief Vérifie que la règle de transition peut être insérée
+ * \details Slot. Vérifie que la règle de transition peut être insérée si le nombre de voisins
+ *          est valide et vérifie que la règle n'existe pas déjà
+ */
 bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
     Transition* ittr = nullptr;
     for (auto it = transition_vector->begin(); it != transition_vector->end(); ++it){
@@ -174,6 +228,10 @@ bool TransitionInterface::addNewTransitionRuleValid(Transition* transi){
     return true;
 }
 
+/**
+ * \brief Supprime une règle
+ * \details Slot. Supprime la règle sélectionnée
+ */
 void TransitionInterface::deleteRule(){
     QObject* sdr = sender();
     QPushButton* button = dynamic_cast<QPushButton*>(sdr);
@@ -193,46 +251,18 @@ void TransitionInterface::deleteRule(){
     }
 }
 
-void TransitionInterface::displayExistingRules(){
-    for (auto ite_state = SimulatorManager::getManager()->getFirstState(); ite_state != SimulatorManager::getManager()->getLastState(); ite_state++){
-
-        for (auto it = (*ite_state)->getFirstRule(); it != (*ite_state)->getLastRule(); ++it){
-            uint* tab = new uint[SimulatorManager::getManager()->getStateNumber()];
-
-            std::map<State*, uint> sum;
-            for (auto it_vec_state = (*it)->getFirstState(); it_vec_state != (*it)->getLastState(); ++it_vec_state){
-                if ( sum.find(*it_vec_state) != sum.end()){
-                    sum[*it_vec_state]++;
-                }
-                else {
-                    sum[*it_vec_state] = 1;
-                }
-            }
-            uint j = 0;
-            for (auto compare = SimulatorManager::getManager()->getFirstState(); compare != SimulatorManager::getManager()->getLastState(); compare++){
-                std::map<State*, uint>::iterator value_return_map = sum.find(*compare);
-
-                if (value_return_map != sum.end()){
-                    tab[j] = value_return_map->second;
-                }
-                else{
-                    tab[j] = 0;
-                }
-                j++;
-            }
-
-            Transition* tr = new Transition(state_list, SimulatorManager::getManager()->getStateNumber(), SimulatorManager::getManager()->getSimulator()->getNeighbourNbr(),
-                                            tab, *ite_state, (*it)->getState(), false);
-            transition_layout->addLayout(tr);
-
-        }
-    }
-}
-
+// ================== SIGNAL ======================
+/**
+ * \brief Envoie d'un signal émis lors de la fermeture de la fenêtre du choix de transition
+ * \param event     évènement de la fermeture de la fenêtre
+ */
 void TransitionInterface::closeEvent(QCloseEvent* event){
     emit close_transition_interface();
 }
 
+/**
+ * \brief Destructeur de la fenêtre d'affichage des transitions
+ */
 TransitionInterface::~TransitionInterface(){
     delete transition_valid;
     delete transition_add_rule;

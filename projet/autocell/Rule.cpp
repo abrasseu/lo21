@@ -11,6 +11,11 @@
 
 using uint = unsigned int;
 
+/**
+ * \brief Applique la règle si les conditions sont respectées
+ * \param states     liste des états
+ * \param size       position de la règle
+ */
 bool Rule::isTrue(State** states, uint size) {
     std::vector<State*> statesToHave(_states);
 

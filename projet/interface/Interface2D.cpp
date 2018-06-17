@@ -17,8 +17,9 @@ Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
 // ----------------------- Methods to implement -----------------------
 
 /**
- * \brief Constructeur de l'interface 1D
- * \details Construit l'interface 1D en héritant de la classe \em SimulatorInterface et de son constructeur
+ * \brief Affiche l'interface de simulation: la grille
+ * \details Construit et affiche l'interface de simulation, crée et affiche la grille
+ * \param parent    layout prévu pour l'interface de simulation
  */
 void Interface2D::redrawGrid(QBoxLayout* parent) {
 	// Delete and recreate grid if exists
@@ -47,6 +48,11 @@ void Interface2D::redrawGrid(QBoxLayout* parent) {
 	changeGridCells();
 }
 
+/**
+ * \brief Affiche l'interface de simulation: la grille
+ * \details Construit et affiche l'interface de simulation, crée et affiche la grille
+ * \param parent    layout prévu pour l'interface de simulation
+ */
 void Interface2D::changeGridCells() {
 	QColor color = QColor();
 	simulator = SimulatorManager::getManager()->getSimulator();
@@ -61,8 +67,13 @@ void Interface2D::changeGridCells() {
 }
 
 
-// Slot
-
+// Slots
+/**
+ * \brief Change l'état de la cellule cliquée
+ * \details Slot. Augmente d'un état la cellule cliquée
+ * \param i     ligne de la cellule cliquée
+ * \param j     colonne de la cellule cliquée
+ */
 void Interface2D::rotateCellState(int i, int j) {
 	if (changeCellEnabled) {
 		simulator = SimulatorManager::getManager()->getSimulator();
@@ -74,10 +85,19 @@ void Interface2D::rotateCellState(int i, int j) {
 	}
 }
 
-
-void Interface2D::blockAfterChoosedAutomate(){
+/**
+ * \brief Autorise les clics sur la grille
+ * \details \a Slot. Autorise les clics une fois que les paramètres du simulateur sont choisies, on peut de nouveau modifier
+ *          la grille
+ */
+void Interface2D::blockAfterAutomateChosen(){
 	grid_view->setEnabled(true);
 }
-void Interface2D::blockAfterChangedAutomate(){
+
+/**
+ * \brief Empêche les clics sur la grille
+ * \details \a Slot. Empêche les clics pendant que l'utilisateur choisit les paramètres
+ */
+void Interface2D::blockAfterAutomateChanged(){
 	grid_view->setEnabled(false);
 }
