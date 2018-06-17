@@ -44,10 +44,7 @@ class Simulator {
 			_stateNbr(stateNbr), _cellsSize(cellsSize), _generation(0) {
 			generateCells();
 		}
-		virtual ~Simulator() {
-			delete[] _states;
-			delete[] _cells;
-		}
+		virtual ~Simulator() {}
 
 		// Generators
 		void generateStateCells(uint s = 0);

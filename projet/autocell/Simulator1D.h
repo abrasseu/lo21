@@ -23,7 +23,7 @@ public:
 	Simulator1D(State** states, uint stateNbr, uint cellsSize): Simulator(states, stateNbr, cellsSize, 1) {
 		generateCells();
 	}
-//	~Simulator1D() { }
+	~Simulator1D() {}
 
 	// Getters
 	void printCells();

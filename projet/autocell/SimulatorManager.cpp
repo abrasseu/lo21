@@ -69,6 +69,7 @@ Simulator* SimulatorManager::createSimulator(uint dimension) {
 void SimulatorManager::deleteSimulator() {
 	if (_simulator != nullptr)
 		delete _simulator;
+
 	_simulator = nullptr;
 }
 
@@ -115,7 +116,7 @@ State* SimulatorManager::createNewState(std::string name, std::string color) {
 void SimulatorManager::removeState(State* state) {
 	removeObject<State>(state, &_states);
 
-	for (std::vector<Rule*>::const_iterator rule = getFirstRule(); rule != getLastRule(); rule++) {
+	for (std::vector<Rule*>::const_iterator rule = getFirstRule(); rule != getLastRule();) {
 		if ((*rule)->getState() != state) {
 			bool isIn = false;
 
@@ -124,8 +125,10 @@ void SimulatorManager::removeState(State* state) {
 					isIn = true;
 			}
 
-			if (!isIn)
+			if (!isIn) {
+				rule++;
 				continue;
+			}
 		}
 
 		removeRule((*rule));
@@ -154,9 +157,11 @@ void SimulatorManager::removeRule(Rule* rule) {
 	removeObject<Rule>(rule, &_rules);
 
 	for (std::vector<State*>::const_iterator state = getFirstState(); state != getLastState(); state++) {
-		for (std::vector<Rule*>::const_iterator ruleOfState = (*state)->getFirstRule(); ruleOfState != (*state)->getLastRule(); ruleOfState++) {
+		for (std::vector<Rule*>::const_iterator ruleOfState = (*state)->getFirstRule(); ruleOfState != (*state)->getLastRule();) {
 			if ((*ruleOfState) == rule)
-				(*state)->getRules().erase(ruleOfState);
+				(*state)->removeRule(ruleOfState);
+			else
+				ruleOfState++;
 		}
 	}
 }

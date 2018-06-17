@@ -23,7 +23,7 @@ public:
 	Simulator2D(State** states, uint stateNbr, uint cellsSize): Simulator(states, stateNbr, cellsSize, 2) {
 		generateCells();
 	}
-//	~Simulator2D() { }
+	~Simulator2D() {}
 
 	// Setters
 	bool setCell(State* state, uint x, uint y);

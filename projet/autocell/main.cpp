@@ -38,11 +38,9 @@ int main() {
         manager->getSimulator()->printCells();
 
         // Jeu de la vie
-
+        manager->deleteSimulator();
         manager->removeState(manager->getState(0));
-        std::cout << manager->getStateNumber() << manager->getRuleNbr() << std::endl;
-        manager->removeState(manager->getState(0));/*
-        std::cout << manager->getStateNumber() << manager->getRuleNbr();
+        manager->removeState(manager->getState(0));
 
         manager->createNewState("Vivant", "#FFFFFF");
         manager->createNewState("Mort", "#000000");
@@ -65,7 +63,7 @@ int main() {
         manager->importConfig("../saves/life_game.json");
         manager->getSimulator()->printCells();
         manager->getSimulator()->mutate();
-        manager->getSimulator()->printCells();*/
+        manager->getSimulator()->printCells();
     } catch (SimulatorException e) {
         std::cout << e.what();
     }

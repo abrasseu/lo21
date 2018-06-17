@@ -74,7 +74,7 @@ public:
 
 	// Rules
 	Rule* getRule(uint position);
-    uint getRuleNbr() { return _rules.size(); }
+    uint getRuleNumber() { return _rules.size(); }
 	std::vector<Rule*>::const_iterator getFirstRule() const { return _rules.begin(); }
 	std::vector<Rule*>::const_iterator getLastRule() const { return _rules.end(); }
 	Rule* createNewRule(std::vector<State*> states, State* endState);

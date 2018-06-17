@@ -41,6 +41,7 @@ class State {
 
 		// Permet d'ajouter une nouvelle règle
 		void addANewRule(Rule* rule);
+		void removeRule(std::vector<Rule*>::const_iterator rule) { _rules.erase(rule); }
 
 		// Permet de récupérer l'état de la génération suivante en fonction des règles
 		State* getNextGeneration(State** states, uint size);
