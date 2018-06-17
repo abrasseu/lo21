@@ -425,6 +425,8 @@ void SimulatorInterface::iterate_simulation() {
  */
 void SimulatorInterface::grid_set_dim(){
     grid_dimension = grid_dim_spinbox->value();
+    SimulatorManager::getManager()->setGridSize(grid_dimension);
+    SimulatorManager::getManager()->createSimulator();
     redrawGrid(view_layout);
 }
 /**
@@ -432,9 +434,7 @@ void SimulatorInterface::grid_set_dim(){
  * \details Slot. Remet la dimension de la grille à la valeur initiale (10)
  */
 void SimulatorInterface::grid_reset_dim() {
-    grid_dim_spinbox->setValue(10);
-    grid_dimension = 10;
-//    redrawGrid(view_layout);
+    grid_dim_spinbox->setValue(grid_dimension);
 }
 
 /**
