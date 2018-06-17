@@ -1,24 +1,9 @@
-//#include <QApplication>
-#include <iostream>
-#include "etat.h"
-#include "automate.h"
-#include "simulateur.h"
-#include "automate-manager.h"
+#include <QApplication>
+#include "interface/HomeView.h"
 
-using namespace std;
-
-int main()
-{
-	cout << "=== Jeu de la vie ===" << endl;
-	Etat e = Etat(5);
-	cout << e << endl;
-
-	Automate a = AutomateManager::getInstance().getAutomate(30);
-
-	Simulateur s = Simulateur(a, e, 2);
-	//cout << s;
-	s.run(15, true);
-	//cout << s;
-
-	return 0;
+int main(int argc, char* argv[]) {
+	QApplication app(argc, argv);
+	HomeView homeView;
+	homeView.show();
+	return app.exec();
 }
