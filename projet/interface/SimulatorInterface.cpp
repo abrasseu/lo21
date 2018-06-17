@@ -243,6 +243,7 @@ SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(),
  * @brief Ferme la fenêtre et affiche la page d'accueil
  */
 void SimulatorInterface::home() {
+    SimulatorManager::getManager()->deleteSimulator();
     close();
     HomeView* home = new HomeView();
     home->show();

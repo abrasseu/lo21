@@ -189,7 +189,10 @@ void TransitionInterface::deleteRule(){
 
 void TransitionInterface::displayExistingRules(){
     for (auto ite_state = SimulatorManager::getManager()->getFirstState(); ite_state != SimulatorManager::getManager()->getLastState(); ite_state++){
+
         for (auto it = (*ite_state)->getFirstRule(); it != (*ite_state)->getLastRule(); ++it){
+            uint* tab = new uint[SimulatorManager::getManager()->getStateNumber()];
+
             std::map<State*, uint> sum;
             for (auto it_vec_state = (*it)->getFirstState(); it_vec_state != (*it)->getLastState(); ++it_vec_state){
                 if ( sum.find(*it_vec_state) != sum.end()){
@@ -199,13 +202,17 @@ void TransitionInterface::displayExistingRules(){
                     sum[*it_vec_state] = 1;
                 }
             }
-            uint* tab = new uint[SimulatorManager::getManager()->getStateNumber()];
-            for (uint j = 0; j < SimulatorManager::getManager()->getStateNumber(); j++){
-                std::map<State*, uint>::iterator value_return_map = sum.find(*ite_state);
+            uint j = 0;
+            for (auto compare = SimulatorManager::getManager()->getFirstState(); compare != SimulatorManager::getManager()->getLastState(); compare++){
+                std::map<State*, uint>::iterator value_return_map = sum.find(*compare);
 
                 if (value_return_map != sum.end()){
                     tab[j] = value_return_map->second;
                 }
+                else{
+                    tab[j] = 0;
+                }
+                j++;
             }
 
             Transition* tr = new Transition(state_list, SimulatorManager::getManager()->getStateNumber(), SimulatorManager::getManager()->getSimulator()->getNeighbourNbr(),
@@ -220,6 +227,13 @@ void TransitionInterface::closeEvent(QCloseEvent* event){
     emit close_transition_interface();
 }
 
+TransitionInterface::~TransitionInterface(){
+    delete transition_valid;
+    delete transition_add_rule;
+    delete transition_layout;
+    delete title;
+    delete main_layout;
+}
 
 
 
@@ -370,3 +384,21 @@ void Transition::changedFinalState(int nb){
     final_color->item(0,0)->setBackground(QBrush(color, Qt::SolidPattern));
 }
 
+Transition::~Transition(){
+    delete final_color;
+    delete final_cell;
+    delete final_layout_combo;
+
+    delete[] neighbours_label;
+    for (unsigned int i = 0; i < nb_states; i++) {
+        delete neighbours[i]->second;
+    }
+    delete[] neighbours_layout;
+
+    delete start_color;
+    delete start_cell;
+    delete start_layout_combo;
+
+    delete final_layout;
+    delete start_layout;
+}

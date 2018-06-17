@@ -57,6 +57,7 @@ class Transition : public QHBoxLayout {
 		// Initializers
         Transition(State**, unsigned int, unsigned int, unsigned int* spin_box_tab = nullptr,
                                     State* state_start = nullptr, State* state_final = nullptr, bool modify = true);
+        ~Transition();
 		State* getStartState() { return start_state; }
 		State* getFinalState() { return final_state; }
 
@@ -99,6 +100,7 @@ class TransitionInterface : public QWidget {
 		friend class Transition;
 		// Slot validate
 		TransitionInterface();
+        ~TransitionInterface();
         void displayExistingRules();
 
 
