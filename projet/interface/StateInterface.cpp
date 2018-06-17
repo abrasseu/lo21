@@ -61,7 +61,8 @@ void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
 	color_button->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	color_button->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	color_button->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	color_button->setItem(0, 0, new QTableWidgetItem());
+    color_button->setItem(0, 0, new QTableWidgetItem());
+    color_button->item(0,0)->setBackground(QBrush(Qt::black));
 
 	// Config Color Selection
 	color_layout->addWidget(color_button);
@@ -80,10 +81,10 @@ void StateInterface::display_palette_color(QTableWidgetItem* button){
 	button->setSelected(false);
 	// Preset Color
 	QPalette color;
-	color.setColor(QPalette::Window, Qt::white);
+    color.setColor(QPalette::Window, Qt::black);
 
 	// Display color
-	QColor couleur = QColorDialog::getColor(Qt::white, color_button);
+    QColor couleur = QColorDialog::getColor(Qt::black, color_button);
 	color_button->setAutoFillBackground(false);
 
 	// Retrieve color & Set it to case
