@@ -49,6 +49,7 @@ void Interface1D::setGridBufferLength(QBoxLayout* parent){
  */
 void Interface1D::redrawGrid(QBoxLayout* parent) {
 	simulator = SimulatorManager::getManager()->getSimulator();
+    grid_dimension = simulator->getCellsSize();
 
 //    QMessageBox::warning(this, "taille", QString::number(grid_dimension));
 	// Initialisation de la ligne de départ

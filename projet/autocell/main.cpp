@@ -35,9 +35,8 @@ int main() {
         manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
         std::cout << std::endl;
-        
+
         // Jeu de la vie
-        manager->deleteSimulator();
         manager->removeState(manager->getState(0));
         manager->removeState(manager->getState(0));
 
@@ -65,6 +64,26 @@ int main() {
         manager->getSimulator()->printCells();
         manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
+
+        // Jeu WalkingDead
+        manager->removeState(manager->getState(0));
+        manager->removeState(manager->getState(0));
+
+        manager->createNewState("Humain", "#000000");
+        manager->createNewState("Militaire", "#663300");
+        manager->createNewState("Zombie", "#FF0000");
+        manager->createNewState("Mort", "#FFFFFF");
+
+        manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1), manager->getState(1)}, manager->getState(1)));
+        manager->getState(0)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(2)}, manager->getState(2)));
+        manager->getState(1)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(2), manager->getState(2)}, manager->getState(2)));
+        manager->getState(2)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(1), manager->getState(1)}, manager->getState(3)));
+        manager->getState(2)->addANewRule(manager->createNewRule(std::vector<State*>{manager->getState(2), manager->getState(2), manager->getState(2), manager->getState(2)}, manager->getState(3)));
+
+        manager->setGridSize(25);
+        manager->createSimulator(2);
+        manager->exportConfig("../saves/walking_dead.json");
+        std::cout << std::endl;
     } catch (SimulatorException e) {
         std::cout << e.what();
     }

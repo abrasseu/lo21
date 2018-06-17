@@ -22,6 +22,8 @@ Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
  * \param parent    layout prévu pour l'interface de simulation
  */
 void Interface2D::redrawGrid(QBoxLayout* parent) {
+    grid_dimension = SimulatorManager::getManager()->getGridSize();
+
 	// Delete and recreate grid if exists
 	if (grid_view != nullptr)
 		delete grid_view;

@@ -500,10 +500,11 @@ void SimulatorInterface::chosenAutomate(){
         try {
             // Récupération de la simulation
             manager = SimulatorManager::getManager();
-            try {
+            if (manager->simulatorExists()) {
                 simulator = manager->getSimulator();
                 grid_dimension = manager->getGridSize();
-            } catch(SimulatorException error) {
+            }
+            else {
                 manager->setGridSize(grid_dimension);
                 simulator = manager->createSimulator(automate_dimension);
             }
@@ -539,6 +540,7 @@ void SimulatorInterface::chosenAutomate(){
             initial_state_setter->setEnabled(true);
 
             redrawGrid(view_layout);
+            changeGridCells();
             blockAfterAutomateChosen();
             changeCellEnabled = true;
         } catch (SimulatorException error) {
