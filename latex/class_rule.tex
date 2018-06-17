@@ -1,0 +1,51 @@
+\hypertarget{class_rule}{}\section{Rule Class Reference}
+\label{class_rule}\index{Rule@{Rule}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_rule_a7759a5d0f1c93805e9001b4b09ee7926}\label{class_rule_a7759a5d0f1c93805e9001b4b09ee7926}} 
+{\bfseries Rule} (\mbox{\hyperlink{class_state}{State}} $\ast$state, std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$$>$ states)
+\item 
+\mbox{\Hypertarget{class_rule_a1ff6e04bbfb4f036d33cd0707f17d97f}\label{class_rule_a1ff6e04bbfb4f036d33cd0707f17d97f}} 
+{\bfseries Rule} (\mbox{\hyperlink{class_state}{State}} $\ast$state, \mbox{\hyperlink{class_state}{State}} $\ast$$\ast$states, uint size)
+\item 
+\mbox{\Hypertarget{class_rule_ad18f51e66244bb390f588319e0cc546a}\label{class_rule_ad18f51e66244bb390f588319e0cc546a}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries get\+State} () const
+\item 
+\mbox{\Hypertarget{class_rule_abb94999ebf28e2840f62581c8216971b}\label{class_rule_abb94999ebf28e2840f62581c8216971b}} 
+std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+First\+State} () const
+\item 
+\mbox{\Hypertarget{class_rule_a62e85179b195fd7db9317d1aba46ccb0}\label{class_rule_a62e85179b195fd7db9317d1aba46ccb0}} 
+std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+Last\+State} () const
+\item 
+\mbox{\Hypertarget{class_rule_a74b2decef119406fbb367347222ac3f4}\label{class_rule_a74b2decef119406fbb367347222ac3f4}} 
+std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$ $>$ {\bfseries get\+List\+States} () const
+\item 
+bool \mbox{\hyperlink{class_rule_af2ee35d50c019724a8de58c1b65586ec}{is\+True}} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$states, uint size)
+\begin{DoxyCompactList}\small\item\em Applique la règle si les conditions sont respectées. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_rule_af2ee35d50c019724a8de58c1b65586ec}\label{class_rule_af2ee35d50c019724a8de58c1b65586ec}} 
+\index{Rule@{Rule}!is\+True@{is\+True}}
+\index{is\+True@{is\+True}!Rule@{Rule}}
+\subsubsection{\texorpdfstring{is\+True()}{isTrue()}}
+{\footnotesize\ttfamily bool Rule\+::is\+True (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$}]{states,  }\item[{uint}]{size }\end{DoxyParamCaption})}
+
+
+
+Applique la règle si les conditions sont respectées. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em states} & pointeur de tableau d\textquotesingle{}états \\
+\hline
+{\em size} & position de la règle \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+autocell/Rule.\+h\item 
+autocell/Rule.\+cpp\end{DoxyCompactItemize}

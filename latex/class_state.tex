@@ -1,0 +1,80 @@
+\hypertarget{class_state}{}\section{State Class Reference}
+\label{class_state}\index{State@{State}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_state_a95e905b285b951ae866c64c56adb0ab4}\label{class_state_a95e905b285b951ae866c64c56adb0ab4}} 
+{\bfseries State} (std\+::string name, std\+::string color=\char`\"{}\#ffffff\char`\"{})
+\item 
+\mbox{\Hypertarget{class_state_a7aec8a3796220945cd69224d6980cfe4}\label{class_state_a7aec8a3796220945cd69224d6980cfe4}} 
+std\+::string {\bfseries get\+Name} () const
+\item 
+\mbox{\Hypertarget{class_state_a18786bc143a74eed3c70afdac4581cbe}\label{class_state_a18786bc143a74eed3c70afdac4581cbe}} 
+std\+::string {\bfseries get\+Color} () const
+\item 
+\mbox{\Hypertarget{class_state_ae768b6ec485cc35e47296946b2fd686b}\label{class_state_ae768b6ec485cc35e47296946b2fd686b}} 
+std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+First\+Rule} () const
+\item 
+\mbox{\Hypertarget{class_state_a155c445f8afd73f0de633ed0261ac368}\label{class_state_a155c445f8afd73f0de633ed0261ac368}} 
+std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+Last\+Rule} () const
+\item 
+\mbox{\Hypertarget{class_state_a69d34bf17b5f37c12df6409c8d0a4f73}\label{class_state_a69d34bf17b5f37c12df6409c8d0a4f73}} 
+std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$ $>$ {\bfseries get\+Rules} () const
+\item 
+\mbox{\Hypertarget{class_state_a4e008e0093650d4089a5b5d06edf27b0}\label{class_state_a4e008e0093650d4089a5b5d06edf27b0}} 
+void {\bfseries set\+Name} (std\+::string name)
+\item 
+\mbox{\Hypertarget{class_state_a2d5798b233e5a6f5926fe5fb664dc19c}\label{class_state_a2d5798b233e5a6f5926fe5fb664dc19c}} 
+void {\bfseries set\+Color} (std\+::string color)
+\item 
+void \mbox{\hyperlink{class_state_ae180b397cb705b41ec417c34a46473dc}{add\+A\+New\+Rule}} (\mbox{\hyperlink{class_rule}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em Ajoute une règle à l\textquotesingle{}état. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_state_accc2568a8052d334b9ff57208b749042}\label{class_state_accc2568a8052d334b9ff57208b749042}} 
+void {\bfseries remove\+Rule} (std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$$>$\+::const\+\_\+iterator rule)
+\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_state_a0c83be85a68011616dad6e9df0bee725}{get\+Next\+Generation}} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$states, uint size)
+\begin{DoxyCompactList}\small\item\em Change les états de génération. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_state_ae180b397cb705b41ec417c34a46473dc}\label{class_state_ae180b397cb705b41ec417c34a46473dc}} 
+\index{State@{State}!add\+A\+New\+Rule@{add\+A\+New\+Rule}}
+\index{add\+A\+New\+Rule@{add\+A\+New\+Rule}!State@{State}}
+\subsubsection{\texorpdfstring{add\+A\+New\+Rule()}{addANewRule()}}
+{\footnotesize\ttfamily void State\+::add\+A\+New\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_rule}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+Ajoute une règle à l\textquotesingle{}état. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & pointeur sur la règle à ajouter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_state_a0c83be85a68011616dad6e9df0bee725}\label{class_state_a0c83be85a68011616dad6e9df0bee725}} 
+\index{State@{State}!get\+Next\+Generation@{get\+Next\+Generation}}
+\index{get\+Next\+Generation@{get\+Next\+Generation}!State@{State}}
+\subsubsection{\texorpdfstring{get\+Next\+Generation()}{getNextGeneration()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ State\+::get\+Next\+Generation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$}]{states,  }\item[{uint}]{size }\end{DoxyParamCaption})}
+
+
+
+Change les états de génération. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em states} & tableau de pointeurs des états \\
+\hline
+{\em size} & nombre d\textquotesingle{}états \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} {\itshape d\textquotesingle{}} {\itshape état} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+autocell/State.\+h\item 
+autocell/State.\+cpp\end{DoxyCompactItemize}

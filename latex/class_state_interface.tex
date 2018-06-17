@@ -1,0 +1,150 @@
+\hypertarget{class_state_interface}{}\section{State\+Interface Class Reference}
+\label{class_state_interface}\index{State\+Interface@{State\+Interface}}
+Inheritance diagram for State\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_state_interface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_state_interface_a27a39ab128f381cfe12927c08cc9f83e}{State\+Interface}} (std\+::string name=std\+::string(), std\+::string c=std\+::string(), \mbox{\hyperlink{class_state}{State}} $\ast$s=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructeur de l\textquotesingle{}affichage d\textquotesingle{}un état. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_state_interface_a39e72885dbe9c56859e3f0521fc2dc29}\label{class_state_interface_a39e72885dbe9c56859e3f0521fc2dc29}} 
+\mbox{\hyperlink{class_state_interface_a39e72885dbe9c56859e3f0521fc2dc29}{$\sim$\+State\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Destructeur de l\textquotesingle{}affichage d\textquotesingle{}un état. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_state_interface_a621643404147c6de3900bae0b9bfb864}\label{class_state_interface_a621643404147c6de3900bae0b9bfb864}} 
+void {\bfseries set\+State} (\mbox{\hyperlink{class_state}{State}} $\ast$s)
+\item 
+\mbox{\Hypertarget{class_state_interface_a5286f1ce803ebaacfa131d3a3ecd7024}\label{class_state_interface_a5286f1ce803ebaacfa131d3a3ecd7024}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries get\+State} () const
+\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_state_interface_a7cbb40dbcd158c1a871a50db7148e437}{display\+\_\+palette\+\_\+color}} (Q\+Table\+Widget\+Item $\ast$)
+\begin{DoxyCompactList}\small\item\em Affiche la fenêtre du choix des couleurs pour l\textquotesingle{}état. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_state_interface_ac719c2f6bf1897ac5c7e852e73b95aca}{set\+Name\+Layout}} (Q\+Box\+Layout $\ast$parent, std\+::string name=std\+::string())
+\begin{DoxyCompactList}\small\item\em Crée et affiche les champs pour entrer le nom de l\textquotesingle{}état. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_state_interface_aaa101c2f5dc677034b0fdef57c45ce68}{set\+Color\+Layout}} (Q\+Box\+Layout $\ast$parent, std\+::string name=std\+::string())
+\begin{DoxyCompactList}\small\item\em Crée et affiche les champs pour entrer la couleur de l\textquotesingle{}état. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_state_interface_a5629b695676a2cbc10e8be2c29a188af}\label{class_state_interface_a5629b695676a2cbc10e8be2c29a188af}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries state}
+\item 
+\mbox{\Hypertarget{class_state_interface_a79696d658e84991ddac8e1bea8ac9025}\label{class_state_interface_a79696d658e84991ddac8e1bea8ac9025}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries state\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_state_interface_a94caf6043658dbe71ea3c1df6b7da930}\label{class_state_interface_a94caf6043658dbe71ea3c1df6b7da930}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries name\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_state_interface_a30016f369c5a1aaa47b3ee0fb75874cc}\label{class_state_interface_a30016f369c5a1aaa47b3ee0fb75874cc}} 
+Q\+Label $\ast$ {\bfseries state\+\_\+name\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_state_interface_abdbf14e6db68625a295112ada0121cb8}\label{class_state_interface_abdbf14e6db68625a295112ada0121cb8}} 
+Q\+Line\+Edit $\ast$ {\bfseries state\+\_\+name}
+\item 
+\mbox{\Hypertarget{class_state_interface_a5a0ad3be37beb3b42babea7bcf1466bd}\label{class_state_interface_a5a0ad3be37beb3b42babea7bcf1466bd}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries color\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_state_interface_a625022d6ab1c71928caa9a599c039547}\label{class_state_interface_a625022d6ab1c71928caa9a599c039547}} 
+Q\+Table\+Widget $\ast$ {\bfseries color\+\_\+button}
+\item 
+\mbox{\Hypertarget{class_state_interface_af2285532a84d853221b49488d21e27e6}\label{class_state_interface_af2285532a84d853221b49488d21e27e6}} 
+Q\+Label $\ast$ {\bfseries state\+\_\+color\+\_\+label}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_state_interface_a936dbb0eeaa56c0fa3958ab784a4a413}\label{class_state_interface_a936dbb0eeaa56c0fa3958ab784a4a413}} 
+class {\bfseries Simulator\+Interface}
+\item 
+\mbox{\Hypertarget{class_state_interface_a68f5e7fd83cf43d403714b0ccc0c0aec}\label{class_state_interface_a68f5e7fd83cf43d403714b0ccc0c0aec}} 
+class {\bfseries Interface1D}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_state_interface_a27a39ab128f381cfe12927c08cc9f83e}\label{class_state_interface_a27a39ab128f381cfe12927c08cc9f83e}} 
+\index{State\+Interface@{State\+Interface}!State\+Interface@{State\+Interface}}
+\index{State\+Interface@{State\+Interface}!State\+Interface@{State\+Interface}}
+\subsubsection{\texorpdfstring{State\+Interface()}{StateInterface()}}
+{\footnotesize\ttfamily State\+Interface\+::\+State\+Interface (\begin{DoxyParamCaption}\item[{std\+::string}]{n = {\ttfamily std\+:\+:string()},  }\item[{std\+::string}]{c = {\ttfamily std\+:\+:string()},  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{s = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructeur de l\textquotesingle{}affichage d\textquotesingle{}un état. 
+
+Crée les layout qui contiennet les différents champs d\textquotesingle{}affichage d\textquotesingle{}un état 
+\begin{DoxyParams}{Parameters}
+{\em n} & nom de l\textquotesingle{}état \\
+\hline
+{\em c} & couleur de l\textquotesingle{}état \\
+\hline
+{\em s} & pointeur de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_state_interface_a7cbb40dbcd158c1a871a50db7148e437}\label{class_state_interface_a7cbb40dbcd158c1a871a50db7148e437}} 
+\index{State\+Interface@{State\+Interface}!display\+\_\+palette\+\_\+color@{display\+\_\+palette\+\_\+color}}
+\index{display\+\_\+palette\+\_\+color@{display\+\_\+palette\+\_\+color}!State\+Interface@{State\+Interface}}
+\subsubsection{\texorpdfstring{display\+\_\+palette\+\_\+color}{display\_palette\_color}}
+{\footnotesize\ttfamily void State\+Interface\+::display\+\_\+palette\+\_\+color (\begin{DoxyParamCaption}\item[{Q\+Table\+Widget\+Item $\ast$}]{button }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Affiche la fenêtre du choix des couleurs pour l\textquotesingle{}état. 
+
+Slot. Ouvre la fenêtre des choix de couleurs lors du clic sur le bouton 
+\begin{DoxyParams}{Parameters}
+{\em button} & bouton contenant la couleur choisie pour l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_state_interface_aaa101c2f5dc677034b0fdef57c45ce68}\label{class_state_interface_aaa101c2f5dc677034b0fdef57c45ce68}} 
+\index{State\+Interface@{State\+Interface}!set\+Color\+Layout@{set\+Color\+Layout}}
+\index{set\+Color\+Layout@{set\+Color\+Layout}!State\+Interface@{State\+Interface}}
+\subsubsection{\texorpdfstring{set\+Color\+Layout()}{setColorLayout()}}
+{\footnotesize\ttfamily void State\+Interface\+::set\+Color\+Layout (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent,  }\item[{std\+::string}]{color = {\ttfamily std\+:\+:string()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée et affiche les champs pour entrer la couleur de l\textquotesingle{}état. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+{\em color} & couleur de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_state_interface_ac719c2f6bf1897ac5c7e852e73b95aca}\label{class_state_interface_ac719c2f6bf1897ac5c7e852e73b95aca}} 
+\index{State\+Interface@{State\+Interface}!set\+Name\+Layout@{set\+Name\+Layout}}
+\index{set\+Name\+Layout@{set\+Name\+Layout}!State\+Interface@{State\+Interface}}
+\subsubsection{\texorpdfstring{set\+Name\+Layout()}{setNameLayout()}}
+{\footnotesize\ttfamily void State\+Interface\+::set\+Name\+Layout (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent,  }\item[{std\+::string}]{name = {\ttfamily std\+:\+:string()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée et affiche les champs pour entrer le nom de l\textquotesingle{}état. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+{\em name} & nom de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/State\+Interface.\+h\item 
+interface/State\+Interface.\+cpp\end{DoxyCompactItemize}

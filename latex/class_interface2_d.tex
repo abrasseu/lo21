@@ -1,0 +1,122 @@
+\hypertarget{class_interface2_d}{}\section{Interface2D Class Reference}
+\label{class_interface2_d}\index{Interface2D@{Interface2D}}
+Inheritance diagram for Interface2D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_interface2_d}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_interface2_d_a8a7b688756ef687fd15059a526278170}{Interface2D}} (bool draw=false)
+\begin{DoxyCompactList}\small\item\em Constructeur de l\textquotesingle{}interface 2D. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_interface2_d_ac9b111f941584c6858c2fc293921cd58}{rotate\+Cell\+State}} (int, int)
+\begin{DoxyCompactList}\small\item\em Change l\textquotesingle{}état de la cellule cliquée. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_interface2_d_ac6472a84605f28bb34bff02850ac8414}{redraw\+Grid}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Affiche l\textquotesingle{}interface de simulation\+: la grille. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_interface2_d_a5db4a04ba08605e06b682c3503f9260e}\label{class_interface2_d_a5db4a04ba08605e06b682c3503f9260e}} 
+void \mbox{\hyperlink{class_interface2_d_a5db4a04ba08605e06b682c3503f9260e}{change\+Grid\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Change les états de la grilles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface2_d_a44b18f9f41e84e09037e60e0163b801d}{block\+After\+Automate\+Chosen}} ()
+\begin{DoxyCompactList}\small\item\em Autorise les clics sur la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_interface2_d_ab20f92429f8ce70f149a465b3f6b48c4}{block\+After\+Automate\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Empêche les clics sur la grille. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_interface2_d_a5936664e8e4469ce700b6e3692057dc2}\label{class_interface2_d_a5936664e8e4469ce700b6e3692057dc2}} 
+Q\+Table\+Widget $\ast$ {\bfseries grid\+\_\+view} = nullptr
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_interface2_d_a8a7b688756ef687fd15059a526278170}\label{class_interface2_d_a8a7b688756ef687fd15059a526278170}} 
+\index{Interface2D@{Interface2D}!Interface2D@{Interface2D}}
+\index{Interface2D@{Interface2D}!Interface2D@{Interface2D}}
+\subsubsection{\texorpdfstring{Interface2\+D()}{Interface2D()}}
+{\footnotesize\ttfamily Interface2\+D\+::\+Interface2D (\begin{DoxyParamCaption}\item[{bool}]{draw = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Constructeur de l\textquotesingle{}interface 2D. 
+
+Construit l\textquotesingle{}interface 2D en héritant de la classe {\itshape \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}} et de son constructeur 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_interface2_d_ab20f92429f8ce70f149a465b3f6b48c4}\label{class_interface2_d_ab20f92429f8ce70f149a465b3f6b48c4}} 
+\index{Interface2D@{Interface2D}!block\+After\+Automate\+Changed@{block\+After\+Automate\+Changed}}
+\index{block\+After\+Automate\+Changed@{block\+After\+Automate\+Changed}!Interface2D@{Interface2D}}
+\subsubsection{\texorpdfstring{block\+After\+Automate\+Changed()}{blockAfterAutomateChanged()}}
+{\footnotesize\ttfamily void Interface2\+D\+::block\+After\+Automate\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Empêche les clics sur la grille. 
+
+{\itshape Slot}. Empêche les clics pendant que l\textquotesingle{}utilisateur choisit les paramètres 
+
+Reimplemented from \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface2_d_a44b18f9f41e84e09037e60e0163b801d}\label{class_interface2_d_a44b18f9f41e84e09037e60e0163b801d}} 
+\index{Interface2D@{Interface2D}!block\+After\+Automate\+Chosen@{block\+After\+Automate\+Chosen}}
+\index{block\+After\+Automate\+Chosen@{block\+After\+Automate\+Chosen}!Interface2D@{Interface2D}}
+\subsubsection{\texorpdfstring{block\+After\+Automate\+Chosen()}{blockAfterAutomateChosen()}}
+{\footnotesize\ttfamily void Interface2\+D\+::block\+After\+Automate\+Chosen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Autorise les clics sur la grille. 
+
+{\itshape Slot}. Autorise les clics une fois que les paramètres du simulateur sont choisies, on peut de nouveau modifier la grille 
+
+Reimplemented from \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface2_d_ac6472a84605f28bb34bff02850ac8414}\label{class_interface2_d_ac6472a84605f28bb34bff02850ac8414}} 
+\index{Interface2D@{Interface2D}!redraw\+Grid@{redraw\+Grid}}
+\index{redraw\+Grid@{redraw\+Grid}!Interface2D@{Interface2D}}
+\subsubsection{\texorpdfstring{redraw\+Grid()}{redrawGrid()}}
+{\footnotesize\ttfamily void Interface2\+D\+::redraw\+Grid (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Affiche l\textquotesingle{}interface de simulation\+: la grille. 
+
+Construit et affiche l\textquotesingle{}interface de simulation, crée et affiche la grille 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout prévu pour l\textquotesingle{}interface de simulation \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}.
+
+\mbox{\Hypertarget{class_interface2_d_ac9b111f941584c6858c2fc293921cd58}\label{class_interface2_d_ac9b111f941584c6858c2fc293921cd58}} 
+\index{Interface2D@{Interface2D}!rotate\+Cell\+State@{rotate\+Cell\+State}}
+\index{rotate\+Cell\+State@{rotate\+Cell\+State}!Interface2D@{Interface2D}}
+\subsubsection{\texorpdfstring{rotate\+Cell\+State}{rotateCellState}}
+{\footnotesize\ttfamily void Interface2\+D\+::rotate\+Cell\+State (\begin{DoxyParamCaption}\item[{int}]{i,  }\item[{int}]{j }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Change l\textquotesingle{}état de la cellule cliquée. 
+
+Slot. Augmente d\textquotesingle{}un état la cellule cliquée 
+\begin{DoxyParams}{Parameters}
+{\em i} & ligne de la cellule cliquée \\
+\hline
+{\em j} & colonne de la cellule cliquée \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/Interface2\+D.\+h\item 
+interface/Interface2\+D.\+cpp\end{DoxyCompactItemize}

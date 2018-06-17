@@ -1,0 +1,289 @@
+\hypertarget{class_simulator_manager}{}\section{Simulator\+Manager Class Reference}
+\label{class_simulator_manager}\index{Simulator\+Manager@{Simulator\+Manager}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_simulator_manager_ae76186f657172c36ce5b820432e05350}{simulator\+Exists}} ()
+\begin{DoxyCompactList}\small\item\em Test si le simulateur existe. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ \mbox{\hyperlink{class_simulator_manager_aa540cc8716a5fc14dd7f920d554d7828}{get\+Simulator}} ()
+\begin{DoxyCompactList}\small\item\em Renvoie le simulateur instancié \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ \mbox{\hyperlink{class_simulator_manager_af713a5605970b710c2526e7f6ee51a89}{create\+Simulator}} (uint dimension=0)
+\begin{DoxyCompactList}\small\item\em Créer un simulateur de taille demandée. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_manager_a858397d30594975df99d6f59ab03e57d}\label{class_simulator_manager_a858397d30594975df99d6f59ab03e57d}} 
+void \mbox{\hyperlink{class_simulator_manager_a858397d30594975df99d6f59ab03e57d}{delete\+Simulator}} ()
+\begin{DoxyCompactList}\small\item\em Supprime le simulateur existant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_manager_a6660c9abb849ae44215625a7f3555857}\label{class_simulator_manager_a6660c9abb849ae44215625a7f3555857}} 
+uint {\bfseries get\+Dimension} ()
+\item 
+\mbox{\Hypertarget{class_simulator_manager_a2edfb49c5ec31d9cc893ed1d1d7180a1}\label{class_simulator_manager_a2edfb49c5ec31d9cc893ed1d1d7180a1}} 
+void {\bfseries set\+Dimension} (uint dimension)
+\item 
+\mbox{\Hypertarget{class_simulator_manager_acddaaa3b1b34a1eaaa04d3a66bbc3c61}\label{class_simulator_manager_acddaaa3b1b34a1eaaa04d3a66bbc3c61}} 
+uint {\bfseries get\+Grid\+Size} ()
+\item 
+void \mbox{\hyperlink{class_simulator_manager_af21cbe0dd12b91b567a0169d39459694}{set\+Grid\+Size}} (uint grid\+Size)
+\begin{DoxyCompactList}\small\item\em Implémente une grille de taille demandée. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_simulator_manager_a54c020cc0735a41d4ed14e83d5b073c7}{get\+State}} (uint position)
+\begin{DoxyCompactList}\small\item\em Renvoie l\textquotesingle{}état à la position demandée. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_simulator_manager_aa2158ff5323a4d4748b548175e5db148}{get\+State}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Renvoie l\textquotesingle{}état avec le nom demandé \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_manager_a0019daf92959931ba6abee3e0ffd022d}\label{class_simulator_manager_a0019daf92959931ba6abee3e0ffd022d}} 
+uint {\bfseries get\+State\+Number} () const
+\item 
+\mbox{\Hypertarget{class_simulator_manager_a1ab2c93fa19badf967918a0afca708f0}\label{class_simulator_manager_a1ab2c93fa19badf967918a0afca708f0}} 
+std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+First\+State} () const
+\item 
+\mbox{\Hypertarget{class_simulator_manager_a75bfd6a827f18229f87f9509635bf232}\label{class_simulator_manager_a75bfd6a827f18229f87f9509635bf232}} 
+std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+Last\+State} () const
+\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_simulator_manager_a2f8bcdd270d9796aa9c5ba7ddc9c9ab8}{create\+New\+State}} (std\+::string name, std\+::string color)
+\begin{DoxyCompactList}\small\item\em Crée un nouvel état avec les paramètres précisés. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_manager_abe61b011be2d4d43c956cbc2d0cca186}{remove\+State}} (\mbox{\hyperlink{class_state}{State}} $\ast$state)
+\begin{DoxyCompactList}\small\item\em Supprime l\textquotesingle{}état demandé \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_rule}{Rule}} $\ast$ \mbox{\hyperlink{class_simulator_manager_a9a3c8a76c720b2539d67d812c967eb5c}{get\+Rule}} (uint position)
+\begin{DoxyCompactList}\small\item\em Renvoie une règle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_manager_af9106cc20549e92c49e673188e9c7170}\label{class_simulator_manager_af9106cc20549e92c49e673188e9c7170}} 
+uint {\bfseries get\+Rule\+Number} ()
+\item 
+\mbox{\Hypertarget{class_simulator_manager_aae814839bf8952705d2e415676bc17f9}\label{class_simulator_manager_aae814839bf8952705d2e415676bc17f9}} 
+std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+First\+Rule} () const
+\item 
+\mbox{\Hypertarget{class_simulator_manager_a488544de9b6e91cf897dbad4b33e298c}\label{class_simulator_manager_a488544de9b6e91cf897dbad4b33e298c}} 
+std\+::vector$<$ \mbox{\hyperlink{class_rule}{Rule}} $\ast$ $>$\+::const\+\_\+iterator {\bfseries get\+Last\+Rule} () const
+\item 
+\mbox{\hyperlink{class_rule}{Rule}} $\ast$ \mbox{\hyperlink{class_simulator_manager_aa6810debdafa76433bef399acff9d3a6}{create\+New\+Rule}} (std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$$>$ states, \mbox{\hyperlink{class_state}{State}} $\ast$end\+State)
+\begin{DoxyCompactList}\small\item\em Crée une nouvelle règle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_manager_af1d1744014e8898b4e0a359c4a68e29e}{remove\+Rule}} (\mbox{\hyperlink{class_rule}{Rule}} $\ast$rule)
+\begin{DoxyCompactList}\small\item\em Supprime la règle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_manager_aec08912c275853dde6469bdb98067063}{export\+Config}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Exporte la configuration à sauvegarder. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_manager_a1585f10ac98e7e57c47bead4c096c8e0}{import\+Config}} (std\+::string path)
+\begin{DoxyCompactList}\small\item\em Importe la configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_manager_a7c3af1da57c267aaadc91cd03a0b0ad2}\label{class_simulator_manager_a7c3af1da57c267aaadc91cd03a0b0ad2}} 
+static \mbox{\hyperlink{class_simulator_manager}{Simulator\+Manager}} $\ast$ {\bfseries get\+Manager} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulator_manager_aa6810debdafa76433bef399acff9d3a6}\label{class_simulator_manager_aa6810debdafa76433bef399acff9d3a6}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!create\+New\+Rule@{create\+New\+Rule}}
+\index{create\+New\+Rule@{create\+New\+Rule}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{create\+New\+Rule()}{createNewRule()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_rule}{Rule}} $\ast$ Simulator\+Manager\+::create\+New\+Rule (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_state}{State}} $\ast$$>$}]{states,  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{end\+State }\end{DoxyParamCaption})}
+
+
+
+Crée une nouvelle règle. 
+
+L\textquotesingle{}état d\textquotesingle{}arrivée est l\textquotesingle{}état que deviendra l\textquotesingle{}état en question si la règle est respectée 
+\begin{DoxyParams}{Parameters}
+{\em states} & vecteur d\textquotesingle{}état correspondant à la règle \\
+\hline
+{\em end\+State} & pointeur sur l\textquotesingle{}état d\textquotesingle{}arrivée de la règle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur la {\itshape règle} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_a2f8bcdd270d9796aa9c5ba7ddc9c9ab8}\label{class_simulator_manager_a2f8bcdd270d9796aa9c5ba7ddc9c9ab8}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!create\+New\+State@{create\+New\+State}}
+\index{create\+New\+State@{create\+New\+State}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{create\+New\+State()}{createNewState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ Simulator\+Manager\+::create\+New\+State (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{std\+::string}]{color }\end{DoxyParamCaption})}
+
+
+
+Crée un nouvel état avec les paramètres précisés. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & nom de l\textquotesingle{}état \\
+\hline
+{\em color} & couleur de l\textquotesingle{}état à créer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur l\textquotesingle{} {\itshape état} créé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_af713a5605970b710c2526e7f6ee51a89}\label{class_simulator_manager_af713a5605970b710c2526e7f6ee51a89}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!create\+Simulator@{create\+Simulator}}
+\index{create\+Simulator@{create\+Simulator}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{create\+Simulator()}{createSimulator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ Simulator\+Manager\+::create\+Simulator (\begin{DoxyParamCaption}\item[{uint}]{dimension = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Créer un simulateur de taille demandée. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dimension} & dimension de l\textquotesingle{}automate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur le {\itshape simulateur} créé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_aec08912c275853dde6469bdb98067063}\label{class_simulator_manager_aec08912c275853dde6469bdb98067063}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!export\+Config@{export\+Config}}
+\index{export\+Config@{export\+Config}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{export\+Config()}{exportConfig()}}
+{\footnotesize\ttfamily void Simulator\+Manager\+::export\+Config (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Exporte la configuration à sauvegarder. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & chemin du fichier à exporter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_manager_a9a3c8a76c720b2539d67d812c967eb5c}\label{class_simulator_manager_a9a3c8a76c720b2539d67d812c967eb5c}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!get\+Rule@{get\+Rule}}
+\index{get\+Rule@{get\+Rule}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{get\+Rule()}{getRule()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_rule}{Rule}} $\ast$ Simulator\+Manager\+::get\+Rule (\begin{DoxyParamCaption}\item[{uint}]{position }\end{DoxyParamCaption})}
+
+
+
+Renvoie une règle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & position de la règle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur la {\itshape règle} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_aa540cc8716a5fc14dd7f920d554d7828}\label{class_simulator_manager_aa540cc8716a5fc14dd7f920d554d7828}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!get\+Simulator@{get\+Simulator}}
+\index{get\+Simulator@{get\+Simulator}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{get\+Simulator()}{getSimulator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ Simulator\+Manager\+::get\+Simulator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Renvoie le simulateur instancié 
+
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur le {\itshape simulateur} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_a54c020cc0735a41d4ed14e83d5b073c7}\label{class_simulator_manager_a54c020cc0735a41d4ed14e83d5b073c7}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!get\+State@{get\+State}}
+\index{get\+State@{get\+State}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{get\+State()}{getState()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ Simulator\+Manager\+::get\+State (\begin{DoxyParamCaption}\item[{uint}]{position }\end{DoxyParamCaption})}
+
+
+
+Renvoie l\textquotesingle{}état à la position demandée. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & position de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur le {\itshape état} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_aa2158ff5323a4d4748b548175e5db148}\label{class_simulator_manager_aa2158ff5323a4d4748b548175e5db148}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!get\+State@{get\+State}}
+\index{get\+State@{get\+State}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{get\+State()}{getState()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ Simulator\+Manager\+::get\+State (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Renvoie l\textquotesingle{}état avec le nom demandé 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & nom de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} sur le {\itshape état} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_manager_a1585f10ac98e7e57c47bead4c096c8e0}\label{class_simulator_manager_a1585f10ac98e7e57c47bead4c096c8e0}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!import\+Config@{import\+Config}}
+\index{import\+Config@{import\+Config}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{import\+Config()}{importConfig()}}
+{\footnotesize\ttfamily void Simulator\+Manager\+::import\+Config (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})}
+
+
+
+Importe la configuration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & chemin du fichier à importer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_manager_af1d1744014e8898b4e0a359c4a68e29e}\label{class_simulator_manager_af1d1744014e8898b4e0a359c4a68e29e}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!remove\+Rule@{remove\+Rule}}
+\index{remove\+Rule@{remove\+Rule}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{remove\+Rule()}{removeRule()}}
+{\footnotesize\ttfamily void Simulator\+Manager\+::remove\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_rule}{Rule}} $\ast$}]{rule }\end{DoxyParamCaption})}
+
+
+
+Supprime la règle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rule} & pointeur sur la règle à supprimer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_manager_abe61b011be2d4d43c956cbc2d0cca186}\label{class_simulator_manager_abe61b011be2d4d43c956cbc2d0cca186}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!remove\+State@{remove\+State}}
+\index{remove\+State@{remove\+State}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{remove\+State()}{removeState()}}
+{\footnotesize\ttfamily void Simulator\+Manager\+::remove\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{state }\end{DoxyParamCaption})}
+
+
+
+Supprime l\textquotesingle{}état demandé 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & pointeur sur l\textquotesingle{}état à supprimer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_manager_af21cbe0dd12b91b567a0169d39459694}\label{class_simulator_manager_af21cbe0dd12b91b567a0169d39459694}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!set\+Grid\+Size@{set\+Grid\+Size}}
+\index{set\+Grid\+Size@{set\+Grid\+Size}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{set\+Grid\+Size()}{setGridSize()}}
+{\footnotesize\ttfamily void Simulator\+Manager\+::set\+Grid\+Size (\begin{DoxyParamCaption}\item[{uint}]{grid\+Size }\end{DoxyParamCaption})}
+
+
+
+Implémente une grille de taille demandée. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grid\+Size} & taille de la grille à implémenter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_manager_ae76186f657172c36ce5b820432e05350}\label{class_simulator_manager_ae76186f657172c36ce5b820432e05350}} 
+\index{Simulator\+Manager@{Simulator\+Manager}!simulator\+Exists@{simulator\+Exists}}
+\index{simulator\+Exists@{simulator\+Exists}!Simulator\+Manager@{Simulator\+Manager}}
+\subsubsection{\texorpdfstring{simulator\+Exists()}{simulatorExists()}}
+{\footnotesize\ttfamily bool Simulator\+Manager\+::simulator\+Exists (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Test si le simulateur existe. 
+
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape booléen} pour indiquer si le simulateur existe 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+autocell/Simulator\+Manager.\+h\item 
+autocell/Simulator\+Manager.\+cpp\end{DoxyCompactItemize}

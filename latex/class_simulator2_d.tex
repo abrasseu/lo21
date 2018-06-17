@@ -1,0 +1,189 @@
+\hypertarget{class_simulator2_d}{}\section{Simulator2D Class Reference}
+\label{class_simulator2_d}\index{Simulator2D@{Simulator2D}}
+Inheritance diagram for Simulator2D\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simulator2_d}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator2_d_a51abb01203ca34d322afe50de74a9843}\label{class_simulator2_d_a51abb01203ca34d322afe50de74a9843}} 
+{\bfseries Simulator2D} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$states, uint state\+Nbr, uint cells\+Size)
+\item 
+bool \mbox{\hyperlink{class_simulator2_d_abeeb707f6eef5355d94e41848bdffc56}{set\+Cell}} (\mbox{\hyperlink{class_state}{State}} $\ast$state, uint x, uint y)
+\begin{DoxyCompactList}\small\item\em Met une cellule à jour. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_simulator2_d_ad62d4ce6ea01879a9ff84718e5bdc092}{get\+Cell}} (uint x, uint y) const
+\begin{DoxyCompactList}\small\item\em Renvoie la cellule aux positions sélectionnées. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator2_d_a3a2ca51575ab99653aae5293048926b2}\label{class_simulator2_d_a3a2ca51575ab99653aae5293048926b2}} 
+void \mbox{\hyperlink{class_simulator2_d_a3a2ca51575ab99653aae5293048926b2}{generate\+Horizontal\+Symetric\+Random\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à l\textquotesingle{}horizontal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator2_d_a35f64616ae0e63898d2dfb51fff19ca7}\label{class_simulator2_d_a35f64616ae0e63898d2dfb51fff19ca7}} 
+void \mbox{\hyperlink{class_simulator2_d_a35f64616ae0e63898d2dfb51fff19ca7}{generate\+Vertical\+Symetric\+Random\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Génère la moitié des cellules aléatoirement et réalise la symétrie sur les autres cellules par rapport à la verticale. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator2_d_aaaf3a1680a083756edfc6f3c09b64b38}{increment\+State}} (uint x, uint y)
+\begin{DoxyCompactList}\small\item\em Incrémente un état. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator2_d_a57512a1b5ad0b86fbff6bbabcf69e8a3}\label{class_simulator2_d_a57512a1b5ad0b86fbff6bbabcf69e8a3}} 
+void \mbox{\hyperlink{class_simulator2_d_a57512a1b5ad0b86fbff6bbabcf69e8a3}{print\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Affiche les cellules en console. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulator2_d_afdf446164f5fc9ee2567405377acbea0}{set\+Cell}} (\mbox{\hyperlink{class_state}{State}} $\ast$state, uint position)
+\begin{DoxyCompactList}\small\item\em Applique un état à une cellule. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$ \mbox{\hyperlink{class_simulator2_d_ae70ae4a330ecf02f4a9a19117c2f72ec}{get\+Cell}} (uint position) const
+\begin{DoxyCompactList}\small\item\em Récupère l\textquotesingle{}état de la cellule. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator2_d_a13bef7a120cba5b62fed4a89f0bc627a}{increment\+State}} (uint position)
+\begin{DoxyCompactList}\small\item\em Incrémente un état. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$ \mbox{\hyperlink{class_simulator2_d_ab55bb44d381dd2554457613426eecd86}{get\+Neighbours\+State}} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$states, uint position)
+\begin{DoxyCompactList}\small\item\em Retourne les états des voisins de la cellule. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator2_d_afc0e1c55404f13b822dc4bd827eba309}\label{class_simulator2_d_afc0e1c55404f13b822dc4bd827eba309}} 
+void \mbox{\hyperlink{class_simulator2_d_afc0e1c55404f13b822dc4bd827eba309}{generate\+Cells}} ()
+\begin{DoxyCompactList}\small\item\em Création du tableau cell. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulator2_d_ad62d4ce6ea01879a9ff84718e5bdc092}\label{class_simulator2_d_ad62d4ce6ea01879a9ff84718e5bdc092}} 
+\index{Simulator2D@{Simulator2D}!get\+Cell@{get\+Cell}}
+\index{get\+Cell@{get\+Cell}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{get\+Cell()}{getCell()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ Simulator2\+D\+::get\+Cell (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y }\end{DoxyParamCaption}) const}
+
+
+
+Renvoie la cellule aux positions sélectionnées. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & ligne de la cellule sélectionnée \\
+\hline
+{\em y} & colonne de la cellule sélectionnée \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} d\textquotesingle{}état 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator2_d_ae70ae4a330ecf02f4a9a19117c2f72ec}\label{class_simulator2_d_ae70ae4a330ecf02f4a9a19117c2f72ec}} 
+\index{Simulator2D@{Simulator2D}!get\+Cell@{get\+Cell}}
+\index{get\+Cell@{get\+Cell}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{get\+Cell()}{getCell()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$ Simulator\+::get\+Cell}
+
+
+
+Récupère l\textquotesingle{}état de la cellule. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & position de la cellule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape pointeur} {\itshape d\textquotesingle{}} {\itshape état} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator2_d_ab55bb44d381dd2554457613426eecd86}\label{class_simulator2_d_ab55bb44d381dd2554457613426eecd86}} 
+\index{Simulator2D@{Simulator2D}!get\+Neighbours\+State@{get\+Neighbours\+State}}
+\index{get\+Neighbours\+State@{get\+Neighbours\+State}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{get\+Neighbours\+State()}{getNeighboursState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_state}{State}} $\ast$$\ast$ Simulator2\+D\+::get\+Neighbours\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$}]{states,  }\item[{uint}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Retourne les états des voisins de la cellule. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em states} & tableau de pointeurs d\textquotesingle{}états \\
+\hline
+{\em position} & position de la cellule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape tableau} {\itshape de} {\itshape pointeurs} d\textquotesingle{}états 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_simulator}{Simulator}}.
+
+\mbox{\Hypertarget{class_simulator2_d_a13bef7a120cba5b62fed4a89f0bc627a}\label{class_simulator2_d_a13bef7a120cba5b62fed4a89f0bc627a}} 
+\index{Simulator2D@{Simulator2D}!increment\+State@{increment\+State}}
+\index{increment\+State@{increment\+State}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{increment\+State()}{incrementState()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Simulator\+::increment\+State}
+
+
+
+Incrémente un état. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & position de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator2_d_aaaf3a1680a083756edfc6f3c09b64b38}\label{class_simulator2_d_aaaf3a1680a083756edfc6f3c09b64b38}} 
+\index{Simulator2D@{Simulator2D}!increment\+State@{increment\+State}}
+\index{increment\+State@{increment\+State}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{increment\+State()}{incrementState()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Simulator2\+D\+::increment\+State (\begin{DoxyParamCaption}\item[{uint}]{x,  }\item[{uint}]{y }\end{DoxyParamCaption})}
+
+
+
+Incrémente un état. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & ligne de la cellule \\
+\hline
+{\em y} & colonne de la cellule \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator2_d_abeeb707f6eef5355d94e41848bdffc56}\label{class_simulator2_d_abeeb707f6eef5355d94e41848bdffc56}} 
+\index{Simulator2D@{Simulator2D}!set\+Cell@{set\+Cell}}
+\index{set\+Cell@{set\+Cell}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{set\+Cell()}{setCell()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Simulator2\+D\+::set\+Cell (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{state,  }\item[{uint}]{x,  }\item[{uint}]{y }\end{DoxyParamCaption})}
+
+
+
+Met une cellule à jour. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & pointeur de l\textquotesingle{}état à copier \\
+\hline
+{\em x} & ligne de la cellule sélectionnée \\
+\hline
+{\em y} & colonne de la cellule sélectionnée \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape booléen} pour indiquer si la mise à jour a réussi 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator2_d_afdf446164f5fc9ee2567405377acbea0}\label{class_simulator2_d_afdf446164f5fc9ee2567405377acbea0}} 
+\index{Simulator2D@{Simulator2D}!set\+Cell@{set\+Cell}}
+\index{set\+Cell@{set\+Cell}!Simulator2D@{Simulator2D}}
+\subsubsection{\texorpdfstring{set\+Cell()}{setCell()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Simulator\+::set\+Cell}
+
+
+
+Applique un état à une cellule. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & pointeur état \\
+\hline
+{\em position} & emplacement de la cellule \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Renvoie un {\itshape booléen} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+autocell/Simulator2\+D.\+h\item 
+autocell/Simulator2\+D.\+cpp\end{DoxyCompactItemize}

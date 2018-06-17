@@ -1,0 +1,105 @@
+\hypertarget{class_transition_interface}{}\section{Transition\+Interface Class Reference}
+\label{class_transition_interface}\index{Transition\+Interface@{Transition\+Interface}}
+Inheritance diagram for Transition\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_transition_interface}
+\end{center}
+\end{figure}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_interface_a962b7ba06f4cff39885ba1c744a86a2d}\label{class_transition_interface_a962b7ba06f4cff39885ba1c744a86a2d}} 
+void {\bfseries close\+\_\+transition\+\_\+interface} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_interface_a69771a30baa5263446b59b423b616725}\label{class_transition_interface_a69771a30baa5263446b59b423b616725}} 
+\mbox{\hyperlink{class_transition_interface_a69771a30baa5263446b59b423b616725}{Transition\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Constructeur de la fenêtre d\textquotesingle{}affichage des transitions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transition_interface_a79e9813e9ecab0302ab40b613d351ba3}\label{class_transition_interface_a79e9813e9ecab0302ab40b613d351ba3}} 
+\mbox{\hyperlink{class_transition_interface_a79e9813e9ecab0302ab40b613d351ba3}{$\sim$\+Transition\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em Destructeur de la fenêtre d\textquotesingle{}affichage des transitions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transition_interface_a86c426e838754644328b733936719754}\label{class_transition_interface_a86c426e838754644328b733936719754}} 
+void \mbox{\hyperlink{class_transition_interface_a86c426e838754644328b733936719754}{display\+Existing\+Rules}} ()
+\begin{DoxyCompactList}\small\item\em Affiche les règles déjà existantes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_transition_interface_a3db0ae462c81b5251ce89759c52d8103}{validate\+Rules}} ()
+\begin{DoxyCompactList}\small\item\em Ferme la fenêtre des transitions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transition_interface_a80af97e661c3a3e8786eada43a14b2f3}\label{class_transition_interface_a80af97e661c3a3e8786eada43a14b2f3}} 
+void \mbox{\hyperlink{class_transition_interface_a80af97e661c3a3e8786eada43a14b2f3}{add\+New\+Transition\+Rule}} ()
+\begin{DoxyCompactList}\small\item\em Slot. Ajoute une règle de transition. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_transition_interface_a34707c10737235a26a7cd818f9574109}{add\+New\+Transition\+Rule\+Valid}} (\mbox{\hyperlink{class_transition}{Transition}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Vérifie que la règle de transition peut être insérée. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_interface_a881a8911074ffa7c15b03958575fd331}{close\+Event}} (Q\+Close\+Event $\ast$)
+\begin{DoxyCompactList}\small\item\em Envoie d\textquotesingle{}un signal émis lors de la fermeture de la fenêtre du choix de transition. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_interface_a36900078169dc2f7b37f8c89ea499fc0}{delete\+Rule}} ()
+\begin{DoxyCompactList}\small\item\em Supprime une règle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_interface_a2960822a514fbdac7a15bd02ae7e645b}\label{class_transition_interface_a2960822a514fbdac7a15bd02ae7e645b}} 
+class {\bfseries Transition}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transition_interface_a34707c10737235a26a7cd818f9574109}\label{class_transition_interface_a34707c10737235a26a7cd818f9574109}} 
+\index{Transition\+Interface@{Transition\+Interface}!add\+New\+Transition\+Rule\+Valid@{add\+New\+Transition\+Rule\+Valid}}
+\index{add\+New\+Transition\+Rule\+Valid@{add\+New\+Transition\+Rule\+Valid}!Transition\+Interface@{Transition\+Interface}}
+\subsubsection{\texorpdfstring{add\+New\+Transition\+Rule\+Valid}{addNewTransitionRuleValid}}
+{\footnotesize\ttfamily bool Transition\+Interface\+::add\+New\+Transition\+Rule\+Valid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_transition}{Transition}} $\ast$}]{transi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Vérifie que la règle de transition peut être insérée. 
+
+Slot. Vérifie que la règle de transition peut être insérée si le nombre de voisins est valide et vérifie que la règle n\textquotesingle{}existe pas déjà 
+\begin{DoxyParams}{Parameters}
+{\em transi} & pointeur sur la transition de la transition à ajouter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_interface_a881a8911074ffa7c15b03958575fd331}\label{class_transition_interface_a881a8911074ffa7c15b03958575fd331}} 
+\index{Transition\+Interface@{Transition\+Interface}!close\+Event@{close\+Event}}
+\index{close\+Event@{close\+Event}!Transition\+Interface@{Transition\+Interface}}
+\subsubsection{\texorpdfstring{close\+Event}{closeEvent}}
+{\footnotesize\ttfamily void Transition\+Interface\+::close\+Event (\begin{DoxyParamCaption}\item[{Q\+Close\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Envoie d\textquotesingle{}un signal émis lors de la fermeture de la fenêtre du choix de transition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & évènement de la fermeture de la fenêtre \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_interface_a36900078169dc2f7b37f8c89ea499fc0}\label{class_transition_interface_a36900078169dc2f7b37f8c89ea499fc0}} 
+\index{Transition\+Interface@{Transition\+Interface}!delete\+Rule@{delete\+Rule}}
+\index{delete\+Rule@{delete\+Rule}!Transition\+Interface@{Transition\+Interface}}
+\subsubsection{\texorpdfstring{delete\+Rule}{deleteRule}}
+{\footnotesize\ttfamily void Transition\+Interface\+::delete\+Rule (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Supprime une règle. 
+
+Slot. Supprime la règle sélectionnée \mbox{\Hypertarget{class_transition_interface_a3db0ae462c81b5251ce89759c52d8103}\label{class_transition_interface_a3db0ae462c81b5251ce89759c52d8103}} 
+\index{Transition\+Interface@{Transition\+Interface}!validate\+Rules@{validate\+Rules}}
+\index{validate\+Rules@{validate\+Rules}!Transition\+Interface@{Transition\+Interface}}
+\subsubsection{\texorpdfstring{validate\+Rules}{validateRules}}
+{\footnotesize\ttfamily void Transition\+Interface\+::validate\+Rules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Ferme la fenêtre des transitions. 
+
+Slot. Ferme la fenêtre des transitions une fois qu\textquotesingle{}elles sont choisies 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/Transition\+Interface.\+h\item 
+interface/Transition\+Interface.\+cpp\end{DoxyCompactItemize}

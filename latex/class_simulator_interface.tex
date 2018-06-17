@@ -1,0 +1,537 @@
+\hypertarget{class_simulator_interface}{}\section{Simulator\+Interface Class Reference}
+\label{class_simulator_interface}\index{Simulator\+Interface@{Simulator\+Interface}}
+Inheritance diagram for Simulator\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simulator_interface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulator_interface_a031b227cc58e20c93aa5b91f08eaab8a}{Simulator\+Interface}} (const short unsigned int dim)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe abstraite \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ac5ae23ad235fd533d9d4f457babb2ddd}\label{class_simulator_interface_ac5ae23ad235fd533d9d4f457babb2ddd}} 
+void \mbox{\hyperlink{class_simulator_interface_ac5ae23ad235fd533d9d4f457babb2ddd}{home}} ()
+\begin{DoxyCompactList}\small\item\em Ferme la fenêtre et affiche la page d\textquotesingle{}accueil. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simulator_interface_a1c0622490decde07945746cebf89f3c0}{start\+\_\+simulation}} ()
+\begin{DoxyCompactList}\small\item\em Lance la simulation de manière continue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_aceb8d6280ea17cd906969841e8283153}{speed\+Selector\+Changed\+Value}} (double)
+\begin{DoxyCompactList}\small\item\em Met à jour la vitesse de simulation. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simulator_interface_a38720a4d5e818b654313518eacc6e588}{step\+\_\+simulation}} ()
+\begin{DoxyCompactList}\small\item\em Avance la simulation d\textquotesingle{}une itération. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_ad0afe7ccac9e1dd4f979e513065136d0}{stop\+\_\+simulation}} ()
+\begin{DoxyCompactList}\small\item\em Arrête la simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_af633cc2cea96d692f9a6ce750927daa1}\label{class_simulator_interface_af633cc2cea96d692f9a6ce750927daa1}} 
+void \mbox{\hyperlink{class_simulator_interface_af633cc2cea96d692f9a6ce750927daa1}{reset\+\_\+simulation}} ()
+\begin{DoxyCompactList}\small\item\em Remet le simulateur dans son état initial. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_a93e75685e9429c4a60d9f66932c7d94f}\label{class_simulator_interface_a93e75685e9429c4a60d9f66932c7d94f}} 
+void \mbox{\hyperlink{class_simulator_interface_a93e75685e9429c4a60d9f66932c7d94f}{iterate\+\_\+simulation}} ()
+\begin{DoxyCompactList}\small\item\em Fait muter les cellules du simulateur et affiche les changements. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a6df53df15af33dadb613953e6f9771b6}{chosen\+Automate}} ()
+\begin{DoxyCompactList}\small\item\em Définit les paramètres choisis de l\textquotesingle{}automate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_adfd1e916c7058a3c6fb1115af26236c3}{changed\+Automate}} ()
+\begin{DoxyCompactList}\small\item\em Définit les paramètres choisis de l\textquotesingle{}automate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a64e59139c9e67758d9c2c0f2a2029749}{add\+\_\+new\+\_\+state}} ()
+\begin{DoxyCompactList}\small\item\em Ajoute un nouvel état. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_abfc00339369fd60f3e9d3163df2921ee}\label{class_simulator_interface_abfc00339369fd60f3e9d3163df2921ee}} 
+void \mbox{\hyperlink{class_simulator_interface_abfc00339369fd60f3e9d3163df2921ee}{delete\+\_\+state}} ()
+\begin{DoxyCompactList}\small\item\em Supprime un état et le retire de l\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a646f9fb84f5ec7e7cb4115b12f4a03bf}{choose\+\_\+transition\+\_\+rules}} ()
+\begin{DoxyCompactList}\small\item\em Ouvre la fenêtre du choix des transitions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_a433b7220ab937f4596871fa4c470c962}\label{class_simulator_interface_a433b7220ab937f4596871fa4c470c962}} 
+void \mbox{\hyperlink{class_simulator_interface_a433b7220ab937f4596871fa4c470c962}{choose\+\_\+transition\+\_\+rules\+\_\+finished}} ()
+\begin{DoxyCompactList}\small\item\em Fenêtre interface est de nouveau disponible car la fenêtre transition est fermée. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_a4dfa1d99f6dbe46ad3ec5faa0f2d11b4}\label{class_simulator_interface_a4dfa1d99f6dbe46ad3ec5faa0f2d11b4}} 
+void \mbox{\hyperlink{class_simulator_interface_a4dfa1d99f6dbe46ad3ec5faa0f2d11b4}{set\+\_\+default\+\_\+grid}} ()
+\begin{DoxyCompactList}\small\item\em Affiche la grille avec un état choisi parmi les états par défaut de la liste déroulante. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a86a19994b8db3df11adabda5ed31fd82}{grid\+\_\+set\+\_\+dim}} ()
+\begin{DoxyCompactList}\small\item\em Change la dimension de la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a08a37bff3f4287241055bd36cf6aafde}{grid\+\_\+reset\+\_\+dim}} ()
+\begin{DoxyCompactList}\small\item\em Réinitialise la dimension de la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a723933742f1dfb0f0e87754c99230eb4}{save\+Automate}} ()
+\begin{DoxyCompactList}\small\item\em Enregistre un automate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simulator_interface_afd8d818dd52b9a64ec474129b356ac7c}{set\+Grid\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Met en place l\textquotesingle{}affichage pour le choix des dimensions de la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a4e0f810b745376a43fcdb7f97b870592}{set\+Automate\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Met en place l\textquotesingle{}affichage pour le choix de transitions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_af9126d9fd35496a369f476974db559c5}{set\+Automate\+Choice}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Met en place l\textquotesingle{}affichage pour le choix des transitions et des états. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a0319645039e095dc8eb95bdf4cadb10a}{set\+State\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée un layout pour le choix des états. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a320a338b1d96a6bf8e19a454d520048d}{set\+Transition\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée l\textquotesingle{}affichage pour le choix des transitions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_ac14b36fcdfda65e0498c629ab9495b0d}{set\+Dimension\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée l\textquotesingle{}affichage pour le choix des dimensions de la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a74b0da33c4faa1198ac70d2a0783be42}{set\+Simulator\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée l\textquotesingle{}affichage pour sélectionner les options de simulation\+: départ, pas à pas, stop, état initial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a27e4c2a6ac36793d3e265e367b457484}{set\+Initial\+State\+Controls}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée un affichage pour choisir l\textquotesingle{}état initial de la grille. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulator_interface_a2f46c39ef7fca910be2f5cc377850ff4}{add\+First\+State}} (Q\+Box\+Layout $\ast$)
+\begin{DoxyCompactList}\small\item\em Crée et affiche le layout de choix des différents. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_a55deee049c569d2e227e4f38de50e739}\label{class_simulator_interface_a55deee049c569d2e227e4f38de50e739}} 
+void \mbox{\hyperlink{class_simulator_interface_a55deee049c569d2e227e4f38de50e739}{display\+Existing\+States}} ()
+\begin{DoxyCompactList}\small\item\em Affiche les états déjà existant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulator_interface_ae775569ca3e3b9e7c7fff5128f75e547}\label{class_simulator_interface_ae775569ca3e3b9e7c7fff5128f75e547}} 
+virtual void {\bfseries block\+After\+Automate\+Chosen} ()
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a6ccd6546759369e6ac281b2212733eb3}\label{class_simulator_interface_a6ccd6546759369e6ac281b2212733eb3}} 
+virtual void {\bfseries block\+After\+Automate\+Changed} ()
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a659292013fc63d8cc31a67b76c30a9da}\label{class_simulator_interface_a659292013fc63d8cc31a67b76c30a9da}} 
+unsigned int {\bfseries get\+Possible\+State\+Number} () const
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a96847addfbe5f6265cdac881deba8871}\label{class_simulator_interface_a96847addfbe5f6265cdac881deba8871}} 
+virtual void {\bfseries redraw\+Grid} (Q\+Box\+Layout $\ast$)=0
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ac37a092f76517e1b13fdb75e9e9fa072}\label{class_simulator_interface_ac37a092f76517e1b13fdb75e9e9fa072}} 
+virtual void {\bfseries change\+Grid\+Cells} ()=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a29369c1f1ca8de55510242d2925bb883}\label{class_simulator_interface_a29369c1f1ca8de55510242d2925bb883}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries main\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a0ff4996226a276df2f26011c20c17cb4}\label{class_simulator_interface_a0ff4996226a276df2f26011c20c17cb4}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries state\+\_\+main\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a21cf19173301b898a8658e13308d4430}\label{class_simulator_interface_a21cf19173301b898a8658e13308d4430}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries controls\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a5475df5b6b1f8cd9bb354f216fb82476}\label{class_simulator_interface_a5475df5b6b1f8cd9bb354f216fb82476}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries view\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_af84d454381fccf9e25d42a05171777b2}\label{class_simulator_interface_af84d454381fccf9e25d42a05171777b2}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries state\+\_\+layout\+\_\+display}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_aa39a30319b3d65e3e75a69badc2a0966}\label{class_simulator_interface_aa39a30319b3d65e3e75a69badc2a0966}} 
+Q\+Vector$<$ Q\+Pair$<$ \mbox{\hyperlink{class_state_interface}{State\+Interface}} $\ast$, Q\+Push\+Button $\ast$ $>$ $>$ $\ast$ {\bfseries state\+\_\+vector} = nullptr
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a02548393dba9375ae5a14ac5ef3565e7}\label{class_simulator_interface_a02548393dba9375ae5a14ac5ef3565e7}} 
+Q\+Push\+Button $\ast$ {\bfseries valid\+\_\+state}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a3cca42413d2164bc16312968be504d95}\label{class_simulator_interface_a3cca42413d2164bc16312968be504d95}} 
+Q\+Push\+Button $\ast$ {\bfseries add\+\_\+state}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a34f533a2f212d8e3a74d7af4a3393457}\label{class_simulator_interface_a34f533a2f212d8e3a74d7af4a3393457}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries window\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a759c5bc006461cb8b5426bcf3cbeca45}\label{class_simulator_interface_a759c5bc006461cb8b5426bcf3cbeca45}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries grid\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a449df9e9babb892cc0e256f2535d6955}\label{class_simulator_interface_a449df9e9babb892cc0e256f2535d6955}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries simulation\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a8fb48ce154f60a490058b6348fc13b6d}\label{class_simulator_interface_a8fb48ce154f60a490058b6348fc13b6d}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries automate\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a10691967919ed1a039692261464a45cf}\label{class_simulator_interface_a10691967919ed1a039692261464a45cf}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries state\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a44858d6af2436d3e1d19311c12f0f7d5}\label{class_simulator_interface_a44858d6af2436d3e1d19311c12f0f7d5}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries transition\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_abafffa19547bc545017233828b478e4f}\label{class_simulator_interface_abafffa19547bc545017233828b478e4f}} 
+Q\+Push\+Button $\ast$ {\bfseries choose\+\_\+automate}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ace90efd46e5a96100b95bcd4c22ca948}\label{class_simulator_interface_ace90efd46e5a96100b95bcd4c22ca948}} 
+Q\+Push\+Button $\ast$ {\bfseries change\+\_\+automate}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a7fec30632ced920f19a7b819e0912748}\label{class_simulator_interface_a7fec30632ced920f19a7b819e0912748}} 
+Q\+Push\+Button $\ast$ {\bfseries save\+\_\+automate}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a5b559fb5f48aacbd82a0357898e410d1}\label{class_simulator_interface_a5b559fb5f48aacbd82a0357898e410d1}} 
+Q\+Push\+Button $\ast$ {\bfseries set\+\_\+transition\+\_\+rules}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2d79a01391c3e64e6ac43d8cd9eb3a19}\label{class_simulator_interface_a2d79a01391c3e64e6ac43d8cd9eb3a19}} 
+Q\+Push\+Button $\ast$ {\bfseries quit\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_aaf05261a4903a5d8bca013384dd1542a}\label{class_simulator_interface_aaf05261a4903a5d8bca013384dd1542a}} 
+Q\+Push\+Button $\ast$ {\bfseries home\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a5a474d21a7ba81895ded91674048b87b}\label{class_simulator_interface_a5a474d21a7ba81895ded91674048b87b}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries grid\+\_\+dim\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2ae3206c24171e5fa4a7d332b377a59c}\label{class_simulator_interface_a2ae3206c24171e5fa4a7d332b377a59c}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries grid\+\_\+dim\+\_\+select\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_adf3f6ff5393479c8db6528ff5f7a3051}\label{class_simulator_interface_adf3f6ff5393479c8db6528ff5f7a3051}} 
+Q\+Label $\ast$ {\bfseries grid\+\_\+dim\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ad68f3bc82cfade236803d10b1601b077}\label{class_simulator_interface_ad68f3bc82cfade236803d10b1601b077}} 
+Q\+Spin\+Box $\ast$ {\bfseries grid\+\_\+dim\+\_\+spinbox}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a518ed9946e5506276132af49c52b66d6}\label{class_simulator_interface_a518ed9946e5506276132af49c52b66d6}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries grid\+\_\+dim\+\_\+bts\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a7c5213fe1673e997089bc371191a7c43}\label{class_simulator_interface_a7c5213fe1673e997089bc371191a7c43}} 
+Q\+Push\+Button $\ast$ {\bfseries grid\+\_\+dim\+\_\+set\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2c86544815543133e33386f4b3448438}\label{class_simulator_interface_a2c86544815543133e33386f4b3448438}} 
+Q\+Push\+Button $\ast$ {\bfseries grid\+\_\+dim\+\_\+reset\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2a361b5bf03a891e629a877740a1b13b}\label{class_simulator_interface_a2a361b5bf03a891e629a877740a1b13b}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries initial\+\_\+state\+\_\+controls}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a3db4cd7fa3917aea1bfc0911fe28a413}\label{class_simulator_interface_a3db4cd7fa3917aea1bfc0911fe28a413}} 
+Q\+Label $\ast$ {\bfseries initial\+\_\+state\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a76e79eb8d0a6936437b0916eb9d049ca}\label{class_simulator_interface_a76e79eb8d0a6936437b0916eb9d049ca}} 
+Q\+Combo\+Box $\ast$ {\bfseries initial\+\_\+state\+\_\+selector}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a98bd980dc896423a6080aaec296d6894}\label{class_simulator_interface_a98bd980dc896423a6080aaec296d6894}} 
+Q\+Push\+Button $\ast$ {\bfseries initial\+\_\+state\+\_\+setter}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a34e043c4145ef218adc2bd269c613f11}\label{class_simulator_interface_a34e043c4145ef218adc2bd269c613f11}} 
+Q\+Label $\ast$ {\bfseries simulation\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a3f1dc31f0478c7611467b135aa8821f8}\label{class_simulator_interface_a3f1dc31f0478c7611467b135aa8821f8}} 
+Q\+Timer $\ast$ {\bfseries sim\+\_\+timer}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a21c3ea2ee9a24129ae4a18dc0b4d1612}\label{class_simulator_interface_a21c3ea2ee9a24129ae4a18dc0b4d1612}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries speed\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_abb63fbb698c8557b733fa8cda27425b3}\label{class_simulator_interface_abb63fbb698c8557b733fa8cda27425b3}} 
+Q\+Label $\ast$ {\bfseries speed\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a0251c730eedc3874d65980c0146cc8a3}\label{class_simulator_interface_a0251c730eedc3874d65980c0146cc8a3}} 
+Q\+Double\+Spin\+Box $\ast$ {\bfseries speed\+\_\+selector}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a3189d3babd3d0c411adeb1e184e05037}\label{class_simulator_interface_a3189d3babd3d0c411adeb1e184e05037}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries sim\+\_\+run\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a86b9c6933b307a79829d3b07707f7c59}\label{class_simulator_interface_a86b9c6933b307a79829d3b07707f7c59}} 
+Q\+Push\+Button $\ast$ {\bfseries sim\+\_\+start\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ad2015d8fb8e7f45708acf2b7dddee422}\label{class_simulator_interface_ad2015d8fb8e7f45708acf2b7dddee422}} 
+Q\+Push\+Button $\ast$ {\bfseries sim\+\_\+step\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a007ab556c0dcf78afdb091f7eccb863e}\label{class_simulator_interface_a007ab556c0dcf78afdb091f7eccb863e}} 
+Q\+Push\+Button $\ast$ {\bfseries sim\+\_\+stop\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a76908b5cc9714f3a1a217c3713a42d00}\label{class_simulator_interface_a76908b5cc9714f3a1a217c3713a42d00}} 
+Q\+Push\+Button $\ast$ {\bfseries sim\+\_\+reset\+\_\+bt}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ae1bcd96bbced44d882bd06ef396323fe}\label{class_simulator_interface_ae1bcd96bbced44d882bd06ef396323fe}} 
+const unsigned int {\bfseries automate\+\_\+dimension}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ab3040fb160f68e1a558fcccdaf871d7f}\label{class_simulator_interface_ab3040fb160f68e1a558fcccdaf871d7f}} 
+\mbox{\hyperlink{class_simulator_manager}{Simulator\+Manager}} $\ast$ {\bfseries manager}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2d6acdf9fc1487dc13234f66106a8a18}\label{class_simulator_interface_a2d6acdf9fc1487dc13234f66106a8a18}} 
+\mbox{\hyperlink{class_simulator}{Simulator}} $\ast$ {\bfseries simulator} = 0
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a60fdc7393f39c105b2378ea950b10a7d}\label{class_simulator_interface_a60fdc7393f39c105b2378ea950b10a7d}} 
+bool {\bfseries sim\+\_\+is\+\_\+running}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ad2597ab15951e743846ededb1502e01f}\label{class_simulator_interface_ad2597ab15951e743846ededb1502e01f}} 
+bool {\bfseries modify\+\_\+speed\+\_\+value}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a35b3cf21487c46ec963f0c49a66fa7e6}\label{class_simulator_interface_a35b3cf21487c46ec963f0c49a66fa7e6}} 
+unsigned int {\bfseries grid\+\_\+size}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a1590306a560011acfdbeb547feaf1bd1}\label{class_simulator_interface_a1590306a560011acfdbeb547feaf1bd1}} 
+unsigned int {\bfseries grid\+\_\+dimension}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a3c08adbb08707517603ae5ef01b0b3b2}\label{class_simulator_interface_a3c08adbb08707517603ae5ef01b0b3b2}} 
+bool {\bfseries change\+Cell\+Enabled}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_a2d9cbff7ba5eb68e85ddc42ec62b2f66}\label{class_simulator_interface_a2d9cbff7ba5eb68e85ddc42ec62b2f66}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$ {\bfseries initial\+\_\+states}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_acb11da97ca356983f41ba9993152b041}\label{class_simulator_interface_acb11da97ca356983f41ba9993152b041}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$ {\bfseries possible\+\_\+state\+\_\+list}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_aa101ec117c7eac1484ba96599424d77b}\label{class_simulator_interface_aa101ec117c7eac1484ba96599424d77b}} 
+unsigned int {\bfseries possible\+\_\+state\+\_\+number}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_interface_ae97c9f4c6315e72ebf12fe1ef851c1be}\label{class_simulator_interface_ae97c9f4c6315e72ebf12fe1ef851c1be}} 
+class {\bfseries State\+Interface}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulator_interface_a031b227cc58e20c93aa5b91f08eaab8a}\label{class_simulator_interface_a031b227cc58e20c93aa5b91f08eaab8a}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!Simulator\+Interface@{Simulator\+Interface}}
+\index{Simulator\+Interface@{Simulator\+Interface}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{Simulator\+Interface()}{SimulatorInterface()}}
+{\footnotesize\ttfamily Simulator\+Interface\+::\+Simulator\+Interface (\begin{DoxyParamCaption}\item[{const short unsigned int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe abstraite \mbox{\hyperlink{class_simulator_interface}{Simulator\+Interface}}. 
+
+Instancie et configure tous les éléments de l\textquotesingle{}interface 
+\begin{DoxyParams}{Parameters}
+{\em dim} & la dimension du Simulateur \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulator_interface_a64e59139c9e67758d9c2c0f2a2029749}\label{class_simulator_interface_a64e59139c9e67758d9c2c0f2a2029749}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!add\+\_\+new\+\_\+state@{add\+\_\+new\+\_\+state}}
+\index{add\+\_\+new\+\_\+state@{add\+\_\+new\+\_\+state}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{add\+\_\+new\+\_\+state}{add\_new\_state}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::add\+\_\+new\+\_\+state (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Ajoute un nouvel état. 
+
+Slot. Ajoute un nouvel état à la liste des états et vérifie qu\textquotesingle{}on peut l\textquotesingle{}ajouter \mbox{\Hypertarget{class_simulator_interface_a2f46c39ef7fca910be2f5cc377850ff4}\label{class_simulator_interface_a2f46c39ef7fca910be2f5cc377850ff4}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!add\+First\+State@{add\+First\+State}}
+\index{add\+First\+State@{add\+First\+State}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{add\+First\+State()}{addFirstState()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::add\+First\+State (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée et affiche le layout de choix des différents. 
+
+Crée un premier état vide pour sélectionner les paramètres de l\textquotesingle{}état et l\textquotesingle{}affiche 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_adfd1e916c7058a3c6fb1115af26236c3}\label{class_simulator_interface_adfd1e916c7058a3c6fb1115af26236c3}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!changed\+Automate@{changed\+Automate}}
+\index{changed\+Automate@{changed\+Automate}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{changed\+Automate}{changedAutomate}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::changed\+Automate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Définit les paramètres choisis de l\textquotesingle{}automate. 
+
+Slot. Bloque et débloque les boutons pour pouvoir changer les états et dimensions \mbox{\Hypertarget{class_simulator_interface_a646f9fb84f5ec7e7cb4115b12f4a03bf}\label{class_simulator_interface_a646f9fb84f5ec7e7cb4115b12f4a03bf}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!choose\+\_\+transition\+\_\+rules@{choose\+\_\+transition\+\_\+rules}}
+\index{choose\+\_\+transition\+\_\+rules@{choose\+\_\+transition\+\_\+rules}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{choose\+\_\+transition\+\_\+rules}{choose\_transition\_rules}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::choose\+\_\+transition\+\_\+rules (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Ouvre la fenêtre du choix des transitions. 
+
+Slot. Ouvre la fenêtre du choix des transitions et bloque la fenêtre d\textquotesingle{}interface tant que la fenêtre transition n\textquotesingle{}est pas fermée \mbox{\Hypertarget{class_simulator_interface_a6df53df15af33dadb613953e6f9771b6}\label{class_simulator_interface_a6df53df15af33dadb613953e6f9771b6}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!chosen\+Automate@{chosen\+Automate}}
+\index{chosen\+Automate@{chosen\+Automate}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{chosen\+Automate}{chosenAutomate}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::chosen\+Automate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Définit les paramètres choisis de l\textquotesingle{}automate. 
+
+Slot. Bloque et débloque les boutons une fois que les états et dimensions ont été choisis \mbox{\Hypertarget{class_simulator_interface_a08a37bff3f4287241055bd36cf6aafde}\label{class_simulator_interface_a08a37bff3f4287241055bd36cf6aafde}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!grid\+\_\+reset\+\_\+dim@{grid\+\_\+reset\+\_\+dim}}
+\index{grid\+\_\+reset\+\_\+dim@{grid\+\_\+reset\+\_\+dim}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{grid\+\_\+reset\+\_\+dim}{grid\_reset\_dim}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::grid\+\_\+reset\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Réinitialise la dimension de la grille. 
+
+Slot. Remet la dimension de la grille à la valeur initiale (10) \mbox{\Hypertarget{class_simulator_interface_a86a19994b8db3df11adabda5ed31fd82}\label{class_simulator_interface_a86a19994b8db3df11adabda5ed31fd82}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!grid\+\_\+set\+\_\+dim@{grid\+\_\+set\+\_\+dim}}
+\index{grid\+\_\+set\+\_\+dim@{grid\+\_\+set\+\_\+dim}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{grid\+\_\+set\+\_\+dim}{grid\_set\_dim}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::grid\+\_\+set\+\_\+dim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Change la dimension de la grille. 
+
+Slot. Change la dimension de la grille avec la valeur entrée \mbox{\Hypertarget{class_simulator_interface_a723933742f1dfb0f0e87754c99230eb4}\label{class_simulator_interface_a723933742f1dfb0f0e87754c99230eb4}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!save\+Automate@{save\+Automate}}
+\index{save\+Automate@{save\+Automate}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{save\+Automate}{saveAutomate}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::save\+Automate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Enregistre un automate. 
+
+Slot. Enregistre les paramètres d\textquotesingle{}un automate\+: états, dimensions, règles de transitions \mbox{\Hypertarget{class_simulator_interface_af9126d9fd35496a369f476974db559c5}\label{class_simulator_interface_af9126d9fd35496a369f476974db559c5}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Automate\+Choice@{set\+Automate\+Choice}}
+\index{set\+Automate\+Choice@{set\+Automate\+Choice}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Automate\+Choice()}{setAutomateChoice()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Automate\+Choice (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Met en place l\textquotesingle{}affichage pour le choix des transitions et des états. 
+
+Affiche le bouton pour choisir les différentes règles de transitions 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a4e0f810b745376a43fcdb7f97b870592}\label{class_simulator_interface_a4e0f810b745376a43fcdb7f97b870592}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Automate\+Controls@{set\+Automate\+Controls}}
+\index{set\+Automate\+Controls@{set\+Automate\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Automate\+Controls()}{setAutomateControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Automate\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Met en place l\textquotesingle{}affichage pour le choix de transitions. 
+
+Crée les layout qui contiennent les affichages pour régler les transitions et états 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_ac14b36fcdfda65e0498c629ab9495b0d}\label{class_simulator_interface_ac14b36fcdfda65e0498c629ab9495b0d}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Dimension\+Controls@{set\+Dimension\+Controls}}
+\index{set\+Dimension\+Controls@{set\+Dimension\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Dimension\+Controls()}{setDimensionControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Dimension\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée l\textquotesingle{}affichage pour le choix des dimensions de la grille. 
+
+Affiche les boutons, textes et zones éditables pour choisir les dimensions de la grille 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_afd8d818dd52b9a64ec474129b356ac7c}\label{class_simulator_interface_afd8d818dd52b9a64ec474129b356ac7c}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Grid\+Controls@{set\+Grid\+Controls}}
+\index{set\+Grid\+Controls@{set\+Grid\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Grid\+Controls()}{setGridControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Grid\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Met en place l\textquotesingle{}affichage pour le choix des dimensions de la grille. 
+
+Met en place les layout qui contiennent les choix de dimension et d\textquotesingle{}état initial de la grille 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a27e4c2a6ac36793d3e265e367b457484}\label{class_simulator_interface_a27e4c2a6ac36793d3e265e367b457484}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Initial\+State\+Controls@{set\+Initial\+State\+Controls}}
+\index{set\+Initial\+State\+Controls@{set\+Initial\+State\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Initial\+State\+Controls()}{setInitialStateControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Initial\+State\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée un affichage pour choisir l\textquotesingle{}état initial de la grille. 
+
+Crée le texte, les boutons ainsi qu\textquotesingle{}une liste déroulante pour choisir l\textquotesingle{}état initial de la grille 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a74b0da33c4faa1198ac70d2a0783be42}\label{class_simulator_interface_a74b0da33c4faa1198ac70d2a0783be42}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Simulator\+Controls@{set\+Simulator\+Controls}}
+\index{set\+Simulator\+Controls@{set\+Simulator\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Simulator\+Controls()}{setSimulatorControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Simulator\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée l\textquotesingle{}affichage pour sélectionner les options de simulation\+: départ, pas à pas, stop, état initial. 
+
+Affiche les boutons pour choisir les options de simulation et la lancer 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a0319645039e095dc8eb95bdf4cadb10a}\label{class_simulator_interface_a0319645039e095dc8eb95bdf4cadb10a}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+State\+Controls@{set\+State\+Controls}}
+\index{set\+State\+Controls@{set\+State\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+State\+Controls()}{setStateControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+State\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée un layout pour le choix des états. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a320a338b1d96a6bf8e19a454d520048d}\label{class_simulator_interface_a320a338b1d96a6bf8e19a454d520048d}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!set\+Transition\+Controls@{set\+Transition\+Controls}}
+\index{set\+Transition\+Controls@{set\+Transition\+Controls}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{set\+Transition\+Controls()}{setTransitionControls()}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::set\+Transition\+Controls (\begin{DoxyParamCaption}\item[{Q\+Box\+Layout $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Crée l\textquotesingle{}affichage pour le choix des transitions. 
+
+Affiche le bouton pour choisir les différentes règles de transitions 
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_aceb8d6280ea17cd906969841e8283153}\label{class_simulator_interface_aceb8d6280ea17cd906969841e8283153}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!speed\+Selector\+Changed\+Value@{speed\+Selector\+Changed\+Value}}
+\index{speed\+Selector\+Changed\+Value@{speed\+Selector\+Changed\+Value}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{speed\+Selector\+Changed\+Value}{speedSelectorChangedValue}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::speed\+Selector\+Changed\+Value (\begin{DoxyParamCaption}\item[{double}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Met à jour la vitesse de simulation. 
+
+Met à jour la vitesse de simulation lors du changement de vitesse en cours de simulation 
+\begin{DoxyParams}{Parameters}
+{\em val} & valeur de la vitesse de simulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_interface_a1c0622490decde07945746cebf89f3c0}\label{class_simulator_interface_a1c0622490decde07945746cebf89f3c0}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!start\+\_\+simulation@{start\+\_\+simulation}}
+\index{start\+\_\+simulation@{start\+\_\+simulation}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{start\+\_\+simulation}{start\_simulation}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::start\+\_\+simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Lance la simulation de manière continue. 
+
+Arrête la simulation et remet à jour l\textquotesingle{}état des boutons pour pouvoir cliquer sur les bons boutons \mbox{\Hypertarget{class_simulator_interface_a38720a4d5e818b654313518eacc6e588}\label{class_simulator_interface_a38720a4d5e818b654313518eacc6e588}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!step\+\_\+simulation@{step\+\_\+simulation}}
+\index{step\+\_\+simulation@{step\+\_\+simulation}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{step\+\_\+simulation}{step\_simulation}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::step\+\_\+simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [slot]}}
+
+
+
+Avance la simulation d\textquotesingle{}une itération. 
+
+Arrête la simulation et remet à jour l\textquotesingle{}état des boutons pour pouvoir cliquer sur les bons boutons \mbox{\Hypertarget{class_simulator_interface_ad0afe7ccac9e1dd4f979e513065136d0}\label{class_simulator_interface_ad0afe7ccac9e1dd4f979e513065136d0}} 
+\index{Simulator\+Interface@{Simulator\+Interface}!stop\+\_\+simulation@{stop\+\_\+simulation}}
+\index{stop\+\_\+simulation@{stop\+\_\+simulation}!Simulator\+Interface@{Simulator\+Interface}}
+\subsubsection{\texorpdfstring{stop\+\_\+simulation}{stop\_simulation}}
+{\footnotesize\ttfamily void Simulator\+Interface\+::stop\+\_\+simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Arrête la simulation. 
+
+Arrête la simulation et remet à jour l\textquotesingle{}état des boutons pour pouvoir cliquer sur les bons boutons 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/Simulator\+Interface.\+h\item 
+interface/Simulator\+Interface.\+cpp\end{DoxyCompactItemize}

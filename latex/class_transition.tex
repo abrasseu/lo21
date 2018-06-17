@@ -1,0 +1,256 @@
+\hypertarget{class_transition}{}\section{Transition Class Reference}
+\label{class_transition}\index{Transition@{Transition}}
+Inheritance diagram for Transition\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_transition}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_a057be20730144fe106696c0633f94dc8}\label{class_transition_a057be20730144fe106696c0633f94dc8}} 
+Q\+Pair$<$ \mbox{\hyperlink{class_state}{State}} $\ast$, Q\+Spin\+Box $\ast$ $>$ $\ast$$\ast$ {\bfseries get\+Neighbour} () const
+\item 
+\mbox{\Hypertarget{class_transition_aec46ce821f61fcdc238d6912734c6e1f}\label{class_transition_aec46ce821f61fcdc238d6912734c6e1f}} 
+unsigned int {\bfseries get\+Neighbours\+Nb} () const
+\item 
+\mbox{\Hypertarget{class_transition_ac52f19a36f0c0429fa43ec4619bf969a}\label{class_transition_ac52f19a36f0c0429fa43ec4619bf969a}} 
+unsigned int {\bfseries get\+Nb\+States} () const
+\item 
+\mbox{\hyperlink{class_transition_a6d2c6fd218c006b68e9074f0f75fd28c}{Transition}} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$, unsigned int, unsigned int, unsigned int $\ast$spin\+\_\+box\+\_\+tab=nullptr, \mbox{\hyperlink{class_state}{State}} $\ast$state\+\_\+start=nullptr, \mbox{\hyperlink{class_state}{State}} $\ast$state\+\_\+final=nullptr, bool modify=true)
+\begin{DoxyCompactList}\small\item\em Constructeur de l\textquotesingle{}affichage d\textquotesingle{}une transition. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transition_ab66e8623f23c71cd4f07c69596427bab}\label{class_transition_ab66e8623f23c71cd4f07c69596427bab}} 
+\mbox{\hyperlink{class_transition_ab66e8623f23c71cd4f07c69596427bab}{$\sim$\+Transition}} ()
+\begin{DoxyCompactList}\small\item\em Destructeur d\textquotesingle{}une transition. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transition_a6fe4a5430b5badf1671cc2be40bc232f}\label{class_transition_a6fe4a5430b5badf1671cc2be40bc232f}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries get\+Start\+State} ()
+\item 
+\mbox{\Hypertarget{class_transition_a42a8c2cf0540c8c2ac7b19fbc8da33aa}\label{class_transition_a42a8c2cf0540c8c2ac7b19fbc8da33aa}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries get\+Final\+State} ()
+\item 
+void \mbox{\hyperlink{class_transition_a45d8d414c5bfa455f15bd2a5d623237f}{set\+Start\+State}} (Q\+V\+Box\+Layout $\ast$, \mbox{\hyperlink{class_state}{State}} $\ast$, bool modify=true)
+\begin{DoxyCompactList}\small\item\em Affichage de l\textquotesingle{}état initial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_a3b0e0fbb3e6a5c15fa13d223b14d9362}{set\+Neighbours\+Number}} (\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$, unsigned int, unsigned int, Q\+H\+Box\+Layout $\ast$, unsigned int $\ast$spin\+\_\+value=nullptr, bool modify=true)
+\begin{DoxyCompactList}\small\item\em Affichage du nombre d\textquotesingle{}états voisins pour respecter la règle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_a0b24f3ae042d481056b091693ba94a1b}{set\+Final\+State}} (Q\+V\+Box\+Layout $\ast$, \mbox{\hyperlink{class_state}{State}} $\ast$, bool modify=true)
+\begin{DoxyCompactList}\small\item\em Affichage de l\textquotesingle{}état final. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_transition_a158a337c6fd1b2d5efce9f6d98d223e8}{prevent\+Selection}} (Q\+Table\+Widget\+Item $\ast$)
+\begin{DoxyCompactList}\small\item\em Empêche de sélectionner une cellule lors du clic. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_a690a555fe7afec1c233f87cacddcbf1e}{changed\+Start\+State}} (int)
+\begin{DoxyCompactList}\small\item\em Change la couleur de la cellule de l\textquotesingle{}état de départ. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_transition_a80271cb2e27999c5ec1d9fe6ee4057f4}{changed\+Final\+State}} (int)
+\begin{DoxyCompactList}\small\item\em Change la couleur de la cellule de l\textquotesingle{}état de fin. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_ad00c70980c06e901243991892265cd9d}\label{class_transition_ad00c70980c06e901243991892265cd9d}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries start\+\_\+state}
+\item 
+\mbox{\Hypertarget{class_transition_a8f7d22e70f5f0b4b946e2ef2e957c9a3}\label{class_transition_a8f7d22e70f5f0b4b946e2ef2e957c9a3}} 
+Q\+Pair$<$ \mbox{\hyperlink{class_state}{State}} $\ast$, Q\+Spin\+Box $\ast$ $>$ $\ast$$\ast$ {\bfseries neighbours} = nullptr
+\item 
+\mbox{\Hypertarget{class_transition_a9e46a8f04b5d6972df177eefe026a095}\label{class_transition_a9e46a8f04b5d6972df177eefe026a095}} 
+unsigned int {\bfseries neighbours\+\_\+nb}
+\item 
+\mbox{\Hypertarget{class_transition_ab8ef139a26b18b812ad8966d2ac76e68}\label{class_transition_ab8ef139a26b18b812ad8966d2ac76e68}} 
+unsigned int {\bfseries nb\+\_\+states}
+\item 
+\mbox{\Hypertarget{class_transition_afc34ab37fb66f94c87a04be860c10d36}\label{class_transition_afc34ab37fb66f94c87a04be860c10d36}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$ {\bfseries final\+\_\+state}
+\item 
+\mbox{\Hypertarget{class_transition_a9d150f2f58f7c7c74b4090c427bc3b9d}\label{class_transition_a9d150f2f58f7c7c74b4090c427bc3b9d}} 
+\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$ {\bfseries state\+\_\+list}
+\item 
+\mbox{\Hypertarget{class_transition_af1bc68bc0837c5e1055e8bb802e15afb}\label{class_transition_af1bc68bc0837c5e1055e8bb802e15afb}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries start\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_transition_a0006ae58e9ab30c26c89602a65b5e1cc}\label{class_transition_a0006ae58e9ab30c26c89602a65b5e1cc}} 
+Q\+V\+Box\+Layout $\ast$$\ast$ {\bfseries neighbours\+\_\+layout} = nullptr
+\item 
+\mbox{\Hypertarget{class_transition_a7f8566abdfae9b519ab432684f029fa9}\label{class_transition_a7f8566abdfae9b519ab432684f029fa9}} 
+Q\+V\+Box\+Layout $\ast$ {\bfseries final\+\_\+layout}
+\item 
+\mbox{\Hypertarget{class_transition_a82b612b7325fc1f299a8a1fbfdd03a1f}\label{class_transition_a82b612b7325fc1f299a8a1fbfdd03a1f}} 
+Q\+Label $\ast$ {\bfseries start\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_transition_a934a2d8f865a8cc8e74ec49e6d7409cb}\label{class_transition_a934a2d8f865a8cc8e74ec49e6d7409cb}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries start\+\_\+layout\+\_\+combo}
+\item 
+\mbox{\Hypertarget{class_transition_a550a30d7172372c33934c0ef4d1c77f8}\label{class_transition_a550a30d7172372c33934c0ef4d1c77f8}} 
+Q\+Combo\+Box $\ast$ {\bfseries start\+\_\+cell}
+\item 
+\mbox{\Hypertarget{class_transition_ac5ffe17149c7a77e90875c396034257d}\label{class_transition_ac5ffe17149c7a77e90875c396034257d}} 
+Q\+Table\+Widget $\ast$ {\bfseries start\+\_\+color}
+\item 
+\mbox{\Hypertarget{class_transition_a3567def91c2c4397ffda6724ee5923d8}\label{class_transition_a3567def91c2c4397ffda6724ee5923d8}} 
+Q\+Label $\ast$$\ast$ {\bfseries neighbours\+\_\+label} = nullptr
+\item 
+\mbox{\Hypertarget{class_transition_af6698f19cb240ff6449ba25fa59ac7a9}\label{class_transition_af6698f19cb240ff6449ba25fa59ac7a9}} 
+Q\+Label $\ast$ {\bfseries final\+\_\+label}
+\item 
+\mbox{\Hypertarget{class_transition_a29f954189697286dc95493b0427f9905}\label{class_transition_a29f954189697286dc95493b0427f9905}} 
+Q\+H\+Box\+Layout $\ast$ {\bfseries final\+\_\+layout\+\_\+combo}
+\item 
+\mbox{\Hypertarget{class_transition_a6c78a0b0bdf7d7c7e99d1ff4194796a3}\label{class_transition_a6c78a0b0bdf7d7c7e99d1ff4194796a3}} 
+Q\+Combo\+Box $\ast$ {\bfseries final\+\_\+cell}
+\item 
+\mbox{\Hypertarget{class_transition_aa813e580ee6abaa2abfa14cf32368075}\label{class_transition_aa813e580ee6abaa2abfa14cf32368075}} 
+Q\+Table\+Widget $\ast$ {\bfseries final\+\_\+color}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transition_a70ac8a07988dc030fcfb88a643ebdb1e}\label{class_transition_a70ac8a07988dc030fcfb88a643ebdb1e}} 
+class {\bfseries Transition\+Interface}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_transition_a6d2c6fd218c006b68e9074f0f75fd28c}\label{class_transition_a6d2c6fd218c006b68e9074f0f75fd28c}} 
+\index{Transition@{Transition}!Transition@{Transition}}
+\index{Transition@{Transition}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{Transition()}{Transition()}}
+{\footnotesize\ttfamily Transition\+::\+Transition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$}]{state\+\_\+list,  }\item[{unsigned int}]{state\+\_\+list\+\_\+number,  }\item[{unsigned int}]{neighbour\+\_\+number,  }\item[{unsigned int $\ast$}]{spin\+\_\+box\+\_\+tab = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{state\+\_\+start = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{state\+\_\+final = {\ttfamily nullptr},  }\item[{bool}]{modify = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Constructeur de l\textquotesingle{}affichage d\textquotesingle{}une transition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+list} & tableau de pointeurs sur les états \\
+\hline
+{\em state\+\_\+list\+\_\+number} & nombre d\textquotesingle{}états \\
+\hline
+{\em neighbour\+\_\+number} & nombre de voisins pour une cellule \\
+\hline
+{\em spin\+\_\+box\+\_\+tab} & tableau du nombre de voisins pour chaque état à avoir pour la transition \\
+\hline
+{\em state\+\_\+start} & état initial \\
+\hline
+{\em state\+\_\+final} & l\textquotesingle{}état initial deviendra cet état si la règle est respectée \\
+\hline
+{\em modify} & booléen indiquant si les widgets doivent être modifiables \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transition_a80271cb2e27999c5ec1d9fe6ee4057f4}\label{class_transition_a80271cb2e27999c5ec1d9fe6ee4057f4}} 
+\index{Transition@{Transition}!changed\+Final\+State@{changed\+Final\+State}}
+\index{changed\+Final\+State@{changed\+Final\+State}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{changed\+Final\+State}{changedFinalState}}
+{\footnotesize\ttfamily void Transition\+::changed\+Final\+State (\begin{DoxyParamCaption}\item[{int}]{nb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Change la couleur de la cellule de l\textquotesingle{}état de fin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nb} & valeur de la position de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_a690a555fe7afec1c233f87cacddcbf1e}\label{class_transition_a690a555fe7afec1c233f87cacddcbf1e}} 
+\index{Transition@{Transition}!changed\+Start\+State@{changed\+Start\+State}}
+\index{changed\+Start\+State@{changed\+Start\+State}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{changed\+Start\+State}{changedStartState}}
+{\footnotesize\ttfamily void Transition\+::changed\+Start\+State (\begin{DoxyParamCaption}\item[{int}]{nb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Change la couleur de la cellule de l\textquotesingle{}état de départ. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nb} & valeur de la position de l\textquotesingle{}état \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_a158a337c6fd1b2d5efce9f6d98d223e8}\label{class_transition_a158a337c6fd1b2d5efce9f6d98d223e8}} 
+\index{Transition@{Transition}!prevent\+Selection@{prevent\+Selection}}
+\index{prevent\+Selection@{prevent\+Selection}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{prevent\+Selection}{preventSelection}}
+{\footnotesize\ttfamily void Transition\+::prevent\+Selection (\begin{DoxyParamCaption}\item[{Q\+Table\+Widget\+Item $\ast$}]{cell }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+Empêche de sélectionner une cellule lors du clic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cell} & pointeur sur la cellule cliquée \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_a0b24f3ae042d481056b091693ba94a1b}\label{class_transition_a0b24f3ae042d481056b091693ba94a1b}} 
+\index{Transition@{Transition}!set\+Final\+State@{set\+Final\+State}}
+\index{set\+Final\+State@{set\+Final\+State}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{set\+Final\+State()}{setFinalState()}}
+{\footnotesize\ttfamily void Transition\+::set\+Final\+State (\begin{DoxyParamCaption}\item[{Q\+V\+Box\+Layout $\ast$}]{parent,  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{final\+\_\+state,  }\item[{bool}]{modify = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Affichage de l\textquotesingle{}état final. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout de l\textquotesingle{}affichage \\
+\hline
+{\em final\+\_\+state} & état de départ \\
+\hline
+{\em modify} & booléen indiquant si les widgets doivent être modifiables \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_a3b0e0fbb3e6a5c15fa13d223b14d9362}\label{class_transition_a3b0e0fbb3e6a5c15fa13d223b14d9362}} 
+\index{Transition@{Transition}!set\+Neighbours\+Number@{set\+Neighbours\+Number}}
+\index{set\+Neighbours\+Number@{set\+Neighbours\+Number}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{set\+Neighbours\+Number()}{setNeighboursNumber()}}
+{\footnotesize\ttfamily void Transition\+::set\+Neighbours\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_state}{State}} $\ast$$\ast$}]{state\+\_\+list,  }\item[{unsigned int}]{state\+\_\+list\+\_\+number,  }\item[{unsigned int}]{neighbour\+\_\+number,  }\item[{Q\+H\+Box\+Layout $\ast$}]{parent,  }\item[{unsigned int $\ast$}]{spin\+\_\+value = {\ttfamily nullptr},  }\item[{bool}]{modify = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Affichage du nombre d\textquotesingle{}états voisins pour respecter la règle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state\+\_\+list} & tableau de pointeurs d\textquotesingle{}états \\
+\hline
+{\em state\+\_\+list\+\_\+number} & nombre d\textquotesingle{}états \\
+\hline
+{\em neighbour\+\_\+number} & nombre de voisins pour une cellule \\
+\hline
+{\em parent} & pointeur sur le layout contenant l\textquotesingle{}affichage \\
+\hline
+{\em spin\+\_\+value} & tableau du nombre de voisins pour chaque état à avoir pour la transition \\
+\hline
+{\em modify} & booléen indiquant si les widgets doivent être modifiables \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transition_a45d8d414c5bfa455f15bd2a5d623237f}\label{class_transition_a45d8d414c5bfa455f15bd2a5d623237f}} 
+\index{Transition@{Transition}!set\+Start\+State@{set\+Start\+State}}
+\index{set\+Start\+State@{set\+Start\+State}!Transition@{Transition}}
+\subsubsection{\texorpdfstring{set\+Start\+State()}{setStartState()}}
+{\footnotesize\ttfamily void Transition\+::set\+Start\+State (\begin{DoxyParamCaption}\item[{Q\+V\+Box\+Layout $\ast$}]{parent,  }\item[{\mbox{\hyperlink{class_state}{State}} $\ast$}]{start\+\_\+state,  }\item[{bool}]{modify = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Affichage de l\textquotesingle{}état initial. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & pointeur sur le layout de l\textquotesingle{}affichage \\
+\hline
+{\em start\+\_\+state} & état de départ \\
+\hline
+{\em modify} & booléen indiquant si les widgets doivent être modifiables \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+interface/Transition\+Interface.\+h\item 
+interface/Transition\+Interface.\+cpp\end{DoxyCompactItemize}
