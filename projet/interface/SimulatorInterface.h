@@ -112,6 +112,7 @@ class SimulatorInterface : public QWidget {
 		SimulatorManager* manager;
 		Simulator* simulator = 0;
 		bool sim_is_running;
+        bool modify_speed_value;
 		virtual void blockAfterAutomateChosen() { }
 		virtual void blockAfterAutomateChanged() { }
 
