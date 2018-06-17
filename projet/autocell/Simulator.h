@@ -24,6 +24,7 @@ class Simulator {
 		uint _stateNbr;
 		// Cellules actives du simulateur
 		State** _cells;
+		State** _initialCells;
 		uint _cellsSize;
 		uint _generation;
 
@@ -62,17 +63,19 @@ class Simulator {
 		uint getCellsNbr() const { return pow(_cellsSize, getDimension()); }
 		State** getCellsState() const;
 		State* getCell(uint position) const;
+		State* getInitialCell(uint position) const;
 		uint getGeneration() const { return _generation; }
 		uint* getCells(); // Seulement pour le JDV
 		virtual void printCells() = 0;
 
 		// Setters
 		bool setCell(State* state, uint position);
-
+		bool setInitialCell(State* state, uint position);
+		void setInitialCellsToActual();
+		void resetToInitialCells();
 
 		virtual bool mutate();		// Mute et renvoi vrai si les cellules ont changé
-		void incrementState(uint position, bool allowNullState = false);
-
+		void incrementState(uint position);
 };
 
 #endif

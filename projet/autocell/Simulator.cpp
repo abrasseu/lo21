@@ -18,6 +18,7 @@ using uint = unsigned int;
  */
 void Simulator::generateCells() {
 	_cells = new State*[getCellsNbr()];
+	_initialCells = new State*[getCellsNbr()];
 	generateStateCells();
 }
 
@@ -35,6 +36,8 @@ void Simulator::generateStateCells(uint s) {
 		throw SimulatorException("Il n'y a que " + std::to_string(getStateNbr()) + " états possibles.");
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[s], i);
+
+	setInitialCellsToActual();
 }
 
 /**
@@ -43,6 +46,8 @@ void Simulator::generateStateCells(uint s) {
 void Simulator::generateRandomCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[std::rand() % _stateNbr], i);
+
+	setInitialCellsToActual();
 }
 
 /**
@@ -53,6 +58,8 @@ void Simulator::generateHorizontalSymetricRandomCells() {
 
 	for (uint i = 1; i < getCellsNbr(); i++)
 		setCell(getCell(0), i);
+
+	setInitialCellsToActual();
 }
 
 /**
@@ -63,6 +70,8 @@ void Simulator::generateVerticalSymetricRandomCells() {
 		setCell(_states[std::rand() % _stateNbr], i);
 		setCell(getCell(i), getCellsNbr() - 1 - i);
 	}
+
+	setInitialCellsToActual();
 }
 
 /**
@@ -71,6 +80,8 @@ void Simulator::generateVerticalSymetricRandomCells() {
 void Simulator::generateAlternedCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[i % _stateNbr], i);
+
+	setInitialCellsToActual();
 }
 
 /**
@@ -79,6 +90,8 @@ void Simulator::generateAlternedCells() {
 void Simulator::generateDescAlternedCells() {
 	for (uint i = 0; i < getCellsNbr(); i++)
 		setCell(_states[_stateNbr - (i % _stateNbr) - 1], i);
+
+	setInitialCellsToActual();
 }
 
 
@@ -98,11 +111,38 @@ bool Simulator::setCell(State* state, uint position) {
 	return state != lastState;
 }
 
+void Simulator::setInitialCellsToActual() {
+	for (uint i = 0; i < getCellsNbr(); i++)
+		setInitialCell(getCell(i), i);
+}
+
+void Simulator::resetToInitialCells() {
+	for (uint i = 0; i < getCellsNbr(); i++)
+		setCell(getInitialCell(i), i);
+}
+
+bool Simulator::setInitialCell(State* state, uint position) {
+	if (position >= getCellsNbr())
+		return false;
+
+	State* lastState(getInitialCell(position));
+	_initialCells[position] = state;
+
+	return state != lastState;
+}
+
 State* Simulator::getCell(uint position) const {
 	if (position >= getCellsNbr())
 		return nullptr;
 
 	return _cells[position];
+}
+
+State* Simulator::getInitialCell(uint position) const {
+	if (position >= getCellsNbr())
+		return nullptr;
+
+	return _initialCells[position];
 }
 
 State** Simulator::getCellsState() const {
@@ -128,9 +168,8 @@ uint* Simulator::getCells() {
 	return _tab;
 }
 
-void Simulator::incrementState(uint position, bool allowNullState) {
+void Simulator::incrementState(uint position) {
 	State* cellToUpdate(getCell(position));
-	State* toState;
 	uint toStateId = 0;
 
 	for (uint i = 0; i < _stateNbr; i++) {
@@ -141,12 +180,7 @@ void Simulator::incrementState(uint position, bool allowNullState) {
 		}
 	}
 
-	if (toStateId == 0 && allowNullState)
-		toState = nullptr;
-	else
-		toState = _states[toStateId];
-
-	setCell(toState, position);
+	setCell(_states[toStateId], position);
 }
 
 bool Simulator::mutate() {

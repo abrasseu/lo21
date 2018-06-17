@@ -162,7 +162,7 @@ void Interface1D::rotateCellState(QTableWidgetItem* it){
 	simulator = SimulatorManager::getManager()->getSimulator();
 	it->setSelected(false);
 	if (changeCellEnabled) {
-		simulator->incrementState(it->column(), false);
+        simulator->incrementState(it->column());
 		QColor color;
 		color.setNamedColor(QString::fromStdString(simulator->getCell(it->column())->getColor()));
 		initial_view->item(0, it->column())->setBackgroundColor(color);

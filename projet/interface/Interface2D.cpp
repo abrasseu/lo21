@@ -59,7 +59,7 @@ void Interface2D::rotateCellState(int i, int j) {
 	if (changeCellEnabled) {
 		simulator = SimulatorManager::getManager()->getSimulator();
 		Simulator2D* sim2d = static_cast<Simulator2D*>(simulator);
-		sim2d->incrementState(i, j, false);
+        sim2d->incrementState(i, j);
 		QColor color;
 		color.setNamedColor(QString::fromStdString(sim2d->getCell(i,j)->getColor()));
 		grid_view->item(i,j)->setBackground(color);

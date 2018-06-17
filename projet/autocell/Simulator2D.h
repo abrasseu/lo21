@@ -38,7 +38,7 @@ public:
 	void generateVerticalSymetricRandomCells();
 
 	using Simulator::incrementState;
-	void incrementState(uint x, uint y, bool allowNullState = false);
+	void incrementState(uint x, uint y);
 
 	void printCells();
 };

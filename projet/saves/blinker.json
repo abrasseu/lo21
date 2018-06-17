@@ -16,6 +16,18 @@
   "simulator": {
     "dimension": 1,
     "grid_size": 10,
+    "initial_states": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
     "states": [
       0,
       0,

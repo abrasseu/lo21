@@ -245,7 +245,10 @@ void SimulatorManager::exportConfig(std::string path) {
 		states[state - getFirstState()]["transition_rules"] = transitions;
 	}
 
-	// Cinquième étape: on liste l'état actuel de notre simulation
+	// Cinquième étape: on liste l'état actuel et initial de notre simulation
+	for (uint i = 0; i < getSimulator()->getCellsNbr(); i++)
+		simulator["initial_states"] += findObject<State>(getSimulator()->getInitialCell(i), &_states);
+
 	for (uint i = 0; i < getSimulator()->getCellsNbr(); i++)
 		simulator["states"] += findObject<State>(getSimulator()->getCell(i), &_states);
 
@@ -322,6 +325,14 @@ void SimulatorManager::importConfig(std::string path) {
 				throw SimulatorException("L'état n'existe pas !");
 
 			_simulator->setCell(_states[position], state - config["simulator"]["states"].begin());
+		}
+
+		for (nlohmann::json::const_iterator state = config["simulator"]["initial_states"].begin(); state != config["simulator"]["initial_states"].end(); state++) {
+			uint position = state.value().get<uint>();
+			if (position >= _states.size())
+				throw SimulatorException("L'état n'existe pas !");
+
+			_simulator->setInitialCell(_states[position], state - config["simulator"]["initial_states"].begin());
 		}
 
 		delete beforeSimulator;

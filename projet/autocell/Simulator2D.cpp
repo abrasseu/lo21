@@ -70,6 +70,6 @@ void Simulator2D::printCells() {
 	}
 }
 
-void Simulator2D::incrementState(uint x, uint y, bool allowNullState) {
-	incrementState((x * getCellsSize()) + y, allowNullState);
+void Simulator2D::incrementState(uint x, uint y) {
+    incrementState((x * getCellsSize()) + y);
 }
