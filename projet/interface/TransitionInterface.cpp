@@ -145,7 +145,7 @@ void TransitionInterface::addNewTransitionRule(){
                     transition_vector->push_back(*pair);
                     transition_layout->addLayout(transition_vector->last().first);
 
-                    QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
+                    QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(deleteRule()));
                 }
                 else
                     QMessageBox::warning(this, "ERREUR", "Cette règle existe déjà");
