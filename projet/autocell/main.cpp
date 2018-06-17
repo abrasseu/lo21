@@ -34,7 +34,8 @@ int main() {
         manager->exportConfig("../saves/blinker.json");
         manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
-
+        std::cout << std::endl;
+        
         // Jeu de la vie
         manager->deleteSimulator();
         manager->removeState(manager->getState(0));
@@ -51,16 +52,12 @@ int main() {
         manager->createSimulator(2);
         manager->getSimulator()->generateRandomCells();
         manager->getSimulator()->printCells();
-
-        manager->exportConfig("../saves/life_game.json");
-
         manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
+        manager->exportConfig("../saves/life_game.json");
         std::cout << std::endl;
 
         manager->importConfig("../saves/life_game.json");
-        manager->getSimulator()->printCells();
-        manager->getSimulator()->mutate();
         manager->getSimulator()->printCells();
         std::cout << std::endl;
 

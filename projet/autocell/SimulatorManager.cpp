@@ -211,6 +211,7 @@ void SimulatorManager::exportConfig(std::string path) {
 	nlohmann::json simulator = {
 	  {"dimension", _dimension},
 	  {"grid_size", _gridSize},
+	  {"initial_states", nlohmann::json::array()},
 	  {"states", nlohmann::json::array()},
 	};
 
@@ -265,17 +266,17 @@ void SimulatorManager::exportConfig(std::string path) {
 
 
 void SimulatorManager::importConfig(std::string path) {
-	std::ifstream importFile(path);
-	nlohmann::json config;
-	importFile >> config;
-
-	Simulator* beforeSimulator(_simulator);
-	uint beforeDimension(_dimension);
-	uint beforeGridSize(_gridSize);
-	std::vector<State*> beforeStates(_states);
-	std::vector<Rule*> beforeRules(_rules);
+    Simulator* beforeSimulator(_simulator);
+    uint beforeDimension(_dimension);
+    uint beforeGridSize(_gridSize);
+    std::vector<State*> beforeStates(_states);
+    std::vector<Rule*> beforeRules(_rules);
 
 	try {
+        std::ifstream importFile(path);
+        nlohmann::json config;
+        importFile >> config;
+
 		_simulator = nullptr;
 		_states.clear();
 		_rules.clear();
@@ -351,6 +352,6 @@ void SimulatorManager::importConfig(std::string path) {
 		_states = beforeStates;
 		_rules = beforeRules;
 
-		throw SimulatorException("Le fichier json n'est pas valide");
+        throw SimulatorException("Le fichier n'est pas valide");
 	}
 }

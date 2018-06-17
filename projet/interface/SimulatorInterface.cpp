@@ -336,6 +336,8 @@ void SimulatorInterface::stop_simulation() {
  * @brief Remet le simulateur dans son état initial
  */
 void SimulatorInterface::reset_simulation() {
+    SimulatorManager::getManager()->getSimulator()->resetToInitialCells();
+
     // Enable grid dimension changes
     grid_dim_spinbox->setEnabled(false);
     grid_dim_set_bt->setEnabled(false);
@@ -344,6 +346,8 @@ void SimulatorInterface::reset_simulation() {
     initial_state_selector->setEnabled(true);
     initial_state_setter->setEnabled(true);
     changeCellEnabled = true;
+
+    changeGridCells();
 }
 
 /**
@@ -594,6 +598,6 @@ void SimulatorInterface::saveAutomate(){
             }
     }
 
-    SimulatorManager::getManager()->importConfig(fileName.toStdString());
+    SimulatorManager::getManager()->exportConfig(fileName.toStdString());
 }
 
