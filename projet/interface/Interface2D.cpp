@@ -19,7 +19,7 @@ Interface2D::Interface2D(bool draw) : SimulatorInterface(2) {
 /**
  * \brief Affiche l'interface de simulation: la grille
  * \details Construit et affiche l'interface de simulation, crée et affiche la grille
- * \param parent    layout prévu pour l'interface de simulation
+ * \param parent    pointeur sur le layout prévu pour l'interface de simulation
  */
 void Interface2D::redrawGrid(QBoxLayout* parent) {
     grid_dimension = SimulatorManager::getManager()->getGridSize();
@@ -52,9 +52,7 @@ void Interface2D::redrawGrid(QBoxLayout* parent) {
 }
 
 /**
- * \brief Affiche l'interface de simulation: la grille
- * \details Construit et affiche l'interface de simulation, crée et affiche la grille
- * \param parent    layout prévu pour l'interface de simulation
+ * \brief Change les états de la grilles
  */
 void Interface2D::changeGridCells() {
 	QColor color = QColor();

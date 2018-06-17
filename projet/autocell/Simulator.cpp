@@ -104,7 +104,7 @@ void Simulator::generateDescAlternedCells() {
 
 /**
  * \brief Applique un état à une cellule
- * \param state     état
+ * \param state     pointeur état
  * \param position  emplacement de la cellule
  * \return Renvoie un \em booléen
  */
@@ -137,6 +137,8 @@ void Simulator::resetToInitialCells() {
 
 /**
  * \brief Changer une cellule de l'état initial
+ * \param state pointeur de l'état à modifier
+ * \param position position de l'état
  * \return Renvoie un \em booléen qui indique si la modification a réussi
  */
 bool Simulator::setInitialCell(State* state, uint position) {
@@ -152,7 +154,7 @@ bool Simulator::setInitialCell(State* state, uint position) {
 /**
  * \brief Récupère l'état de la cellule
  * \param position       position de la cellule
- * \return Un \em pointeur \em d' \em état
+ * \return Renvoie un \em pointeur \em d' \em état
  */
 State* Simulator::getCell(uint position) const {
 	if (position >= getCellsNbr())
@@ -164,7 +166,7 @@ State* Simulator::getCell(uint position) const {
 /**
  * \brief Récupère l'état d'une cellule à l'état initial
  * \param position       position de la cellule
- * \return Un \em pointeur \em d' \em état
+ * \return Renvoie un \em pointeur \em d' \em état
  */
 State* Simulator::getInitialCell(uint position) const {
 	if (position >= getCellsNbr())
@@ -225,6 +227,8 @@ void Simulator::incrementState(uint position) {
 
 /**
  * \brief Modifie les états possibles de la simulation
+ * \param states tableau de pointeurs d'états
+ * \param stateNbr nombre d'états
  */
 void Simulator::setStates(State** states, uint stateNbr) {
     _stateNbr = stateNbr;

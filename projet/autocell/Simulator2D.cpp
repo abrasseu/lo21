@@ -28,7 +28,7 @@ State* Simulator2D::getCell(uint x, uint y) const {
  * \param state pointeur de l'état à copier
  * \param x ligne de la cellule sélectionnée
  * \param y colonne de la cellule sélectionnée
- * \return Renvoie un \em booléen pour indiquer si la mise à jour à réussi
+ * \return Renvoie un \em booléen pour indiquer si la mise à jour a réussi
  */
 bool Simulator2D::setCell(State* state, uint x, uint y) {
 	return setCell(state, (x * getCellsSize()) + y);
@@ -59,7 +59,7 @@ void Simulator2D::generateVerticalSymetricRandomCells() {
 }
 /**
  * \brief Retourne les états des voisins de la cellule
- * \param states     liste des états
+ * \param states     tableau de pointeurs d'états
  * \param position       position de la cellule
  * \return Renvoie un \em tableau \em de \em pointeurs d'états
  */

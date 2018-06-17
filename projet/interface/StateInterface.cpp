@@ -4,6 +4,9 @@
 /**
  * \brief Constructeur de l'affichage d'un état
  * \details Crée les layout qui contiennet les différents champs d'affichage d'un état
+ * \param n nom de l'état
+ * \param c couleur de l'état
+ * \param s pointeur de l'état
  */
 StateInterface::StateInterface(std::string n, std::string c, State* s): QHBoxLayout(), state(s) {
     // Layout contenant une règle d'état entière
@@ -32,6 +35,8 @@ StateInterface::~StateInterface() {
 
 /**
  * \brief Crée et affiche les champs pour entrer le nom de l'état
+ * \param parent pointeur sur le layout contenant l'affichage
+ * \param name nom de l'état
  */
 void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
     // Create Layout
@@ -55,6 +60,8 @@ void StateInterface::setNameLayout(QBoxLayout* parent, std::string name) {
 
 /**
  * \brief Crée et affiche les champs pour entrer la couleur de l'état
+ * \param parent pointeur sur le layout contenant l'affichage
+ * \param color couleur de l'état
  */
 void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
     // Create Layout
@@ -92,6 +99,7 @@ void StateInterface::setColorLayout(QBoxLayout* parent, std::string color){
 /**
  * \brief Affiche la fenêtre du choix des couleurs pour l'état
  * \details Slot. Ouvre la fenêtre des choix de couleurs lors du clic sur le bouton
+ * \param button bouton contenant la couleur choisie pour l'état
  */
 void StateInterface::display_palette_color(QTableWidgetItem* button){
     button->setSelected(false);

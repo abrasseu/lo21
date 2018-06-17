@@ -3,6 +3,7 @@
 /**
  * \brief Constructeur de l'interface 1D
  * \details Construit l'interface 1D en héritant de la classe \em SimulatorInterface et de son constructeur
+ * \param draw indique si la grille doit être affichée
  */
 Interface1D::Interface1D(bool draw): SimulatorInterface(1), buffer_size(10) {
 	// Set state list
@@ -15,6 +16,7 @@ Interface1D::Interface1D(bool draw): SimulatorInterface(1), buffer_size(10) {
 /**
  * \brief Affiche l'interface concernant le choix de la taille du buffer
  * \details Construit l'interface concernant le choix de la taille du buffer, avec les boutons et autres widgets
+ * \param parent    pointeur sur le layout contenant tous les widgets
  */
 void Interface1D::setGridBufferLength(QBoxLayout* parent){
 	grid_buffer_length_controls = new QVBoxLayout;
@@ -45,7 +47,7 @@ void Interface1D::setGridBufferLength(QBoxLayout* parent){
  * \brief Génère les deux grilles d'affichage
  * \details Supprime et construit les deux grilles d'affichage, avec la ligne initiale et la grille contenant les états successifs
  *          au sein du layout parent
- * \param parent    layout contenant tous les widgets
+ * \param parent    pointeur sur le layout contenant tous les widgets
  */
 void Interface1D::redrawGrid(QBoxLayout* parent) {
 	simulator = SimulatorManager::getManager()->getSimulator();
@@ -84,7 +86,7 @@ void Interface1D::redrawGrid(QBoxLayout* parent) {
  * \brief Actualise une grille d'affichage avec les tailles prescrites
  * \details Permet d'actualiser une grille avec les paramètres, les tailles sont prises en compte en fonction de la dimension
  *          de l'automate
- * \param grid      Grille passée en paramètre pour être actualisée
+ * \param grid      pointeur sur la grille passée en paramètre pour être actualisée
  * \param nbRow     Nombre de lignes de la grille à manipuler
  * \param nbColumn  Nombre de colonnes de la grille à manipuler
  */
@@ -197,7 +199,7 @@ void Interface1D::start_simulation() {
 /**
  * \brief Change l'état de la cellule cliquée
  * \details \a Slot. Change l'état de la cellule en modifiant sa couleur en augmentant son état
- * \param it    cellule cliquée
+ * \param it    pointeur sur la cellule cliquée
  */
 void Interface1D::rotateCellState(QTableWidgetItem* it){
 	simulator = SimulatorManager::getManager()->getSimulator();
@@ -244,7 +246,7 @@ void Interface1D::grid_reset_buf(){
 /**
  * \brief Empêche que la cellule cliquée devienne sélectionnée
  * \details \a Slot. Empêche que la cellule qui a été cliquée devienne bleue lors de la sélection
- * \param it    cellule cliquée
+ * \param it    pointeur sur la cellule cliquée
  */
 void Interface1D::grid_view_clicked(QTableWidgetItem* it){
 	it->setSelected(false);

@@ -13,7 +13,7 @@ using uint = unsigned int;
 
 /**
  * \brief Applique la règle si les conditions sont respectées
- * \param states     liste des états
+ * \param states     pointeur de tableau d'états
  * \param size       position de la règle
  */
 bool Rule::isTrue(State** states, uint size) {
