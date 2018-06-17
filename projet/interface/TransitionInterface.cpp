@@ -144,11 +144,9 @@ void TransitionInterface::addNewTransitionRule(){
             // On affiche le bouton Supprimer pour la règle précédent
             for (unsigned int j = 0; j < transition_vector->last().first->neighbours[i]->second->value(); j++)
                 vector_state_manager->push_back(SimulatorManager::getManager()->getState(i));
-        }/*
-        Rule* rule = SimulatorManager::getManager()->createNewRule(*vector_state_manager, SimulatorManager::getManager()->getState(transition_vector->last().first->final_cell->currentIndex()));
-        transition_vector->last().first->start_state->addANewRule(rule);*/
+        }
 
-        QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(modifyPreviousRule()));
+        QObject::connect(pair->second, SIGNAL(clicked()), this, SLOT(deleteRule()));
     }
 }
 
