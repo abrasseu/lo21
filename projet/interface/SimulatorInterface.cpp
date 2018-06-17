@@ -168,11 +168,8 @@ void SimulatorInterface::addFirstState(QBoxLayout* parent){
 SimulatorInterface::SimulatorInterface(const short unsigned int dim): QWidget(), automate_dimension(dim) {
     // Get Manager
     manager = SimulatorManager::getManager();
-<<<<<<< HEAD
     manager->setDimension(dim);
-=======
     modify_speed_value = false;
->>>>>>> automate-manager
 
     // Set Config
     setWindowTitle(QString::fromStdString("Interface " + std::to_string(automate_dimension) + "D"));
